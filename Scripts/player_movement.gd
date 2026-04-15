@@ -1,16 +1,51 @@
 extends CharacterBody2D
 
+# Health test: T = 10 damage, Y = 10 heal (requires HealthComponent).
+
 @export var speed: float = 170.0
+@export var attack_scene: PackedScene
+
+@onready var attack_spawn_point: Marker2D = $AttackSpawnPoint
+
+func _ready() -> void:
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	add_to_group("player")
+
+	var hc := get_node_or_null("HealthComponent") as HealthComponent
+	if hc:
+		hc.died.connect(_on_health_died)
+
+func _on_health_died() -> void:
+	print("Player died (test placeholder)")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not (event is InputEventKey and event.pressed and not event.echo):
+		return
+	var hc := get_node_or_null("HealthComponent") as HealthComponent
+	if hc == null:
+		return
+	match event.physical_keycode:
+		KEY_T:
+			hc.take_damage(10)
+		KEY_Y:
+			hc.heal(10)
 
 func _physics_process(_delta: float) -> void:
-	var direction := Vector2.ZERO
-	
-	# Inputs Movimioento
-	direction.x = Input.get_action_strength("Mover_derecha") - Input.get_action_strength("Mover_izquierda")
-	direction.y = Input.get_action_strength("Mover_abajo") - Input.get_action_strength("Mover_arriba")
-	
-	# Normalizar diagonal
-	direction = direction.normalized()
-	
+	if Input.is_action_just_pressed("attack"):
+		_spawn_attack()
+
+	# Izquierda/derecha, arriba/abajo (acciones en project.godot)
+	var direction := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
 	velocity = direction * speed
 	move_and_slide()
+
+
+func _spawn_attack() -> void:
+	if attack_scene == null:
+		return
+	var attack_instance := attack_scene.instantiate() as Node2D
+	if attack_instance == null:
+		return
+	attack_instance.global_position = attack_spawn_point.global_position
+	attack_instance.global_rotation = attack_spawn_point.global_rotation
+	get_tree().current_scene.add_child(attack_instance)
