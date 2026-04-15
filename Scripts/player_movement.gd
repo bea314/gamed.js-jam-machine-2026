@@ -2,15 +2,11 @@ extends CharacterBody2D
 
 @export var speed: float = 170.0
 
+func _ready() -> void:
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+
 func _physics_process(_delta: float) -> void:
-	var direction := Vector2.ZERO
-	
-	# Inputs Movimioento
-	direction.x = Input.get_action_strength("Mover_derecha") - Input.get_action_strength("Mover_izquierda")
-	direction.y = Input.get_action_strength("Mover_abajo") - Input.get_action_strength("Mover_arriba")
-	
-	# Normalizar diagonal
-	direction = direction.normalized()
-	
+	# Izquierda/derecha, arriba/abajo (acciones en project.godot)
+	var direction := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
 	velocity = direction * speed
 	move_and_slide()
