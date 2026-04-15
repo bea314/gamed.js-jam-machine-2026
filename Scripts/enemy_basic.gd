@@ -4,12 +4,15 @@ extends CharacterBody2D
 @export var target: Node2D = null
 @export var attack_damage: int = 5
 @export var attack_cooldown: float = 0.5
+@export var max_health: int = 30
 
 var _attack_timer: float = 0.0
+var _current_health: int = 0
 
 
 func _ready() -> void:
 	add_to_group("enemies")
+	_current_health = max_health
 
 
 func _physics_process(delta: float) -> void:
@@ -50,3 +53,11 @@ func _ensure_target() -> void:
 	var node := get_tree().get_first_node_in_group("player")
 	if node is Node2D:
 		target = node as Node2D
+
+
+func take_damage(amount: int) -> void:
+	if amount <= 0:
+		return
+	_current_health = maxi(_current_health - amount, 0)
+	if _current_health == 0:
+		queue_free()

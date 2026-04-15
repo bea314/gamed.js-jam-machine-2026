@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://mtkfihhomh0w"]
+[gd_scene load_steps=6 format=3 uid="uid://mtkfihhomh0w"]
 
 [ext_resource type="Script" uid="uid://wynjtf1je44x" path="res://Scripts/player_movement.gd" id="1_r1887"]
 [ext_resource type="Script" path="res://Ecenes/Player/health/health_component.gd" id="2_health"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/health/health_bar.tscn" id="3_hbar"]
+[ext_resource type="PackedScene" path="res://Ecenes/Attacks/SlashAttack.tscn" id="4_attack"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 12.0
@@ -12,6 +13,7 @@ height = 48.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1781802405]
 script = ExtResource("1_r1887")
+attack_scene = ExtResource("4_attack")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=855109358]
 shape = SubResource("CapsuleShape2D_r1887")
@@ -20,6 +22,9 @@ shape = SubResource("CapsuleShape2D_r1887")
 position = Vector2(0, 1.9073486e-06)
 scale = Vector2(23.402256, 23.402256)
 mesh = SubResource("CapsuleMesh_r1887")
+
+[node name="AttackSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(24, 0)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_health")

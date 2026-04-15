@@ -3,6 +3,9 @@ extends CharacterBody2D
 # Health test: T = 10 damage, Y = 10 heal (requires HealthComponent).
 
 @export var speed: float = 170.0
+@export var attack_scene: PackedScene
+
+@onready var attack_spawn_point: Marker2D = $AttackSpawnPoint
 
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
@@ -28,7 +31,21 @@ func _unhandled_input(event: InputEvent) -> void:
 			hc.heal(10)
 
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("attack"):
+		_spawn_attack()
+
 	# Izquierda/derecha, arriba/abajo (acciones en project.godot)
 	var direction := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
 	velocity = direction * speed
 	move_and_slide()
+
+
+func _spawn_attack() -> void:
+	if attack_scene == null:
+		return
+	var attack_instance := attack_scene.instantiate() as Node2D
+	if attack_instance == null:
+		return
+	attack_instance.global_position = attack_spawn_point.global_position
+	attack_instance.global_rotation = attack_spawn_point.global_rotation
+	get_tree().current_scene.add_child(attack_instance)
