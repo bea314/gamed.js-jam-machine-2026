@@ -2,11 +2,13 @@ extends Node2D
 
 @onready var doors_points: Node2D = $Doors_Points
 @onready var level_rooms: Node2D = $".."
+@onready var Esta_Conectado : bool = false
 
 # TIPOS DE ROOMS
 const ROOM_COMUN_01 = preload("uid://0c71s8qxmeg4")
 
 var Presupuesto_Doors : int
+
 
 func _ready() -> void:
 	Generate_Doors()

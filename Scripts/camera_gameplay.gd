@@ -7,7 +7,7 @@ var speed_camera_move : float = 2.5
 var modo_enfoque : bool = false
 
 # ZOOM Pressets
-var zoom_Map : Vector2 = Vector2(2.8,2.8)
+var zoom_Map : Vector2 = Vector2(2.2,2.2)
 var zoom_player : Vector2 = Vector2(3.0,3.0)
 func _ready() -> void:
 	Zoom_type()

@@ -4,7 +4,6 @@ var Door_Positions : Array = [Vector2(-348.0,0.0),Vector2(348.0,0.0),Vector2(0.0
 var Rotation_vertical : float = 0.0 # Rotacion Vertical
 var Rotation_Horizontal : float = -90.0 # Rotacion Horizontal
 
-
 const DOOR_COMUN = preload("uid://bwm3em15iefgi")
 
 var cant_Doors : int
@@ -19,6 +18,6 @@ func Generate_Door(Type : String):
 		instancia_door_generate.position = pick_position
 		
 		if instancia_door_generate.position.x != 0:
-			instancia_door_generate.rotation_degrees = Rotation_Horizontal
-		else:
 			instancia_door_generate.rotation_degrees = Rotation_vertical
+		else:
+			instancia_door_generate.rotation_degrees = Rotation_Horizontal

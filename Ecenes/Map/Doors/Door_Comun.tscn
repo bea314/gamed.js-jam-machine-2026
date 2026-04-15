@@ -1,15 +1,17 @@
 [gd_scene format=3 uid="uid://bwm3em15iefgi"]
 
+[ext_resource type="Script" uid="uid://bqpc8e756yxfy" path="res://Scripts/door_comun_sistem.gd" id="1_p3rww"]
 [ext_resource type="Script" uid="uid://ttmuu6g2wyc6" path="res://Scripts/DoorCommun_Sprite.gd" id="1_shrvh"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ffphn"]
 
 [node name="DoorComun" type="Node2D" unique_id=192808275]
+script = ExtResource("1_p3rww")
 
 [node name="Sprite" type="Node2D" parent="." unique_id=879749929]
 script = ExtResource("1_shrvh")
 
 [node name="Mesh_Door" type="MeshInstance2D" parent="Sprite" unique_id=1644965054]
 modulate = Color(0.7019608, 0.36862746, 0.36862746, 1)
-scale = Vector2(74.58003, 136.23102)
+scale = Vector2(54, 98.63866)
 mesh = SubResource("BoxMesh_ffphn")
