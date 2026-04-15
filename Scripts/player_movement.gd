@@ -4,6 +4,7 @@ extends CharacterBody2D
 
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	add_to_group("player")
 
 func _physics_process(_delta: float) -> void:
 	# Izquierda/derecha, arriba/abajo (acciones en project.godot)
