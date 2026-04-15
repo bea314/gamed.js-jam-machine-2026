@@ -11,7 +11,7 @@ size = Vector2(724, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2p31"]
 size = Vector2(24, 440)
 
-[node name="RoomComun02" type="Node2D" unique_id=1523623804]
+[node name="RoomComun01" type="Node2D" unique_id=1523623804]
 script = ExtResource("1_c2p31")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=180508131]

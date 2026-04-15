@@ -8,7 +8,7 @@ const DOOR_COMUN = preload("uid://bwm3em15iefgi")
 
 var cant_Doors : int
 
-func Generate_Door(Type : String):
+func Generate_Door(Type : String, presupuesto_ind : int):
 	var instancia_door_generate
 	if Type == "Commun":
 		instancia_door_generate = DOOR_COMUN.instantiate()
@@ -21,3 +21,5 @@ func Generate_Door(Type : String):
 			instancia_door_generate.rotation_degrees = Rotation_vertical
 		else:
 			instancia_door_generate.rotation_degrees = Rotation_Horizontal
+		
+		instancia_door_generate.Presupuesto_Room_ind = presupuesto_ind

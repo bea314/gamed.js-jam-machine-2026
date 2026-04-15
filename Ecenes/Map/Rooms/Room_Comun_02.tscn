@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://djnypdxm07xxi"]
 
-[ext_resource type="Script" uid="uid://cj47vevt0ulyx" path="res://Scripts/room_comun_Sistem.gd" id="1_7pbii"]
+[ext_resource type="Script" uid="uid://ca28nmi3j3i7b" path="res://Scripts/room_commun_02.gd" id="1_hidq5"]
 [ext_resource type="Script" uid="uid://dtuxdbxyykhfw" path="res://Scripts/doorsCommun_points.gd" id="2_05djy"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_saatp"]
@@ -11,8 +11,8 @@ size = Vector2(724, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2p31"]
 size = Vector2(24, 440)
 
-[node name="RoomComun01" type="Node2D" unique_id=1523623804]
-script = ExtResource("1_7pbii")
+[node name="RoomComun02" type="Node2D" unique_id=1523623804]
+script = ExtResource("1_hidq5")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=180508131]
 

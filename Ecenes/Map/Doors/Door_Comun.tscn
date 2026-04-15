@@ -15,3 +15,14 @@ script = ExtResource("1_shrvh")
 modulate = Color(0.7019608, 0.36862746, 0.36862746, 1)
 scale = Vector2(54, 98.63866)
 mesh = SubResource("BoxMesh_ffphn")
+
+[node name="Presupuesto" type="Label" parent="." unique_id=103930771]
+offset_left = -21.0
+offset_top = -12.0
+offset_right = 19.0
+offset_bottom = 11.0
+pivot_offset = Vector2(21, 12)
+theme_override_font_sizes/font_size = 15
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
