@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dhda7gqa2j8ok"]
+
+[ext_resource type="Script" uid="uid://dcejwsrspn171" path="res://Ecenes/Player/health/health_hud.gd" id="1_hud"]
+
+[node name="HealthBar" type="CanvasLayer" unique_id=1977041532]
+layer = 50
+script = ExtResource("1_hud")
+
+[node name="Root" type="Control" parent="." unique_id=607442127]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 400.0
+offset_bottom = 96.0
+
+[node name="RightStack" type="VBoxContainer" parent="Root" unique_id=818736041]
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 80.0
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="DamageRow" type="Control" parent="Root/RightStack" unique_id=208984775]
+custom_minimum_size = Vector2(220, 22)
+layout_mode = 2
+
+[node name="DamageLabel" type="Label" parent="Root/RightStack/DamageRow" unique_id=1680224346]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.95, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 14
+text = "-0"
+
+[node name="BarTrack" type="Control" parent="Root/RightStack" unique_id=946012320]
+clip_contents = true
+custom_minimum_size = Vector2(220, 22)
+layout_mode = 2
+
+[node name="BarBg" type="ColorRect" parent="Root/RightStack/BarTrack" unique_id=1423793779]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.58, 0.48, 0.38, 1)
+
+[node name="BarFill" type="ColorRect" parent="Root/RightStack/BarTrack" unique_id=2025832765]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 22.0
+color = Color(0.92, 0.18, 0.16, 1)
+
+[node name="HealthLabel" type="Label" parent="Root/RightStack" unique_id=797335827]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "100/100"
+horizontal_alignment = 2
