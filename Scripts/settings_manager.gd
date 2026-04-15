@@ -1,4 +1,5 @@
 extends Node
+class_name GameSettings
 
 const SETTINGS_PATH := "user://settings.cfg"
 

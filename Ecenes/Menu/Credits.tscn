@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://credits_placeholder_scene"]
+
+[ext_resource type="Script" path="res://Ecenes/Menu/credits.gd" id="1_credits"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_credits")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0784314, 0.0784314, 0.117647, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+custom_minimum_size = Vector2(420, 0)
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="ComingSoonLabel" type="Label" parent="CenterContainer/MainVBox"]
+layout_mode = 2
+text = "Coming soon"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="CenterContainer/MainVBox"]
+layout_mode = 2
+text = "Back"

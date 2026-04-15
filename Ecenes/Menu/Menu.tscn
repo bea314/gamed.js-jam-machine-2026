@@ -51,6 +51,14 @@ text = "New Game"
 layout_mode = 2
 text = "Options"
 
+[node name="CreditsButton" type="Button" parent="CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Credits"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Exit"
+
 [node name="OptionsPanel" type="VBoxContainer" parent="CenterContainer/MainVBox"]
 visible = false
 layout_mode = 2
