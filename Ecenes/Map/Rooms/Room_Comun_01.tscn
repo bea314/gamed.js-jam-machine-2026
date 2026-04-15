@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://0c71s8qxmeg4"]
+
+[ext_resource type="Script" uid="uid://dtuxdbxyykhfw" path="res://Scripts/doorsCommun_points.gd" id="1_ai2xw"]
+[ext_resource type="Script" uid="uid://cj47vevt0ulyx" path="res://Scripts/room_comun_Sistem.gd" id="1_c2p31"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_saatp"]
+
+[node name="RoomComun01" type="Node2D" unique_id=1523623804]
+script = ExtResource("1_c2p31")
+
+[node name="Sprites" type="Node2D" parent="." unique_id=180508131]
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="Sprites" unique_id=697048338]
+modulate = Color(0.1148968, 0.11489681, 0.1148968, 1)
+position = Vector2(0.00012207031, 0.00012207031)
+scale = Vector2(728.43884, 478.79395)
+mesh = SubResource("QuadMesh_saatp")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Sprites" unique_id=282598473]
+modulate = Color(0.3854925, 0.38549247, 0.38549247, 1)
+position = Vector2(0.00012207031, 0.00012207031)
+scale = Vector2(669.84406, 440.28033)
+mesh = SubResource("QuadMesh_saatp")
+
+[node name="Doors_Points" type="Node2D" parent="." unique_id=563271054]
+script = ExtResource("1_ai2xw")

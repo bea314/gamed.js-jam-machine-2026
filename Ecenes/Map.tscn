@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cvhhb5s7h82qa"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_iokx8"]
+
+[node name="Map" type="Node2D" unique_id=851400892]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=841466568]
+modulate = Color(0.3854925, 0.38549247, 0.38549247, 1)
+scale = Vector2(593.0515, 327.37827)
+mesh = SubResource("QuadMesh_iokx8")
