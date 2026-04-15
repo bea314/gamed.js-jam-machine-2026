@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://b8k3m7n0qxp5r"]
+
+[ext_resource type="Script" path="res://Ecenes/Menu/menu.gd" id="1_menu"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0784314, 0.0784314, 0.117647, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+custom_minimum_size = Vector2(420, 0)
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Jam RL"
+horizontal_alignment = 1
+
+[node name="MainButtons" type="VBoxContainer" parent="CenterContainer/MainVBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NewGameButton" type="Button" parent="CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "New Game"
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Options"
+
+[node name="CreditsButton" type="Button" parent="CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Credits"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Exit"
+
+[node name="OptionsPanel" type="VBoxContainer" parent="CenterContainer/MainVBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="OptionsTitle" type="Label" parent="CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Options"
+horizontal_alignment = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MusicLabel" type="Label" parent="CenterContainer/MainVBox/OptionsPanel/MusicRow"]
+layout_mode = 2
+text = "Music"
+custom_minimum_size = Vector2(100, 0)
+
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/MainVBox/OptionsPanel/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXRow" type="HBoxContainer" parent="CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SFXLabel" type="Label" parent="CenterContainer/MainVBox/OptionsPanel/SFXRow"]
+layout_mode = 2
+text = "SFX"
+custom_minimum_size = Vector2(100, 0)
+
+[node name="SFXSlider" type="HSlider" parent="CenterContainer/MainVBox/OptionsPanel/SFXRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="FullscreenCheck" type="CheckButton" parent="CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="BackButton" type="Button" parent="CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+text = "Back"
