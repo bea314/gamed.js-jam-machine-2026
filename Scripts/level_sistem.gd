@@ -6,7 +6,8 @@ var Level_Points : int = 0
 @onready var room_comun_01: Node2D = $RoomComun01
 
 func _ready() -> void:
-	var Points_Level_1 : int = randi_range(10,15)
+	randomize()
+	var Points_Level_1 : int = randi_range(15,20)
 	Level_Points = Points_Level_1  # <-- !WARNING PASARLE VALORES SEGUN EL NIVEL DE LA PARTIDA
 	Generate_Level()
 	

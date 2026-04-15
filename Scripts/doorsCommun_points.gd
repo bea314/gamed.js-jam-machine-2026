@@ -8,14 +8,25 @@ const DOOR_COMUN = preload("uid://bwm3em15iefgi")
 
 var cant_Doors : int
 
-func Generate_Door(Type : String, presupuesto_ind : int):
+var positions_used: Array = []
+
+func Generate_Door(Type: String, presupuesto_ind: int):
 	var instancia_door_generate
 	if Type == "Commun":
 		instancia_door_generate = DOOR_COMUN.instantiate()
 		add_child(instancia_door_generate)
+
+		var pick_position = null
 		
-		var pick_position = Door_Positions.pick_random()
-		instancia_door_generate.position = pick_position
+		while true:
+			pick_position = Door_Positions.pick_random()
+
+			if not positions_used.has(pick_position):
+				instancia_door_generate.position = pick_position
+				positions_used.append(pick_position)
+				break
+			# Si la posición estaba usada → sigue buscando otra
+		
 		
 		if instancia_door_generate.position.x != 0:
 			instancia_door_generate.rotation_degrees = Rotation_vertical
@@ -23,3 +34,4 @@ func Generate_Door(Type : String, presupuesto_ind : int):
 			instancia_door_generate.rotation_degrees = Rotation_Horizontal
 		
 		instancia_door_generate.Presupuesto_Room_ind = presupuesto_ind
+		instancia_door_generate.presupuesto_mark()
