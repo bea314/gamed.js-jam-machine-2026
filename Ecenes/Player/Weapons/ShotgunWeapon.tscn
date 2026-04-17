@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://wpnshotgunscene"]
+
+[ext_resource type="Script" path="res://Scripts/weapons/shotgun_weapon.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/ShotgunBlast.tscn" id="2_blast"]
+
+[node name="ShotgunWeapon" type="Node"]
+script = ExtResource("1_script")
+weapon_name = "Shotgun"
+damage = 15
+fire_rate = 0.85
+magazine_size = 5
+reserve_ammo = 20
+automatic = false
+muzzle_offset = 18.0
+reload_time = 1.4
+blast_scene = ExtResource("2_blast")

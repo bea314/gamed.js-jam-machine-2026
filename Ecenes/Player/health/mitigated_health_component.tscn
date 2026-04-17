@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bvjot5oheirwi"]
+
+[ext_resource type="Script" uid="uid://mt8s2hm6po7k" path="res://Scripts/health/mitigated_health_component.gd" id="1_mhc"]
+
+[node name="HealthComponent" type="Node"]
+script = ExtResource("1_mhc")
+max_health = 75
+defense_flat = 2
+defense_multiplier = 0.6

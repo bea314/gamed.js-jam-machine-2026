@@ -22,6 +22,7 @@ func _ready() -> void:
 
 	_health = player.get_node_or_null("HealthComponent") as HealthComponent
 	if _health == null:
+		push_error("HealthHUD: el padre no tiene HealthComponent; la barra no se actualizará.")
 		return
 
 	_health.health_changed.connect(_on_health_changed)
@@ -53,7 +54,7 @@ func _on_health_changed(current_health: int, max_health: int) -> void:
 	_position_damage_label(w)
 
 
-func _on_damage_taken(_amount: int) -> void:
+func _on_damage_taken(_amount: int, _hit_from_global: Vector2 = Vector2.ZERO) -> void:
 	if _damage_label == null:
 		return
 	_damage_label.text = "-%d" % _amount

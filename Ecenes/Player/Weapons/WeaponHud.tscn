@@ -1,0 +1,71 @@
+[gd_scene load_steps=1 format=3 uid="uid://weaponhudmoonjam"]
+
+[ext_resource type="Script" path="res://Scripts/weapons/weapon_hud.gd" id="1_hud"]
+
+[node name="WeaponHud" type="CanvasLayer"]
+layer = 25
+script = ExtResource("1_hud")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -300.0
+offset_top = 24.0
+offset_right = -20.0
+offset_bottom = 220.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="WeaponNameLabel" type="Label" parent="Root/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Weapon"
+
+[node name="WeaponIcon" type="ColorRect" parent="Root/VBox"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+color = Color(0.55, 0.58, 0.62, 1)
+
+[node name="AmmoLabel" type="Label" parent="Root/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "—"
+
+[node name="ReloadLabel" type="Label" parent="Root/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.65, 0.35, 1)
+theme_override_font_sizes/font_size = 14
+text = "RELOADING…"
+
+[node name="HintsLabel" type="Label" parent="Root/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.78, 0.82, 1)
+theme_override_font_sizes/font_size = 12
+text = "Q / E · mouse wheel · 1–4   |   R reload   |   LMB · Space · J attack"

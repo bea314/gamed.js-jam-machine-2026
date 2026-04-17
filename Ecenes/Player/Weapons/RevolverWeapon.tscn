@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://wpnrevolverscene"]
+
+[ext_resource type="Script" path="res://Scripts/weapons/revolver_weapon.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/Bullet.tscn" id="2_bullet"]
+
+[node name="RevolverWeapon" type="Node"]
+script = ExtResource("1_script")
+weapon_name = "Revolver"
+damage = 6
+fire_rate = 0.28
+magazine_size = 6
+reserve_ammo = 30
+automatic = false
+bullet_speed = 700.0
+reload_time = 1.1
+bullet_scene = ExtResource("2_bullet")
