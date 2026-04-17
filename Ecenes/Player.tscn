@@ -1,12 +1,154 @@
 [gd_scene format=3 uid="uid://mtkfihhomh0w"]
 
 [ext_resource type="Script" uid="uid://wynjtf1je44x" path="res://Scripts/player_movement.gd" id="1_r1887"]
+[ext_resource type="Script" uid="uid://bowty378tg10l" path="res://Scripts/Objets/mesh_sistem.gd" id="2_fhpmd"]
+[ext_resource type="Texture2D" uid="uid://bb7h0d2lnwwnk" path="res://Recursos/Textures/ruka legs idle.png" id="2_tciro"]
+[ext_resource type="Texture2D" uid="uid://dty4crar3cwoe" path="res://Recursos/Textures/ruka body1.png" id="2_thlu0"]
+[ext_resource type="Texture2D" uid="uid://cvaltfxe3qsxs" path="res://Recursos/Textures/ruka legs movement1.png" id="3_4w18w"]
+[ext_resource type="Texture2D" uid="uid://bd0v2kw8q4mrs" path="res://Recursos/Textures/ruka body2.png" id="3_tciro"]
+[ext_resource type="Texture2D" uid="uid://kf66gkeeob5b" path="res://Recursos/Textures/ruka legs movement2.png" id="4_fhpmd"]
+[ext_resource type="Texture2D" uid="uid://b77k41lyt0n7t" path="res://Recursos/Textures/ruka body3.png" id="4_rangi"]
+[ext_resource type="Texture2D" uid="uid://b6sdr52jl83d7" path="res://Recursos/Textures/ruka body4.png" id="5_p4e5w"]
+[ext_resource type="Texture2D" uid="uid://c2abeu4kboewh" path="res://Recursos/Textures/ruka legs movement3.png" id="5_wc3lx"]
+[ext_resource type="Texture2D" uid="uid://daavycsudnf0q" path="res://Recursos/Textures/ruka body5.png" id="6_0mhic"]
+[ext_resource type="Texture2D" uid="uid://be3clknsv5ltu" path="res://Recursos/Textures/ruka legs movement4.png" id="6_6iqc8"]
+[ext_resource type="Texture2D" uid="uid://c4qh4aqnx8ptl" path="res://Recursos/Textures/ruka legs movement5.png" id="7_5x2vr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
-radius = 12.0
-height = 48.0
+radius = 16.0
+height = 46.0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_r1887"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_x3aar"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4w18w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fhpmd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wc3lx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6iqc8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5x2vr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l0exc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_thlu0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tciro")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rangi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_p4e5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0mhic")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_fhpmd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Legs/Walk_Legs:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.07619052, 0.07619048)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Legs/Walk_Legs:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 15)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/Ruka_Body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -6)]
+}
+
+[sub_resource type="Animation" id="Animation_4w18w"]
+resource_name = "Walk"
+length = 0.42
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Legs/Walk_Legs:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.4),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0.07619052, 0.07619048), Vector2(0.07619052, 0.095787555), Vector2(0.07619052, 0.07619048)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Legs/Walk_Legs:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.21, 0.42),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-1, 15), Vector2(-1, 16), Vector2(-1, 15)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/Ruka_Body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.21),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, -6), Vector2(0, -8.63)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fhpmd"]
+_data = {
+&"RESET": SubResource("Animation_fhpmd"),
+&"Walk": SubResource("Animation_4w18w")
+}
 
 [node name="Player" type="CharacterBody2D" unique_id=1781802405 groups=["Player"]]
 script = ExtResource("1_r1887")
@@ -14,7 +156,32 @@ script = ExtResource("1_r1887")
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=855109358]
 shape = SubResource("CapsuleShape2D_r1887")
 
-[node name="Mesh" type="MeshInstance2D" parent="." unique_id=59966942]
-position = Vector2(0, 1.9073486e-06)
-scale = Vector2(23.402256, 23.402256)
-mesh = SubResource("CapsuleMesh_r1887")
+[node name="Mesh_Sistem" type="Node2D" parent="." unique_id=865472079]
+scale = Vector2(1.1829178, 1.1829178)
+script = ExtResource("2_fhpmd")
+
+[node name="Legs" type="Node2D" parent="Mesh_Sistem" unique_id=254658410]
+
+[node name="Idle_Legs" type="Sprite2D" parent="Mesh_Sistem/Legs" unique_id=1766592113]
+position = Vector2(-0.99999994, 14)
+scale = Vector2(0.06349207, 0.06349207)
+texture = ExtResource("2_tciro")
+
+[node name="Walk_Legs" type="AnimatedSprite2D" parent="Mesh_Sistem/Legs" unique_id=1413516726]
+visible = false
+position = Vector2(-1, 15)
+scale = Vector2(0.07619052, 0.07619048)
+sprite_frames = SubResource("SpriteFrames_x3aar")
+frame_progress = 0.55062544
+speed_scale = 1.5
+
+[node name="Body" type="Node2D" parent="Mesh_Sistem" unique_id=182813694]
+
+[node name="Ruka_Body" type="AnimatedSprite2D" parent="Mesh_Sistem/Body" unique_id=1945043694]
+position = Vector2(0, -6)
+scale = Vector2(0.06338028, 0.07042254)
+sprite_frames = SubResource("SpriteFrames_l0exc")
+frame_progress = 0.076878704
+
+[node name="Anim_Player" type="AnimationPlayer" parent="Mesh_Sistem" unique_id=501687736]
+libraries/ = SubResource("AnimationLibrary_fhpmd")

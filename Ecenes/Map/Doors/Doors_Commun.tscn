@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2jvwqi87p45h" path="res://Scripts/doors_commun.gd" id="1_4lolj"]
 [ext_resource type="Script" uid="uid://ttmuu6g2wyc6" path="res://Scripts/DoorCommun_Sprite.gd" id="2_boi01"]
-[ext_resource type="Script" uid="uid://bwmya0pfosr60" path="res://Ecenes/Map/Doors/area_player_interact_Defoult.gd" id="3_gdnjq"]
+[ext_resource type="Script" uid="uid://bwmya0pfosr60" path="res://Scripts/area_player_interact_Defoult.gd" id="3_gdnjq"]
 [ext_resource type="Script" uid="uid://bj1o03xbqknvc" path="res://Scripts/detector_door.gd" id="4_c6lff"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2nff2"]
