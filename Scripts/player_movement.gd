@@ -3,6 +3,12 @@ extends CharacterBody2D
 # Health test: T = 10 damage, Y = 10 heal (requires HealthComponent).
 
 @export var speed: float = 170.0
+## Píxeles/s^2 hacia la velocidad objetivo (subir = más ágil al arrancar).
+@export var acceleration: float = 820.0
+## Píxeles/s^2 al soltar input (bajar = más inercia al frenar).
+@export var deceleration: float = 360.0
+## Más aceleración cuando el input va contra la velocidad (huir / girar rápido).
+@export var turn_acceleration_multiplier: float = 1.9
 @export var attack_scene: PackedScene
 
 @onready var attack_spawn_point: Marker2D = $AttackSpawnPoint
@@ -36,7 +42,14 @@ func _physics_process(_delta: float) -> void:
 
 	# Izquierda/derecha, arriba/abajo (acciones en project.godot)
 	var direction := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
-	velocity = direction * speed
+	var target_velocity := direction * speed
+	if direction == Vector2.ZERO:
+		velocity = velocity.move_toward(Vector2.ZERO, deceleration * _delta)
+	else:
+		var accel := acceleration
+		if velocity.dot(direction) < 0.0:
+			accel *= turn_acceleration_multiplier
+		velocity = velocity.move_toward(target_velocity, accel * _delta)
 	move_and_slide()
 
 
