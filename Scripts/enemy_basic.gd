@@ -9,15 +9,16 @@ extends CharacterBody2D
 @export var attack_cooldown: float = 0.5
 ## Daño melee (distancia centro-centro). El jugador no colisiona físicamente con enemigos.
 @export var attack_range: float = 40.0
-@export var max_health: int = 30
 
 var _attack_timer: float = 0.0
-var _current_health: int = 0
+
+@onready var _health: HealthComponent = $HealthComponent as HealthComponent
 
 
 func _ready() -> void:
 	add_to_group("enemies")
-	_current_health = max_health
+	if _health:
+		_health.died.connect(_on_health_died)
 
 
 func _physics_process(delta: float) -> void:
@@ -63,8 +64,10 @@ func _ensure_target() -> void:
 
 
 func take_damage(amount: int) -> void:
-	if amount <= 0:
+	if _health == null:
 		return
-	_current_health = maxi(_current_health - amount, 0)
-	if _current_health == 0:
-		queue_free()
+	_health.take_damage(amount)
+
+
+func _on_health_died() -> void:
+	queue_free()

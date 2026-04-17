@@ -22,6 +22,7 @@ func _ready() -> void:
 
 	_health = player.get_node_or_null("HealthComponent") as HealthComponent
 	if _health == null:
+		push_error("HealthHUD: el padre no tiene HealthComponent; la barra no se actualizará.")
 		return
 
 	_health.health_changed.connect(_on_health_changed)

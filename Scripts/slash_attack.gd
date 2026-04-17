@@ -2,6 +2,7 @@ extends Area2D
 
 ## Short-lived melee hitbox. Damages bodies that implement `take_damage` (e.g. enemies).
 ## Tune duration and shape in the scene; tune damage via export or inspector.
+## collision_mask must include the enemy physics layer (project: "enemy" = bit 2 = 4) or overlaps won't occur.
 
 @export var damage: int = 10
 @export var lifetime: float = 0.15

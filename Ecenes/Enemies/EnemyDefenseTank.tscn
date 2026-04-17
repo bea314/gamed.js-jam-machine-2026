@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://du4rskadikxhd"]
+[gd_scene load_steps=4 format=3 uid="uid://du4rskadikxhd"]
 
 [ext_resource type="Script" uid="uid://bj6jmyxsn08h6" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
 [ext_resource type="Texture2D" uid="uid://bs1ygl0ywfckh" path="res://assets/Enemies/enemy_defense_tmp.png" id="2_tex"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="3_mhc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(82, 64)
@@ -13,7 +14,6 @@ script = ExtResource("1_enemy")
 speed = 38.0
 attack_damage = 8
 attack_cooldown = 0.75
-max_health = 75
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1131888078]
 shape = SubResource("RectangleShape2D_enemy")
@@ -21,3 +21,5 @@ shape = SubResource("RectangleShape2D_enemy")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=316753907]
 scale = Vector2(0.09765625, 0.09765624)
 texture = ExtResource("2_tex")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_mhc")]
