@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ddew3stooo7bs"]
+
+[ext_resource type="PackedScene" uid="uid://0c71s8qxmeg4" path="res://Ecenes/Map/Rooms/Rooms_ok/Room_Comun_01.tscn" id="2_dtfx5"]
+
+[node name="LevelGeneratorMap" type="Node2D" unique_id=466675439]
+
+[node name="RoomComun01" parent="." unique_id=1523623804 instance=ExtResource("2_dtfx5")]
