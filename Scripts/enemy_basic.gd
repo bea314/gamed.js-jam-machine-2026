@@ -7,10 +7,13 @@ extends CharacterBody2D
 @export var target: Node2D = null
 @export var attack_damage: int = 5
 @export var attack_cooldown: float = 0.5
+## Tras conectar un golpe, el enemigo frena ~0,1–0,2 s (velocidad casi nula) para dar ventana al jugador.
+@export var attack_recovery_duration: float = 0.15
 ## Daño melee (distancia centro-centro). El jugador no colisiona físicamente con enemigos.
 @export var attack_range: float = 40.0
 
 var _attack_timer: float = 0.0
+var _attack_recovery_timer: float = 0.0
 
 @onready var _health: HealthComponent = $HealthComponent as HealthComponent
 
@@ -23,9 +26,15 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_attack_timer = maxf(_attack_timer - delta, 0.0)
+	_attack_recovery_timer = maxf(_attack_recovery_timer - delta, 0.0)
 
 	_ensure_target()
 	if target == null:
+		return
+
+	if _attack_recovery_timer > 0.0:
+		velocity = Vector2.ZERO
+		move_and_slide()
 		return
 
 	var to_target := target.global_position - global_position
@@ -52,6 +61,7 @@ func _try_damage_player_in_range() -> void:
 	if health:
 		health.take_damage(attack_damage)
 		_attack_timer = attack_cooldown
+		_attack_recovery_timer = attack_recovery_duration
 
 
 func _ensure_target() -> void:
