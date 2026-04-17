@@ -13,7 +13,8 @@ collision_mask = 5
 script = ExtResource("1_enemy")
 speed = 38.0
 attack_damage = 8
-attack_cooldown = 0.75
+attack_cooldown = 0.85
+attack_recovery_duration = 0.22
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1131888078]
 shape = SubResource("RectangleShape2D_enemy")
