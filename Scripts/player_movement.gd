@@ -9,16 +9,17 @@ extends CharacterBody2D
 @export var deceleration: float = 360.0
 ## Más aceleración cuando el input va contra la velocidad (huir / girar rápido).
 @export var turn_acceleration_multiplier: float = 1.9
-@export var attack_scene: PackedScene
 ## Impulso al recibir golpe (alejándose del origen del daño).
 @export var hit_knockback_speed: float = 110.0
 ## Color del parpadeo al recibir daño (vuelve a blanco).
 @export var hit_flash_tint: Color = Color(1.0, 0.55, 0.55, 1.0)
 
-@onready var attack_spawn_point: Marker2D = $AttackSpawnPoint
+@onready var weapon_manager: Node = $WeaponManager
+@onready var weapon_hud: CanvasLayer = $WeaponHud
 @onready var _mesh: MeshInstance2D = $Mesh
 
 var _hit_modulate_tween: Tween
+
 
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
@@ -28,6 +29,10 @@ func _ready() -> void:
 	if hc:
 		hc.died.connect(_on_health_died)
 		hc.damage_taken.connect(_on_damage_taken)
+
+	weapon_hud.setup(weapon_manager)
+	weapon_manager.setup(self)
+
 
 func _on_health_died() -> void:
 	print("Player died (test placeholder)")
@@ -66,11 +71,36 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_Y:
 			hc.heal(10)
 
-func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("attack"):
-		_spawn_attack()
 
-	# Izquierda/derecha, arriba/abajo (acciones en project.godot)
+func _process(_delta: float) -> void:
+	var to_mouse := get_global_mouse_position() - global_position
+	var aim_direction := Vector2.RIGHT
+	if to_mouse.length_squared() > 0.0001:
+		aim_direction = to_mouse.normalized()
+
+	if Input.is_action_just_pressed("weapon_next"):
+		weapon_manager.next_weapon()
+	if Input.is_action_just_pressed("weapon_prev"):
+		weapon_manager.prev_weapon()
+	if Input.is_action_just_pressed("weapon_1"):
+		weapon_manager.set_weapon(0)
+	if Input.is_action_just_pressed("weapon_2"):
+		weapon_manager.set_weapon(1)
+	if Input.is_action_just_pressed("weapon_3"):
+		weapon_manager.set_weapon(2)
+	if Input.is_action_just_pressed("weapon_4"):
+		weapon_manager.set_weapon(3)
+	if Input.is_action_just_pressed("reload"):
+		weapon_manager.reload()
+
+	weapon_manager.fire(
+		aim_direction,
+		Input.is_action_pressed("attack"),
+		Input.is_action_just_pressed("attack")
+	)
+
+
+func _physics_process(_delta: float) -> void:
 	var direction := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
 	var target_velocity := direction * speed
 	if direction == Vector2.ZERO:
@@ -81,14 +111,3 @@ func _physics_process(_delta: float) -> void:
 			accel *= turn_acceleration_multiplier
 		velocity = velocity.move_toward(target_velocity, accel * _delta)
 	move_and_slide()
-
-
-func _spawn_attack() -> void:
-	if attack_scene == null:
-		return
-	var attack_instance := attack_scene.instantiate() as Node2D
-	if attack_instance == null:
-		return
-	attack_instance.global_position = attack_spawn_point.global_position
-	attack_instance.global_rotation = attack_spawn_point.global_rotation
-	get_tree().current_scene.add_child(attack_instance)

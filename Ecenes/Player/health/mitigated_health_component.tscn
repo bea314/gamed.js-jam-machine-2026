@@ -5,5 +5,5 @@
 [node name="HealthComponent" type="Node"]
 script = ExtResource("1_mhc")
 max_health = 75
-defense_flat = 4
+defense_flat = 2
 defense_multiplier = 0.6

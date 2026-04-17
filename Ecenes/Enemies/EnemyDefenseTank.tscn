@@ -24,3 +24,4 @@ scale = Vector2(0.09765625, 0.09765624)
 texture = ExtResource("2_tex")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_mhc")]
+hit_invulnerability_duration = 0.0

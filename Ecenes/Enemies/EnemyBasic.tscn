@@ -19,3 +19,4 @@ color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_hc")]
+hit_invulnerability_duration = 0.0

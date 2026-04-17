@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://wpnwrenchscene"]
+
+[ext_resource type="Script" path="res://Scripts/weapons/wrench_weapon.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/MeleeHitbox.tscn" id="2_melee"]
+
+[node name="WrenchWeapon" type="Node"]
+script = ExtResource("1_script")
+weapon_name = "Wrench"
+damage = 10
+fire_rate = 0.35
+magazine_size = 0
+reserve_ammo = 0
+automatic = false
+melee_scene = ExtResource("2_melee")

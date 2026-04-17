@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://wpnmgscene"]
+
+[ext_resource type="Script" path="res://Scripts/weapons/machinegun_weapon.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/Bullet.tscn" id="2_bullet"]
+
+[node name="MachineGunWeapon" type="Node"]
+script = ExtResource("1_script")
+weapon_name = "Machine Gun"
+damage = 2
+fire_rate = 0.08
+magazine_size = 24
+reserve_ammo = 96
+automatic = true
+bullet_speed = 650.0
+reload_time = 1.6
+spread_degrees = 5.0
+bullet_scene = ExtResource("2_bullet")
