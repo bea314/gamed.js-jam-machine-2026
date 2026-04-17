@@ -59,7 +59,7 @@ func _try_damage_player_in_range() -> void:
 		return
 	var health: HealthComponent = target.get_node_or_null("HealthComponent") as HealthComponent
 	if health:
-		health.take_damage(attack_damage)
+		health.take_damage(attack_damage, global_position)
 		_attack_timer = attack_cooldown
 		_attack_recovery_timer = attack_recovery_duration
 
@@ -73,10 +73,10 @@ func _ensure_target() -> void:
 		target = node as Node2D
 
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 	if _health == null:
 		return
-	_health.take_damage(amount)
+	_health.take_damage(amount, hit_from_global)
 
 
 func _on_health_died() -> void:

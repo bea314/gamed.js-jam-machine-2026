@@ -32,5 +32,6 @@ position = Vector2(24, 0)
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_health")
 max_health = 100
+hit_invulnerability_duration = 0.12
 
 [node name="HealthBar" parent="." instance=ExtResource("3_hbar")]

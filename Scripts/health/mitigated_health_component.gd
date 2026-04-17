@@ -5,9 +5,9 @@ class_name MitigatedHealthComponent
 @export var defense_multiplier: float = 0.6
 
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 	if amount <= 0:
 		return
 	var reduced := maxi(amount - defense_flat, 1)
 	var final_damage := maxi(int(round(reduced * defense_multiplier)), 1)
-	super.take_damage(final_damage)
+	super.take_damage(final_damage, hit_from_global)
