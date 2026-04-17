@@ -15,6 +15,11 @@ run/main_scene="res://Ecenes/Menu/Menu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SettingsManager="*res://Scripts/settings_manager.gd"
+Global_Ran="*uid://b8qhx67cn14na"
+
 [display]
 
 window/size/viewport_width=1920
@@ -32,6 +37,10 @@ folder_colors={
 "res://Ecenes/": "orange",
 "res://Scripts/": "green"
 }
+
+[global_group]
+
+Player="Grupo Player"
 
 [input]
 

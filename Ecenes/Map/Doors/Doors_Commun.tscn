@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://d2kbhr3pflg3i"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2nff2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_boi01"]
+size = Vector2(20, 95)
+
+[sub_resource type="SphereMesh" id="SphereMesh_boi01"]
+
+[node name="DoorsCommun" type="Node2D" unique_id=1819502542]
+
+[node name="Mesh_sistem" type="Node2D" parent="." unique_id=917673563]
+
+[node name="Mesh_Door" type="MeshInstance2D" parent="Mesh_sistem" unique_id=2129755179]
+position = Vector2(0.75, -3.000002)
+scale = Vector2(40.500004, 106)
+mesh = SubResource("BoxMesh_2nff2")
+
+[node name="Mostra_path" type="Label" parent="Mesh_sistem" unique_id=1011597609]
+offset_left = -50.0
+offset_top = -87.0
+offset_right = 51.0
+offset_bottom = -64.0
+pivot_offset = Vector2(50, 12)
+
+[node name="Area_Player_Interact" type="Area2D" parent="." unique_id=2107330343]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Player_Interact" unique_id=7575843]
+position = Vector2(-32, -2.5)
+shape = SubResource("RectangleShape2D_boi01")
+debug_color = Color(0, 0.24313726, 0.69803923, 0.41960785)
+
+[node name="Spawn_playerPOINT" type="Marker2D" parent="." unique_id=1129712442]
+position = Vector2(-72, 0)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Spawn_playerPOINT" unique_id=15499972]
+modulate = Color(1, 0.09803922, 0.4627451, 1)
+position = Vector2(1.2485845, 4.7683716e-07)
+scale = Vector2(7.1345763, 6.000001)
+mesh = SubResource("SphereMesh_boi01")

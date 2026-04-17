@@ -26,7 +26,7 @@ func Zoom_type():
 		path_obj = get_phath
 	else:
 		tween_animation_zoom("Map")
-		get_phath = get_tree().current_scene.get_node("Level_Rooms")
+		get_phath = get_tree().current_scene.get_node("LevelGeneratorMap")
 		path_obj = get_phath
 
 func tween_animation_zoom(Objet : String):
