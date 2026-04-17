@@ -5,7 +5,7 @@ extends Node2D
 @onready var door_pos_3: Marker2D = $DOOR_Pos3
 @onready var door_pos_1: Marker2D = $DOOR_Pos1
 
-const DOORS_COMMUN_CONNECT = preload("uid://c7fqcn6qoujmc")
+const DOORS_COMMUN_CONNECT = preload("res://Ecenes/Map/Doors/Doors_Commun_Connect.tscn")
 
 
 func GENERATE_DEFOULT_DOOR(Lado_ROOMS : int):
