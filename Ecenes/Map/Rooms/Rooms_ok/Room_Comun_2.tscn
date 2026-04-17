@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djnypdxm07xxi"]
 
-[ext_resource type="Script" uid="uid://ca28nmi3j3i7b" path="res://Scripts/room_commun_02.gd" id="1_hidq5"]
-[ext_resource type="Script" uid="uid://dtuxdbxyykhfw" path="res://Scripts/doorsCommun_points.gd" id="2_05djy"]
+[ext_resource type="PackedScene" uid="uid://d0by0wlx7dyh8" path="res://Ecenes/Objets/KAY_MASTER_TEST.tscn" id="1_3jsig"]
+[ext_resource type="Script" uid="uid://dw7lvk7iinhfs" path="res://Scripts/doors_points.gd" id="1_6erfv"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_saatp"]
 
@@ -12,7 +12,6 @@ size = Vector2(724, 20)
 size = Vector2(24, 440)
 
 [node name="RoomComun02" type="Node2D" unique_id=1523623804]
-script = ExtResource("1_hidq5")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=180508131]
 
@@ -29,7 +28,33 @@ scale = Vector2(669.84406, 440.28033)
 mesh = SubResource("QuadMesh_saatp")
 
 [node name="Doors_Points" type="Node2D" parent="." unique_id=563271054]
-script = ExtResource("2_05djy")
+script = ExtResource("1_6erfv")
+
+[node name="DOOR_Pos2" type="Marker2D" parent="Doors_Points" unique_id=1731629396]
+position = Vector2(349, 0)
+
+[node name="DOOR_Pos4" type="Marker2D" parent="Doors_Points" unique_id=973244519]
+position = Vector2(-347, -1)
+
+[node name="DOOR_Pos3" type="Marker2D" parent="Doors_Points" unique_id=997338779]
+position = Vector2(0, 230)
+
+[node name="DOOR_Pos1" type="Marker2D" parent="Doors_Points" unique_id=503626249]
+position = Vector2(0, -231)
+
+[node name="Spwan_ROOMS_POINTS" type="Node2D" parent="." unique_id=1290461769]
+
+[node name="POINT_2" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=259848682]
+position = Vector2(751, 0)
+
+[node name="POINT_4" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=1293526927]
+position = Vector2(-751, 0)
+
+[node name="POINT_1" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=2096824606]
+position = Vector2(0, -537)
+
+[node name="POINT_3" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=1350035845]
+position = Vector2(0, 537)
 
 [node name="Bloque" type="StaticBody2D" parent="." unique_id=1842165830]
 
@@ -48,3 +73,6 @@ shape = SubResource("RectangleShape2D_c2p31")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Bloque" unique_id=567332978]
 position = Vector2(-347, -1)
 shape = SubResource("RectangleShape2D_c2p31")
+
+[node name="KayMasterTest" parent="." unique_id=230106274 instance=ExtResource("1_3jsig")]
+position = Vector2(-2, 127)

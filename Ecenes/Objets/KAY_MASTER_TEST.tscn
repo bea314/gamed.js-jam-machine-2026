@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://d0by0wlx7dyh8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q2rue"]
+radius = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_q2rue"]
+
+[node name="KayMasterTest" type="Area2D" unique_id=230106274]
+
+[node name="Collicion" type="CollisionShape2D" parent="." unique_id=240907612]
+shape = SubResource("CircleShape2D_q2rue")
+debug_color = Color(0.8980392, 0.6, 0.69803923, 1)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1022696235]
+modulate = Color(1, 1, 0.57254905, 1)
+position = Vector2(0.25028315, 2.861023e-06)
+scale = Vector2(29.532885, 28.000006)
+mesh = SubResource("SphereMesh_q2rue")

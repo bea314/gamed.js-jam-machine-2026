@@ -8,7 +8,7 @@ height = 48.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r1887"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1781802405]
+[node name="Player" type="CharacterBody2D" unique_id=1781802405 groups=["Player"]]
 script = ExtResource("1_r1887")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=855109358]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bhg6p2yyaclkr"]
 
-[ext_resource type="Script" uid="uid://d0piecobxlvnn" path="res://Scripts/level_sistem.gd" id="1_cuc0b"]
-[ext_resource type="PackedScene" uid="uid://0c71s8qxmeg4" path="res://Ecenes/Map/Rooms/Room_Comun_01.tscn" id="2_wnt51"]
+[ext_resource type="Script" path="res://Scripts/level_sistem.gd" id="1_cuc0b"]
+[ext_resource type="PackedScene" uid="uid://0c71s8qxmeg4" path="res://Ecenes/Map/Rooms/Rooms_ok/Room_Comun_01.tscn" id="2_wnt51"]
 
 [node name="Level_Rooms" type="Node2D" unique_id=2128367405]
 script = ExtResource("1_cuc0b")

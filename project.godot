@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Jam_RL"
+run/main_scene="res://Ecenes/Menu/Menu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SettingsManager="*res://Scripts/settings_manager.gd"
+Global_Ran="*uid://b8qhx67cn14na"
 
 [display]
 
@@ -27,6 +33,10 @@ folder_colors={
 "res://Ecenes/": "orange",
 "res://Scripts/": "green"
 }
+
+[global_group]
+
+Player="Grupo Player"
 
 [input]
 

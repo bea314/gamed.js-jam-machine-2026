@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://22oohoirrwwi"]
 
-[ext_resource type="PackedScene" uid="uid://ddew3stooo7bs" path="res://Ecenes/Map/Level_Generator_Map.tscn" id="1_5b84h"]
+[ext_resource type="PackedScene" uid="uid://bhg6p2yyaclkr" path="res://Ecenes/Map/Level_Rooms.tscn" id="1_5b84h"]
 [ext_resource type="PackedScene" uid="uid://mtkfihhomh0w" path="res://Ecenes/Player.tscn" id="2_5b84h"]
 [ext_resource type="PackedScene" uid="uid://c5sojnp5a6jq1" path="res://Ecenes/Camera_Gameplay.tscn" id="3_5b84h"]
 
 [node name="LevelTest" type="Node2D" unique_id=1302891485]
 
-[node name="LevelGeneratorMap" parent="." unique_id=466675439 instance=ExtResource("1_5b84h")]
-position = Vector2(550, 332)
+[node name="Level_Rooms" parent="." unique_id=2128367405 instance=ExtResource("1_5b84h")]
+position = Vector2(550, 329)
 
 [node name="Player" parent="." unique_id=1781802405 instance=ExtResource("2_5b84h")]
-position = Vector2(550, 204)
+position = Vector2(541, 330)
 
 [node name="CameraGameplay" parent="." unique_id=728537024 instance=ExtResource("3_5b84h")]
 position = Vector2(543, 329)
