@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://du4rskadikxhd"]
 
 [ext_resource type="Script" uid="uid://bj6jmyxsn08h6" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
-[ext_resource type="Texture2D" uid="uid://bs1ygl0ywfckh" path="res://assets/Enemies/enemy_defense_tmp.png" id="2_tex"]
+[ext_resource type="Texture2D" uid="uid://bs1ygl0ywfckh" path="res://Recursos/Enemies/enemy_defense_tmp.png" id="2_tex"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="3_mhc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
