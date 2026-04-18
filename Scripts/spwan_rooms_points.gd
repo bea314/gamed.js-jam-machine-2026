@@ -1,11 +1,14 @@
 extends Node2D
 
+@onready var room_comun_01: Node2D = $".."
+
 @onready var doors_points: Node2D = $"../Doors_Points"
 
 @onready var point_2: Marker2D = $POINT_2
 @onready var point_4: Marker2D = $POINT_4
 @onready var point_1: Marker2D = $POINT_1
 @onready var point_3: Marker2D = $POINT_3
+
 
 const ROOM_COMUN_2 = preload("uid://djnypdxm07xxi")
 
@@ -16,6 +19,7 @@ func _ready() -> void:
 	rooms_list = [point_2, point_1, point_3, point_4]
 	
 func Instanciar_Room():
+	
 	var no_usados = rooms_list.filter(func(e):
 		return not Position_list_used.has(e)
 	)
@@ -27,15 +31,6 @@ func Instanciar_Room():
 	var pick = no_usados.pick_random()
 	Position_list_used.append(pick)
 	
-	if pick == point_1:
-		doors_points.GENERATE_DEFOULT_DOOR(1)
-	elif pick == point_2:
-		doors_points.GENERATE_DEFOULT_DOOR(2)
-	elif pick == point_3:
-		doors_points.GENERATE_DEFOULT_DOOR(3)
-	elif pick == point_4:
-		doors_points.GENERATE_DEFOULT_DOOR(4)
-	
 	# Instanciación
 	var instancia_room = ROOM_COMUN_2.instantiate()
 	var ecena_level = get_tree().current_scene.get_node("LevelGeneratorMap")
@@ -45,14 +40,15 @@ func Instanciar_Room():
 	
 	var obtener_door_poins_instancia = instancia_room.get_node("Doors_Points")
 	
+	
 	if pick == point_1:
-		obtener_door_poins_instancia.GENERATE_DEFOULT_DOOR(3)
+		obtener_door_poins_instancia.GENERATE_DOOR(3)
 	elif pick == point_2:
-		obtener_door_poins_instancia.GENERATE_DEFOULT_DOOR(4)
+		obtener_door_poins_instancia.GENERATE_DOOR(4)
 	elif pick == point_3:
-		obtener_door_poins_instancia.GENERATE_DEFOULT_DOOR(1)
+		obtener_door_poins_instancia.GENERATE_DOOR(1)
 	elif pick == point_4:
-		obtener_door_poins_instancia.GENERATE_DEFOULT_DOOR(2)
+		obtener_door_poins_instancia.GENERATE_DOOR(2)
 	
 	# 2. Guardás su transform global
 	var global_xform = instancia_room.global_transform
@@ -62,6 +58,18 @@ func Instanciar_Room():
 
 	# 4. Restaurás la posición exacta
 	instancia_room.global_transform = global_xform
-
+	
+	# SISTEMA INSTANCIA PUERTA PARA IR A LA ROOM GENERADA ===
+	
+	if pick == point_1:
+		doors_points.GENERATE_DEFOULT_DOOR(1)
+	elif pick == point_2:
+		doors_points.GENERATE_DEFOULT_DOOR(2)
+	elif pick == point_3:
+		doors_points.GENERATE_DEFOULT_DOOR(3)
+	elif pick == point_4:
+		doors_points.GENERATE_DEFOULT_DOOR(4)
+	
+	
 	return instancia_room
 	

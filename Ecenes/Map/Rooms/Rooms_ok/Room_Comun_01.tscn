@@ -79,4 +79,4 @@ position = Vector2(-347, -1)
 shape = SubResource("RectangleShape2D_c2p31")
 
 [node name="KayMasterTest" parent="." unique_id=230106274 instance=ExtResource("1_riwp3")]
-position = Vector2(-2, 127)
+position = Vector2(0, 63)

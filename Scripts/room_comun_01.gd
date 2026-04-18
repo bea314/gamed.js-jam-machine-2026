@@ -5,6 +5,7 @@ extends Node2D
 
 var Presupuesto_Level : int = 14
 
+
 func _ready() -> void:
 	Generate_ROOM_AND_DOOR(Presupuesto_Level)
 
