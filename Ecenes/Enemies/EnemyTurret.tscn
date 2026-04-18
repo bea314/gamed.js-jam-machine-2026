@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/enemy_turret.gd" id="1_turret"]
+[ext_resource type="Texture2D" uid="uid://dk0786pojm2dj" path="res://Recursos/Enemies/enemy_torreta_temp.png" id="2_tex"]
+[ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyProjectile.tscn" id="3_proj"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="4_hc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
+size = Vector2(44, 44)
+
+[node name="EnemyTurret" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_turret")
+projectile_scene = ExtResource("3_proj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_enemy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_tex")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_hc")]
+hit_invulnerability_duration = 0.0

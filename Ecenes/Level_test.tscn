@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c5sojnp5a6jq1" path="res://Ecenes/Camera_Gameplay.tscn" id="3_5b84h"]
 [ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyBasic.tscn" id="4_enemy"]
 [ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyDefenseTank.tscn" id="5_tank"]
+[ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyTurret.tscn" id="6_turret"]
 
 [node name="LevelTest" type="Node2D" unique_id=1302891485]
 
@@ -19,6 +20,9 @@ position = Vector2(700, 330)
 
 [node name="EnemyDefenseTank" parent="." instance=ExtResource("5_tank")]
 position = Vector2(820, 330)
+
+[node name="EnemyTurret" parent="." instance=ExtResource("6_turret")]
+position = Vector2(620, 200)
 
 [node name="CameraGameplay" parent="." unique_id=728537024 instance=ExtResource("3_5b84h")]
 position = Vector2(543, 329)
