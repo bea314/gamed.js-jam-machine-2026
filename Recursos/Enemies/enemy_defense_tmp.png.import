@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bs1ygl0ywfckh"
-path="res://.godot/imported/enemy_defense_tmp.png-ae69721783a50012d9eeff67854299c8.ctex"
+path="res://.godot/imported/enemy_defense_tmp.png-b9f70c9ddfe98d5b2ed0cd7fda5ab8f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/enemy_defense_tmp.png"
-dest_files=["res://.godot/imported/enemy_defense_tmp.png-ae69721783a50012d9eeff67854299c8.ctex"]
+source_file="res://Recursos/Enemies/enemy_defense_tmp.png"
+dest_files=["res://.godot/imported/enemy_defense_tmp.png-b9f70c9ddfe98d5b2ed0cd7fda5ab8f9.ctex"]
 
 [params]
 
