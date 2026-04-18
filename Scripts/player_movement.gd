@@ -13,22 +13,24 @@ extends CharacterBody2D
 @export var hit_knockback_speed: float = 110.0
 ## Color del parpadeo al recibir daño (vuelve a blanco).
 @export var hit_flash_tint: Color = Color(1.0, 0.55, 0.55, 1.0)
+## Medio ciclo blanco↔tinte durante `HealthComponent` i-frames (acoplado a `is_invulnerable`).
+@export var hit_invuln_flicker_half_period: float = 0.05
 
 @onready var weapon_manager: Node = $WeaponManager
 @onready var weapon_hud: CanvasLayer = $WeaponHud
 @onready var _mesh: MeshInstance2D = $Mesh
+@onready var _health: HealthComponent = $HealthComponent
 
-var _hit_modulate_tween: Tween
+var _invuln_flicker_time: float = 0.0
 
 
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	add_to_group("player")
 
-	var hc := get_node_or_null("HealthComponent") as HealthComponent
-	if hc:
-		hc.died.connect(_on_health_died)
-		hc.damage_taken.connect(_on_damage_taken)
+	if _health:
+		_health.died.connect(_on_health_died)
+		_health.damage_taken.connect(_on_damage_taken)
 
 	weapon_hud.setup(weapon_manager)
 	weapon_manager.setup(self)
@@ -39,40 +41,41 @@ func _on_health_died() -> void:
 
 
 func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:
-	_play_hit_flash()
+	_invuln_flicker_time = 0.0
 	if hit_from_global != Vector2.ZERO:
 		var away := global_position - hit_from_global
 		if away.length_squared() > 0.0001:
 			velocity += away.normalized() * hit_knockback_speed
 
 
-func _play_hit_flash() -> void:
-	if _mesh == null:
+func _sync_invuln_flicker(delta: float) -> void:
+	if _mesh == null or _health == null:
 		return
-	if _hit_modulate_tween:
-		_hit_modulate_tween.kill()
-	_mesh.modulate = Color.WHITE
-	_hit_modulate_tween = create_tween()
-	_hit_modulate_tween.tween_property(_mesh, "modulate", hit_flash_tint, 0.045)
-	_hit_modulate_tween.tween_property(_mesh, "modulate", Color.WHITE, 0.055)
-	_hit_modulate_tween.tween_property(_mesh, "modulate", hit_flash_tint, 0.045)
-	_hit_modulate_tween.tween_property(_mesh, "modulate", Color.WHITE, 0.055)
+	if not _health.is_invulnerable():
+		_invuln_flicker_time = 0.0
+		_mesh.modulate = Color.WHITE
+		return
+	_invuln_flicker_time += delta
+	var half_p: float = maxf(hit_invuln_flicker_half_period, 0.016)
+	var phase := int(floor(_invuln_flicker_time / half_p)) % 2
+	_mesh.modulate = hit_flash_tint if phase == 0 else Color.WHITE
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey and event.pressed and not event.echo):
 		return
-	var hc := get_node_or_null("HealthComponent") as HealthComponent
-	if hc == null:
+	if _health == null:
 		return
 	match event.physical_keycode:
 		KEY_T:
-			hc.take_damage(10)
+			_health.take_damage(10)
 		KEY_Y:
-			hc.heal(10)
+			_health.heal(10)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_sync_invuln_flicker(delta)
+
 	var to_mouse := get_global_mouse_position() - global_position
 	var aim_direction := Vector2.RIGHT
 	if to_mouse.length_squared() > 0.0001:
