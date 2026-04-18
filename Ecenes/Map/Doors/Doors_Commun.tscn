@@ -34,6 +34,7 @@ offset_bottom = -64.0
 pivot_offset = Vector2(50, 12)
 
 [node name="Area_Player_Interact" type="Area2D" parent="." unique_id=2107330343]
+collision_mask = 2
 script = ExtResource("3_gdnjq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Player_Interact" unique_id=7575843]
@@ -43,6 +44,7 @@ debug_color = Color(0, 0.24313726, 0.69803923, 0.41960785)
 
 [node name="Detector_DOOR" type="StaticBody2D" parent="." unique_id=74186835]
 position = Vector2(42, 0)
+collision_layer = 8
 script = ExtResource("4_c6lff")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector_DOOR" unique_id=1498653680]
@@ -53,6 +55,7 @@ debug_color = Color(0.9907188, 0, 0.28060484, 0.41960785)
 [node name="Raycast_Detector" type="RayCast2D" parent="Detector_DOOR" unique_id=1287590498]
 position = Vector2(-16, 41)
 target_position = Vector2(30, 0)
+collision_mask = 8
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Detector_DOOR" unique_id=25116440]
 modulate = Color(1, 0, 1, 1)

@@ -5,6 +5,7 @@ extends Node2D
 @onready var door_pos_3: Marker2D = $DOOR_Pos3
 @onready var door_pos_1: Marker2D = $DOOR_Pos1
 
+const DOORS_COMMUN = preload("res://Ecenes/Map/Doors/Doors_Commun.tscn")
 const DOORS_COMMUN_CONNECT = preload("res://Ecenes/Map/Doors/Doors_Commun_Connect.tscn")
 
 @onready var point_2: Marker2D = $"../Spawn_Player_Doors/POINT_2"

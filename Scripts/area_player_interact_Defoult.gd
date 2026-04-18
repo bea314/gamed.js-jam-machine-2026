@@ -5,4 +5,6 @@ extends Area2D
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		var obten_path = doors_commun.Path_TOGO
+		if obten_path == null:
+			return
 		body.global_position = obten_path.global_position
