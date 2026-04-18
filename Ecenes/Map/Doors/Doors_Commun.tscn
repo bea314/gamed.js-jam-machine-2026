@@ -1,15 +1,25 @@
 [gd_scene format=3 uid="uid://d2kbhr3pflg3i"]
 
+[ext_resource type="Script" uid="uid://b2jvwqi87p45h" path="res://Scripts/doors_commun.gd" id="1_4lolj"]
+[ext_resource type="Script" uid="uid://ttmuu6g2wyc6" path="res://Scripts/DoorCommun_Sprite.gd" id="2_boi01"]
+[ext_resource type="Script" uid="uid://bwmya0pfosr60" path="res://Scripts/area_player_interact_Defoult.gd" id="3_gdnjq"]
+[ext_resource type="Script" uid="uid://bj1o03xbqknvc" path="res://Scripts/detector_door.gd" id="4_c6lff"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_2nff2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boi01"]
-size = Vector2(20, 95)
+size = Vector2(9, 95)
 
-[sub_resource type="SphereMesh" id="SphereMesh_boi01"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gdnjq"]
+size = Vector2(2.5, 96)
 
-[node name="DoorsCommun" type="Node2D" unique_id=1819502542]
+[sub_resource type="SphereMesh" id="SphereMesh_c6lff"]
+
+[node name="DoorsCommun" type="Node2D" unique_id=1819502542 groups=["Door_Connect"]]
+script = ExtResource("1_4lolj")
 
 [node name="Mesh_sistem" type="Node2D" parent="." unique_id=917673563]
+script = ExtResource("2_boi01")
 
 [node name="Mesh_Door" type="MeshInstance2D" parent="Mesh_sistem" unique_id=2129755179]
 position = Vector2(0.75, -3.000002)
@@ -24,17 +34,33 @@ offset_bottom = -64.0
 pivot_offset = Vector2(50, 12)
 
 [node name="Area_Player_Interact" type="Area2D" parent="." unique_id=2107330343]
+script = ExtResource("3_gdnjq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Player_Interact" unique_id=7575843]
-position = Vector2(-32, -2.5)
+position = Vector2(-26.5, -2.5)
 shape = SubResource("RectangleShape2D_boi01")
 debug_color = Color(0, 0.24313726, 0.69803923, 0.41960785)
 
-[node name="Spawn_playerPOINT" type="Marker2D" parent="." unique_id=1129712442]
-position = Vector2(-72, 0)
+[node name="Detector_DOOR" type="StaticBody2D" parent="." unique_id=74186835]
+position = Vector2(42, 0)
+script = ExtResource("4_c6lff")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Spawn_playerPOINT" unique_id=15499972]
-modulate = Color(1, 0.09803922, 0.4627451, 1)
-position = Vector2(1.2485845, 4.7683716e-07)
-scale = Vector2(7.1345763, 6.000001)
-mesh = SubResource("SphereMesh_boi01")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector_DOOR" unique_id=1498653680]
+position = Vector2(-18.25, 0)
+shape = SubResource("RectangleShape2D_gdnjq")
+debug_color = Color(0.9907188, 0, 0.28060484, 0.41960785)
+
+[node name="Raycast_Detector" type="RayCast2D" parent="Detector_DOOR" unique_id=1287590498]
+position = Vector2(-16, 41)
+target_position = Vector2(30, 0)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Detector_DOOR" unique_id=25116440]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(14.999999, 41.000004)
+scale = Vector2(6.0068035, 6.0068045)
+mesh = SubResource("SphereMesh_c6lff")
+
+[node name="Point_Spawn" type="Marker2D" parent="." unique_id=612790675]
+position = Vector2(-83, 0)
+
+[connection signal="body_entered" from="Area_Player_Interact" to="Area_Player_Interact" method="_on_body_entered"]

@@ -30,12 +30,14 @@ window/stretch/mode="viewport"
 
 folder_colors={
 "res://Ecenes/": "orange",
+"res://Recursos/": "purple",
 "res://Scripts/": "green"
 }
 
 [global_group]
 
 Player="Grupo Player"
+Door_Connect="Puertas connectoras"
 
 [input]
 

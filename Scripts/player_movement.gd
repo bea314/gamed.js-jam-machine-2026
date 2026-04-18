@@ -3,6 +3,7 @@ extends CharacterBody2D
 # Health test: T = 10 damage, Y = 10 heal (requires HealthComponent).
 
 @export var speed: float = 170.0
+@onready var mesh_sistem: Node2D = $Mesh_Sistem
 ## Píxeles/s^2 hacia la velocidad objetivo (subir = más ágil al arrancar).
 @export var acceleration: float = 820.0
 ## Píxeles/s^2 al soltar input (bajar = más inercia al frenar).
@@ -114,3 +115,14 @@ func _physics_process(_delta: float) -> void:
 			accel *= turn_acceleration_multiplier
 		velocity = velocity.move_toward(target_velocity, accel * _delta)
 	move_and_slide()
+
+	# Detección de caminar
+	if is_walking():
+		mesh_sistem.Change_State("Walk")
+	else:
+		mesh_sistem.Change_State("Idle")
+		
+
+func is_walking() -> bool:
+	return velocity.length() > 0.1
+	
