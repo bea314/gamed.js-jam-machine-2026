@@ -1,22 +1,83 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://bywsd8eelwyu3"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_basic.gd" id="1_enemy"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/health/health_component.tscn" id="2_hc"]
+[ext_resource type="PackedScene" uid="uid://658633st7q53" path="res://Ecenes/Player/health/health_component.tscn" id="2_hc"]
+[ext_resource type="Texture2D" uid="uid://byyh620w5pp6i" path="res://Recursos/Textures/drone1.png" id="2_p7mmo"]
+[ext_resource type="Texture2D" uid="uid://c880snp417f8t" path="res://Recursos/Textures/drone2.png" id="3_iu8m2"]
+[ext_resource type="Texture2D" uid="uid://dhksbjxi8m4xf" path="res://Recursos/Textures/drone3.png" id="4_r6w26"]
+[ext_resource type="Texture2D" uid="uid://chg4okj1ryxxe" path="res://Recursos/Textures/drone4.png" id="5_186qg"]
+[ext_resource type="Texture2D" uid="uid://bq55px2ej2j7w" path="res://Recursos/Textures/drone5.png" id="6_fat78"]
+[ext_resource type="Texture2D" uid="uid://dacwd3c7a28d6" path="res://Recursos/Textures/drone6.png" id="7_r2iof"]
+[ext_resource type="Texture2D" uid="uid://cwhuqman4846u" path="res://Recursos/Textures/drone7.png" id="8_v26p3"]
+[ext_resource type="Texture2D" uid="uid://rjkq5m5p6ht5" path="res://Recursos/Textures/drone8.png" id="9_ipsmw"]
+[ext_resource type="Texture2D" uid="uid://bhcr1r2yoc56x" path="res://Recursos/Textures/drone9.png" id="10_psesg"]
+[ext_resource type="Texture2D" uid="uid://bdhvbyv4vwlv0" path="res://Recursos/Textures/drone10.png" id="11_k436j"]
+[ext_resource type="Texture2D" uid="uid://bw06nftq2vqep" path="res://Recursos/Textures/drone11.png" id="12_6roya"]
+[ext_resource type="Texture2D" uid="uid://dvce78dbwcy5e" path="res://Recursos/Textures/drone12.png" id="13_a4440"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(16, 16)
 
-[node name="EnemyBasic" type="CharacterBody2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_grb4t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p7mmo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_iu8m2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r6w26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_186qg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fat78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_r2iof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_v26p3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ipsmw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_psesg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_k436j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6roya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_a4440")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyBasic" type="CharacterBody2D" unique_id=1760702728]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_enemy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1335324187]
 shape = SubResource("RectangleShape2D_enemy")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+[node name="Mesh" type="Node2D" parent="." unique_id=12532026]
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_hc")]
+[node name="Sprite_Anim" type="AnimatedSprite2D" parent="Mesh" unique_id=2011797697]
+position = Vector2(-2.842171e-14, -4.7683716e-07)
+scale = Vector2(0.10738254, 0.10738252)
+sprite_frames = SubResource("SpriteFrames_grb4t")
+autoplay = "default"
+frame_progress = 0.29311904
+
+[node name="HealthComponent" parent="." unique_id=112301481 instance=ExtResource("2_hc")]
 hit_invulnerability_duration = 0.0

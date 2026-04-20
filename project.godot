@@ -17,15 +17,16 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-ActiveRoomService="*res://Scripts/active_room_service.gd"
-DungeonMapService="*res://Scripts/dungeon_map_service.gd"
 SettingsManager="*res://Scripts/settings_manager.gd"
 Global_Ran="*uid://b8qhx67cn14na"
+ActiveRoomService="*res://Scripts/active_room_service.gd"
+DungeonMapService="*res://Scripts/dungeon_map_service.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="viewport"
 
 [file_customization]
@@ -41,6 +42,7 @@ folder_colors={
 Player="Grupo Player"
 Door_Connect="Puertas connectoras"
 Room="ROOM Collicion"
+Item=""
 
 [input]
 

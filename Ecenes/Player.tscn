@@ -1,29 +1,30 @@
-[gd_scene load_steps=31 format=3 uid="uid://mtkfihhomh0w"]
+[gd_scene format=3 uid="uid://mtkfihhomh0w"]
 
 [ext_resource type="Script" uid="uid://wynjtf1je44x" path="res://Scripts/player_movement.gd" id="1_r1887"]
 [ext_resource type="Script" uid="uid://bowty378tg10l" path="res://Scripts/Objets/mesh_sistem.gd" id="2_fhpmd"]
+[ext_resource type="Script" uid="uid://c72ho3a0vk6d8" path="res://Scripts/health/health_component.gd" id="2_health"]
 [ext_resource type="Texture2D" uid="uid://bb7h0d2lnwwnk" path="res://Recursos/Textures/ruka legs idle.png" id="2_tciro"]
 [ext_resource type="Texture2D" uid="uid://dty4crar3cwoe" path="res://Recursos/Textures/ruka body1.png" id="2_thlu0"]
 [ext_resource type="Texture2D" uid="uid://cvaltfxe3qsxs" path="res://Recursos/Textures/ruka legs movement1.png" id="3_4w18w"]
+[ext_resource type="PackedScene" uid="uid://dhda7gqa2j8ok" path="res://Ecenes/Player/health/health_bar.tscn" id="3_hbar"]
 [ext_resource type="Texture2D" uid="uid://bd0v2kw8q4mrs" path="res://Recursos/Textures/ruka body2.png" id="3_tciro"]
 [ext_resource type="Texture2D" uid="uid://kf66gkeeob5b" path="res://Recursos/Textures/ruka legs movement2.png" id="4_fhpmd"]
 [ext_resource type="Texture2D" uid="uid://b77k41lyt0n7t" path="res://Recursos/Textures/ruka body3.png" id="4_rangi"]
+[ext_resource type="Script" uid="uid://cm8kt4lxca7ks" path="res://Scripts/weapons/weapon_manager.gd" id="4_wmgr"]
 [ext_resource type="Texture2D" uid="uid://b6sdr52jl83d7" path="res://Recursos/Textures/ruka body4.png" id="5_p4e5w"]
 [ext_resource type="Texture2D" uid="uid://c2abeu4kboewh" path="res://Recursos/Textures/ruka legs movement3.png" id="5_wc3lx"]
+[ext_resource type="PackedScene" uid="uid://cakb6i8ujhydq" path="res://Ecenes/Player/Weapons/WrenchWeapon.tscn" id="5_wrench"]
 [ext_resource type="Texture2D" uid="uid://daavycsudnf0q" path="res://Recursos/Textures/ruka body5.png" id="6_0mhic"]
 [ext_resource type="Texture2D" uid="uid://be3clknsv5ltu" path="res://Recursos/Textures/ruka legs movement4.png" id="6_6iqc8"]
+[ext_resource type="PackedScene" uid="uid://bub86gj12whqc" path="res://Ecenes/Player/Weapons/RevolverWeapon.tscn" id="6_rev"]
 [ext_resource type="Texture2D" uid="uid://c4qh4aqnx8ptl" path="res://Recursos/Textures/ruka legs movement5.png" id="7_5x2vr"]
+[ext_resource type="PackedScene" uid="uid://cp3oofl4dg74e" path="res://Ecenes/Player/Weapons/ShotgunWeapon.tscn" id="7_sg"]
+[ext_resource type="PackedScene" uid="uid://wpnmgscene" path="res://Ecenes/Player/Weapons/MachineGunWeapon.tscn" id="8_mg"]
+[ext_resource type="PackedScene" uid="uid://b85e04ko0rrme" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="9_hud"]
+[ext_resource type="PackedScene" uid="uid://pv1l2i2n0c5p" path="res://Ecenes/Player/PlayerDash.tscn" id="10_dash"]
+[ext_resource type="PackedScene" uid="uid://ibxfxb7u4r3j" path="res://Ecenes/Player/DungeonMinimapHud.tscn" id="11_minimap"]
+[ext_resource type="Texture2D" uid="uid://dnfm7ti0iud1g" path="res://Recursos/Textures/ruka hit.png" id="14_7npt5"]
 [ext_resource type="Texture2D" uid="uid://bw1mw5w37dk68" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="14_wc3lx"]
-[ext_resource type="Script" path="res://Scripts/health/health_component.gd" id="2_health"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/health/health_bar.tscn" id="3_hbar"]
-[ext_resource type="Script" path="res://Scripts/weapons/weapon_manager.gd" id="4_wmgr"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/WrenchWeapon.tscn" id="5_wrench"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/RevolverWeapon.tscn" id="6_rev"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/ShotgunWeapon.tscn" id="7_sg"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/MachineGunWeapon.tscn" id="8_mg"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="9_hud"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/PlayerDash.tscn" id="10_dash"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/DungeonMinimapHud.tscn" id="11_minimap"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 16.0
@@ -164,7 +165,6 @@ _data = {
 [node name="Player" type="CharacterBody2D" unique_id=1781802405 groups=["Player"]]
 z_index = 10
 collision_layer = 2
-collision_mask = 1
 script = ExtResource("1_r1887")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=855109358]
@@ -198,6 +198,12 @@ sprite_frames = SubResource("SpriteFrames_l0exc")
 frame_progress = 0.5106447
 speed_scale = 1.4
 
+[node name="Ruka_Damage" type="Sprite2D" parent="Mesh_Sistem/Body" unique_id=1241185737]
+visible = false
+position = Vector2(0, -5.45)
+scale = Vector2(0.07084083, 0.07084083)
+texture = ExtResource("14_7npt5")
+
 [node name="Anim_Player" type="AnimationPlayer" parent="Mesh_Sistem" unique_id=501687736]
 libraries/ = SubResource("AnimationLibrary_fhpmd")
 
@@ -208,22 +214,23 @@ energy = 0.6
 texture = ExtResource("14_wc3lx")
 texture_scale = 40.62
 
-[node name="WeaponManager" type="Node" parent="."]
+[node name="WeaponManager" type="Node" parent="." unique_id=1155230218]
 script = ExtResource("4_wmgr")
 wrench_scene = ExtResource("5_wrench")
 revolver_scene = ExtResource("6_rev")
 shotgun_scene = ExtResource("7_sg")
 machinegun_scene = ExtResource("8_mg")
 
-[node name="WeaponHud" parent="." instance=ExtResource("9_hud")]
+[node name="WeaponHud" parent="." unique_id=1782934257 instance=ExtResource("9_hud")]
 
-[node name="PlayerDash" parent="." instance=ExtResource("10_dash")]
+[node name="PlayerDash" parent="." unique_id=1418406474 instance=ExtResource("10_dash")]
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=293945052]
 script = ExtResource("2_health")
-max_health = 100
 hit_invulnerability_duration = 0.18
 
-[node name="HealthBar" parent="." instance=ExtResource("3_hbar")]
+[node name="HealthBar" parent="." unique_id=1318513250 instance=ExtResource("3_hbar")]
 
-[node name="DungeonMinimapHud" parent="." instance=ExtResource("11_minimap")]
+[node name="DungeonMinimapHud" parent="." unique_id=113773765 instance=ExtResource("11_minimap")]
+
+[node name="Audio_Player" type="AudioStreamPlayer" parent="." unique_id=865798101]

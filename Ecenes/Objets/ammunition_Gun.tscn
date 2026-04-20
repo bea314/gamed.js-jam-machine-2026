@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://hmfch51q3oio"]
+
+[ext_resource type="Texture2D" uid="uid://ehfcqlxjh6fl" path="res://Recursos/Textures/Balas_Pistol_PlaceHolder.png" id="1_bh8sw"]
+[ext_resource type="Script" uid="uid://352dwlxsicyl" path="res://Scripts/Objets/ammunition_gun.gd" id="1_mm5sj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bh8sw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mm5sj"]
+size = Vector2(24, 26)
+
+[sub_resource type="Animation" id="Animation_mm5sj"]
+resource_name = "Empuje"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ammu_Pistol_Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15460205, 0.4),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0.1328125, 0.1328125), Vector2(0.158, 0.158), Vector2(0.1328125, 0.1328125)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ammu_Pistol_Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.13941751, 0.26666668, 0.4),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [0.0, -0.12042772, 0.12042772, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_sb43e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ammu_Pistol_Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1328125, 0.1328125)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ammu_Pistol_Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6dos4"]
+_data = {
+&"Empuje": SubResource("Animation_mm5sj"),
+&"RESET": SubResource("Animation_sb43e")
+}
+
+[node name="AmmunitionGun" type="RigidBody2D" unique_id=868236815 groups=["Item"]]
+mass = 3.0
+gravity_scale = 0.0
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_mm5sj")
+
+[node name="ammu_Pistol_Sprite" type="Sprite2D" parent="." unique_id=792756037]
+scale = Vector2(0.1328125, 0.1328125)
+texture = ExtResource("1_bh8sw")
+
+[node name="Collicion" type="CollisionShape2D" parent="." unique_id=1813122595]
+shape = SubResource("RectangleShape2D_bh8sw")
+debug_color = Color(1.92523e-06, 0.39577544, 0.4659456, 0.41960785)
+
+[node name="Area_Collicion_Interact" type="Area2D" parent="." unique_id=1093531918]
+
+[node name="Collicion" type="CollisionShape2D" parent="Area_Collicion_Interact" unique_id=1323116866]
+shape = SubResource("RectangleShape2D_mm5sj")
+debug_color = Color(0.78431374, 0.6, 0.69803923, 0.41960785)
+
+[node name="Anim_gun" type="AnimationPlayer" parent="." unique_id=570967284]
+libraries/ = SubResource("AnimationLibrary_6dos4")
+
+[connection signal="body_entered" from="Area_Collicion_Interact" to="." method="_on_area_2d_body_entered"]

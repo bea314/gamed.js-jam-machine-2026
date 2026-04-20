@@ -1,11 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://du4rskadikxhd"]
+[gd_scene format=3 uid="uid://du4rskadikxhd"]
 
-[ext_resource type="Script" uid="uid://bj6jmyxsn08h6" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
-[ext_resource type="Texture2D" uid="uid://bs1ygl0ywfckh" path="res://Recursos/Enemies/enemy_defense_tmp.png" id="2_tex"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="3_mhc"]
+[ext_resource type="Script" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://byyh620w5pp6i" path="res://Recursos/Textures/drone1.png" id="2_v448d"]
+[ext_resource type="Texture2D" uid="uid://c880snp417f8t" path="res://Recursos/Textures/drone2.png" id="3_ig6si"]
+[ext_resource type="PackedScene" uid="uid://bvjot5oheirwi" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="3_mhc"]
+[ext_resource type="Texture2D" uid="uid://dhksbjxi8m4xf" path="res://Recursos/Textures/drone3.png" id="4_7amjy"]
+[ext_resource type="Texture2D" uid="uid://chg4okj1ryxxe" path="res://Recursos/Textures/drone4.png" id="5_a3klt"]
+[ext_resource type="Texture2D" uid="uid://bq55px2ej2j7w" path="res://Recursos/Textures/drone5.png" id="6_amqlk"]
+[ext_resource type="Texture2D" uid="uid://dacwd3c7a28d6" path="res://Recursos/Textures/drone6.png" id="7_anfyd"]
+[ext_resource type="Texture2D" uid="uid://cwhuqman4846u" path="res://Recursos/Textures/drone7.png" id="8_3rqji"]
+[ext_resource type="Texture2D" uid="uid://rjkq5m5p6ht5" path="res://Recursos/Textures/drone8.png" id="9_amwtu"]
+[ext_resource type="Texture2D" uid="uid://bhcr1r2yoc56x" path="res://Recursos/Textures/drone9.png" id="10_u1l26"]
+[ext_resource type="Texture2D" uid="uid://bdhvbyv4vwlv0" path="res://Recursos/Textures/drone10.png" id="11_yplbk"]
+[ext_resource type="Texture2D" uid="uid://bw06nftq2vqep" path="res://Recursos/Textures/drone11.png" id="12_5esbt"]
+[ext_resource type="Texture2D" uid="uid://dvce78dbwcy5e" path="res://Recursos/Textures/drone12.png" id="13_yt04j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
-size = Vector2(82, 64)
+size = Vector2(32, 52)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dcm4n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_v448d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ig6si")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7amjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_a3klt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_amqlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_anfyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_3rqji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_amwtu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_u1l26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_yplbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_5esbt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_yt04j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="EnemyDefenseTank" type="CharacterBody2D" unique_id=1720578237]
 collision_layer = 4
@@ -19,9 +74,13 @@ attack_recovery_duration = 0.22
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1131888078]
 shape = SubResource("RectangleShape2D_enemy")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=316753907]
-scale = Vector2(0.09765625, 0.09765624)
-texture = ExtResource("2_tex")
+[node name="Mesh" type="Node2D" parent="." unique_id=2090510538]
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_mhc")]
+[node name="Sprite_Anim" type="AnimatedSprite2D" parent="Mesh" unique_id=1672300137]
+position = Vector2(-2.842171e-14, -4.7683716e-07)
+scale = Vector2(0.12751676, 0.12751673)
+sprite_frames = SubResource("SpriteFrames_dcm4n")
+autoplay = "default"
+
+[node name="HealthComponent" parent="." unique_id=1793141023 instance=ExtResource("3_mhc")]
 hit_invulnerability_duration = 0.0

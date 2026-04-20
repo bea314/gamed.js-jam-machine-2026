@@ -28,6 +28,15 @@ extends CharacterBody2D
 var _mesh: MeshInstance2D
 var _invuln_flicker_time: float = 0.0
 
+var damage_taken_sounds : Array = [
+	preload("uid://coyglljuokcsa"),
+	preload("uid://l4we4u0qsif0"),
+	preload("uid://bun5wb6ulnlkt"),
+	preload("uid://bs3558b1p8osa"),
+	preload("uid://dcceo8pdk53jl"),
+	preload("uid://c52ajm48xm1f8")
+]
+@onready var audio_player: AudioStreamPlayer = $Audio_Player
 
 func _ready() -> void:
 	_mesh = get_node_or_null("Mesh") as MeshInstance2D
@@ -48,6 +57,10 @@ func _on_health_died() -> void:
 
 func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:
 	_invuln_flicker_time = 0.0
+	audio_player.stream = damage_taken_sounds.pick_random()
+	audio_player.play()
+	mesh_sistem.Change_State("Take_Damage")
+	
 	if hit_from_global != Vector2.ZERO:
 		var away := global_position - hit_from_global
 		if away.length_squared() > 0.0001:
@@ -153,13 +166,29 @@ func _physics_process(delta: float) -> void:
 			accel *= turn_acceleration_multiplier
 		velocity = velocity.move_toward(target_velocity, accel * delta)
 	move_and_slide()
-
+	
+	# SISTEMA DE CHOQUE CONTRA ITEMS ============= # TEST
+	#Este ssitema permite mover los items en el suelo
+	for i in get_slide_collision_count():
+		var colision = get_slide_collision(i)
+		var objeto = colision.get_collider()
+	
+		# Si lo que chocamos es un RigidBody2D (la pelota)
+		if objeto is RigidBody2D and objeto.is_in_group("Item"):
+			# Le aplicamos un impulso en la dirección del choque
+			# 'velocity' es la velocidad de tu jugador
+			objeto.apply_central_impulse(colision.get_normal() * -velocity.length() * 0.5)
+	# ===============================
+	
 	# Detección de caminar
 	if is_walking():
 		mesh_sistem.Change_State("Walk")
 	else:
 		mesh_sistem.Change_State("Idle")
 		
+
+
+
 
 func is_walking() -> bool:
 	return velocity.length() > 0.1
