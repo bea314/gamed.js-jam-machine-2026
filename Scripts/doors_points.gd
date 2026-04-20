@@ -8,65 +8,73 @@ extends Node2D
 const DOORS_COMMUN_CONNECT = preload("uid://c7fqcn6qoujmc")
 const DOORS_COMMUN = preload("uid://d2kbhr3pflg3i")
 
-@onready var point_2: Marker2D = $"../Spawn_Player_Doors/POINT_2"
-@onready var point_4: Marker2D = $"../Spawn_Player_Doors/POINT_4"
-@onready var point_1: Marker2D = $"../Spawn_Player_Doors/POINT_1"
-@onready var point_3: Marker2D = $"../Spawn_Player_Doors/POINT_3"
+var rooms_list: Array[Marker2D] = []
+var ROOM_USED: Array[Marker2D] = []
 
+@onready var comp_rooms_vecinas: Node2D = $"../Comp_Rooms_Vecinas"
 
-func GENERATE_DEFOULT_DOOR(Lado_ROOMS : int): # PRIMERO SE GENERA ESTE 
-	var Generate_Door = DOORS_COMMUN.instantiate()
+func _ready() -> void:
+	rooms_list = [door_pos_1, door_pos_2, door_pos_3, door_pos_4]
+
+func Add_ROOM_USED(Lugares : int):
+	if Lugares == 1:
+		ROOM_USED.append(door_pos_1)
+	elif Lugares == 2:
+		ROOM_USED.append(door_pos_2)
+	elif Lugares == 3:
+		ROOM_USED.append(door_pos_3)
+	elif Lugares == 4:
+		ROOM_USED.append(door_pos_4)
 	
-	if Lado_ROOMS == 1:
-		door_pos_1.add_child(Generate_Door)
-		Generate_Door.Path_TOGO = point_1
-		Generate_Door.rotation_degrees = -90
-	elif Lado_ROOMS == 2:
-		door_pos_2.add_child(Generate_Door)
-		Generate_Door.Path_TOGO = point_2
-		Generate_Door.rotation_degrees = 0
-	elif Lado_ROOMS == 3:
-		door_pos_3.add_child(Generate_Door)
-		Generate_Door.Path_TOGO = point_3
-		Generate_Door.rotation_degrees = 90
-	elif Lado_ROOMS == 4:
-		door_pos_4.add_child(Generate_Door)
-		Generate_Door.Path_TOGO = point_4
-		Generate_Door.rotation_degrees = 180
+	comp_rooms_vecinas.queue_free()
+
+func Generate_DOOR(pos : int):
+	var instancia_DOOR = DOORS_COMMUN.instantiate()
+	
+	if pos == 1:
+		door_pos_1.add_child(instancia_DOOR)
+		instancia_DOOR.rotation_degrees = -90
+	elif pos == 2:
+		door_pos_1.add_child(instancia_DOOR)
+		instancia_DOOR.rotation_degrees = 0
+	elif pos == 3:
+		door_pos_1.add_child(instancia_DOOR)
+		instancia_DOOR.rotation_degrees = 90
+	elif pos == 4:
+		door_pos_1.add_child(instancia_DOOR)
+		instancia_DOOR.rotation_degrees = -180
 		
-	var global_xform = Generate_Door.global_transform
-	#var ecena_level = get_tree().current_scene.get_node("LevelGeneratorMap")
+	instancia_DOOR.lado_door = pos
+	print(instancia_DOOR.lado_door)
+
+func Generate_Random_DOOR(DOOR_TYPE : PackedScene):
+	var disponibles = rooms_list.filter(func(m): return not ROOM_USED.has(m))
+
+	if disponibles.is_empty():
+		return
 	
-	#ecena_level.add_child(Generate_Door)
+	var marker = disponibles.pick_random()
 	
-	Generate_Door.global_transform = global_xform
+	var instancia_DOOR = DOOR_TYPE.instantiate()
+	var pos 
+	if marker == door_pos_1:
+		marker.add_child(instancia_DOOR)
+		instancia_DOOR.rotation_degrees = -90
+		pos = 1
+	elif marker == door_pos_2:
+		marker.add_child(instancia_DOOR)
+		instancia_DOOR.rotation_degrees = 0
+		pos = 2
+	elif marker == door_pos_3:
+		marker.add_child(instancia_DOOR)
+		instancia_DOOR.rotation_degrees = 90
+		pos = 3
+	elif marker == door_pos_4:
+		marker.add_child(instancia_DOOR)
+		instancia_DOOR.rotation_degrees = -180
+		pos = 4
 	
+	Add_ROOM_USED(pos)
 	
-	
-func GENERATE_DOOR(Lado_ROOMS : int):
-	var Generate_Door_Connector = DOORS_COMMUN_CONNECT.instantiate()
-	
-	# Colocarlo temporalmente en su Marker
-	match Lado_ROOMS:
-		1:
-			door_pos_1.add_child(Generate_Door_Connector)
-			Generate_Door_Connector.rotation_degrees = -90
-		2:
-			door_pos_2.add_child(Generate_Door_Connector)
-			Generate_Door_Connector.rotation_degrees = 0
-		3:
-			door_pos_3.add_child(Generate_Door_Connector)
-			Generate_Door_Connector.rotation_degrees = 90
-		4:
-			door_pos_4.add_child(Generate_Door_Connector)
-			Generate_Door_Connector.rotation_degrees = 180
-	
-	var global_xform = Generate_Door_Connector.global_transform
-	#var ecena_level = get_tree().current_scene.get_node("LevelGeneratorMap")
-	
-	# Moverlo a la escena real
-	#ecena_level.add_child(Generate_Door_Connector)
-	await Generate_Door_Connector.ready
-	
-	Generate_Door_Connector.global_transform = global_xform
-	
+	instancia_DOOR.lado_door = pos
+	print(instancia_DOOR.lado_door)

@@ -39,6 +39,7 @@ folder_colors={
 
 Player="Grupo Player"
 Door_Connect="Puertas connectoras"
+Room="ROOM Collicion"
 
 [input]
 
