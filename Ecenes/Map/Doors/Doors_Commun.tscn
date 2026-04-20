@@ -6,6 +6,7 @@
 size = Vector2(9, 95)
 
 [node name="DoorsCommun" type="Area2D" unique_id=2077045764 groups=["Door_Connect"]]
+collision_mask = 2
 
 [node name="Mesh_sistem" type="Node2D" parent="." unique_id=917673563]
 

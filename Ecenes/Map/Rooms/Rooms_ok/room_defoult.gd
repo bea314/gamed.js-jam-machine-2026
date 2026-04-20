@@ -10,12 +10,15 @@ var current_coords: Vector2i = Vector2i.ZERO
 
 func setup(neighbors: Array, my_coords: Vector2i) -> void:
 	current_coords = my_coords
-	# Lógica de show/hide que ya tienes...
-	door_up.visible = "up" in neighbors
-	door_down.visible = "down" in neighbors
-	door_left.visible = "left" in neighbors
-	door_right.visible = "right" in neighbors
-	# Asegúrate de activar/desactivar colisiones aquí también como vimos antes
+	_set_door_active(door_up, "up" in neighbors)
+	_set_door_active(door_down, "down" in neighbors)
+	_set_door_active(door_left, "left" in neighbors)
+	_set_door_active(door_right, "right" in neighbors)
+
+func _set_door_active(door: Area2D, active: bool) -> void:
+	door.visible = active
+	# Solo con visible=false las áreas seguían detectando al jugador → transiciones a celdas vacías.
+	door.monitoring = active
 
 # --- SEÑALES ---
 func _on_door_pos_up_body_entered(body: Node2D) -> void:
