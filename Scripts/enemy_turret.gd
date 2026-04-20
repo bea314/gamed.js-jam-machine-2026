@@ -49,6 +49,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if _dead:
 		return
+	if not ActiveRoomService.hostile_may_act(self):
+		return
 	_ensure_target()
 
 	_line_burst_cd = maxf(_line_burst_cd - delta, 0.0)
@@ -163,3 +165,5 @@ func _spawn_projectile_at(origin_global: Vector2, dir: Vector2, dmg: int) -> voi
 		scene_root = get_tree().root
 	scene_root.add_child(p)
 	p.global_position = origin_global + d * muzzle_offset
+	if has_meta(ActiveRoomService.META_HOSTILE_ROOM):
+		ActiveRoomService.bind_hostile_to_room(p, get_meta(ActiveRoomService.META_HOSTILE_ROOM) as Node2D)

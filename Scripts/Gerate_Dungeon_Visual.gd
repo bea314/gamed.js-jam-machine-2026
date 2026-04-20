@@ -29,7 +29,10 @@ func render_dungeon_visuals() -> void:
 		
 		add_child(new_room)
 		instantiated_rooms[coords] = new_room
-		
+
+	if instantiated_rooms.has(Vector2i.ZERO):
+		ActiveRoomService.set_active_room(instantiated_rooms[Vector2i.ZERO])
+
 	# 2. Configurar puertas (Setup)
 	for coords in instantiated_rooms.keys():
 		var room_node = instantiated_rooms[coords]

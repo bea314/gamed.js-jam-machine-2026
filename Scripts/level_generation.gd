@@ -25,12 +25,36 @@ func generate_dungeon():
 		var direction = directions.pick_random()
 		var new_coords = random_origin + direction
 		add_room_data(new_coords, "normal")
+	_assign_room_kinds()
 
 func add_room_data(coords: Vector2i, type: String) -> bool:
 	if not dungeon_data.has(coords):
-		dungeon_data[coords] = {"type": type}
+		dungeon_data[coords] = {"type": type, "room_kind": ""}
 		return true
 	return false
+
+func _assign_room_kinds() -> void:
+	var cycle: Array[String] = [
+		RoomKind.COMBAT_EASY_6,
+		RoomKind.MID_TURRET,
+		RoomKind.TURRET_PLUS_BASICS,
+		RoomKind.DEFENSE_TWO_PLUS_THREE,
+	]
+	var idx := 0
+	var coords_list: Array = dungeon_data.keys()
+	coords_list.sort_custom(func(a, b): return _vec2i_sort(a, b))
+	for c in coords_list:
+		var cell: Vector2i = c
+		if cell == Vector2i.ZERO:
+			dungeon_data[cell]["room_kind"] = RoomKind.START
+		else:
+			dungeon_data[cell]["room_kind"] = cycle[idx % cycle.size()]
+			idx += 1
+
+func _vec2i_sort(a: Vector2i, b: Vector2i) -> bool:
+	if a.x != b.x:
+		return a.x < b.x
+	return a.y < b.y
 
 # --- FASE 2: VISUALIZACIÓN ---
 func render_dungeon_visuals() -> void:
@@ -47,7 +71,10 @@ func render_dungeon_visuals() -> void:
 		
 		# Conectar la señal de transición de la habitación al generador
 		new_room.room_transition_requested.connect(_on_player_transition)
-		
+
+	if instantiated_rooms.has(Vector2i.ZERO):
+		ActiveRoomService.set_active_room(instantiated_rooms[Vector2i.ZERO])
+
 	# 2. Configurar puertas
 	for coords in instantiated_rooms.keys():
 		var room_node = instantiated_rooms[coords]
@@ -58,7 +85,8 @@ func render_dungeon_visuals() -> void:
 		if dungeon_data.has(coords + Vector2i.RIGHT): neighbors.append("right")
 		
 		if room_node.has_method("setup"):
-			room_node.setup(neighbors, coords)
+			var rk: String = str(dungeon_data[coords].get("room_kind", RoomKind.START))
+			room_node.setup(neighbors, coords, rk)
 
 # --- FASE 3: CONEXIÓN REAL ---
 func _on_player_transition(target_coords: Vector2i, side: String):
@@ -84,3 +112,4 @@ func _on_player_transition(target_coords: Vector2i, side: String):
 			else:
 				# Backup por si olvidaste poner el marker en alguna puerta
 				player.global_position = target_room.global_position
+			ActiveRoomService.set_active_room(target_room)

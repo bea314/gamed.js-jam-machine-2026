@@ -52,6 +52,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _try_damage_player(n: Node) -> bool:
+	if not ActiveRoomService.hostile_may_act(self):
+		return false
 	if n == null or not is_instance_valid(n):
 		return false
 	if not n.is_in_group("player"):
