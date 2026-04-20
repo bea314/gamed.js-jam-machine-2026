@@ -11,7 +11,7 @@ extends Node2D
 var rooms_list: Array[Marker2D] = []
 var ROOM_USED: Array[Marker2D] = []
 
-const ROOM_DEFOULT = preload("uid://7twtc5bcs0h1")
+const ROOM_DEFOULT = preload("res://Ecenes/Map/Rooms/Rooms_ok/Room_Defoult.tscn")
 
 var ROOMs_Posibles = [ROOM_DEFOULT]
 
