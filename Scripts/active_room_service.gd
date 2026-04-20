@@ -5,11 +5,14 @@ extends Node
 
 const META_HOSTILE_ROOM: StringName = &"hostile_room"
 
+signal active_room_changed(room: Node2D)
+
 var active_room: Node2D = null
 
 
 func set_active_room(room: Node2D) -> void:
 	active_room = room
+	active_room_changed.emit(room)
 
 
 func bind_hostile_to_room(agent: Node, room: Node2D) -> void:
