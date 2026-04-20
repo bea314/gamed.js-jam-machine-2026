@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://6v2iuqbbiw3d"]
+
+[ext_resource type="PackedScene" uid="uid://2cv4rkaq2ud1" path="res://Ecenes/LEVEL_GENERATOR/Level_Generation_Nivel_1.tscn" id="1_0hirc"]
+[ext_resource type="PackedScene" uid="uid://mtkfihhomh0w" path="res://Ecenes/Player.tscn" id="1_xt35t"]
+[ext_resource type="PackedScene" uid="uid://c5sojnp5a6jq1" path="res://Ecenes/Camera_Gameplay.tscn" id="2_jgr5g"]
+
+[node name="Level" type="Node2D" unique_id=956876147]
+
+[node name="LevelGeneration_Nivel1" parent="." unique_id=1773209567 instance=ExtResource("1_0hirc")]
+
+[node name="Player" parent="." unique_id=1781802405 instance=ExtResource("1_xt35t")]
+
+[node name="CameraGameplay" parent="." unique_id=728537024 instance=ExtResource("2_jgr5g")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=414210199]
+color = Color(0.34407586, 0.3440757, 0.34407574, 1)

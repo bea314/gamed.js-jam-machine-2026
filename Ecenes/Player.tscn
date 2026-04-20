@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://daavycsudnf0q" path="res://Recursos/Textures/ruka body5.png" id="6_0mhic"]
 [ext_resource type="Texture2D" uid="uid://be3clknsv5ltu" path="res://Recursos/Textures/ruka legs movement4.png" id="6_6iqc8"]
 [ext_resource type="Texture2D" uid="uid://c4qh4aqnx8ptl" path="res://Recursos/Textures/ruka legs movement5.png" id="7_5x2vr"]
+[ext_resource type="Texture2D" uid="uid://bw1mw5w37dk68" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="14_wc3lx"]
 [ext_resource type="Script" path="res://Scripts/health/health_component.gd" id="2_health"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/health/health_bar.tscn" id="3_hbar"]
 [ext_resource type="Script" path="res://Scripts/weapons/weapon_manager.gd" id="4_wmgr"]
@@ -193,10 +194,18 @@ speed_scale = 1.5
 position = Vector2(0, -6)
 scale = Vector2(0.06338028, 0.07042254)
 sprite_frames = SubResource("SpriteFrames_l0exc")
-frame_progress = 0.076878704
+frame_progress = 0.5106447
+speed_scale = 1.4
 
 [node name="Anim_Player" type="AnimationPlayer" parent="Mesh_Sistem" unique_id=501687736]
 libraries/ = SubResource("AnimationLibrary_fhpmd")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1459835334]
+scale = Vector2(0.022525849, 0.02252583)
+color = Color(1, 1, 0.8862745, 1)
+energy = 0.6
+texture = ExtResource("14_wc3lx")
+texture_scale = 40.62
 
 [node name="WeaponManager" type="Node" parent="."]
 script = ExtResource("4_wmgr")

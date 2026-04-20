@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://2cv4rkaq2ud1"]
+
+[ext_resource type="Script" uid="uid://b7a7hkdanb0b5" path="res://Scripts/level_generation.gd" id="1_reeha"]
+[ext_resource type="Script" uid="uid://cn1wmh3f3csp5" path="res://Scripts/Gerate_Dungeon_Visual.gd" id="2_1n26t"]
+[ext_resource type="PackedScene" uid="uid://7twtc5bcs0h1" path="res://Ecenes/Map/Rooms/Rooms_ok/Room_Defoult.tscn" id="3_lvylj"]
+
+[node name="LevelGeneration_Nivel1" type="Node2D" unique_id=1773209567]
+script = ExtResource("1_reeha")
+room_scene = ExtResource("3_lvylj")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=441357984]
+script = ExtResource("2_1n26t")
+room_scene = ExtResource("3_lvylj")
