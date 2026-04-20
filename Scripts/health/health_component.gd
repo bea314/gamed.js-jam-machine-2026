@@ -29,6 +29,14 @@ func is_invulnerable() -> bool:
 	return _invuln_remaining > 0.0
 
 
+## Invulnerabilidad sin recibir golpe (p. ej. dash). Se acumula con el tiempo ya activo.
+func grant_invulnerability(duration: float) -> void:
+	if duration <= 0.0:
+		return
+	_invuln_remaining = maxf(_invuln_remaining, duration)
+	set_process(true)
+
+
 func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 	if amount <= 0:
 		return

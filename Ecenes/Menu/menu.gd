@@ -32,7 +32,7 @@ func _ready() -> void:
 
 
 func _on_new_game_pressed() -> void:
-	get_tree().change_scene_to_file("res://Ecenes/Level_test.tscn")
+	get_tree().change_scene_to_file("res://Ecenes/level.tscn")
 
 
 func _on_options_pressed() -> void:

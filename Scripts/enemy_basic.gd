@@ -37,6 +37,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if not ActiveRoomService.hostile_may_act(self):
+		return
 	var prev_recovery := _attack_recovery_timer
 	_attack_timer = maxf(_attack_timer - delta, 0.0)
 	_attack_recovery_timer = maxf(_attack_recovery_timer - delta, 0.0)

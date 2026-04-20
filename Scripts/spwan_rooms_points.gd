@@ -17,7 +17,10 @@ var Position_list_used : Array = []
 
 func _ready() -> void:
 	rooms_list = [point_2, point_1, point_3, point_4]
-	
+
+func Add_ROOM_USED():
+	pass
+
 func Instanciar_Room():
 	
 	var no_usados = rooms_list.filter(func(e):
@@ -30,46 +33,4 @@ func Instanciar_Room():
 	# Elegimos un punto aún no usado
 	var pick = no_usados.pick_random()
 	Position_list_used.append(pick)
-	
-	# Instanciación
-	var instancia_room = ROOM_COMUN_2.instantiate()
-	var ecena_level = get_tree().current_scene.get_node("LevelGeneratorMap")
-	
-	# 1. Lo agregás al punto elegido
-	pick.add_child(instancia_room)
-	
-	var obtener_door_poins_instancia = instancia_room.get_node("Doors_Points")
-	
-	
-	if pick == point_1:
-		obtener_door_poins_instancia.GENERATE_DOOR(3)
-	elif pick == point_2:
-		obtener_door_poins_instancia.GENERATE_DOOR(4)
-	elif pick == point_3:
-		obtener_door_poins_instancia.GENERATE_DOOR(1)
-	elif pick == point_4:
-		obtener_door_poins_instancia.GENERATE_DOOR(2)
-	
-	# 2. Guardás su transform global
-	var global_xform = instancia_room.global_transform
-
-	# 3. Movés al nivel final
-	ecena_level.add_child(instancia_room)
-
-	# 4. Restaurás la posición exacta
-	instancia_room.global_transform = global_xform
-	
-	# SISTEMA INSTANCIA PUERTA PARA IR A LA ROOM GENERADA ===
-	
-	if pick == point_1:
-		doors_points.GENERATE_DEFOULT_DOOR(1)
-	elif pick == point_2:
-		doors_points.GENERATE_DEFOULT_DOOR(2)
-	elif pick == point_3:
-		doors_points.GENERATE_DEFOULT_DOOR(3)
-	elif pick == point_4:
-		doors_points.GENERATE_DEFOULT_DOOR(4)
-	
-	
-	return instancia_room
 	

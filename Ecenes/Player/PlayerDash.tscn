@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://pv1l2i2n0c5p"]
+
+[ext_resource type="Script" path="res://Scripts/player_dash_component.gd" id="1_dash"]
+
+[node name="PlayerDash" type="Node"]
+script = ExtResource("1_dash")

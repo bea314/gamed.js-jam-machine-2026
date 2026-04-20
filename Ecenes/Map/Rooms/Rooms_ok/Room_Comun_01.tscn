@@ -60,7 +60,7 @@ position = Vector2(0, -537)
 [node name="POINT_3" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=1350035845]
 position = Vector2(0, 537)
 
-[node name="Bloque" type="StaticBody2D" parent="." unique_id=1842165830]
+[node name="Bloque" type="StaticBody2D" parent="." unique_id=1842165830 groups=["Room"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bloque" unique_id=1627168347]
 position = Vector2(0, 230)
