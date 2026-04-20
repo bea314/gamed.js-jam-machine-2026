@@ -16,16 +16,21 @@ extends CharacterBody2D
 @export var hit_flash_tint: Color = Color(1.0, 0.55, 0.55, 1.0)
 ## Medio ciclo blanco↔tinte durante `HealthComponent` i-frames (acoplado a `is_invulnerable`).
 @export var hit_invuln_flicker_half_period: float = 0.05
+## Tinte mientras el dash está activo (i-frames del dash).
+@export var dash_tint: Color = Color(0.78, 0.92, 1.0, 1.0)
 
 @onready var weapon_manager: Node = $WeaponManager
 @onready var weapon_hud: CanvasLayer = $WeaponHud
-@onready var _mesh: MeshInstance2D = $Mesh
 @onready var _health: HealthComponent = $HealthComponent
+@onready var _dash: PlayerDashComponent = $PlayerDash
+@onready var _dash_visual: CanvasItem = $Mesh_Sistem
 
+var _mesh: MeshInstance2D
 var _invuln_flicker_time: float = 0.0
 
 
 func _ready() -> void:
+	_mesh = get_node_or_null("Mesh") as MeshInstance2D
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	add_to_group("player")
 
@@ -50,16 +55,28 @@ func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:
 
 
 func _sync_invuln_flicker(delta: float) -> void:
-	if _mesh == null or _health == null:
+	if _dash != null and _dash.is_dashing():
+		_invuln_flicker_time = 0.0
+		if _dash_visual != null:
+			_dash_visual.modulate = dash_tint
+		return
+	if _health == null:
 		return
 	if not _health.is_invulnerable():
 		_invuln_flicker_time = 0.0
-		_mesh.modulate = Color.WHITE
+		if _dash_visual != null:
+			_dash_visual.modulate = Color.WHITE
+		if _mesh != null:
+			_mesh.modulate = Color.WHITE
 		return
 	_invuln_flicker_time += delta
 	var half_p: float = maxf(hit_invuln_flicker_half_period, 0.016)
 	var phase := int(floor(_invuln_flicker_time / half_p)) % 2
-	_mesh.modulate = hit_flash_tint if phase == 0 else Color.WHITE
+	var c := hit_flash_tint if phase == 0 else Color.WHITE
+	if _mesh != null:
+		_mesh.modulate = c
+	elif _dash_visual != null:
+		_dash_visual.modulate = c
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -104,16 +121,37 @@ func _process(delta: float) -> void:
 	)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	if _dash:
+		_dash.tick(delta)
+
+	if _dash != null and Input.is_action_just_pressed("dash"):
+		var move_in := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
+		var to_mouse := get_global_mouse_position() - global_position
+		var aim_dir := Vector2.RIGHT
+		if to_mouse.length_squared() > 0.0001:
+			aim_dir = to_mouse.normalized()
+		var dash_dir := move_in
+		if dash_dir.length_squared() < 0.0001:
+			dash_dir = aim_dir
+		_dash.try_dash(dash_dir)
+
+	if _dash != null and _dash.is_dashing():
+		velocity = _dash.get_dash_velocity()
+		move_and_slide()
+		if mesh_sistem:
+			mesh_sistem.Change_State("Walk")
+		return
+
 	var direction := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
 	var target_velocity := direction * speed
 	if direction == Vector2.ZERO:
-		velocity = velocity.move_toward(Vector2.ZERO, deceleration * _delta)
+		velocity = velocity.move_toward(Vector2.ZERO, deceleration * delta)
 	else:
 		var accel := acceleration
 		if velocity.dot(direction) < 0.0:
 			accel *= turn_acceleration_multiplier
-		velocity = velocity.move_toward(target_velocity, accel * _delta)
+		velocity = velocity.move_toward(target_velocity, accel * delta)
 	move_and_slide()
 
 	# Detección de caminar

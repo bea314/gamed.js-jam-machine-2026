@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://mtkfihhomh0w"]
+[gd_scene load_steps=12 format=3 uid="uid://mtkfihhomh0w"]
 
 [ext_resource type="Script" uid="uid://wynjtf1je44x" path="res://Scripts/player_movement.gd" id="1_r1887"]
 [ext_resource type="Script" uid="uid://bowty378tg10l" path="res://Scripts/Objets/mesh_sistem.gd" id="2_fhpmd"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/ShotgunWeapon.tscn" id="7_sg"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/MachineGunWeapon.tscn" id="8_mg"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="9_hud"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/PlayerDash.tscn" id="10_dash"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 16.0
@@ -205,6 +206,8 @@ shotgun_scene = ExtResource("7_sg")
 machinegun_scene = ExtResource("8_mg")
 
 [node name="WeaponHud" parent="." instance=ExtResource("9_hud")]
+
+[node name="PlayerDash" parent="." instance=ExtResource("10_dash")]
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_health")
