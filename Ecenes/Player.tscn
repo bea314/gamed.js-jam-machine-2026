@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://mtkfihhomh0w"]
+[gd_scene load_steps=31 format=3 uid="uid://mtkfihhomh0w"]
 
 [ext_resource type="Script" uid="uid://wynjtf1je44x" path="res://Scripts/player_movement.gd" id="1_r1887"]
 [ext_resource type="Script" uid="uid://bowty378tg10l" path="res://Scripts/Objets/mesh_sistem.gd" id="2_fhpmd"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/MachineGunWeapon.tscn" id="8_mg"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="9_hud"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/PlayerDash.tscn" id="10_dash"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/DungeonMinimapHud.tscn" id="11_minimap"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 16.0
@@ -224,3 +225,5 @@ max_health = 100
 hit_invulnerability_duration = 0.18
 
 [node name="HealthBar" parent="." instance=ExtResource("3_hbar")]
+
+[node name="DungeonMinimapHud" parent="." instance=ExtResource("11_minimap")]

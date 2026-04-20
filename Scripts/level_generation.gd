@@ -73,6 +73,7 @@ func render_dungeon_visuals() -> void:
 		new_room.room_transition_requested.connect(_on_player_transition)
 
 	if instantiated_rooms.has(Vector2i.ZERO):
+		DungeonMapService.register_from_generator(dungeon_data)
 		ActiveRoomService.set_active_room(instantiated_rooms[Vector2i.ZERO])
 
 	# 2. Configurar puertas

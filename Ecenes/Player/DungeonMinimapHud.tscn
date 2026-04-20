@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://ibxfxb7u4r3j"]
+
+[ext_resource type="Script" path="res://Scripts/ui/dungeon_minimap_draw.gd" id="1_draw"]
+
+[node name="DungeonMinimapHud" type="CanvasLayer"]
+layer = 28
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -220.0
+offset_right = 216.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Root/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.84, 0.88, 1)
+theme_override_font_sizes/font_size = 13
+text = "Map"
+
+[node name="MapDraw" type="Control" parent="Root/VBox"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("1_draw")
