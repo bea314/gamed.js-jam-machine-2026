@@ -13,6 +13,10 @@ process_mode = 3
 stream = ExtResource("2_gover")
 bus = &"Music"
 
+[node name="Audio_Sfxs" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"SFX"
+
 [node name="Root" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
