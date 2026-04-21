@@ -1,19 +1,19 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://djow8pxmvqe4w"]
 
-[ext_resource type="Script" path="res://Scripts/weapons/enemy_projectile.gd" id="1_proj"]
+[ext_resource type="Script" uid="uid://crqqwb6pwb7lj" path="res://Scripts/weapons/enemy_projectile.gd" id="1_proj"]
+[ext_resource type="Texture2D" uid="uid://ci8o4cd35jhwf" path="res://Recursos/Textures/Enemies/balas/bullet1.png" id="2_preview_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
-radius = 5.0
+radius = 24.0
 
-[node name="EnemyProjectile" type="Area2D"]
-collision_layer = 1
+[node name="EnemyProjectile" type="Area2D" unique_id=1718260540]
 collision_mask = 2
 monitorable = false
 script = ExtResource("1_proj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=571699179]
 shape = SubResource("CircleShape2D_proj")
 
-[node name="Vis" type="Polygon2D" parent="."]
-color = Color(1, 0.32, 0.18, 1)
-polygon = PackedVector2Array(-5, -5, 5, -5, 5, 5, -5, 5)
+[node name="Vis" type="Sprite2D" parent="." unique_id=28454347]
+position = Vector2(-30, 0)
+texture = ExtResource("2_preview_tex")

@@ -4,9 +4,27 @@ extends Area2D
 
 const PLAYER_MASK: int = 2
 
+const _DEFAULT_ICE_TEXTURES: Array[Texture2D] = [
+	preload("res://Recursos/Textures/Enemies/balas/bullet1.png"),
+	preload("res://Recursos/Textures/Enemies/balas/bullet2.png"),
+	preload("res://Recursos/Textures/Enemies/balas/bullet3.png"),
+]
+
 @export var speed: float = 380.0
 @export var damage: int = 4
 @export var life_time: float = 2.8
+## Si está vacío, se usan las texturas por defecto de `balas/` y una se elige al azar por proyectil.
+@export var texture_variants: Array[Texture2D] = []
+@export var sprite_scale: float = 0.22
+## Radio de colisión ≈ este factor × mitad del lado mayor del sprite (tras escalar).
+@export var collision_radius_factor: float = 0.38
+## Desactiva para usar solo la textura del nodo `Vis` (la que ves en el editor).
+@export var randomize_texture_on_spawn: bool = true
+## Desactiva para ajustar el `CollisionShape2D` a mano; si está activo, `_ready()` recalcula el radio.
+@export var auto_fit_collision_on_ready: bool = true
+
+@onready var _vis: Sprite2D = $Vis
+@onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 
 var direction: Vector2 = Vector2.RIGHT
 var damage_origin: Vector2 = Vector2.ZERO
@@ -14,8 +32,31 @@ var _hit_targets: Dictionary = {}
 
 
 func _ready() -> void:
+	if randomize_texture_on_spawn:
+		_apply_random_texture()
+	_vis.scale = Vector2.ONE * sprite_scale
+	if auto_fit_collision_on_ready:
+		_fit_collision_radius()
+	_vis.rotation = direction.angle()
 	var timer := get_tree().create_timer(life_time)
 	timer.timeout.connect(queue_free)
+
+
+func _apply_random_texture() -> void:
+	var variants := texture_variants if not texture_variants.is_empty() else _DEFAULT_ICE_TEXTURES
+	if variants.is_empty():
+		return
+	_vis.texture = variants[randi() % variants.size()]
+
+
+func _fit_collision_radius() -> void:
+	var tex := _vis.texture
+	if tex == null:
+		return
+	var half_major: float = maxf(tex.get_width(), tex.get_height()) * 0.5 * sprite_scale
+	var circle := _collision_shape.shape as CircleShape2D
+	if circle:
+		circle.radius = half_major * collision_radius_factor
 
 
 func _physics_process(delta: float) -> void:
