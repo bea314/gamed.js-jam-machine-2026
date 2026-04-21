@@ -17,10 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SettingsManager="*res://Scripts/settings_manager.gd"
-Global_Ran="*uid://b8qhx67cn14na"
 ActiveRoomService="*res://Scripts/active_room_service.gd"
 DungeonMapService="*res://Scripts/dungeon_map_service.gd"
+SettingsManager="*res://Scripts/settings_manager.gd"
+Global_Ran="*uid://b8qhx67cn14na"
 
 [display]
 
