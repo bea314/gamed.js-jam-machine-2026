@@ -25,6 +25,21 @@
 [ext_resource type="PackedScene" uid="uid://ibxfxb7u4r3j" path="res://Ecenes/Player/DungeonMinimapHud.tscn" id="11_minimap"]
 [ext_resource type="Texture2D" uid="uid://dnfm7ti0iud1g" path="res://Recursos/Textures/ruka hit.png" id="14_7npt5"]
 [ext_resource type="Texture2D" uid="uid://bw1mw5w37dk68" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="14_wc3lx"]
+[ext_resource type="Texture2D" uid="uid://dt67laq6vl464" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 1.png" id="15_atk1"]
+[ext_resource type="Texture2D" uid="uid://0bxic5upn7x0" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 2.png" id="16_atk2"]
+[ext_resource type="Texture2D" uid="uid://cufwjnru3ktbb" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 3.png" id="17_atk3"]
+[ext_resource type="Texture2D" uid="uid://dtxvb73vetgsf" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 4.png" id="18_atk4"]
+[ext_resource type="Texture2D" uid="uid://b4v16rky0qnba" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 5.png" id="19_atk5"]
+[ext_resource type="Texture2D" uid="uid://buptx82vgyjiq" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 6.png" id="20_atk6"]
+[ext_resource type="Texture2D" uid="uid://5bn04plagbst" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 7.png" id="21_atk7"]
+[ext_resource type="Texture2D" uid="uid://4jshbojaygdp" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 8.png" id="22_atk8"]
+[ext_resource type="Texture2D" uid="uid://btrlrm8pa4kgy" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 9.png" id="23_atk9"]
+[ext_resource type="Texture2D" uid="uid://ckwt7hpetmfgm" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 10.png" id="24_atk10"]
+[ext_resource type="Texture2D" uid="uid://c0tywpbqy411f" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 11.png" id="25_atk11"]
+[ext_resource type="Texture2D" uid="uid://bvx0r50mby7bq" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 12.png" id="26_atk12"]
+[ext_resource type="Texture2D" uid="uid://dytxsno2pmybl" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 13.png" id="27_atk13"]
+[ext_resource type="Texture2D" uid="uid://jao358k3a7dm" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 14.png" id="28_atk14"]
+[ext_resource type="Texture2D" uid="uid://dj3cib7hbprs1" path="res://Recursos/Textures/Map/Ruka/Ataque/ruka attack 15.png" id="29_atk15"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 16.0
@@ -74,6 +89,59 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ruka_atk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_atk1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_atk2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_atk3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_atk4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_atk5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_atk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_atk7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_atk8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_atk9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_atk10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_atk11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_atk12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_atk13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_atk14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_atk15")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 12.0
 }]
 
 [sub_resource type="Animation" id="Animation_fhpmd"]
@@ -195,7 +263,14 @@ speed_scale = 1.5
 position = Vector2(0, -6)
 scale = Vector2(0.06338028, 0.07042254)
 sprite_frames = SubResource("SpriteFrames_l0exc")
-frame_progress = 0.5106447
+speed_scale = 1.4
+
+[node name="Ruka_Attack" type="AnimatedSprite2D" parent="Mesh_Sistem/Body" unique_id=1094759443]
+visible = false
+position = Vector2(-4.226836, -9.381469)
+scale = Vector2(0.06338028, 0.07042254)
+sprite_frames = SubResource("SpriteFrames_ruka_atk")
+animation = &"attack"
 speed_scale = 1.4
 
 [node name="Ruka_Damage" type="Sprite2D" parent="Mesh_Sistem/Body" unique_id=1241185737]

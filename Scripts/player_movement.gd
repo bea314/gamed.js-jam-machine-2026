@@ -19,7 +19,7 @@ extends CharacterBody2D
 ## Tinte mientras el dash está activo (i-frames del dash).
 @export var dash_tint: Color = Color(0.78, 0.92, 1.0, 1.0)
 
-@onready var weapon_manager: Node = $WeaponManager
+@onready var weapon_manager: WeaponManager = $WeaponManager
 @onready var weapon_hud: CanvasLayer = $WeaponHud
 @onready var _health: HealthComponent = $HealthComponent
 @onready var _dash: PlayerDashComponent = $PlayerDash
@@ -27,6 +27,13 @@ extends CharacterBody2D
 
 var _mesh: MeshInstance2D
 var _invuln_flicker_time: float = 0.0
+
+## Disparos reales acumulados (mismo frame = varios inputs → un solo “ráfaga” para el loop).
+var _weapon_fire_pulses_pending: int = 0
+var _attack_visual_on: bool = false
+## Si hubo disparo en los últimos N fotogramas del sprite de ataque: completar una vuelta más antes de cortar.
+var _attack_finish_one_more_loop: bool = false
+const _ATTACK_TAIL_FRAME_COUNT: int = 7
 
 var damage_taken_sounds : Array = [
 	preload("uid://coyglljuokcsa"),
@@ -49,6 +56,11 @@ func _ready() -> void:
 
 	weapon_hud.setup(weapon_manager)
 	weapon_manager.setup(self)
+	weapon_manager.weapon_actually_fired.connect(_on_weapon_actually_fired)
+
+
+func _on_weapon_actually_fired() -> void:
+	_weapon_fire_pulses_pending += 1
 
 
 func _on_health_died() -> void:
@@ -59,8 +71,11 @@ func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:
 	_invuln_flicker_time = 0.0
 	audio_player.stream = damage_taken_sounds.pick_random()
 	audio_player.play()
+	_attack_visual_on = false
+	_attack_finish_one_more_loop = false
+	mesh_sistem.reset_attack_loop_tracking()
 	mesh_sistem.Change_State("Take_Damage")
-	
+
 	if hit_from_global != Vector2.ZERO:
 		var away := global_position - hit_from_global
 		if away.length_squared() > 0.0001:
@@ -152,7 +167,10 @@ func _physics_process(delta: float) -> void:
 	if _dash != null and _dash.is_dashing():
 		velocity = _dash.get_dash_velocity()
 		move_and_slide()
+		_attack_visual_on = false
+		_attack_finish_one_more_loop = false
 		if mesh_sistem:
+			mesh_sistem.reset_attack_loop_tracking()
 			mesh_sistem.Change_State("Walk")
 		return
 
@@ -166,7 +184,7 @@ func _physics_process(delta: float) -> void:
 			accel *= turn_acceleration_multiplier
 		velocity = velocity.move_toward(target_velocity, accel * delta)
 	move_and_slide()
-	
+
 	# SISTEMA DE CHOQUE CONTRA ITEMS ============= # TEST
 	#Este ssitema permite mover los items en el suelo
 	for i in get_slide_collision_count():
@@ -180,11 +198,36 @@ func _physics_process(delta: float) -> void:
 			objeto.apply_central_impulse(colision.get_normal() * -velocity.length() * 0.5)
 	# ===============================
 	
-	# Detección de caminar
-	if is_walking():
-		mesh_sistem.Change_State("Walk")
-	else:
-		mesh_sistem.Change_State("Idle")
+	# Visual de ataque: solo tras disparo/melee real; mismo frame = un solo loop; disparo en últimos 7 frames del sprite = una vuelta más.
+	if not mesh_sistem.In_Animation_Stun:
+		var fire_pulses := _weapon_fire_pulses_pending
+		_weapon_fire_pulses_pending = 0
+
+		if fire_pulses > 0:
+			_attack_visual_on = true
+			if mesh_sistem.is_attack_sprite_showing():
+				var total_f: int = mesh_sistem.get_attack_frame_total()
+				var idx: int = mesh_sistem.get_attack_frame_index()
+				if total_f > 0 and idx >= total_f - _ATTACK_TAIL_FRAME_COUNT:
+					_attack_finish_one_more_loop = true
+
+		if _attack_visual_on:
+			if mesh_sistem.tick_attack_loop_wrapped():
+				if _attack_finish_one_more_loop:
+					_attack_finish_one_more_loop = false
+				elif fire_pulses > 0:
+					pass
+				else:
+					_attack_visual_on = false
+
+		if _attack_visual_on:
+			mesh_sistem.Change_State("Attack", is_walking())
+		else:
+			mesh_sistem.reset_attack_loop_tracking()
+			if is_walking():
+				mesh_sistem.Change_State("Walk")
+			else:
+				mesh_sistem.Change_State("Idle")
 		
 
 

@@ -1,6 +1,9 @@
 extends Node
 class_name WeaponManager
 
+## Solo cuando el arma realmente ejecuta un disparo / melee (no click en vacío ni sin munición).
+signal weapon_actually_fired()
+
 signal weapon_changed(
 	weapon_name: String,
 	current_ammo: int,
@@ -34,8 +37,13 @@ func setup(player: Node2D) -> void:
 		w.ammo_changed.connect(_on_ammo_changed)
 		w.reload_started.connect(_emit_weapon_changed)
 		w.reload_finished.connect(_emit_weapon_changed)
+		w.weapon_fired.connect(_forward_weapon_fired)
 
 	_emit_weapon_changed()
+
+
+func _forward_weapon_fired() -> void:
+	weapon_actually_fired.emit()
 
 
 func current_weapon() -> WeaponBase:
