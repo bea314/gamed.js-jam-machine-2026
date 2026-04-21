@@ -6,6 +6,7 @@ const MENU_PATH := "res://Ecenes/Menu/Menu.tscn"
 @onready var _root: Control = $Root
 @onready var _retry_button: Button = $Root/CenterContainer/MainVBox/RetryButton
 @onready var _menu_button: Button = $Root/CenterContainer/MainVBox/MainMenuButton
+@onready var _audio_music: AudioStreamPlayer = $Audio_Music
 
 
 func _ready() -> void:
@@ -20,6 +21,7 @@ func show_game_over() -> void:
 		return
 	get_tree().paused = true
 	visible = true
+	_audio_music.play()
 	_retry_button.grab_focus()
 
 

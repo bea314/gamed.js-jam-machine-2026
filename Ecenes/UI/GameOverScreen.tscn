@@ -1,11 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqm8y7k3gover0"]
+[gd_scene load_steps=3 format=3 uid="uid://bqm8y7k3gover0"]
 
 [ext_resource type="Script" path="res://Scripts/ui/game_over_screen.gd" id="1_gos"]
+[ext_resource type="AudioStream" uid="uid://dt0t26whyl3e0" path="res://Recursos/Sound/Gameover/GAME OVER.ogg" id="2_gover"]
 
 [node name="GameOverScreen" type="CanvasLayer"]
 visible = false
 layer = 50
 script = ExtResource("1_gos")
+
+[node name="Audio_Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_gover")
+bus = &"Music"
 
 [node name="Root" type="Control" parent="."]
 layout_mode = 3
