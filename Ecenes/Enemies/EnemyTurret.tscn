@@ -1,26 +1,80 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scripts/enemy_turret.gd" id="1_turret"]
-[ext_resource type="Texture2D" uid="uid://dk0786pojm2dj" path="res://Recursos/Enemies/enemy_torreta_temp.png" id="2_tex"]
-[ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyProjectile.tscn" id="3_proj"]
-[ext_resource type="PackedScene" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="4_hc"]
+[ext_resource type="Texture2D" uid="uid://de2d36hst64tm" path="res://Recursos/Enemies/turret/turret1.png" id="2_t1"]
+[ext_resource type="Texture2D" uid="uid://du4d3bk5jbmlp" path="res://Recursos/Enemies/turret/turret2.png" id="3_t2"]
+[ext_resource type="Texture2D" uid="uid://cguhgmpbg4ifw" path="res://Recursos/Enemies/turret/turret3.png" id="4_t3"]
+[ext_resource type="Texture2D" uid="uid://ckyba2puj4qeo" path="res://Recursos/Enemies/turret/turret4.png" id="5_t4"]
+[ext_resource type="Texture2D" uid="uid://bfhv1i3uxhhhd" path="res://Recursos/Enemies/turret/turret5.png" id="6_t5"]
+[ext_resource type="Texture2D" uid="uid://co4ydngiofec7" path="res://Recursos/Enemies/turret/turret6.png" id="7_t6"]
+[ext_resource type="Texture2D" uid="uid://b0qjirph52iur" path="res://Recursos/Enemies/turret/turret7.png" id="8_t7"]
+[ext_resource type="Texture2D" uid="uid://bx7gryc0aymev" path="res://Recursos/Enemies/turret/turret8.png" id="9_t8"]
+[ext_resource type="Texture2D" uid="uid://cn25aguiw5fwt" path="res://Recursos/Enemies/turret/turret9.png" id="10_t9"]
+[ext_resource type="Texture2D" uid="uid://b2mx04ygrn741" path="res://Recursos/Enemies/turret/turret10.png" id="11_t10"]
+[ext_resource type="Texture2D" uid="uid://dn5vse1qogt35" path="res://Recursos/Enemies/turret/turret11.png" id="12_t11"]
+[ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyProjectile.tscn" id="13_proj"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="14_hc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(44, 44)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_turret"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_t2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_t5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_t6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_t7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_t8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_t9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_t10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_t11")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="EnemyTurret" type="StaticBody2D"]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_turret")
-projectile_scene = ExtResource("3_proj")
+projectile_scene = ExtResource("13_proj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_enemy")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Mesh" type="Node2D" parent="."]
+
+[node name="Sprite_Anim" type="AnimatedSprite2D" parent="Mesh"]
 z_index = 1
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_tex")
+sprite_frames = SubResource("SpriteFrames_turret")
+autoplay = "default"
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_hc")]
+[node name="HealthComponent" parent="." instance=ExtResource("14_hc")]
 hit_invulnerability_duration = 0.0
