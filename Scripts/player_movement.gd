@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 # Health test: T = 10 damage, Y = 10 heal (requires HealthComponent).
 
+const _GAME_OVER_SCENE := preload("res://Ecenes/UI/GameOverScreen.tscn")
+
 @export var speed: float = 170.0
 @onready var mesh_sistem: Node2D = $Mesh_Sistem
 ## Píxeles/s^2 hacia la velocidad objetivo (subir = más ágil al arrancar).
@@ -45,6 +47,8 @@ var damage_taken_sounds : Array = [
 ]
 @onready var audio_player: AudioStreamPlayer = $Audio_Player
 
+var _game_over_shown: bool = false
+
 func _ready() -> void:
 	_mesh = get_node_or_null("Mesh") as MeshInstance2D
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
@@ -64,7 +68,18 @@ func _on_weapon_actually_fired() -> void:
 
 
 func _on_health_died() -> void:
-	print("Player died (test placeholder)")
+	if _game_over_shown:
+		return
+	_game_over_shown = true
+	var go := _GAME_OVER_SCENE.instantiate()
+	var host: Node = get_tree().current_scene
+	if host == null:
+		host = get_parent()
+	if host != null:
+		host.add_child(go)
+	else:
+		get_tree().root.add_child(go)
+	go.show_game_over()
 
 
 func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:

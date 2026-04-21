@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqm8y7k3gover0"]
+
+[ext_resource type="Script" path="res://Scripts/ui/game_over_screen.gd" id="1_gos"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+visible = false
+layer = 50
+script = ExtResource("1_gos")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.0784314, 0.0784314, 0.117647, 0.88)
+
+[node name="CenterContainer" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="Root/CenterContainer"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="Root/CenterContainer/MainVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(0.92, 0.35, 0.35, 1)
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="RetryButton" type="Button" parent="Root/CenterContainer/MainVBox"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="MainMenuButton" type="Button" parent="Root/CenterContainer/MainVBox"]
+layout_mode = 2
+text = "Main Menu"
