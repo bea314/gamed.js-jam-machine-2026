@@ -25,6 +25,9 @@ extends CharacterBody2D
 @export var death_burst_count: int = 8
 @export var death_burst_damage: int = 6
 
+@export var hit_flash_tint: Color = Color(1.0, 0.55, 0.55, 1.0)
+@export var hit_invuln_flicker_half_period: float = 0.05
+
 # --- Movimiento: acercarse / alejarse y strafe; sin gravedad (top-down). ---
 @export var move_speed: float = 32.0
 @export var move_speed_enraged: float = 40.0
@@ -45,8 +48,9 @@ var _burst_left: int = 0
 var _burst_gap_timer: float = 0.0
 var _line_burst_cd: float = 0.0
 var _aoe_cd: float = 0.0
-var _was_enraged: bool = false
 var _strafe_t: float = 0.0
+
+var _hit_flash := HitFlashState.new()
 
 
 func _ready() -> void:
@@ -59,6 +63,25 @@ func _ready() -> void:
 	_schedule_next_aoe()
 	if _health:
 		_health.died.connect(_on_health_died)
+		_health.damage_taken.connect(_on_health_damage_visual)
+
+
+func _on_health_damage_visual(_amount: int, _hit_from_global: Vector2) -> void:
+	_hit_flash.on_damage_taken(_health)
+
+
+func _process(delta: float) -> void:
+	if _dead or _mesh == null:
+		return
+	var base := Color(1.12, 0.92, 0.92) if _is_enraged() else Color.WHITE
+	_hit_flash.process_frame(
+		delta,
+		_health,
+		_mesh as CanvasItem,
+		base,
+		hit_flash_tint,
+		hit_invuln_flicker_half_period
+	)
 
 
 func _schedule_next_aoe() -> void:
@@ -78,11 +101,6 @@ func _physics_process(delta: float) -> void:
 
 	_line_burst_cd = maxf(_line_burst_cd - delta, 0.0)
 	_aoe_cd = maxf(_aoe_cd - delta, 0.0)
-
-	var enraged := _is_enraged()
-	if enraged != _was_enraged and _mesh:
-		_mesh.modulate = Color(1.12, 0.92, 0.92) if enraged else Color.WHITE
-	_was_enraged = enraged
 
 	if _aoe_cd <= 0.0:
 		_spawn_aoe()

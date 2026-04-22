@@ -24,9 +24,14 @@ extends StaticBody2D
 @export var death_burst_count: int = 5
 @export var death_burst_damage: int = 5
 
+@export var hit_flash_tint: Color = Color(1.0, 0.55, 0.55, 1.0)
+@export var hit_invuln_flicker_half_period: float = 0.05
+
 @onready var _health: HealthComponent = $HealthComponent as HealthComponent
+@onready var _mesh_visual: CanvasItem = $Mesh as CanvasItem
 
 var _dead: bool = false
+var _hit_flash := HitFlashState.new()
 var _target: Node2D = null
 
 var _burst_left: int = 0
@@ -44,6 +49,24 @@ func _ready() -> void:
 	_low_hp_circle_cd = low_hp_circle_cooldown
 	if _health:
 		_health.died.connect(_on_health_died)
+		_health.damage_taken.connect(_on_health_damage_visual)
+
+
+func _on_health_damage_visual(_amount: int, _hit_from_global: Vector2) -> void:
+	_hit_flash.on_damage_taken(_health)
+
+
+func _process(delta: float) -> void:
+	if _dead:
+		return
+	_hit_flash.process_frame(
+		delta,
+		_health,
+		_mesh_visual,
+		Color.WHITE,
+		hit_flash_tint,
+		hit_invuln_flicker_half_period
+	)
 
 
 func _physics_process(delta: float) -> void:

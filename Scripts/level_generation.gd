@@ -5,7 +5,7 @@ extends Node2D
 @export var total_rooms_goal: int = 8
 @export var room_separation: Vector2 = Vector2(710, 400)
 ## Al activarlo, el jefe queda en la sala **contigua** a la inicial (a la derecha) para probar sin recorrer el mapa. Desactívalo al terminar el debug.
-@export var debug_boss_room_beside_start: bool = true
+@export var debug_boss_room_beside_start: bool = false
 ## Celda del jefe en modo debug (derecha de `(0,0)`; hay puerta hacia ella).
 const DEBUG_BOSS_NEIGHBOUR_CELL: Vector2i = Vector2i(1, 0)
 
