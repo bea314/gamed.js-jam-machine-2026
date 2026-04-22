@@ -10,3 +10,5 @@ const MID_TURRET := "mid_turret"
 const TURRET_PLUS_BASICS := "turret_plus_basics"
 ## 2× EnemyDefenseTank + 3× EnemyBasic
 const DEFENSE_TWO_PLUS_THREE := "defense_two_plus_three"
+## Jefe final nivel 1
+const BOSS_NIVEL_1 := "boss_nivel_1"

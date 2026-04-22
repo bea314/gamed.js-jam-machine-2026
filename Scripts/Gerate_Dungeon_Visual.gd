@@ -44,7 +44,6 @@ func render_dungeon_visuals() -> void:
 		if data.has(coords + Vector2i.LEFT):  neighbors.append("left")
 		if data.has(coords + Vector2i.RIGHT): neighbors.append("right")
 	
-		# 2. Llamamos a la función con los DOS argumentos
 		if room_node.has_method("setup"):
-		# Le pasamos: 1. El array de strings, 2. El Vector2i de coordenadas
-			room_node.setup(neighbors, coords)
+			var rk: String = str(data[coords].get("room_kind", RoomKind.START))
+			room_node.setup(neighbors, coords, rk)
