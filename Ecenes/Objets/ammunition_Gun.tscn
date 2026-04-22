@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://352dwlxsicyl" path="res://Scripts/Objets/ammunition_gun.gd" id="1_mm5sj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bh8sw"]
+size = Vector2(16, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm5sj"]
-size = Vector2(24, 26)
+size = Vector2(20, 18)
 
 [sub_resource type="Animation" id="Animation_mm5sj"]
 resource_name = "Empuje"

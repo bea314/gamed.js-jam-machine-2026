@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://2cv4rkaq2ud1" path="res://Ecenes/LEVEL_GENERATOR/Level_Generation_Nivel_1.tscn" id="1_0hirc"]
 [ext_resource type="PackedScene" uid="uid://mtkfihhomh0w" path="res://Ecenes/Player.tscn" id="1_xt35t"]
 [ext_resource type="PackedScene" uid="uid://c5sojnp5a6jq1" path="res://Ecenes/Camera_Gameplay.tscn" id="2_jgr5g"]
+[ext_resource type="PackedScene" uid="uid://hmfch51q3oio" path="res://Ecenes/Objets/ammunition_Gun.tscn" id="4_mk5a5"]
 
 [node name="Level" type="Node2D" unique_id=956876147]
 
@@ -14,3 +15,6 @@
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=414210199]
 color = Color(0.34407586, 0.3440757, 0.34407574, 1)
+
+[node name="AmmunitionGun" parent="." unique_id=868236815 instance=ExtResource("4_mk5a5")]
+position = Vector2(-54, 27)
