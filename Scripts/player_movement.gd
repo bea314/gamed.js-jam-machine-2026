@@ -26,6 +26,7 @@ const _GAME_OVER_SCENE := preload("res://Ecenes/UI/GameOverScreen.tscn")
 @onready var _health: HealthComponent = $HealthComponent
 @onready var _dash: PlayerDashComponent = $PlayerDash
 @onready var _dash_visual: CanvasItem = $Mesh_Sistem
+@onready var _audio_death: AudioStreamPlayer = $Audio_Death
 
 var _mesh: MeshInstance2D
 var _invuln_flicker_time: float = 0.0
@@ -45,7 +46,16 @@ var damage_taken_sounds : Array = [
 	preload("uid://dcceo8pdk53jl"),
 	preload("uid://c52ajm48xm1f8")
 ]
+var death_sounds: Array = [
+	preload("uid://cwvn8ak2wvni7"),
+	preload("uid://bb0d6357iwicr"),
+	preload("uid://x2pjvd485201")
+]
 @onready var audio_player: AudioStreamPlayer = $Audio_Player
+## Tras el daño (u otro SFX en `Audio_Player`), espera antes del SFX de muerte para que no suene a la vez.
+@export var delay_sec_before_death_sfx: float = 0.05
+## Tras el SFX de muerte, espera N s extra (útil mientras añades animación de muerte y calibras).
+@export var extra_delay_sec_before_game_over: float = 0.0
 
 var _game_over_shown: bool = false
 
@@ -71,6 +81,38 @@ func _on_health_died() -> void:
 	if _game_over_shown:
 		return
 	_game_over_shown = true
+	_run_death_presentation_then_game_over()
+
+
+## Golpe (Audio_Player) y muerte (Audio_Death) van separados: el golpe final suena y el SFX de muerte no lo corta.
+## El game over sale tras el audio de muerte (y, si lo configuras, un retardo o una anim conectada vía señal).
+func _run_death_presentation_then_game_over() -> void:
+	await _await_death_sfx()
+	await _await_extra_before_game_over()
+	if not (is_instance_valid(self) and is_inside_tree()):
+		return
+	_show_game_over()
+
+
+func _await_death_sfx() -> void:
+	if death_sounds.is_empty() or _audio_death == null:
+		return
+	if delay_sec_before_death_sfx > 0.0:
+		await get_tree().create_timer(delay_sec_before_death_sfx).timeout
+		if not (is_instance_valid(self) and is_inside_tree()):
+			return
+	_audio_death.stream = death_sounds.pick_random()
+	_audio_death.play()
+	if _audio_death.playing:
+		await _audio_death.finished
+
+
+func _await_extra_before_game_over() -> void:
+	if extra_delay_sec_before_game_over > 0.0:
+		await get_tree().create_timer(extra_delay_sec_before_game_over).timeout
+
+
+func _show_game_over() -> void:
 	var go := _GAME_OVER_SCENE.instantiate()
 	var host: Node = get_tree().current_scene
 	if host == null:
@@ -127,6 +169,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if _health == null:
 		return
+	## debug
+	## borrar o cambiar por items
 	match event.physical_keycode:
 		KEY_T:
 			_health.take_damage(10)

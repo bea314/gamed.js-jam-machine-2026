@@ -309,3 +309,5 @@ hit_invulnerability_duration = 0.18
 [node name="DungeonMinimapHud" parent="." unique_id=113773765 instance=ExtResource("11_minimap")]
 
 [node name="Audio_Player" type="AudioStreamPlayer" parent="." unique_id=865798101]
+
+[node name="Audio_Death" type="AudioStreamPlayer" parent="."]
