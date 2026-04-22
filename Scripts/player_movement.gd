@@ -141,7 +141,7 @@ func _process(delta: float) -> void:
 	var to_mouse := get_global_mouse_position() - global_position
 	
 	# SISTEMA WEAPON PIVOT ============ (Rotacion de armas mediante el mouse)
-	if to_mouse.length_squared() > 0.0001:
+	if weapon_pivot != null and to_mouse.length_squared() > 0.0001:
 		weapon_pivot.rotation = to_mouse.angle()
 		
 		# Evitar que el arma quede "patas arriba" cuando apuntas a la izquierda
