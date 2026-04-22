@@ -4,27 +4,31 @@
 [ext_resource type="Script" uid="uid://bowty378tg10l" path="res://Scripts/Objets/mesh_sistem.gd" id="2_fhpmd"]
 [ext_resource type="Script" uid="uid://c72ho3a0vk6d8" path="res://Scripts/health/health_component.gd" id="2_health"]
 [ext_resource type="Texture2D" uid="uid://bb7h0d2lnwwnk" path="res://Recursos/Textures/ruka legs idle.png" id="2_tciro"]
-[ext_resource type="Texture2D" uid="uid://dty4crar3cwoe" path="res://Recursos/Textures/ruka body1.png" id="2_thlu0"]
 [ext_resource type="Texture2D" uid="uid://cvaltfxe3qsxs" path="res://Recursos/Textures/ruka legs movement1.png" id="3_4w18w"]
 [ext_resource type="PackedScene" uid="uid://dhda7gqa2j8ok" path="res://Ecenes/Player/health/health_bar.tscn" id="3_hbar"]
-[ext_resource type="Texture2D" uid="uid://bd0v2kw8q4mrs" path="res://Recursos/Textures/ruka body2.png" id="3_tciro"]
 [ext_resource type="Texture2D" uid="uid://kf66gkeeob5b" path="res://Recursos/Textures/ruka legs movement2.png" id="4_fhpmd"]
-[ext_resource type="Texture2D" uid="uid://b77k41lyt0n7t" path="res://Recursos/Textures/ruka body3.png" id="4_rangi"]
 [ext_resource type="Script" uid="uid://cm8kt4lxca7ks" path="res://Scripts/weapons/weapon_manager.gd" id="4_wmgr"]
-[ext_resource type="Texture2D" uid="uid://b6sdr52jl83d7" path="res://Recursos/Textures/ruka body4.png" id="5_p4e5w"]
 [ext_resource type="Texture2D" uid="uid://c2abeu4kboewh" path="res://Recursos/Textures/ruka legs movement3.png" id="5_wc3lx"]
 [ext_resource type="PackedScene" uid="uid://cakb6i8ujhydq" path="res://Ecenes/Player/Weapons/WrenchWeapon.tscn" id="5_wrench"]
-[ext_resource type="Texture2D" uid="uid://daavycsudnf0q" path="res://Recursos/Textures/ruka body5.png" id="6_0mhic"]
 [ext_resource type="Texture2D" uid="uid://be3clknsv5ltu" path="res://Recursos/Textures/ruka legs movement4.png" id="6_6iqc8"]
 [ext_resource type="PackedScene" uid="uid://bub86gj12whqc" path="res://Ecenes/Player/Weapons/RevolverWeapon.tscn" id="6_rev"]
 [ext_resource type="Texture2D" uid="uid://c4qh4aqnx8ptl" path="res://Recursos/Textures/ruka legs movement5.png" id="7_5x2vr"]
 [ext_resource type="PackedScene" uid="uid://cp3oofl4dg74e" path="res://Ecenes/Player/Weapons/ShotgunWeapon.tscn" id="7_sg"]
 [ext_resource type="PackedScene" uid="uid://wpnmgscene" path="res://Ecenes/Player/Weapons/MachineGunWeapon.tscn" id="8_mg"]
+[ext_resource type="Texture2D" uid="uid://b2sjx8y21a7ya" path="res://Recursos/Textures/ruka body no arms1.png" id="9_4678e"]
 [ext_resource type="PackedScene" uid="uid://b85e04ko0rrme" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="9_hud"]
 [ext_resource type="PackedScene" uid="uid://pv1l2i2n0c5p" path="res://Ecenes/Player/PlayerDash.tscn" id="10_dash"]
+[ext_resource type="Texture2D" uid="uid://dlj50ex0utspf" path="res://Recursos/Textures/ruka body no arms2.png" id="10_kgnrb"]
+[ext_resource type="Texture2D" uid="uid://rssu2sveyi6" path="res://Recursos/Textures/ruka body no arms3.png" id="11_1vy0x"]
 [ext_resource type="PackedScene" uid="uid://ibxfxb7u4r3j" path="res://Ecenes/Player/DungeonMinimapHud.tscn" id="11_minimap"]
-[ext_resource type="Texture2D" uid="uid://dnfm7ti0iud1g" path="res://Recursos/Textures/ruka hit.png" id="14_7npt5"]
+[ext_resource type="Texture2D" uid="uid://bw3vwm4a25n3x" path="res://Recursos/Textures/ruka body no arms4.png" id="12_tlgrw"]
+[ext_resource type="Texture2D" uid="uid://ddyc4gskrp8qu" path="res://Recursos/Textures/ruka body no arms5.png" id="13_0r4dl"]
+[ext_resource type="Texture2D" uid="uid://cdda4d4mxb1qi" path="res://Recursos/Textures/ruka hit with weapon.png" id="14_kgnrb"]
 [ext_resource type="Texture2D" uid="uid://bw1mw5w37dk68" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="14_wc3lx"]
+[ext_resource type="Script" uid="uid://kfcgxeql0ted" path="res://Ecenes/guns_meshes.gd" id="21_1vy0x"]
+[ext_resource type="Texture2D" uid="uid://bwm1j4y43jxpl" path="res://Recursos/Textures/shotgun with hands.png" id="21_4678e"]
+[ext_resource type="Texture2D" uid="uid://cwjik3r7i6hug" path="res://Recursos/Textures/revolver with hands.png" id="22_kgnrb"]
+[ext_resource type="Texture2D" uid="uid://dwr21lm1o381s" path="res://Recursos/Textures/wrench with hands.png" id="24_tlgrw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 16.0
@@ -57,19 +61,19 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_thlu0")
+"texture": ExtResource("9_4678e")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_tciro")
+"texture": ExtResource("10_kgnrb")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_rangi")
+"texture": ExtResource("11_1vy0x")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_p4e5w")
+"texture": ExtResource("12_tlgrw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_0mhic")
+"texture": ExtResource("13_0r4dl")
 }],
 "loop": true,
 "name": &"default",
@@ -162,6 +166,274 @@ _data = {
 &"Walk": SubResource("Animation_4w18w")
 }
 
+[sub_resource type="Animation" id="Animation_tlgrw"]
+resource_name = "Ametralladora_shot"
+length = 0.073983274
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ametralladora:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(-2),
+"update": 0,
+"values": [Vector2(1.9999995, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ametralladora:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.03361032, 0.06666667),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [0.0, -0.30631787, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.031482242, 0.06666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_0r4dl"]
+resource_name = "LLave_inglesa_shot"
+length = 0.23717842
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("llave_inglesa:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.13333334, 0.23333335),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [0.0, -1.6261541, -0.04252696, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("llave_inglesa:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.11971712, 0.23333335),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(-0.5199281, 11.507511), Vector2(-9, 5), Vector2(5.999999, 7.0000005), Vector2(-0.5199281, 11.507511)]
+}
+
+[sub_resource type="Animation" id="Animation_kgnrb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shot_Gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.0000002, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shot_Gun:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Revolver:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.9999998, 8)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Revolver:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("llave_inglesa:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("llave_inglesa:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.5199281, 11.507511)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Ametralladora:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.9999995, 7)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Ametralladora:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1vy0x"]
+resource_name = "Revolver_Shot"
+length = 0.13344854
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Revolver:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.021698948, 0.045267757, 0.13333334),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(2.9999998, 8), Vector2(1, 5), Vector2(2.9999998, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Revolver:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.021698948, 0.050495923, 0.122695684),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [0.0, -0.59864795, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.048822638, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_4678e"]
+resource_name = "Shot_Gun_Shot"
+length = 0.14
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shot_Gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-1.0000002, 8), Vector2(-6, 8), Vector2(-1.0000002, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shot_Gun:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.106886685, 0.13333334),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [0.0, -0.47735664, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05424737, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1vy0x"]
+_data = {
+&"Ametralladora_shot": SubResource("Animation_tlgrw"),
+&"LLave_inglesa_shot": SubResource("Animation_0r4dl"),
+&"RESET": SubResource("Animation_kgnrb"),
+&"Revolver_Shot": SubResource("Animation_1vy0x"),
+&"Shot_Gun_Shot": SubResource("Animation_4678e")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=1781802405 groups=["Player"]]
 z_index = 10
 collision_layer = 2
@@ -202,7 +474,7 @@ speed_scale = 1.4
 visible = false
 position = Vector2(0, -5.45)
 scale = Vector2(0.07084083, 0.07084083)
-texture = ExtResource("14_7npt5")
+texture = ExtResource("14_kgnrb")
 
 [node name="Anim_Player" type="AnimationPlayer" parent="Mesh_Sistem" unique_id=501687736]
 libraries/ = SubResource("AnimationLibrary_fhpmd")
@@ -214,12 +486,55 @@ energy = 0.6
 texture = ExtResource("14_wc3lx")
 texture_scale = 40.62
 
-[node name="WeaponManager" type="Node" parent="." unique_id=1155230218]
+[node name="WeaponPivot" type="Node2D" parent="." unique_id=1188456999]
+
+[node name="WeaponManager" type="Node" parent="WeaponPivot" unique_id=1155230218]
 script = ExtResource("4_wmgr")
 wrench_scene = ExtResource("5_wrench")
 revolver_scene = ExtResource("6_rev")
 shotgun_scene = ExtResource("7_sg")
 machinegun_scene = ExtResource("8_mg")
+
+[node name="Guns_meshes" type="Node2D" parent="WeaponPivot" unique_id=385556094]
+script = ExtResource("21_1vy0x")
+
+[node name="Shot_Gun" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=298166669]
+visible = false
+position = Vector2(-1.0000002, 8)
+scale = Vector2(-0.048755817, 0.046721376)
+texture = ExtResource("21_4678e")
+offset = Vector2(-173.73056, -1.5258789e-05)
+
+[node name="Ametralladora" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=444859424]
+position = Vector2(1.9999995, 7)
+scale = Vector2(-0.048755817, 0.046721376)
+texture = ExtResource("21_4678e")
+offset = Vector2(-269.23825, -3.0517578e-05)
+
+[node name="Revolver" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=1915530335]
+visible = false
+position = Vector2(2.9999998, 8)
+scale = Vector2(-0.048755817, 0.046721376)
+texture = ExtResource("22_kgnrb")
+offset = Vector2(-173.73056, -1.5258789e-05)
+
+[node name="llave_inglesa" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=712731411]
+visible = false
+position = Vector2(-0.5199281, 11.507511)
+scale = Vector2(0.048755817, -0.046721376)
+texture = ExtResource("24_tlgrw")
+offset = Vector2(-204.90485, -75.07295)
+
+[node name="PointLight2D" type="PointLight2D" parent="WeaponPivot/Guns_meshes" unique_id=16895415]
+position = Vector2(33, 5)
+enabled = false
+color = Color(1, 0.72156864, 0.27058825, 1)
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.7411765)
+texture = ExtResource("14_wc3lx")
+
+[node name="Anima_Weapons" type="AnimationPlayer" parent="WeaponPivot/Guns_meshes" unique_id=668451510]
+libraries/ = SubResource("AnimationLibrary_1vy0x")
 
 [node name="WeaponHud" parent="." unique_id=1782934257 instance=ExtResource("9_hud")]
 

@@ -19,7 +19,7 @@ extends CharacterBody2D
 ## Tinte mientras el dash está activo (i-frames del dash).
 @export var dash_tint: Color = Color(0.78, 0.92, 1.0, 1.0)
 
-@onready var weapon_manager: Node = $WeaponManager
+@onready var weapon_manager: Node = $WeaponPivot/WeaponManager
 @onready var weapon_hud: CanvasLayer = $WeaponHud
 @onready var _health: HealthComponent = $HealthComponent
 @onready var _dash: PlayerDashComponent = $PlayerDash
@@ -37,6 +37,9 @@ var damage_taken_sounds : Array = [
 	preload("uid://c52ajm48xm1f8")
 ]
 @onready var audio_player: AudioStreamPlayer = $Audio_Player
+
+# mesh de armas 
+@onready var weapon_pivot: Node2D = $WeaponPivot
 
 func _ready() -> void:
 	_mesh = get_node_or_null("Mesh") as MeshInstance2D
@@ -108,6 +111,20 @@ func _process(delta: float) -> void:
 	_sync_invuln_flicker(delta)
 
 	var to_mouse := get_global_mouse_position() - global_position
+	
+	# SISTEMA WEAPON PIVOT ============ (Rotacion de armas mediante el mouse)
+	if to_mouse.length_squared() > 0.0001:
+		weapon_pivot.rotation = to_mouse.angle()
+		
+		# Evitar que el arma quede "patas arriba" cuando apuntas a la izquierda
+		if abs(weapon_pivot.rotation) > PI/2:
+			weapon_pivot.scale.y = -1
+			mesh_sistem.scale.x = -1.2
+		else:
+			weapon_pivot.scale.y = 1
+			mesh_sistem.scale.x = 1.2
+	# ========================
+	
 	var aim_direction := Vector2.RIGHT
 	if to_mouse.length_squared() > 0.0001:
 		aim_direction = to_mouse.normalized()
@@ -168,7 +185,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# SISTEMA DE CHOQUE CONTRA ITEMS ============= # TEST
-	#Este ssitema permite mover los items en el suelo
+	#Este sitema permite mover los items en el suelo
 	for i in get_slide_collision_count():
 		var colision = get_slide_collision(i)
 		var objeto = colision.get_collider()

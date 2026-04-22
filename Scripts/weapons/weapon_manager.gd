@@ -18,6 +18,10 @@ var weapons: Array[WeaponBase] = []
 var current_index: int = 0
 var owner_player: Node2D
 
+# referencia animation weapons
+@onready var anima_weapons: AnimationPlayer = $"../Guns_meshes/Anima_Weapons"
+@onready var guns_meshes: Node2D = $"../Guns_meshes"
+
 
 func setup(player: Node2D) -> void:
 	owner_player = player
@@ -53,12 +57,13 @@ func fire(aim_direction: Vector2, pressed: bool, just_pressed: bool) -> void:
 	else:
 		if just_pressed:
 			weapon.try_fire(owner_player, aim_direction)
-
-
+			# Sitema de armas animacion ========= # TEST
+			anima_weapons.play("Shot_Gun_Shot")
+			
 func reload() -> void:
 	current_weapon().try_reload()
 
-
+  
 func next_weapon() -> void:
 	if not _can_switch_weapons():
 		return
@@ -71,7 +76,10 @@ func prev_weapon() -> void:
 		return
 	current_index = (current_index - 1 + weapons.size()) % weapons.size()
 	_emit_weapon_changed()
-
+	
+	guns_meshes.change_MeshGun(current_index)
+	
+# Hacer PRINT para encontrar la logica
 
 func set_weapon(index: int) -> void:
 	if index < 0 or index >= weapons.size():
