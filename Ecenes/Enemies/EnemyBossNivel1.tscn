@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://h5xdwj087dix"]
+[gd_scene format=3 load_steps=6]
 
 [ext_resource type="Script" path="res://Scripts/enemy_boss_nivel1.gd" id="1_boss"]
 [ext_resource type="Texture2D" uid="uid://bs1ygl0ywfckh" path="res://Recursos/Textures/Enemies/enemy_defense_tmp.png" id="2_ph"]
@@ -9,10 +9,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boss"]
 size = Vector2(52, 56)
 
-[node name="EnemyBossNivel1" type="CharacterBody2D" unique_id=735563188]
+[node name="EnemyBossNivel1" type="CharacterBody2D"]
+motion_mode = 1
 collision_layer = 4
 collision_mask = 5
-motion_mode = 1
 script = ExtResource("1_boss")
 projectile_scene = ExtResource("3_proj")
 aoe_scene = ExtResource("4_aoe")
@@ -21,16 +21,22 @@ line_burst_cooldown = 0.88
 line_burst_cooldown_enraged = 0.45
 aoe_damage = 16
 aoe_radius = 52.5
+aoe_center_toward_player = 0.68
+move_speed = 32.0
+move_speed_enraged = 40.0
+keep_distance_max = 230.0
+keep_distance_min = 100.0
+strafe_strength = 0.55
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1843858207]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_boss")
 
-[node name="Mesh" type="Node2D" parent="." unique_id=1924413516]
+[node name="Mesh" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Mesh" unique_id=60609049]
+[node name="Sprite2D" type="Sprite2D" parent="Mesh"]
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("2_ph")
 
-[node name="HealthComponent" parent="." unique_id=1310634196 instance=ExtResource("5_hc")]
+[node name="HealthComponent" parent="." instance=ExtResource("5_hc")]
 max_health = 180
 hit_invulnerability_duration = 0.0

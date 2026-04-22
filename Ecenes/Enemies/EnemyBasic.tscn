@@ -80,4 +80,5 @@ autoplay = "default"
 frame_progress = 0.29311904
 
 [node name="HealthComponent" parent="." unique_id=112301481 instance=ExtResource("2_hc")]
+max_health = 10
 hit_invulnerability_duration = 0.0

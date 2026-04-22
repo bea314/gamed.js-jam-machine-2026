@@ -3,7 +3,11 @@ extends Node2D
 # --- CONFIGURACIÓN ---
 @export var room_scene: PackedScene
 @export var total_rooms_goal: int = 8
-@export var room_separation: Vector2 = Vector2(710, 400) 
+@export var room_separation: Vector2 = Vector2(710, 400)
+## Al activarlo, el jefe queda en la sala **contigua** a la inicial (a la derecha) para probar sin recorrer el mapa. Desactívalo al terminar el debug.
+@export var debug_boss_room_beside_start: bool = false
+## Celda del jefe en modo debug (derecha de `(0,0)`; hay puerta hacia ella).
+const DEBUG_BOSS_NEIGHBOUR_CELL: Vector2i = Vector2i(1, 0)
 
 var dungeon_data: Dictionary = {}
 var instantiated_rooms: Dictionary = {}
@@ -25,6 +29,9 @@ func generate_dungeon():
 		var direction = directions.pick_random()
 		var new_coords = random_origin + direction
 		add_room_data(new_coords, "normal")
+	if debug_boss_room_beside_start:
+		# Asegura una sala pegada a la de inicio para pruebas del jefe (puede sumar una celda al total).
+		add_room_data(DEBUG_BOSS_NEIGHBOUR_CELL, "normal")
 	_assign_room_kinds()
 
 func add_room_data(coords: Vector2i, type: String) -> bool:
@@ -40,6 +47,11 @@ func _assign_room_kinds() -> void:
 		RoomKind.TURRET_PLUS_BASICS,
 		RoomKind.DEFENSE_TWO_PLUS_THREE,
 	]
+	var boss_cell: Vector2i
+	if debug_boss_room_beside_start and dungeon_data.has(DEBUG_BOSS_NEIGHBOUR_CELL):
+		boss_cell = DEBUG_BOSS_NEIGHBOUR_CELL
+	else:
+		boss_cell = _boss_cell_farthest_from_start()
 	var idx := 0
 	var coords_list: Array = dungeon_data.keys()
 	coords_list.sort_custom(func(a, b): return _vec2i_sort(a, b))
@@ -47,9 +59,25 @@ func _assign_room_kinds() -> void:
 		var cell: Vector2i = c
 		if cell == Vector2i.ZERO:
 			dungeon_data[cell]["room_kind"] = RoomKind.START
+		elif cell == boss_cell:
+			dungeon_data[cell]["room_kind"] = RoomKind.BOSS_NIVEL_1
 		else:
 			dungeon_data[cell]["room_kind"] = cycle[idx % cycle.size()]
 			idx += 1
+
+
+func _boss_cell_farthest_from_start() -> Vector2i:
+	var best: Vector2i = Vector2i.ZERO
+	var best_m := -1
+	for c in dungeon_data.keys():
+		var cell: Vector2i = c
+		if cell == Vector2i.ZERO:
+			continue
+		var m: int = absi(cell.x) + absi(cell.y)
+		if m > best_m:
+			best_m = m
+			best = cell
+	return best
 
 func _vec2i_sort(a: Vector2i, b: Vector2i) -> bool:
 	if a.x != b.x:

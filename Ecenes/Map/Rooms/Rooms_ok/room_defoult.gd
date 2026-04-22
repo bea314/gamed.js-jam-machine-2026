@@ -5,6 +5,7 @@ signal room_transition_requested(target_coords: Vector2i, side: String)
 const ENEMY_BASIC := preload("res://Ecenes/Enemies/EnemyBasic.tscn")
 const ENEMY_TURRET := preload("res://Ecenes/Enemies/EnemyTurret.tscn")
 const ENEMY_DEFENSE := preload("res://Ecenes/Enemies/EnemyDefenseTank.tscn")
+const ENEMY_BOSS_N1 := preload("res://Ecenes/Enemies/EnemyBossNivel1.tscn")
 
 ## Posiciones locales alrededor del centro de la sala (spawn de básicos).
 const SPAWN_RING_6: Array[Vector2] = [
@@ -69,6 +70,10 @@ func setup(neighbors: Array, my_coords: Vector2i, room_kind: String = RoomKind.S
 				_spawn_defense(enc_parent, p)
 			for p in SPAWN_THREE_SMALL:
 				_spawn_basic(enc_parent, p)
+		RoomKind.BOSS_NIVEL_1:
+			_locks_exits = true
+			room_cleared = false
+			_spawn_boss_n1(enc_parent, Vector2(0, -40))
 		_:
 			pass
 
@@ -112,6 +117,14 @@ func _spawn_defense(parent: Node2D, local_pos: Vector2) -> void:
 	d.position = local_pos
 	ActiveRoomService.bind_hostile_to_room(d, self)
 	_register_hostile(d)
+
+
+func _spawn_boss_n1(parent: Node2D, local_pos: Vector2) -> void:
+	var b := ENEMY_BOSS_N1.instantiate() as Node2D
+	parent.add_child(b)
+	b.position = local_pos
+	ActiveRoomService.bind_hostile_to_room(b, self)
+	_register_hostile(b)
 
 
 func _register_hostile(node: Node) -> void:

@@ -20,6 +20,10 @@ extends CharacterBody2D
 ## Si es false: cada golpe es un pulso con wind-up de nuevo tras recuperación (más legible en tanques).
 @export var attack_continuous: bool = true
 
+## Mismo tono que el jugador al recibir daño.
+@export var hit_flash_tint: Color = Color(1.0, 0.55, 0.55, 1.0)
+@export var hit_invuln_flicker_half_period: float = 0.05
+
 var _attack_timer: float = 0.0
 var _attack_recovery_timer: float = 0.0
 var _wind_up_timer: float = 0.0
@@ -28,12 +32,31 @@ var _was_in_attack_range: bool = false
 var _continuous_first_hit_done: bool = false
 
 @onready var _health: HealthComponent = $HealthComponent as HealthComponent
+@onready var _mesh_visual: CanvasItem = $Mesh as CanvasItem
+
+var _hit_flash := HitFlashState.new()
 
 
 func _ready() -> void:
 	add_to_group("enemies")
 	if _health:
 		_health.died.connect(_on_health_died)
+		_health.damage_taken.connect(_on_health_damage_visual)
+
+
+func _on_health_damage_visual(_amount: int, _hit_from_global: Vector2) -> void:
+	_hit_flash.on_damage_taken(_health)
+
+
+func _process(delta: float) -> void:
+	_hit_flash.process_frame(
+		delta,
+		_health,
+		_mesh_visual,
+		Color.WHITE,
+		hit_flash_tint,
+		hit_invuln_flicker_half_period
+	)
 
 
 func _physics_process(delta: float) -> void:

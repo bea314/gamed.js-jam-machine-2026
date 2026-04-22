@@ -1,20 +1,20 @@
 extends StaticBody2D
 
-## Torre fija: ráfaga en línea (5 balas seguidas hacia el jugador). Vida ≤30 %: círculo cada 2 s. Muerte: ráfaga radial.
+## Torre fija: ráfaga en línea (3 balas hacia el jugador). Vida ≤30 %: círculo cada 2 s (mitad de proyectiles). Muerte: ráfaga radial.
 
 @export var detection_range: float = 440.0
 @export var projectile_scene: PackedScene
 
 @export var muzzle_offset: float = 24.0
 
-# --- Ataque principal: 5 proyectiles seguidos en línea (misma dirección hacia el jugador) ---
-@export var line_burst_count: int = 5
+# --- Ataque principal: proyectiles en línea (misma dirección hacia el jugador) ---
+@export var line_burst_count: int = 3
 @export var line_burst_damage: int = 4
 @export var line_burst_gap: float = 0.12
-## Tras completar la tanda de 5, tiempo hasta la siguiente tanda.
+## Tras completar la tanda en línea, tiempo hasta la siguiente tanda.
 @export var line_burst_cooldown: float = 0.85
 
-# --- Vida ≤30 %: ataque circular (proyectiles en 360°) ---
+# --- Vida ≤30 %: ataque circular (proyectiles en 360°); en juego se usa la mitad de este valor ---
 @export var low_hp_threshold: float = 0.3
 @export var low_hp_circle_cooldown: float = 2.0
 @export var low_hp_circle_count: int = 12
@@ -24,9 +24,14 @@ extends StaticBody2D
 @export var death_burst_count: int = 5
 @export var death_burst_damage: int = 5
 
+@export var hit_flash_tint: Color = Color(1.0, 0.55, 0.55, 1.0)
+@export var hit_invuln_flicker_half_period: float = 0.05
+
 @onready var _health: HealthComponent = $HealthComponent as HealthComponent
+@onready var _mesh_visual: CanvasItem = $Mesh as CanvasItem
 
 var _dead: bool = false
+var _hit_flash := HitFlashState.new()
 var _target: Node2D = null
 
 var _burst_left: int = 0
@@ -44,6 +49,24 @@ func _ready() -> void:
 	_low_hp_circle_cd = low_hp_circle_cooldown
 	if _health:
 		_health.died.connect(_on_health_died)
+		_health.damage_taken.connect(_on_health_damage_visual)
+
+
+func _on_health_damage_visual(_amount: int, _hit_from_global: Vector2) -> void:
+	_hit_flash.on_damage_taken(_health)
+
+
+func _process(delta: float) -> void:
+	if _dead:
+		return
+	_hit_flash.process_frame(
+		delta,
+		_health,
+		_mesh_visual,
+		Color.WHITE,
+		hit_flash_tint,
+		hit_invuln_flicker_half_period
+	)
 
 
 func _physics_process(delta: float) -> void:
@@ -72,7 +95,7 @@ func _physics_process(delta: float) -> void:
 		_burst_left = 0
 		return
 
-	# Encadenar tandas de 5 disparos en línea hacia el jugador.
+	# Ráfaga en línea hacia el jugador.
 	if _burst_left == 0 and _line_burst_cd <= 0.0:
 		_burst_left = maxi(line_burst_count, 1)
 		_burst_gap_timer = 0.0
@@ -80,7 +103,8 @@ func _physics_process(delta: float) -> void:
 	_process_line_burst(delta)
 
 	if low and _low_hp_circle_cd <= 0.0:
-		_fire_radial_burst(low_hp_circle_count, low_hp_circle_damage)
+		var circle_n := maxi(low_hp_circle_count / 2, 1)
+		_fire_radial_burst(circle_n, low_hp_circle_damage)
 		_low_hp_circle_cd = low_hp_circle_cooldown
 
 
