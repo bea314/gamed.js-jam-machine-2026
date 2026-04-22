@@ -581,6 +581,7 @@ texture = ExtResource("21_4678e")
 offset = Vector2(-173.73056, -1.5258789e-05)
 
 [node name="Ametralladora" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=444859424]
+visible = false
 position = Vector2(1.9999995, 7)
 scale = Vector2(-0.048755817, 0.046721376)
 texture = ExtResource("21_4678e")
@@ -594,7 +595,7 @@ texture = ExtResource("22_kgnrb")
 offset = Vector2(-173.73056, -1.5258789e-05)
 
 [node name="llave_inglesa" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=712731411]
-visible = false
+visible = true
 position = Vector2(-0.5199281, 11.507511)
 scale = Vector2(0.048755817, -0.046721376)
 texture = ExtResource("24_tlgrw")

@@ -23,7 +23,10 @@ var owner_player: Node2D
 
 # referencia animation weapons
 @onready var anima_weapons: AnimationPlayer = $"../Guns_meshes/Anima_Weapons"
-@onready var guns_meshes: Node2D = $"../Guns_meshes"
+@onready var _gun_mesh_wrench: Sprite2D = $"../Guns_meshes/llave_inglesa"
+@onready var _gun_mesh_revolver: Sprite2D = $"../Guns_meshes/Revolver"
+@onready var _gun_mesh_shotgun: Sprite2D = $"../Guns_meshes/Shot_Gun"
+@onready var _gun_mesh_machinegun: Sprite2D = $"../Guns_meshes/Ametralladora"
 
 
 func setup(player: Node2D) -> void:
@@ -44,6 +47,7 @@ func setup(player: Node2D) -> void:
 		w.weapon_fired.connect(_forward_weapon_fired)
 
 	_emit_weapon_changed()
+	_sync_gun_mesh_visual()
 
 
 func _forward_weapon_fired() -> void:
@@ -77,6 +81,7 @@ func next_weapon() -> void:
 		return
 	current_index = (current_index + 1) % weapons.size()
 	_emit_weapon_changed()
+	_sync_gun_mesh_visual()
 
 
 func prev_weapon() -> void:
@@ -84,10 +89,8 @@ func prev_weapon() -> void:
 		return
 	current_index = (current_index - 1 + weapons.size()) % weapons.size()
 	_emit_weapon_changed()
-	
-	guns_meshes.change_MeshGun(current_index)
-	
-# Hacer PRINT para encontrar la logica
+	_sync_gun_mesh_visual()
+
 
 func set_weapon(index: int) -> void:
 	if index < 0 or index >= weapons.size():
@@ -96,6 +99,7 @@ func set_weapon(index: int) -> void:
 		return
 	current_index = index
 	_emit_weapon_changed()
+	_sync_gun_mesh_visual()
 
 
 func _can_switch_weapons() -> bool:
@@ -117,3 +121,10 @@ func _emit_weapon_changed() -> void:
 		w.magazine_size,
 		w.is_reloading
 	)
+
+
+func _sync_gun_mesh_visual() -> void:
+	_gun_mesh_wrench.visible = (current_index == 0)
+	_gun_mesh_revolver.visible = (current_index == 1)
+	_gun_mesh_shotgun.visible = (current_index == 2)
+	_gun_mesh_machinegun.visible = (current_index == 3)
