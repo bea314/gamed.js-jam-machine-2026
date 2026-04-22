@@ -6,6 +6,10 @@ signal exploration_updated
 
 var _cells: Dictionary = {} ## Vector2i -> true
 var _known: Dictionary = {} ## Vector2i -> true
+var _boss_cell: Vector2i
+var _has_boss_cell: bool = false
+var _start_cell: Vector2i
+var _has_start_cell: bool = false
 
 
 func _ready() -> void:
@@ -15,9 +19,19 @@ func _ready() -> void:
 func register_from_generator(dungeon_data: Dictionary) -> void:
 	_cells.clear()
 	_known.clear()
+	_has_boss_cell = false
+	_has_start_cell = false
 	for k in dungeon_data.keys():
 		if k is Vector2i:
 			_cells[k] = true
+			var data: Dictionary = dungeon_data[k]
+			var kind: String = str(data.get("room_kind", ""))
+			if kind == RoomKind.BOSS_NIVEL_1:
+				_boss_cell = k
+				_has_boss_cell = true
+			if kind == RoomKind.START:
+				_start_cell = k
+				_has_start_cell = true
 	mark_known(Vector2i.ZERO)
 
 
@@ -46,6 +60,22 @@ func get_player_room_coords() -> Vector2i:
 	if c is Vector2i:
 		return c
 	return Vector2i.ZERO
+
+
+func get_boss_room_coords() -> Vector2i:
+	return _boss_cell
+
+
+func has_boss_room() -> bool:
+	return _has_boss_cell
+
+
+func get_start_room_coords() -> Vector2i:
+	return _start_cell
+
+
+func has_start_room() -> bool:
+	return _has_start_cell
 
 
 func get_grid_bounds() -> Rect2i:
