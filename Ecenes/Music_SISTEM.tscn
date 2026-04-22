@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dkbxbrq5x45dx"]
+
+[ext_resource type="Script" uid="uid://bgfx73ldm20gd" path="res://Scripts/music_sistem.gd" id="1_0qq8a"]
+[ext_resource type="AudioStream" uid="uid://dulld3ybr5wld" path="res://Recursos/Sound/Gameplay/MUSIC_LEVEL/BASE STAGE.ogg" id="1_y8lhn"]
+[ext_resource type="AudioStream" uid="uid://jvi8ud4uksfq" path="res://Recursos/Sound/Gameplay/MUSIC_LEVEL/MELODY I.ogg" id="2_0qq8a"]
+
+[node name="MusicSistem" type="Node" unique_id=967773942]
+script = ExtResource("1_0qq8a")
+
+[node name="Base_Melody" type="AudioStreamPlayer" parent="." unique_id=409079904]
+stream = ExtResource("1_y8lhn")
+bus = &"Music"
+
+[node name="Melody_random" type="AudioStreamPlayer" parent="." unique_id=698222531]
+stream = ExtResource("2_0qq8a")
+bus = &"Music"
+
+[connection signal="finished" from="Melody_random" to="." method="_on_melody_random_finished"]
