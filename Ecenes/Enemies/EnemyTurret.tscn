@@ -77,4 +77,5 @@ sprite_frames = SubResource("SpriteFrames_turret")
 autoplay = "default"
 
 [node name="HealthComponent" parent="." unique_id=971504880 instance=ExtResource("14_hc")]
+max_health = 60
 hit_invulnerability_duration = 0.0

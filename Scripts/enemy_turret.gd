@@ -1,20 +1,20 @@
 extends StaticBody2D
 
-## Torre fija: ráfaga en línea (5 balas seguidas hacia el jugador). Vida ≤30 %: círculo cada 2 s. Muerte: ráfaga radial.
+## Torre fija: ráfaga en línea (3 balas hacia el jugador). Vida ≤30 %: círculo cada 2 s (mitad de proyectiles). Muerte: ráfaga radial.
 
 @export var detection_range: float = 440.0
 @export var projectile_scene: PackedScene
 
 @export var muzzle_offset: float = 24.0
 
-# --- Ataque principal: 5 proyectiles seguidos en línea (misma dirección hacia el jugador) ---
-@export var line_burst_count: int = 5
+# --- Ataque principal: proyectiles en línea (misma dirección hacia el jugador) ---
+@export var line_burst_count: int = 3
 @export var line_burst_damage: int = 4
 @export var line_burst_gap: float = 0.12
-## Tras completar la tanda de 5, tiempo hasta la siguiente tanda.
+## Tras completar la tanda en línea, tiempo hasta la siguiente tanda.
 @export var line_burst_cooldown: float = 0.85
 
-# --- Vida ≤30 %: ataque circular (proyectiles en 360°) ---
+# --- Vida ≤30 %: ataque circular (proyectiles en 360°); en juego se usa la mitad de este valor ---
 @export var low_hp_threshold: float = 0.3
 @export var low_hp_circle_cooldown: float = 2.0
 @export var low_hp_circle_count: int = 12
@@ -95,7 +95,7 @@ func _physics_process(delta: float) -> void:
 		_burst_left = 0
 		return
 
-	# Encadenar tandas de 5 disparos en línea hacia el jugador.
+	# Ráfaga en línea hacia el jugador.
 	if _burst_left == 0 and _line_burst_cd <= 0.0:
 		_burst_left = maxi(line_burst_count, 1)
 		_burst_gap_timer = 0.0
@@ -103,7 +103,8 @@ func _physics_process(delta: float) -> void:
 	_process_line_burst(delta)
 
 	if low and _low_hp_circle_cd <= 0.0:
-		_fire_radial_burst(low_hp_circle_count, low_hp_circle_damage)
+		var circle_n := maxi(low_hp_circle_count / 2, 1)
+		_fire_radial_burst(circle_n, low_hp_circle_damage)
 		_low_hp_circle_cd = low_hp_circle_cooldown
 
 
