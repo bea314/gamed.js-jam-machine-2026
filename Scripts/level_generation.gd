@@ -12,6 +12,8 @@ const DEBUG_BOSS_NEIGHBOUR_CELL: Vector2i = Vector2i(1, 0)
 var dungeon_data: Dictionary = {}
 var instantiated_rooms: Dictionary = {}
 var directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
+## Aristas entre celdas vecinas selladas al entrar en una sala de combate (puertas sincronizadas).
+var _edge_sealed: Dictionary = {}
 
 func _ready() -> void:
 	randomize()
@@ -89,6 +91,7 @@ func render_dungeon_visuals() -> void:
 	for child in get_children():
 		if child is Node2D: child.queue_free()
 	instantiated_rooms.clear()
+	_edge_sealed.clear()
 	
 	# 1. Crear instancias
 	for coords in dungeon_data.keys():
@@ -115,9 +118,52 @@ func render_dungeon_visuals() -> void:
 		
 		if room_node.has_method("setup"):
 			var rk: String = str(dungeon_data[coords].get("room_kind", RoomKind.START))
-			room_node.setup(neighbors, coords, rk)
+			room_node.setup(neighbors, coords, rk, self)
 
 # --- FASE 3: CONEXIÓN REAL ---
+func _edge_key(a: Vector2i, b: Vector2i) -> String:
+	if a.x < b.x or (a.x == b.x and a.y < b.y):
+		return "%d,%d|%d,%d" % [a.x, a.y, b.x, b.y]
+	return "%d,%d|%d,%d" % [b.x, b.y, a.x, a.y]
+
+
+func is_edge_sealed(a: Vector2i, b: Vector2i) -> bool:
+	return _edge_sealed.get(_edge_key(a, b), false)
+
+
+## Sella todas las puertas de una celda (p. ej. combate): cada vecino del mapa recibe arista cerrada y se refrescan todas las salas tocadas.
+func seal_all_edges_for_cell(cell: Vector2i) -> void:
+	var refresh_cells: Dictionary = {}
+	refresh_cells[cell] = true
+	for d: Vector2i in directions:
+		var o: Vector2i = cell + d
+		if not dungeon_data.has(o):
+			continue
+		_edge_sealed[_edge_key(cell, o)] = true
+		refresh_cells[o] = true
+	for c: Vector2i in refresh_cells.keys():
+		if instantiated_rooms.has(c):
+			var rn: Node = instantiated_rooms[c]
+			if rn.has_method("refresh_door_states"):
+				rn.refresh_door_states(true)
+
+
+func unseal_edges_for_cell(cell: Vector2i) -> void:
+	var to_refresh: Dictionary = {}
+	to_refresh[cell] = true
+	for d: Vector2i in directions:
+		var o: Vector2i = cell + d
+		var k: String = _edge_key(cell, o)
+		if _edge_sealed.has(k):
+			_edge_sealed.erase(k)
+			to_refresh[o] = true
+	for c: Vector2i in to_refresh.keys():
+		if instantiated_rooms.has(c):
+			var rn: Node = instantiated_rooms[c]
+			if rn.has_method("refresh_door_states"):
+				rn.refresh_door_states(true)
+
+
 func _on_player_transition(target_coords: Vector2i, side: String):
 	if instantiated_rooms.has(target_coords):
 		var target_room = instantiated_rooms[target_coords]
@@ -142,3 +188,8 @@ func _on_player_transition(target_coords: Vector2i, side: String):
 				# Backup por si olvidaste poner el marker en alguna puerta
 				player.global_position = target_room.global_position
 			ActiveRoomService.set_active_room(target_room)
+
+			if target_room.has_method("is_exit_locked") and target_room.is_exit_locked():
+				seal_all_edges_for_cell(target_coords)
+				if target_room.has_method("try_play_trap_close_sfx"):
+					target_room.try_play_trap_close_sfx()
