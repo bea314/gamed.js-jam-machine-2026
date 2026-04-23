@@ -35,6 +35,9 @@ pivot_offset = Vector2(9, 12)
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "C"
 
+[node name="DoorSprite" type="Sprite2D" parent="Mesh_sistem"]
+position = Vector2(0.75, -3)
+
 [node name="Area_Player_Interact" type="Area2D" parent="." unique_id=186633583]
 collision_mask = 2
 script = ExtResource("3_vi775")

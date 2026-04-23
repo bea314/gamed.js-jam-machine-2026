@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://d2kbhr3pflg3i"]
 
+[ext_resource type="Script" path="res://Scripts/doors_commun.gd" id="1_doors"]
+[ext_resource type="Script" path="res://Scripts/door_animated_sprites.gd" id="2_anim"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_2nff2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boi01"]
@@ -7,13 +10,18 @@ size = Vector2(9, 95)
 
 [node name="DoorsCommun" type="Area2D" unique_id=2077045764 groups=["Door_Connect"]]
 collision_mask = 2
+script = ExtResource("1_doors")
 
 [node name="Mesh_sistem" type="Node2D" parent="." unique_id=917673563]
+script = ExtResource("2_anim")
 
 [node name="Mesh_Door" type="MeshInstance2D" parent="Mesh_sistem" unique_id=2129755179]
 position = Vector2(0.75, -3.000002)
 scale = Vector2(40.500004, 106)
 mesh = SubResource("BoxMesh_2nff2")
+
+[node name="DoorSprite" type="Sprite2D" parent="Mesh_sistem"]
+position = Vector2(0.75, -3)
 
 [node name="Mostra_path" type="Label" parent="Mesh_sistem" unique_id=1011597609]
 offset_left = -14.0

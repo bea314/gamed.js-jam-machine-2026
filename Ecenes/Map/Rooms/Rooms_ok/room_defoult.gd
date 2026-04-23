@@ -80,7 +80,20 @@ func setup(neighbors: Array, my_coords: Vector2i, room_kind: String = RoomKind.S
 	if _locks_exits and _hostiles_alive <= 0:
 		room_cleared = true
 
+	_configure_door_sides()
 	_refresh_door_states()
+
+
+func _configure_door_sides() -> void:
+	_try_configure_door(door_up, "up")
+	_try_configure_door(door_down, "down")
+	_try_configure_door(door_left, "left")
+	_try_configure_door(door_right, "right")
+
+
+func _try_configure_door(door: Area2D, side: String) -> void:
+	if door.has_method("configure_room_side"):
+		door.configure_room_side(side)
 
 
 func _ensure_encounters_root() -> Node2D:
@@ -151,8 +164,11 @@ func _refresh_door_states() -> void:
 
 
 func _set_door_state(door: Area2D, has_neighbor: bool, allow_transition: bool) -> void:
-	door.visible = has_neighbor
-	door.monitoring = has_neighbor and allow_transition
+	if door.has_method("apply_door_state"):
+		door.apply_door_state(has_neighbor, allow_transition)
+	else:
+		door.visible = has_neighbor
+		door.monitoring = has_neighbor and allow_transition
 
 
 func _on_door_pos_up_body_entered(body: Node2D) -> void:
