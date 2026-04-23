@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cm70gtycgq1gr"
+path="res://.godot/imported/MELODY III.ogg-c45a84e722cb5d51c39e61a1c85314e4.oggvorbisstr"
+
+[deps]
+
+source_file="res://Recursos/Sound/Gameplay/MUSIC_LEVEL/MELODY III.ogg"
+dest_files=["res://.godot/imported/MELODY III.ogg-c45a84e722cb5d51c39e61a1c85314e4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

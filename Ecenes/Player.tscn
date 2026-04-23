@@ -25,20 +25,20 @@
 [ext_resource type="Texture2D" uid="uid://ddyc4gskrp8qu" path="res://Recursos/Textures/ruka body no arms5.png" id="13_0r4dl"]
 [ext_resource type="Texture2D" uid="uid://cdda4d4mxb1qi" path="res://Recursos/Textures/ruka hit with weapon.png" id="14_kgnrb"]
 [ext_resource type="Texture2D" uid="uid://bw1mw5w37dk68" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="14_wc3lx"]
-[ext_resource type="Script" uid="uid://kfcgxeql0ted" path="res://Ecenes/guns_meshes.gd" id="21_1vy0x"]
-[ext_resource type="Texture2D" uid="uid://bwm1j4y43jxpl" path="res://Recursos/Textures/shotgun with hands.png" id="21_4678e"]
-[ext_resource type="Texture2D" uid="uid://cwjik3r7i6hug" path="res://Recursos/Textures/revolver with hands.png" id="22_kgnrb"]
-[ext_resource type="Texture2D" uid="uid://dwr21lm1o381s" path="res://Recursos/Textures/wrench with hands.png" id="24_tlgrw"]
 [ext_resource type="Texture2D" uid="uid://dt67laq6vl464" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 1.png" id="15_atk1"]
 [ext_resource type="Texture2D" uid="uid://0bxic5upn7x0" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 2.png" id="16_atk2"]
 [ext_resource type="Texture2D" uid="uid://cufwjnru3ktbb" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 3.png" id="17_atk3"]
 [ext_resource type="Texture2D" uid="uid://dtxvb73vetgsf" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 4.png" id="18_atk4"]
 [ext_resource type="Texture2D" uid="uid://b4v16rky0qnba" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 5.png" id="19_atk5"]
 [ext_resource type="Texture2D" uid="uid://buptx82vgyjiq" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 6.png" id="20_atk6"]
+[ext_resource type="Script" uid="uid://kfcgxeql0ted" path="res://Ecenes/guns_meshes.gd" id="21_1vy0x"]
+[ext_resource type="Texture2D" uid="uid://bwm1j4y43jxpl" path="res://Recursos/Textures/shotgun with hands.png" id="21_4678e"]
 [ext_resource type="Texture2D" uid="uid://5bn04plagbst" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 7.png" id="21_atk7"]
 [ext_resource type="Texture2D" uid="uid://4jshbojaygdp" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 8.png" id="22_atk8"]
+[ext_resource type="Texture2D" uid="uid://cwjik3r7i6hug" path="res://Recursos/Textures/revolver with hands.png" id="22_kgnrb"]
 [ext_resource type="Texture2D" uid="uid://btrlrm8pa4kgy" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 9.png" id="23_atk9"]
 [ext_resource type="Texture2D" uid="uid://ckwt7hpetmfgm" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 10.png" id="24_atk10"]
+[ext_resource type="Texture2D" uid="uid://dwr21lm1o381s" path="res://Recursos/Textures/wrench with hands.png" id="24_tlgrw"]
 [ext_resource type="Texture2D" uid="uid://c0tywpbqy411f" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 11.png" id="25_atk11"]
 [ext_resource type="Texture2D" uid="uid://bvx0r50mby7bq" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 12.png" id="26_atk12"]
 [ext_resource type="Texture2D" uid="uid://dytxsno2pmybl" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 13.png" id="27_atk13"]
@@ -595,7 +595,6 @@ texture = ExtResource("22_kgnrb")
 offset = Vector2(-173.73056, -1.5258789e-05)
 
 [node name="llave_inglesa" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=712731411]
-visible = true
 position = Vector2(-0.5199281, 11.507511)
 scale = Vector2(0.048755817, -0.046721376)
 texture = ExtResource("24_tlgrw")
@@ -626,4 +625,4 @@ hit_invulnerability_duration = 0.18
 
 [node name="Audio_Player" type="AudioStreamPlayer" parent="." unique_id=865798101]
 
-[node name="Audio_Death" type="AudioStreamPlayer" parent="."]
+[node name="Audio_Death" type="AudioStreamPlayer" parent="." unique_id=2100553978]
