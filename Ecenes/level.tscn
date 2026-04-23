@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c5sojnp5a6jq1" path="res://Ecenes/Camera_Gameplay.tscn" id="2_jgr5g"]
 [ext_resource type="PackedScene" uid="uid://hmfch51q3oio" path="res://Ecenes/Objets/ammunition_Gun.tscn" id="4_mk5a5"]
 [ext_resource type="PackedScene" uid="uid://dkbxbrq5x45dx" path="res://Ecenes/Music_SISTEM.tscn" id="5_80fcu"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/PauseMenu.tscn" id="6_pause"]
 
 [node name="Level" type="Node2D" unique_id=956876147]
 
@@ -21,3 +22,5 @@ color = Color(0.34407586, 0.3440757, 0.34407574, 1)
 position = Vector2(-54, 27)
 
 [node name="MusicSistem" parent="." unique_id=967773942 instance=ExtResource("5_80fcu")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_pause")]
