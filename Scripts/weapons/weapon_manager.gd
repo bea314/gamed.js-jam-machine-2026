@@ -52,6 +52,24 @@ func setup(player: Node2D) -> void:
 
 func _forward_weapon_fired() -> void:
 	weapon_actually_fired.emit()
+	var anim := _recoil_anim_name(current_index)
+	if anim != StringName() and anima_weapons.has_animation(anim):
+		## anima_weapons.play(anim)
+		anima_weapons.play("Shot_Gun_Shot")
+
+
+func _recoil_anim_name(index: int) -> StringName:
+	match index:
+		0:
+			return &"LLave_inglesa_shot"
+		1:
+			return &"Revolver_Shot"
+		2:
+			return &"Shot_Gun_Shot"
+		3:
+			return &"Ametralladora_shot"
+		_:
+			return StringName()
 
 
 func current_weapon() -> WeaponBase:
@@ -69,9 +87,7 @@ func fire(aim_direction: Vector2, pressed: bool, just_pressed: bool) -> void:
 	else:
 		if just_pressed:
 			weapon.try_fire(owner_player, aim_direction)
-			# Sitema de armas animacion ========= # TEST
-			anima_weapons.play("Shot_Gun_Shot")
-			
+
 func reload() -> void:
 	current_weapon().try_reload()
 
