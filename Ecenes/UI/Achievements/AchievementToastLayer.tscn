@@ -20,19 +20,31 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 14
 theme_override_constants/margin_bottom = 10
 
-[node name="VBox" type="VBoxContainer" parent="ToastPanel/Margin"]
+[node name="HBox" type="HBoxContainer" parent="ToastPanel/Margin"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="ToastPanel/Margin/HBox"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="ToastPanel/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
-[node name="Title" type="Label" parent="ToastPanel/Margin/VBox"]
+[node name="Title" type="Label" parent="ToastPanel/Margin/HBox/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Logro detectado"
 
-[node name="Message" type="Label" parent="ToastPanel/Margin/VBox"]
+[node name="Message" type="Label" parent="ToastPanel/Margin/HBox/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Bienvenida, Ruka"
+autowrap_mode = 2
 
 [node name="HideTimer" type="Timer" parent="."]
 one_shot = true
