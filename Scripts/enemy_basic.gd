@@ -187,4 +187,6 @@ func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 
 
 func _on_health_died() -> void:
+	if GameEvents != null:
+		GameEvents.emit_event(&"enemy_killed", {"enemy_type": "basic"})
 	queue_free()

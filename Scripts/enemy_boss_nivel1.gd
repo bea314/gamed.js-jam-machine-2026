@@ -239,6 +239,8 @@ func _on_health_died() -> void:
 	_dead = true
 	set_physics_process(false)
 	velocity = Vector2.ZERO
+	if GameEvents != null:
+		GameEvents.emit_event(&"enemy_killed", {"enemy_type": "boss_n1"})
 	_fire_radial_burst(death_burst_count, death_burst_damage)
 	queue_free()
 

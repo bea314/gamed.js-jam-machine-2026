@@ -16,10 +16,21 @@ func _ready() -> void:
 func _on_game_event(event_name: StringName, _payload: Dictionary) -> void:
 	if event_name == AchievementConstants.EVENT_RUN_STARTED:
 		_process_run_started()
+	elif event_name == &"enemy_killed":
+		_process_enemy_killed()
 
 
 func _process_run_started() -> void:
 	var id := AchievementConstants.ID_BIENVENIDA_RUKA
+	if _is_unlocked(id):
+		return
+	_set_progress(id, 1)
+	_unlock(id)
+	_save_state()
+
+
+func _process_enemy_killed() -> void:
+	var id := AchievementConstants.ID_PRIMERA_CHISPA
 	if _is_unlocked(id):
 		return
 	_set_progress(id, 1)

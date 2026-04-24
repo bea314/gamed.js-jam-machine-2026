@@ -162,6 +162,8 @@ func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 func _on_health_died() -> void:
 	_dead = true
 	set_physics_process(false)
+	if GameEvents != null:
+		GameEvents.emit_event(&"enemy_killed", {"enemy_type": "turret"})
 	_fire_radial_burst(death_burst_count, death_burst_damage)
 	queue_free()
 
