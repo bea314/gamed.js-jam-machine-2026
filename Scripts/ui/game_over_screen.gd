@@ -61,6 +61,8 @@ func _go_to_scene(path: String) -> void:
 
 func _on_retry_pressed() -> void:
 	_play_sfx(_SFX_SELECT_RETRY)
+	if GameEvents != null:
+		GameEvents.emit_event(AchievementConstants.EVENT_RUN_STARTED)
 	_go_to_scene(LEVEL_PATH)
 
 

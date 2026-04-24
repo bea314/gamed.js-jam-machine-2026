@@ -108,7 +108,9 @@ func render_dungeon_visuals() -> void:
 
 	if instantiated_rooms.has(Vector2i.ZERO):
 		DungeonMapService.register_from_generator(dungeon_data)
-		ActiveRoomService.set_active_room(instantiated_rooms[Vector2i.ZERO])
+		var start_room_obj: Object = instantiated_rooms.get(Vector2i.ZERO, null)
+		if start_room_obj is Node2D:
+			ActiveRoomService.set_active_room(start_room_obj as Node2D)
 
 	# 2. Configurar puertas
 	for coords in instantiated_rooms.keys():

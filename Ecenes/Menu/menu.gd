@@ -6,6 +6,7 @@ extends Control
 @onready var _options_panel: VBoxContainer = $CenterContainer/MainVBox/OptionsPanel
 @onready var _new_game_button: Button = $CenterContainer/MainVBox/MainButtons/NewGameButton
 @onready var _options_button: Button = $CenterContainer/MainVBox/MainButtons/OptionsButton
+@onready var _achievements_button: Button = $CenterContainer/MainVBox/MainButtons/AchievementsButton
 @onready var _credits_button: Button = $CenterContainer/MainVBox/MainButtons/CreditsButton
 @onready var _exit_button: Button = $CenterContainer/MainVBox/MainButtons/ExitButton
 @onready var _music_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/MusicRow/MusicSlider
@@ -37,6 +38,8 @@ func _ready() -> void:
 	_new_game_button.mouse_entered.connect(_on_mouse_entered_new_game)
 	_options_button.pressed.connect(_on_options_pressed)
 	_options_button.mouse_entered.connect(_on_mouse_entered_options)
+	_achievements_button.pressed.connect(_on_achievements_pressed)
+	_achievements_button.mouse_entered.connect(_on_mouse_entered_options)
 	_credits_button.pressed.connect(_on_credits_pressed)
 	_exit_button.pressed.connect(_on_exit_pressed)
 	_back_button.pressed.connect(_on_back_pressed)
@@ -52,6 +55,8 @@ func _ready() -> void:
 
 # NEW GAME BUTTON ==============
 func _on_new_game_pressed() -> void:
+	if GameEvents != null:
+		GameEvents.emit_event(AchievementConstants.EVENT_RUN_STARTED)
 	get_tree().change_scene_to_file("res://Ecenes/level.tscn")
 
 func _on_mouse_entered_new_game():
@@ -73,6 +78,11 @@ func _on_mouse_entered_options():
 # CREDITS BUTTON==============
 func _on_credits_pressed() -> void:
 	get_tree().change_scene_to_file("res://Ecenes/Menu/Credits.tscn")
+
+# =============
+# ACHIEVEMENTS BUTTON==============
+func _on_achievements_pressed() -> void:
+	get_tree().change_scene_to_file("res://Ecenes/UI/Achievements/AchievementsScreen.tscn")
 
 # =============
 # Exit BUTTON ==============

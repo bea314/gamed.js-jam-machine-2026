@@ -21,6 +21,9 @@ ActiveRoomService="*res://Scripts/active_room_service.gd"
 DungeonMapService="*res://Scripts/dungeon_map_service.gd"
 SettingsManager="*res://Scripts/settings_manager.gd"
 Global_Ran="*uid://b8qhx67cn14na"
+GameEvents="*res://Systems/Achievements/game_events.gd"
+AchievementService="*res://Systems/Achievements/achievement_service.gd"
+WavedashAdapter="*res://Systems/Wavedash/wavedash_adapter.gd"
 
 [display]
 
