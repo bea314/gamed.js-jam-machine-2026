@@ -24,6 +24,7 @@ Global_Ran="*uid://b8qhx67cn14na"
 GameEvents="*res://Systems/Achievements/game_events.gd"
 AchievementService="*res://Systems/Achievements/achievement_service.gd"
 WavedashAdapter="*res://Systems/Wavedash/wavedash_adapter.gd"
+AchievementToastLayer="*res://Ecenes/UI/Achievements/AchievementToastLayer.tscn"
 
 [display]
 

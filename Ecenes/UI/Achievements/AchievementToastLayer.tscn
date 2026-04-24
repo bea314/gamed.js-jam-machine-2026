@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/ui/achievement_toast_layer.gd" id="1_script"]
+
+[node name="AchievementToastLayer" type="CanvasLayer"]
+layer = 20
+script = ExtResource("1_script")
+
+[node name="ToastPanel" type="PanelContainer" parent="."]
+visible = false
+offset_left = 1520.0
+offset_top = 940.0
+offset_right = 1890.0
+offset_bottom = 1060.0
+
+[node name="Margin" type="MarginContainer" parent="ToastPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="ToastPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="ToastPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Logro detectado"
+
+[node name="Message" type="Label" parent="ToastPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Bienvenida, Ruka"
+
+[node name="HideTimer" type="Timer" parent="."]
+one_shot = true
