@@ -14,6 +14,9 @@ var instantiated_rooms: Dictionary = {}
 var directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
 ## Aristas entre celdas vecinas selladas al entrar en una sala de combate (puertas sincronizadas).
 var _edge_sealed: Dictionary = {}
+## Evita reentrar en otra transición al solapar la puerta de spawn el mismo fotograma (ping-pong).
+var _next_door_transition_ms: int = 0
+const _DOOR_TRANSITION_COOLDOWN_MS := 180
 
 func _ready() -> void:
 	randomize()
@@ -164,32 +167,43 @@ func unseal_edges_for_cell(cell: Vector2i) -> void:
 				rn.refresh_door_states(true)
 
 
-func _on_player_transition(target_coords: Vector2i, side: String):
-	if instantiated_rooms.has(target_coords):
-		var target_room = instantiated_rooms[target_coords]
-		var player = get_tree().get_first_node_in_group("Player")
-		
-		if player:
-			var marker_path = ""
-			
-			# Si entramos por UP, aparecemos en el marker de DOWN de la siguiente sala
-			match side:
-				"up":    marker_path = "Doors/DoorPos_Down/SpawnMarker"
-				"down":  marker_path = "Doors/DoorPos_Up/SpawnMarker"
-				"left":  marker_path = "Doors/DoorPos_Right/SpawnMarker"
-				"right": marker_path = "Doors/DoorPos_Left/SpawnMarker"
-			
-			# Obtenemos la posición global del marker en la nueva habitación
-			var spawn_node = target_room.get_node_or_null(marker_path)
-			
-			if spawn_node:
-				player.global_position = spawn_node.global_position
-			else:
-				# Backup por si olvidaste poner el marker en alguna puerta
-				player.global_position = target_room.global_position
-			ActiveRoomService.set_active_room(target_room)
+func _on_player_transition(target_coords: Vector2i, side: String) -> void:
+	var now_ms: int = Time.get_ticks_msec()
+	if now_ms < _next_door_transition_ms:
+		return
+	if not instantiated_rooms.has(target_coords):
+		return
+	_next_door_transition_ms = now_ms + _DOOR_TRANSITION_COOLDOWN_MS
 
-			if target_room.has_method("is_exit_locked") and target_room.is_exit_locked():
-				seal_all_edges_for_cell(target_coords)
-				if target_room.has_method("try_play_trap_close_sfx"):
-					target_room.try_play_trap_close_sfx()
+	var target_room: Node = instantiated_rooms[target_coords]
+	var player: Node = get_tree().get_first_node_in_group("Player")
+	if player == null:
+		return
+
+	var marker_path := ""
+	# Si entramos por UP, aparecemos en el marker de DOWN de la siguiente sala
+	match side:
+		"up":
+			marker_path = "Doors/DoorPos_Down/SpawnMarker"
+		"down":
+			marker_path = "Doors/DoorPos_Up/SpawnMarker"
+		"left":
+			marker_path = "Doors/DoorPos_Right/SpawnMarker"
+		"right":
+			marker_path = "Doors/DoorPos_Left/SpawnMarker"
+		_:
+			marker_path = ""
+
+	var spawn_global: Vector2 = target_room.global_position
+	var spawn_node: Node = target_room.get_node_or_null(marker_path) if marker_path != "" else null
+	if spawn_node is Node2D:
+		spawn_global = (spawn_node as Node2D).global_position
+
+	ActiveRoomService.set_active_room(target_room as Node2D)
+	# Diferir el teletransporte evita que el motor dispare otra puerta en la misma pila de llamadas.
+	player.set_deferred(&"global_position", spawn_global)
+
+	if target_room.has_method("is_exit_locked") and target_room.is_exit_locked():
+		seal_all_edges_for_cell(target_coords)
+		if target_room.has_method("try_play_trap_close_sfx"):
+			target_room.try_play_trap_close_sfx()
