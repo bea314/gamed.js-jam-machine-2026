@@ -17,6 +17,10 @@ signal weapon_changed(
 @export var shotgun_scene: PackedScene
 @export var machinegun_scene: PackedScene
 
+@export var revolver_fire_sfx: AudioStream = preload("res://Recursos/Sound/SFXS/UX_STAGE/WEAPONS_SFXS/GUN.ogg")
+@export var shotgun_fire_sfx: AudioStream = preload("res://Recursos/Sound/SFXS/UX_STAGE/WEAPONS_SFXS/SHOTGUN.ogg")
+@export var machinegun_fire_sfx: AudioStream = preload("res://Recursos/Sound/SFXS/UX_STAGE/WEAPONS_SFXS/MACHINE_GUN.ogg")
+
 var weapons: Array[WeaponBase] = []
 var current_index: int = 0
 var owner_player: Node2D
@@ -27,6 +31,12 @@ var owner_player: Node2D
 @onready var _gun_mesh_revolver: Sprite2D = $"../Guns_meshes/Revolver"
 @onready var _gun_mesh_shotgun: Sprite2D = $"../Guns_meshes/Shot_Gun"
 @onready var _gun_mesh_machinegun: Sprite2D = $"../Guns_meshes/Ametralladora"
+@onready var _weapon_sfx_player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+
+
+func _ready() -> void:
+	add_child(_weapon_sfx_player)
+	_weapon_sfx_player.max_polyphony = 8
 
 
 func setup(player: Node2D) -> void:
@@ -52,6 +62,7 @@ func setup(player: Node2D) -> void:
 
 func _forward_weapon_fired() -> void:
 	weapon_actually_fired.emit()
+	_play_fire_sfx_for_current_weapon()
 	var anim := _recoil_anim_name(current_index)
 	if anim != StringName() and anima_weapons.has_animation(anim):
 		## anima_weapons.play(anim)
@@ -70,6 +81,25 @@ func _recoil_anim_name(index: int) -> StringName:
 			return &"Ametralladora_shot"
 		_:
 			return StringName()
+
+
+func _play_fire_sfx_for_current_weapon() -> void:
+	var stream: AudioStream = null
+	match current_index:
+		1:
+			stream = revolver_fire_sfx
+		2:
+			stream = shotgun_fire_sfx
+		3:
+			stream = machinegun_fire_sfx
+		_:
+			return
+
+	if stream == null:
+		return
+
+	_weapon_sfx_player.stream = stream
+	_weapon_sfx_player.play()
 
 
 func current_weapon() -> WeaponBase:
