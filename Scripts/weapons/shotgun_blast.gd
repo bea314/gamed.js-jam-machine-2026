@@ -3,7 +3,7 @@ extends Area2D
 @export var damage: int = 1
 ## Half-angle of the cone (total arc = 2 × esto): triángulo con vértice en el origen local +X.
 @export var cone_half_angle_deg: float = 38.0
-@export var sector_radius: float = 80.0
+@export var sector_radius: float = 120.0
 ## Segundos que se mantiene visible el triángulo (el daño se aplica al instante).
 @export var visual_duration: float = 0.14
 
