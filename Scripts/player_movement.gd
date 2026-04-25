@@ -304,9 +304,6 @@ func _physics_process(delta: float) -> void:
 				mesh_sistem.Change_State("Idle")
 		
 
-
-
-
 func is_walking() -> bool:
 	return velocity.length() > 0.1
 	

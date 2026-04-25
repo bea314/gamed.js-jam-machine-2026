@@ -13,6 +13,11 @@ extends Control
 @onready var _fullscreen_check: CheckButton = $CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
 @onready var _back_button: Button = $CenterContainer/MainVBox/OptionsPanel/BackButton
 
+# REFERECNIAS NODOS FADE ON/OUT
+@onready var pantalla_negra: ColorRect = $Pantalla_Negra
+@onready var anim: AnimationPlayer = $Pantalla_Negra/Anim
+
+
 var interact_sounds : Array = [
 	preload("uid://bg3t7v510agae"),
 	preload("uid://csxs8xt3nbl6l"),
@@ -52,6 +57,8 @@ func _ready() -> void:
 
 # NEW GAME BUTTON ==============
 func _on_new_game_pressed() -> void:
+	anim.play("Fade_enter")
+	await get_tree().create_timer(2.0).timeout
 	get_tree().change_scene_to_file("res://Ecenes/level.tscn")
 
 func _on_mouse_entered_new_game():

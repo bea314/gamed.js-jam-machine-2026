@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://exojt5fw8fj2"]
+
+[ext_resource type="Script" path="res://Scripts/ui/pause_menu.gd" id="1_pm"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+visible = false
+layer = 30
+script = ExtResource("1_pm")
+
+[node name="Root" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.0784314, 0.0784314, 0.117647, 0.78)
+
+[node name="CenterContainer" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="Root/CenterContainer"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="Root/CenterContainer/MainVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+text = "Pausa"
+horizontal_alignment = 1
+
+[node name="HintLabel" type="Label" parent="Root/CenterContainer/MainVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 0.7, 0.75, 1)
+text = "Esc o P: reanudar (menú) · Esc: atrás (opciones)"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MainButtons" type="VBoxContainer" parent="Root/CenterContainer/MainVBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResumeButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Reanudar partida"
+
+[node name="OptionsButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Opciones"
+
+[node name="MainMenuButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Menú principal"
+
+[node name="ExitButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons"]
+layout_mode = 2
+text = "Salir"
+
+[node name="OptionsPanel" type="VBoxContainer" parent="Root/CenterContainer/MainVBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="OptionsTitle" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Opciones"
+horizontal_alignment = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MusicLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Música"
+
+[node name="MusicSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SFXLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Efectos"
+
+[node name="SFXSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="FullscreenCheck" type="CheckButton" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+text = "Pantalla completa"
+
+[node name="BackButton" type="Button" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+layout_mode = 2
+text = "Atrás"
