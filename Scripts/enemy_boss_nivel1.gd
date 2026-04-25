@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 ## Jefe nivel 1: ráfagas, ≤50 % cadencia↑, AoE con telegrafía, movimiento lento con IA, ráfaga al morir.
+signal wake_animation_finished
 
 @export var detection_range: float = 440.0
 @export var projectile_scene: PackedScene
@@ -41,6 +42,7 @@ extends CharacterBody2D
 @export_range(0.0, 1.0) var intro_entry_toward_player: float = 0.45
 @export var intro_entry_stop_distance: float = 12.0
 @export var attack_recover_time: float = 0.25
+@export var auto_wake_without_cinematic: bool = true
 
 @onready var _health: HealthComponent = $HealthComponent as HealthComponent
 @onready var _mesh: Node2D = $Mesh
@@ -120,7 +122,8 @@ func _physics_process(delta: float) -> void:
 	var may_act := ActiveRoomService.hostile_may_act(self)
 	if _state == BossState.DORMANT:
 		if may_act:
-			_set_state(BossState.INTRO_REVEAL)
+			if auto_wake_without_cinematic:
+				start_wake_sequence()
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
@@ -275,9 +278,24 @@ func _set_intro_idle_frame() -> void:
 
 func _on_sprite_animation_finished() -> void:
 	if _state == BossState.INTRO_REVEAL:
+		wake_animation_finished.emit()
 		_set_state(BossState.MOVE)
 	elif _state == BossState.ATTACK_WINDUP:
 		_set_state(BossState.ATTACK_SHOOT)
+
+
+func set_sleeping_for_cinematic() -> void:
+	auto_wake_without_cinematic = false
+	_set_state(BossState.DORMANT)
+	velocity = Vector2.ZERO
+
+
+func start_wake_sequence() -> void:
+	if _dead:
+		return
+	if _state == BossState.INTRO_REVEAL:
+		return
+	_set_state(BossState.INTRO_REVEAL)
 
 
 func _setup_sprite_animations() -> void:

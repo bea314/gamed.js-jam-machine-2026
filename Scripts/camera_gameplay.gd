@@ -17,6 +17,8 @@ var zoom_Map : Vector2 = Vector2(2.2,2.2)
 var zoom_player : Vector2 = Vector2(3.0,3.0)
 
 var _zoom_tween: Tween
+var _shake_tween: Tween
+var _cinematic_active: bool = false
 
 func _ready() -> void:
 	make_current()
@@ -67,6 +69,45 @@ func update_camera_position(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	update_camera_position(delta)
+
+
+func start_boss_cinematic_focus(focus_global: Vector2, start_zoom: Vector2) -> void:
+	_cinematic_active = true
+	is_follow_path = false
+	global_position = focus_global
+	if _zoom_tween != null and is_instance_valid(_zoom_tween):
+		_zoom_tween.kill()
+	zoom = start_zoom
+
+
+func tween_zoom_from_to(start_zoom: Vector2, end_zoom: Vector2, duration: float, trans: Tween.TransitionType = Tween.TRANS_CUBIC, ease: Tween.EaseType = Tween.EASE_OUT) -> Tween:
+	if _zoom_tween != null and is_instance_valid(_zoom_tween):
+		_zoom_tween.kill()
+	zoom = start_zoom
+	_zoom_tween = create_tween()
+	_zoom_tween.set_trans(trans)
+	_zoom_tween.set_ease(ease)
+	_zoom_tween.tween_property(self, "zoom", end_zoom, maxf(duration, 0.0))
+	return _zoom_tween
+
+
+func finish_boss_cinematic_focus(player: Node2D) -> void:
+	_cinematic_active = false
+	if player != null and is_instance_valid(player):
+		path_obj = player
+	is_follow_path = true
+
+
+func shake_once(magnitude: float = 3.0, duration: float = 0.18) -> void:
+	if magnitude <= 0.0 or duration <= 0.0:
+		offset = Vector2.ZERO
+		return
+	if _shake_tween != null and is_instance_valid(_shake_tween):
+		_shake_tween.kill()
+	_shake_tween = create_tween()
+	_shake_tween.tween_property(self, "offset", Vector2(randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude)), duration * 0.25)
+	_shake_tween.tween_property(self, "offset", Vector2(randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude)), duration * 0.25)
+	_shake_tween.tween_property(self, "offset", Vector2.ZERO, duration * 0.5)
 	
 func Zoom_type(modo_enf : bool, get_phath : Node2D):
 	if modo_enf:
