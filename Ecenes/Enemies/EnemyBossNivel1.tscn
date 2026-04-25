@@ -1,7 +1,6 @@
-[gd_scene format=3 load_steps=6]
+[gd_scene format=3 load_steps=5]
 
 [ext_resource type="Script" path="res://Scripts/enemy_boss_nivel1.gd" id="1_boss"]
-[ext_resource type="Texture2D" uid="uid://bs1ygl0ywfckh" path="res://Recursos/Textures/Enemies/enemy_defense_tmp.png" id="2_ph"]
 [ext_resource type="PackedScene" uid="uid://djow8pxmvqe4w" path="res://Ecenes/Enemies/EnemyProjectile.tscn" id="3_proj"]
 [ext_resource type="PackedScene" path="res://Ecenes/Enemies/BossGroundAoe.tscn" id="4_aoe"]
 [ext_resource type="PackedScene" uid="uid://bvjot5oheirwi" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="5_hc"]
@@ -33,9 +32,8 @@ shape = SubResource("RectangleShape2D_boss")
 
 [node name="Mesh" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Mesh"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Mesh"]
 scale = Vector2(0.12, 0.12)
-texture = ExtResource("2_ph")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_hc")]
 max_health = 180

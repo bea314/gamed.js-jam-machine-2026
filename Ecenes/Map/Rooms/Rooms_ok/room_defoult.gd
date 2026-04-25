@@ -88,7 +88,7 @@ func setup(neighbors: Array, my_coords: Vector2i, room_kind: String = RoomKind.S
 		RoomKind.BOSS_NIVEL_1:
 			_locks_exits = true
 			room_cleared = false
-			_spawn_boss_n1(enc_parent, Vector2(0, -40))
+			_spawn_boss_n1(enc_parent, Vector2(0, -120))
 		_:
 			pass
 
