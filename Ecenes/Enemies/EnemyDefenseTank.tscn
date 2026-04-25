@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dvce78dbwcy5e" path="res://Recursos/Textures/drone12.png" id="13_yt04j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
-size = Vector2(32, 52)
+size = Vector2(17, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dcm4n"]
 animations = [{
