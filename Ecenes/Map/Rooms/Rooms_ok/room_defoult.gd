@@ -6,12 +6,15 @@ const ENEMY_BASIC := preload("res://Ecenes/Enemies/EnemyBasic.tscn")
 const ENEMY_TURRET := preload("res://Ecenes/Enemies/EnemyTurret.tscn")
 const ENEMY_DEFENSE := preload("res://Ecenes/Enemies/EnemyDefenseTank.tscn")
 const ENEMY_BOSS_N1 := preload("res://Ecenes/Enemies/EnemyBossNivel1.tscn")
-
-const _SFX_DOOR_TRAP: Array[AudioStream] = [
+const _BOSS_DOOR_SFX_GUARANTEED := preload("res://Recursos/Sound/SFXS/PUERTA/the_door_is_close.ogg")
+const _DOOR_SFX_FALLBACK: Array[AudioStream] = [
 	preload("res://Recursos/Sound/SFXS/PUERTA/the_door_is_close.ogg"),
 	preload("res://Recursos/Sound/SFXS/PUERTA/your_traped.ogg"),
 ]
-const _CHANCE_DOOR_TRAP_SFX := 1.0 / 3.0
+
+const _DOOR_SFX_FOLDER := "res://Recursos/Sound/SFXS/PUERTA"
+const _DOOR_SFX_EXTENSIONS := ["ogg", "wav", "mp3"]
+const _CHANCE_DOOR_TRAP_SFX := 2.0 / 5.0
 const BOSS_ENTRANCE_CINEMATIC := preload("res://Scripts/boss_entrance_cinematic.gd")
 
 ## Posiciones locales alrededor del centro de la sala (spawn de básicos).
@@ -64,6 +67,7 @@ var _boss_intro_running: bool = false
 var _boss_defeated: bool = false
 var _boss_spawn_local_pos: Vector2 = Vector2.ZERO
 var _boss_instance: Node2D = null
+var _door_trap_sfx_pool: Array[AudioStream] = []
 
 @onready var door_up = $Doors/DoorPos_Up
 @onready var door_down = $Doors/DoorPos_Down
@@ -72,6 +76,7 @@ var _boss_instance: Node2D = null
 
 
 func setup(neighbors: Array, my_coords: Vector2i, room_kind: String = RoomKind.START, level_generator: Node = null) -> void:
+	_ensure_door_trap_sfx_pool()
 	current_coords = my_coords
 	_neighbors = neighbors.duplicate()
 	_hostiles_alive = 0
@@ -173,21 +178,74 @@ func _try_configure_door(door: Area2D, side: String) -> void:
 
 
 func try_play_trap_close_sfx() -> void:
+	if _is_boss_room:
+		_force_play_boss_trap_close_sfx()
+		return
 	if _trap_close_sfx_done:
 		return
 	if not _locks_exits or room_cleared:
 		return
-	# En sala de boss siempre forzamos el SFX de cierre para reforzar el momento.
+	var sfx_pool := _get_door_sfx_pool()
+	if sfx_pool.is_empty():
+		return
+	# Boss: 100%. Otras salas: 2/5.
 	if not _is_boss_room and randf() > _CHANCE_DOOR_TRAP_SFX:
 		return
 	_trap_close_sfx_done = true
-	var stream: AudioStream = _SFX_DOOR_TRAP.pick_random()
-	var player := AudioStreamPlayer.new()
-	player.bus = &"SFX"
-	player.stream = stream
-	add_child(player)
-	player.finished.connect(player.queue_free)
-	player.play()
+	var stream: AudioStream = sfx_pool.pick_random()
+	_play_sfx_once(stream)
+
+
+func _play_sfx_once(stream: AudioStream) -> void:
+	if stream == null:
+		return
+	var sfx_player := AudioStreamPlayer.new()
+	sfx_player.bus = &"SFX"
+	sfx_player.stream = stream
+	sfx_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	var host: Node = get_tree().current_scene
+	if host == null:
+		host = self
+	host.add_child(sfx_player)
+	sfx_player.finished.connect(sfx_player.queue_free)
+	sfx_player.play()
+
+
+func _force_play_boss_trap_close_sfx() -> void:
+	if _BOSS_DOOR_SFX_GUARANTEED == null:
+		return
+	_trap_close_sfx_done = true
+	_play_sfx_once(_BOSS_DOOR_SFX_GUARANTEED)
+
+
+func _ensure_door_trap_sfx_pool() -> void:
+	if not _door_trap_sfx_pool.is_empty():
+		return
+	var dir := DirAccess.open(_DOOR_SFX_FOLDER)
+	if dir == null:
+		push_warning("No se pudo abrir carpeta de SFX de puerta: %s" % _DOOR_SFX_FOLDER)
+		return
+	dir.list_dir_begin()
+	while true:
+		var file_name := dir.get_next()
+		if file_name == "":
+			break
+		if dir.current_is_dir():
+			continue
+		var ext := file_name.get_extension().to_lower()
+		if not _DOOR_SFX_EXTENSIONS.has(ext):
+			continue
+		var stream_path := "%s/%s" % [_DOOR_SFX_FOLDER, file_name]
+		var stream := load(stream_path) as AudioStream
+		if stream != null:
+			_door_trap_sfx_pool.append(stream)
+	dir.list_dir_end()
+
+
+func _get_door_sfx_pool() -> Array[AudioStream]:
+	if not _door_trap_sfx_pool.is_empty():
+		return _door_trap_sfx_pool
+	return _DOOR_SFX_FALLBACK
 
 
 func _ensure_encounters_root() -> Node2D:
@@ -255,7 +313,9 @@ func on_player_entered_room(player: Node2D) -> void:
 	_refresh_door_states(true)
 	if _level_generator != null and _level_generator.has_method("seal_all_edges_for_cell"):
 		_level_generator.seal_all_edges_for_cell(current_coords)
-	try_play_trap_close_sfx()
+	# Reinicia el flag para garantizar SFX en cada entrada al boss.
+	_trap_close_sfx_done = false
+	_force_play_boss_trap_close_sfx()
 	call_deferred("_run_boss_entrance_cinematic", player)
 
 
