@@ -1,12 +1,14 @@
-[gd_resource type="AudioBusLayout" format=3 uid="uid://c0xpbx8o6qibd"]
+[gd_resource type="AudioBusLayout" format=3 uid="uid://btfcd5ijrwcr3"]
 
-[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_music_bandpass"]
-cutoff_hz = 450.0
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_j3pel"]
+resource_name = "LowPassFilter"
+cutoff_hz = 1.0
 resonance = 0.0
 db = 3
 
-[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_music_bandpass"]
-cutoff_hz = 2250.0
+[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_j3pel"]
+resource_name = "HighPassFilter"
+cutoff_hz = 1.0
 resonance = 0.0
 db = 3
 
@@ -17,10 +19,10 @@ bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = &"Master"
-bus/1/effect/0/effect = SubResource("AudioEffectHighPassFilter_music_bandpass")
-bus/1/effect/0/enabled = true
-bus/1/effect/1/effect = SubResource("AudioEffectLowPassFilter_music_bandpass")
-bus/1/effect/1/enabled = true
+bus/1/effect/0/effect = SubResource("AudioEffectLowPassFilter_j3pel")
+bus/1/effect/0/enabled = false
+bus/1/effect/1/effect = SubResource("AudioEffectHighPassFilter_j3pel")
+bus/1/effect/1/enabled = false
 bus/2/name = &"SFX"
 bus/2/solo = false
 bus/2/mute = false

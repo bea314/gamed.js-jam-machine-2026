@@ -46,4 +46,4 @@ func render_dungeon_visuals() -> void:
 	
 		if room_node.has_method("setup"):
 			var rk: String = str(data[coords].get("room_kind", RoomKind.START))
-			room_node.setup(neighbors, coords, rk, null)
+			room_node.setup(neighbors, coords, rk)

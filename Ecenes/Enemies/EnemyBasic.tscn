@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bywsd8eelwyu3"]
 
-[ext_resource type="Script" path="res://Scripts/enemy_basic.gd" id="1_enemy"]
+[ext_resource type="Script" uid="uid://d0jl0wg82wb4m" path="res://Scripts/enemy_basic.gd" id="1_enemy"]
 [ext_resource type="PackedScene" uid="uid://658633st7q53" path="res://Ecenes/Player/health/health_component.tscn" id="2_hc"]
 [ext_resource type="Texture2D" uid="uid://byyh620w5pp6i" path="res://Recursos/Textures/drone1.png" id="2_p7mmo"]
 [ext_resource type="Texture2D" uid="uid://c880snp417f8t" path="res://Recursos/Textures/drone2.png" id="3_iu8m2"]

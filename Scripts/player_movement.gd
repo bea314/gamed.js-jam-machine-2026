@@ -55,7 +55,7 @@ var death_sounds: Array = [
 @onready var audio_player: AudioStreamPlayer = $Audio_Player
 ## Tras el daño (u otro SFX en `Audio_Player`), espera antes del SFX de muerte para que no suene a la vez.
 @export var delay_sec_before_death_sfx: float = 0.05
-## Tras el SFX de muerte y el último frame de la anim de muerte (lo que dure más), retardo extra antes del game over.
+## Tras el SFX de muerte, espera N s extra (útil mientras añades animación de muerte y calibras).
 @export var extra_delay_sec_before_game_over: float = 0.0
 
 var _game_over_shown: bool = false
@@ -86,40 +86,26 @@ func _on_health_died() -> void:
 
 
 ## Golpe (Audio_Player) y muerte (Audio_Death) van separados: el golpe final suena y el SFX de muerte no lo corta.
-## El game over sale cuando terminan el audio de muerte y la secuencia de `Ruka_Death` (espera a lo que tarde más).
+## El game over sale tras el audio de muerte (y, si lo configuras, un retardo o una anim conectada vía señal).
 func _run_death_presentation_then_game_over() -> void:
-	if is_instance_valid(weapon_pivot):
-		weapon_pivot.visible = false
-	# [anim, sfx] — array para que el closure actualice el mismo contenedor (bool suelto fallaba)
-	var done := [true, true]
-	if mesh_sistem:
-		done[0] = false
-		mesh_sistem.death_presentation_finished.connect(
-			func(): done[0] = true, CONNECT_ONE_SHOT)
-		mesh_sistem.Change_State("Death")
-
-	if not death_sounds.is_empty() and _audio_death != null:
-		done[1] = false
-		if delay_sec_before_death_sfx > 0.0:
-			await get_tree().create_timer(delay_sec_before_death_sfx).timeout
-			if not (is_instance_valid(self) and is_inside_tree()):
-				return
-		_audio_death.finished.connect(
-			func(): done[1] = true, CONNECT_ONE_SHOT)
-		_audio_death.stream = death_sounds.pick_random()
-		_audio_death.play()
-		if not _audio_death.playing:
-			done[1] = true
-
-	while not (done[0] and done[1]):
-		await get_tree().process_frame
-		if not (is_instance_valid(self) and is_inside_tree()):
-			return
-
+	await _await_death_sfx()
 	await _await_extra_before_game_over()
 	if not (is_instance_valid(self) and is_inside_tree()):
 		return
 	_show_game_over()
+
+
+func _await_death_sfx() -> void:
+	if death_sounds.is_empty() or _audio_death == null:
+		return
+	if delay_sec_before_death_sfx > 0.0:
+		await get_tree().create_timer(delay_sec_before_death_sfx).timeout
+		if not (is_instance_valid(self) and is_inside_tree()):
+			return
+	_audio_death.stream = death_sounds.pick_random()
+	_audio_death.play()
+	if _audio_death.playing:
+		await _audio_death.finished
 
 
 func _await_extra_before_game_over() -> void:
@@ -146,15 +132,8 @@ func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:
 	_attack_visual_on = false
 	_attack_finish_one_more_loop = false
 	mesh_sistem.reset_attack_loop_tracking()
-
-	if _health != null and _health.current_health == 0:
-		if hit_from_global != Vector2.ZERO:
-			var away := global_position - hit_from_global
-			if away.length_squared() > 0.0001:
-				velocity += away.normalized() * hit_knockback_speed
-		return
-
 	mesh_sistem.Change_State("Take_Damage")
+
 	if hit_from_global != Vector2.ZERO:
 		var away := global_position - hit_from_global
 		if away.length_squared() > 0.0001:
@@ -202,8 +181,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	_sync_invuln_flicker(delta)
-	if _game_over_shown:
-		return
 
 	var to_mouse := get_global_mouse_position() - global_position
 	
@@ -247,9 +224,6 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _game_over_shown:
-		velocity = Vector2.ZERO
-		return
 	if _dash:
 		_dash.tick(delta)
 
@@ -329,9 +303,6 @@ func _physics_process(delta: float) -> void:
 			else:
 				mesh_sistem.Change_State("Idle")
 		
-
-
-
 
 func is_walking() -> bool:
 	return velocity.length() > 0.1

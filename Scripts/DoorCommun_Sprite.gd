@@ -1,31 +1,32 @@
-extends "res://Scripts/door_animated_sprites.gd"
+extends Node2D
 
-# Conector procedural: estados visuales hasta enlazar lógica definitiva.
+# SISTSTEMA EN PROGRESO HASTA QUE SE DEFINA EL ARTE !TEST
+# necesitamos el arte para todo pero mientras usaremos place Holder
+# para empezar
 
-@onready var mostra_path: Label = _resolve_label()
+var is_Open_Door : bool = false
 
+@onready var mesh_door: MeshInstance2D = $Mesh_Door
+var color_Clocet : Color = Color(0.702, 0.369, 0.369, 1.0)
+var color_open : Color = Color(0.256, 0.559, 0.279, 1.0)
+var color_for_open : Color = Color(0.839, 0.778, 0.191, 1.0)
 
-func _resolve_label() -> Label:
-	var n := get_node_or_null("Mostra_path") as Label
-	if n:
-		return n
-	return get_node("Muestra_path") as Label
+@onready var spawn_player_point: Marker2D = $"../Spawn_playerPOINT"
+var PATH_GO : Marker2D
 
+@onready var mostra_path: Label = $Mostra_path
 
 func _ready() -> void:
-	super._ready()
 	DOOR_STATE_Visual(3)
-
-
-func DOOR_STATE_Visual(door_state: int) -> void:
-	match door_state:
-		1:
-			snap_fully_closed()
-			mostra_path.visible = false
-		2:
-			snap_fully_open()
-			mostra_path.visible = false
-		3:
-			snap_to_frame(2)
-			mostra_path.text = "??"
-			mostra_path.visible = true
+	
+func DOOR_STATE_Visual(Door_STATE : int): # 1 closet, 2 open, 3 ?
+	if Door_STATE == 1:
+		mesh_door.modulate = color_Clocet
+		mostra_path.visible = false
+	elif Door_STATE == 2:
+		mesh_door.modulate = color_open
+		mostra_path.visible = false
+	elif Door_STATE == 3:
+		mesh_door.modulate = color_for_open
+		mostra_path.text = "??"
+		mostra_path.visible = true

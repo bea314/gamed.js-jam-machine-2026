@@ -4,60 +4,16 @@ extends Node2D
 @export var room_scene: PackedScene
 @export var total_rooms_goal: int = 8
 @export var room_separation: Vector2 = Vector2(710, 400)
-@export_range(1, 3, 1) var run_level_index: int = 1
-@export var use_profile_room_count: bool = true
 ## Al activarlo, el jefe queda en la sala **contigua** a la inicial (a la derecha) para probar sin recorrer el mapa. Desactívalo al terminar el debug.
 @export var debug_boss_room_beside_start: bool = false
 ## Celda del jefe en modo debug (derecha de `(0,0)`; hay puerta hacia ella).
 const DEBUG_BOSS_NEIGHBOUR_CELL: Vector2i = Vector2i(1, 0)
-const MAX_RUN_LEVEL: int = 3
-const LEVEL_GENERATION_PROFILES := {
-	1: {
-		"room_count": 8,
-		"boss_room_kind": RoomKind.BOSS_NIVEL_1,
-		"normal_cycle": [
-			RoomKind.COMBAT_EASY_6,
-			RoomKind.MID_TURRET,
-			RoomKind.TURRET_PLUS_BASICS,
-			RoomKind.DEFENSE_TWO_PLUS_THREE,
-		],
-	},
-	# Placeholder para cuando existan room kinds y escenas de nivel 2.
-	2: {
-		"room_count": 10,
-		"boss_room_kind": RoomKind.BOSS_NIVEL_1,
-		"normal_cycle": [
-			RoomKind.MID_TURRET,
-			RoomKind.TURRET_PLUS_BASICS,
-			RoomKind.DEFENSE_TWO_PLUS_THREE,
-			RoomKind.COMBAT_EASY_6,
-		],
-	},
-	# Placeholder para cuando existan room kinds y escenas de nivel 3.
-	3: {
-		"room_count": 12,
-		"boss_room_kind": RoomKind.BOSS_NIVEL_1,
-		"normal_cycle": [
-			RoomKind.TURRET_PLUS_BASICS,
-			RoomKind.DEFENSE_TWO_PLUS_THREE,
-			RoomKind.MID_TURRET,
-			RoomKind.COMBAT_EASY_6,
-		],
-	},
-}
 
 var dungeon_data: Dictionary = {}
 var instantiated_rooms: Dictionary = {}
 var directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
-## Aristas entre celdas vecinas selladas al entrar en una sala de combate (puertas sincronizadas).
-var _edge_sealed: Dictionary = {}
-## Evita reentrar en otra transición al solapar la puerta de spawn el mismo fotograma (ping-pong).
-var _next_door_transition_ms: int = 0
-const _DOOR_TRANSITION_COOLDOWN_MS := 180
-var _active_level_profile: Dictionary = {}
 
 func _ready() -> void:
-	_apply_level_generation_contract(run_level_index)
 	randomize()
 	generate_dungeon()
 	render_dungeon_visuals()
@@ -85,7 +41,12 @@ func add_room_data(coords: Vector2i, type: String) -> bool:
 	return false
 
 func _assign_room_kinds() -> void:
-	var cycle: Array[String] = _get_profile_cycle()
+	var cycle: Array[String] = [
+		RoomKind.COMBAT_EASY_6,
+		RoomKind.MID_TURRET,
+		RoomKind.TURRET_PLUS_BASICS,
+		RoomKind.DEFENSE_TWO_PLUS_THREE,
+	]
 	var boss_cell: Vector2i
 	if debug_boss_room_beside_start and dungeon_data.has(DEBUG_BOSS_NEIGHBOUR_CELL):
 		boss_cell = DEBUG_BOSS_NEIGHBOUR_CELL
@@ -99,35 +60,10 @@ func _assign_room_kinds() -> void:
 		if cell == Vector2i.ZERO:
 			dungeon_data[cell]["room_kind"] = RoomKind.START
 		elif cell == boss_cell:
-			dungeon_data[cell]["room_kind"] = _get_profile_boss_kind()
+			dungeon_data[cell]["room_kind"] = RoomKind.BOSS_NIVEL_1
 		else:
 			dungeon_data[cell]["room_kind"] = cycle[idx % cycle.size()]
 			idx += 1
-
-
-func _apply_level_generation_contract(level_index: int) -> void:
-	run_level_index = clampi(level_index, 1, MAX_RUN_LEVEL)
-	_active_level_profile = _get_level_profile(run_level_index)
-	if use_profile_room_count:
-		total_rooms_goal = int(_active_level_profile.get("room_count", total_rooms_goal))
-
-
-func _get_level_profile(level_index: int) -> Dictionary:
-	return LEVEL_GENERATION_PROFILES.get(level_index, LEVEL_GENERATION_PROFILES[1]).duplicate(true)
-
-
-func _get_profile_cycle() -> Array[String]:
-	var cycle_data: Array = _active_level_profile.get("normal_cycle", LEVEL_GENERATION_PROFILES[1]["normal_cycle"])
-	var cycle: Array[String] = []
-	for kind in cycle_data:
-		cycle.append(str(kind))
-	if cycle.is_empty():
-		cycle = [RoomKind.COMBAT_EASY_6]
-	return cycle
-
-
-func _get_profile_boss_kind() -> String:
-	return str(_active_level_profile.get("boss_room_kind", RoomKind.BOSS_NIVEL_1))
 
 
 func _boss_cell_farthest_from_start() -> Vector2i:
@@ -153,7 +89,6 @@ func render_dungeon_visuals() -> void:
 	for child in get_children():
 		if child is Node2D: child.queue_free()
 	instantiated_rooms.clear()
-	_edge_sealed.clear()
 	
 	# 1. Crear instancias
 	for coords in dungeon_data.keys():
@@ -180,110 +115,30 @@ func render_dungeon_visuals() -> void:
 		
 		if room_node.has_method("setup"):
 			var rk: String = str(dungeon_data[coords].get("room_kind", RoomKind.START))
-			room_node.setup(neighbors, coords, rk, self)
+			room_node.setup(neighbors, coords, rk)
 
 # --- FASE 3: CONEXIÓN REAL ---
-func _edge_key(a: Vector2i, b: Vector2i) -> String:
-	if a.x < b.x or (a.x == b.x and a.y < b.y):
-		return "%d,%d|%d,%d" % [a.x, a.y, b.x, b.y]
-	return "%d,%d|%d,%d" % [b.x, b.y, a.x, a.y]
-
-
-func is_edge_sealed(a: Vector2i, b: Vector2i) -> bool:
-	return _edge_sealed.get(_edge_key(a, b), false)
-
-
-## Sella todas las puertas de una celda (p. ej. combate): cada vecino del mapa recibe arista cerrada y se refrescan todas las salas tocadas.
-func seal_all_edges_for_cell(cell: Vector2i) -> void:
-	var refresh_cells: Dictionary = {}
-	refresh_cells[cell] = true
-	for d: Vector2i in directions:
-		var o: Vector2i = cell + d
-		if not dungeon_data.has(o):
-			continue
-		_edge_sealed[_edge_key(cell, o)] = true
-		refresh_cells[o] = true
-	for c: Vector2i in refresh_cells.keys():
-		if instantiated_rooms.has(c):
-			var rn: Node = instantiated_rooms[c]
-			if rn.has_method("refresh_door_states"):
-				rn.refresh_door_states(true)
-
-
-func unseal_edges_for_cell(cell: Vector2i) -> void:
-	var to_refresh: Dictionary = {}
-	to_refresh[cell] = true
-	for d: Vector2i in directions:
-		var o: Vector2i = cell + d
-		var k: String = _edge_key(cell, o)
-		if _edge_sealed.has(k):
-			_edge_sealed.erase(k)
-			to_refresh[o] = true
-	for c: Vector2i in to_refresh.keys():
-		if instantiated_rooms.has(c):
-			var rn: Node = instantiated_rooms[c]
-			if rn.has_method("refresh_door_states"):
-				rn.refresh_door_states(true)
-
-
-func _on_player_transition(target_coords: Vector2i, side: String) -> void:
-	var now_ms: int = Time.get_ticks_msec()
-	if now_ms < _next_door_transition_ms:
-		return
-	if not instantiated_rooms.has(target_coords):
-		return
-	_next_door_transition_ms = now_ms + _DOOR_TRANSITION_COOLDOWN_MS
-
-	var target_room: Node = instantiated_rooms[target_coords]
-	var player: Node = get_tree().get_first_node_in_group("Player")
-	if player == null:
-		return
-
-	var marker_path := ""
-	# Si entramos por UP, aparecemos en el marker de DOWN de la siguiente sala
-	match side:
-		"up":
-			marker_path = "Doors/DoorPos_Down/SpawnMarker"
-		"down":
-			marker_path = "Doors/DoorPos_Up/SpawnMarker"
-		"left":
-			marker_path = "Doors/DoorPos_Right/SpawnMarker"
-		"right":
-			marker_path = "Doors/DoorPos_Left/SpawnMarker"
-		_:
-			marker_path = ""
-
-	var spawn_global: Vector2 = target_room.global_position
-	var spawn_node: Node = target_room.get_node_or_null(marker_path) if marker_path != "" else null
-	if spawn_node is Node2D:
-		spawn_global = (spawn_node as Node2D).global_position
-
-	ActiveRoomService.set_active_room(target_room as Node2D)
-	# Diferir el teletransporte evita que el motor dispare otra puerta en la misma pila de llamadas.
-	player.set_deferred(&"global_position", spawn_global)
-
-	if target_room.has_method("is_exit_locked") and target_room.is_exit_locked():
-		seal_all_edges_for_cell(target_coords)
-		if target_room.has_method("try_play_trap_close_sfx"):
-			target_room.try_play_trap_close_sfx()
-
-
-# Hook de progresión: desde la intro... o un coordinador externo puedo llamar esto para arrancar cada run
-func start_run_level(level_index: int) -> void:
-	_apply_level_generation_contract(level_index)
-	generate_dungeon()
-	render_dungeon_visuals()
-
-
-# Hook de progresión: cuando derrotamos al boss del nivel actual, se avanza siguiente nivel o termina run
-func on_boss_defeated_advance_level() -> void:
-	var next_level := run_level_index + 1
-	if next_level <= MAX_RUN_LEVEL:
-		start_run_level(next_level)
-		return
-	show_victory_message()
-
-
-# Hook final: reemplaza este placeholder por cambio de escena/UI de victoria.
-func show_victory_message() -> void:
-	push_warning("Run completada: aqui puedes mostrar pantalla o mensaje de victoria.")
+func _on_player_transition(target_coords: Vector2i, side: String):
+	if instantiated_rooms.has(target_coords):
+		var target_room = instantiated_rooms[target_coords]
+		var player = get_tree().get_first_node_in_group("Player")
+		
+		if player:
+			var marker_path = ""
+			
+			# Si entramos por UP, aparecemos en el marker de DOWN de la siguiente sala
+			match side:
+				"up":    marker_path = "Doors/DoorPos_Down/SpawnMarker"
+				"down":  marker_path = "Doors/DoorPos_Up/SpawnMarker"
+				"left":  marker_path = "Doors/DoorPos_Right/SpawnMarker"
+				"right": marker_path = "Doors/DoorPos_Left/SpawnMarker"
+			
+			# Obtenemos la posición global del marker en la nueva habitación
+			var spawn_node = target_room.get_node_or_null(marker_path)
+			
+			if spawn_node:
+				player.global_position = spawn_node.global_position
+			else:
+				# Backup por si olvidaste poner el marker en alguna puerta
+				player.global_position = target_room.global_position
+			ActiveRoomService.set_active_room(target_room)

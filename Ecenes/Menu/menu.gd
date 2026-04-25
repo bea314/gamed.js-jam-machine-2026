@@ -13,6 +13,11 @@ extends Control
 @onready var _fullscreen_check: CheckButton = $CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
 @onready var _back_button: Button = $CenterContainer/MainVBox/OptionsPanel/BackButton
 
+# REFERECNIAS NODOS FADE ON/OUT
+@onready var pantalla_negra: ColorRect = $Pantalla_Negra
+@onready var anim: AnimationPlayer = $Pantalla_Negra/Anim
+
+
 var interact_sounds : Array = [
 	preload("uid://bg3t7v510agae"),
 	preload("uid://csxs8xt3nbl6l"),
@@ -31,13 +36,6 @@ const MENU_EXIT = preload("uid://t0pwodsktgbw")
 
 const MAIN_MENU_INTRO = preload("uid://31lw0x3j1gsn")
 const MAIN_MENU = preload("uid://bi2pf0sx5p0yq")
-const INTRO_SCENE_PATH := "res://Ecenes/Intro/Intro.tscn"
-const VICTORY_SCENE_PATH := "res://Ecenes/Menu/Victory.tscn"
-const RUN_LEVEL_SCENES := {
-	1: "res://Ecenes/level.tscn",
-	2: "res://Ecenes/level_2.tscn",
-	3: "res://Ecenes/level_3.tscn",
-}
 
 func _ready() -> void:
 	_new_game_button.pressed.connect(_on_new_game_pressed)
@@ -59,40 +57,9 @@ func _ready() -> void:
 
 # NEW GAME BUTTON ==============
 func _on_new_game_pressed() -> void:
-	start_intro_if_any()
-
-
-func start_intro_if_any() -> void:
-	# AQUI PUEDES COLOCAR EL INTRO Y UN EJEMPLO DE COMO INSERTAR UNA EXCENA
-	# Ejemplo: si existe intro, cargas intro; si no existe, arrancas de una en nivel 1.
-	if ResourceLoader.exists(INTRO_SCENE_PATH):
-		get_tree().change_scene_to_file(INTRO_SCENE_PATH)
-		return
-	start_run_level(1)
-
-
-func start_run_level(level_index: int) -> void:
-	var scene_path: String = str(RUN_LEVEL_SCENES.get(level_index, RUN_LEVEL_SCENES[1]))
-	if ResourceLoader.exists(scene_path):
-		get_tree().change_scene_to_file(scene_path)
-	else:
-		push_warning("No existe la escena para el nivel %d: %s" % [level_index, scene_path])
-		get_tree().change_scene_to_file(RUN_LEVEL_SCENES[1])
-
-
-func on_boss_defeated_advance_level(current_level: int) -> void:
-	var next_level := current_level + 1
-	if next_level <= 3:
-		start_run_level(next_level)
-		return
-	show_victory_message()
-
-
-func show_victory_message() -> void:
-	if ResourceLoader.exists(VICTORY_SCENE_PATH):
-		get_tree().change_scene_to_file(VICTORY_SCENE_PATH)
-		return
-	push_warning("Placeholder: mostrar mensaje de victoria final del roguelike.")
+	anim.play("Fade_enter")
+	await get_tree().create_timer(2.0).timeout
+	get_tree().change_scene_to_file("res://Ecenes/level.tscn")
 
 func _on_mouse_entered_new_game():
 	audio_sfxs.stream = interact_sounds.pick_random()

@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://056yesodqe0h"]
+
+[ext_resource type="Script" uid="uid://ddb2evva78q4m" path="res://Ecenes/Objets/dinamita.gd" id="1_b31tm"]
+[ext_resource type="Texture2D" uid="uid://hyi8wb142klm" path="res://Recursos/Textures/dynamite1.png" id="2_b31tm"]
+[ext_resource type="Texture2D" uid="uid://da1se4xk40yfl" path="res://Recursos/Textures/dynamite2.png" id="3_tje08"]
+[ext_resource type="Texture2D" uid="uid://3ptb26mx4yef" path="res://Recursos/Textures/dynamite3.png" id="4_sa61s"]
+[ext_resource type="Texture2D" uid="uid://bdl4xgeptlo28" path="res://Recursos/Textures/dynamite4.png" id="5_t88oh"]
+[ext_resource type="Texture2D" uid="uid://dqvjdbplq4bfm" path="res://Recursos/Textures/dynamite5.png" id="6_ywnn6"]
+[ext_resource type="Texture2D" uid="uid://cr0flkj0hjn8o" path="res://Recursos/Textures/dynamite6.png" id="7_lb3o3"]
+[ext_resource type="Texture2D" uid="uid://bjfxf06bqtqu" path="res://Recursos/Textures/explosion1.png" id="8_20cfg"]
+[ext_resource type="Texture2D" uid="uid://b8uyucycpemmf" path="res://Recursos/Textures/explosion2.png" id="9_bx7p6"]
+[ext_resource type="Texture2D" uid="uid://bkjyh0yiij0gp" path="res://Recursos/Textures/explosion3.png" id="10_1metl"]
+[ext_resource type="Texture2D" uid="uid://bcljklne72k81" path="res://Recursos/Textures/explosion4.png" id="11_va8hx"]
+[ext_resource type="Texture2D" uid="uid://bjesf04wwi7aj" path="res://Recursos/Textures/explosion5.png" id="12_nk7v8"]
+[ext_resource type="Texture2D" uid="uid://drvhamru2u6wm" path="res://Recursos/Textures/explosion6.png" id="13_d0m8v"]
+[ext_resource type="Texture2D" uid="uid://bgj8a0vxcii54" path="res://Recursos/Textures/explosion7.png" id="14_o0kdy"]
+[ext_resource type="Texture2D" uid="uid://bw1mw5w37dk68" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="15_bx7p6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5g5wl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_b31tm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tje08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sa61s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t88oh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ywnn6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lb3o3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ass36"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_20cfg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_bx7p6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1metl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_va8hx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_nk7v8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_d0m8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_o0kdy")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20cfg"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b31tm"]
+radius = 15.033297
+
+[node name="Dinamita_Rigid" type="RigidBody2D" unique_id=868236815 groups=["Item"]]
+mass = 3.0
+gravity_scale = 0.0
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_b31tm")
+
+[node name="ammu_Pistol_Sprite" type="AnimatedSprite2D" parent="." unique_id=1872070610]
+position = Vector2(7.9138393, -5.017252)
+scale = Vector2(0.110607244, 0.110607244)
+sprite_frames = SubResource("SpriteFrames_5g5wl")
+frame = 5
+frame_progress = 1.0
+speed_scale = 1.5
+
+[node name="Expolocion" type="AnimatedSprite2D" parent="." unique_id=567793233]
+visible = false
+position = Vector2(-1, -1.0000005)
+scale = Vector2(0.26108965, 0.26108965)
+sprite_frames = SubResource("SpriteFrames_ass36")
+frame = 6
+frame_progress = 1.0
+speed_scale = 3.5
+
+[node name="Explocion_light" type="PointLight2D" parent="." unique_id=1051080992]
+scale = Vector2(0.63, 0.63)
+enabled = false
+color = Color(0.9880994, 0.2139161, 0.00016942024, 1)
+texture = ExtResource("15_bx7p6")
+
+[node name="Collicion" type="CollisionShape2D" parent="." unique_id=1813122595]
+position = Vector2(-0.08616066, -0.017251968)
+shape = SubResource("CircleShape2D_20cfg")
+debug_color = Color(1.92523e-06, 0.39577544, 0.4659456, 0.41960785)
+
+[node name="Area_Collicion_Interact" type="Area2D" parent="." unique_id=1093531918]
+
+[node name="Collicion" type="CollisionShape2D" parent="Area_Collicion_Interact" unique_id=1323116866]
+shape = SubResource("CircleShape2D_b31tm")
+debug_color = Color(0.78431374, 0.6, 0.69803923, 0.41960785)
+
+[connection signal="body_entered" from="Area_Collicion_Interact" to="." method="_on_area_2d_body_entered"]

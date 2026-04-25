@@ -60,19 +60,19 @@ debug_color = Color(0.808098, 0.41147196, 0.12574488, 0.41960785)
 [node name="Doors" type="Node2D" parent="." unique_id=171207970]
 
 [node name="DoorPos_Right" parent="Doors" unique_id=2077045764 instance=ExtResource("4_yrbo2")]
-position = Vector2(293, 1)
-rotation = 1.5707964
+position = Vector2(306, -3)
 
 [node name="DoorPos_Left" parent="Doors" unique_id=1785222738 instance=ExtResource("4_yrbo2")]
-position = Vector2(-293, 0)
-rotation = -1.5707964
-
-[node name="DoorPos_Down" parent="Doors" unique_id=32046318 instance=ExtResource("4_yrbo2")]
-position = Vector2(-1, 142)
+position = Vector2(-306, 3)
 rotation = 3.1415925
 
+[node name="DoorPos_Down" parent="Doors" unique_id=32046318 instance=ExtResource("4_yrbo2")]
+position = Vector2(0, 153)
+rotation = 1.5707964
+
 [node name="DoorPos_Up" parent="Doors" unique_id=355860876 instance=ExtResource("4_yrbo2")]
-position = Vector2(-1, -141)
+position = Vector2(0, -150)
+rotation = -1.5707964
 
 [connection signal="body_entered" from="Indc_Player" to="Indc_Player" method="_on_body_entered"]
 [connection signal="body_entered" from="Doors/DoorPos_Right" to="." method="_on_door_pos_right_body_entered"]
