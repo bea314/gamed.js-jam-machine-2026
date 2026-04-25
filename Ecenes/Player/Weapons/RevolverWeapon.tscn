@@ -6,7 +6,7 @@
 [node name="RevolverWeapon" type="Node"]
 script = ExtResource("1_script")
 weapon_name = "Revolver"
-damage = 6
+damage = 10
 fire_rate = 0.28
 magazine_size = 6
 reserve_ammo = 30
