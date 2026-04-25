@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b0dpfdgx3xjli"]
+
+[ext_resource type="Script" path="res://Scripts/health/enemy_overhead_health_bar.gd" id="1_script"]
+
+[node name="EnemyOverheadHealthBar" type="Node2D" unique_id=133297308]
+z_index = 12
+position = Vector2(0, -22)
+script = ExtResource("1_script")

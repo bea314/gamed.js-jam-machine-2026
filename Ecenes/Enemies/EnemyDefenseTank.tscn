@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://du4rskadikxhd"]
 
-[ext_resource type="Script" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
+[ext_resource type="Script" uid="uid://bj6jmyxsn08h6" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
 [ext_resource type="Texture2D" uid="uid://byyh620w5pp6i" path="res://Recursos/Textures/drone1.png" id="2_v448d"]
 [ext_resource type="Texture2D" uid="uid://c880snp417f8t" path="res://Recursos/Textures/drone2.png" id="3_ig6si"]
 [ext_resource type="PackedScene" uid="uid://bvjot5oheirwi" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="3_mhc"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bdhvbyv4vwlv0" path="res://Recursos/Textures/drone10.png" id="11_yplbk"]
 [ext_resource type="Texture2D" uid="uid://bw06nftq2vqep" path="res://Recursos/Textures/drone11.png" id="12_5esbt"]
 [ext_resource type="Texture2D" uid="uid://dvce78dbwcy5e" path="res://Recursos/Textures/drone12.png" id="13_yt04j"]
+[ext_resource type="PackedScene" uid="uid://b0dpfdgx3xjli" path="res://Ecenes/Enemies/EnemyOverheadHealthBar.tscn" id="14_ohb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(17, 32)
@@ -84,3 +85,6 @@ autoplay = "default"
 
 [node name="HealthComponent" parent="." unique_id=1793141023 instance=ExtResource("3_mhc")]
 hit_invulnerability_duration = 0.0
+
+[node name="OverheadHealthBar" parent="." unique_id=1453219981 instance=ExtResource("14_ohb")]
+position = Vector2(0, -30)
