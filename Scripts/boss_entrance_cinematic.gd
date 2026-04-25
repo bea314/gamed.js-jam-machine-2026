@@ -12,6 +12,7 @@ signal cinematic_finished
 @export var use_zoom_reveal: bool = false
 @export var shake_magnitude: float = 3.0
 @export var shake_duration: float = 0.18
+@export var post_wake_input_delay: float = 0.2
 @export var wake_sfx_stream: AudioStream
 @export var qa_speed_multiplier: float = 3.0
 
@@ -85,6 +86,9 @@ func play(player: Node, boss: Node2D, camera: Camera2D, music_node: Node, skip_c
 	if music_node != null and music_node.has_method("play_boss_theme"):
 		music_node.play_boss_theme()
 	_toggle_optional_boss_hud(true)
+
+	if post_wake_input_delay > 0.0:
+		await get_tree().create_timer(_scale_time(post_wake_input_delay, speed)).timeout
 
 	if player != null and player.has_method("set_gameplay_hud_visible"):
 		player.set_gameplay_hud_visible(true)

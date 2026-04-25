@@ -177,7 +177,8 @@ func try_play_trap_close_sfx() -> void:
 		return
 	if not _locks_exits or room_cleared:
 		return
-	if randf() > _CHANCE_DOOR_TRAP_SFX:
+	# En sala de boss siempre forzamos el SFX de cierre para reforzar el momento.
+	if not _is_boss_room and randf() > _CHANCE_DOOR_TRAP_SFX:
 		return
 	_trap_close_sfx_done = true
 	var stream: AudioStream = _SFX_DOOR_TRAP.pick_random()
