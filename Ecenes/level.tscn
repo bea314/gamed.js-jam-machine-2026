@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://hmfch51q3oio" path="res://Ecenes/Objets/ammunition_Gun.tscn" id="4_mk5a5"]
 [ext_resource type="PackedScene" uid="uid://dkbxbrq5x45dx" path="res://Ecenes/Music_SISTEM.tscn" id="5_80fcu"]
 [ext_resource type="PackedScene" path="res://Ecenes/UI/PauseMenu.tscn" id="6_pause"]
+[ext_resource type="PackedScene" uid="uid://cne81bq62n7qk" path="res://Ecenes/Objets/dispositive.tscn" id="6_ni8x4"]
 
 [node name="Level" type="Node2D" unique_id=956876147]
 
@@ -24,3 +25,6 @@ position = Vector2(-54, 27)
 [node name="MusicSistem" parent="." unique_id=967773942 instance=ExtResource("5_80fcu")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_pause")]
+
+[node name="Dispositive" parent="." unique_id=90898918 instance=ExtResource("6_ni8x4")]
+position = Vector2(-165, -17)

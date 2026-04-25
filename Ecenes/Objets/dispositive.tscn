@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://cne81bq62n7qk"]
+
+[ext_resource type="Script" uid="uid://oh2djgm5basx" path="res://Scripts/Objets/dispositive.gd" id="1_7wa7n"]
+[ext_resource type="Texture2D" uid="uid://ciow08q42sh3a" path="res://Recursos/Textures/device1.png" id="1_xlans"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xlans"]
+radius = 28.0
+
+[sub_resource type="Animation" id="Animation_7wa7n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite_Machine:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.2929198, 0.2929198)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite_Machine:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8luoo"]
+resource_name = "take_damage"
+length = 0.12
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite_Machine:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03365361, 0.056089457, 0.11365361),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(0.2929198, 0.2929198), Vector2(0.293, 0.328), Vector2(0.333, 0.318), Vector2(0.2929198, 0.2929198)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite_Machine:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.039359465, 0.06666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.99999994, 0.174173, 0.12721539, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t3x0n"]
+_data = {
+&"RESET": SubResource("Animation_7wa7n"),
+&"take_damage": SubResource("Animation_8luoo")
+}
+
+[node name="Dispositive" type="StaticBody2D" unique_id=90898918]
+collision_mask = 5
+script = ExtResource("1_7wa7n")
+
+[node name="Sprite_Machine" type="Sprite2D" parent="." unique_id=1187301813]
+scale = Vector2(0.2929198, 0.2929198)
+texture = ExtResource("1_xlans")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1017881739]
+position = Vector2(-2, 10)
+scale = Vector2(1.1360976, 1.1360976)
+shape = SubResource("CircleShape2D_xlans")
+debug_color = Color(0, 0.41568628, 0.69803923, 0.69411767)
+
+[node name="ANIM_Disp" type="AnimationPlayer" parent="." unique_id=1351770673]
+libraries/ = SubResource("AnimationLibrary_t3x0n")

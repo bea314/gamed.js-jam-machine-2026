@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://jao358k3a7dm" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 14.png" id="28_atk14"]
 [ext_resource type="Texture2D" uid="uid://dj3cib7hbprs1" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 15.png" id="29_atk15"]
 [ext_resource type="SpriteFrames" uid="uid://d6y42wsmuerte" path="res://Recursos/Textures/Ruka/Muerte/ruka_death_frames.tres" id="30_rukadth"]
+[ext_resource type="Script" uid="uid://c5p06dkxh6qao" path="res://Ecenes/bomb_sistem.gd" id="43_t50q8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 16.0
@@ -627,6 +628,9 @@ libraries/ = SubResource("AnimationLibrary_1vy0x")
 [node name="HealthComponent" type="Node" parent="." unique_id=293945052]
 script = ExtResource("2_health")
 hit_invulnerability_duration = 0.18
+
+[node name="Bomb_Sistem" type="Node" parent="." unique_id=1554711748]
+script = ExtResource("43_t50q8")
 
 [node name="HealthBar" parent="." unique_id=1318513250 instance=ExtResource("3_hbar")]
 
