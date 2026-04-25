@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Ecenes/Buffos/BuffPickupBase.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Map/Buffos/speed buff.png" id="2_tex"]
+
+[node name="BuffSpeed" instance=ExtResource("1_base")]
+buff_type = "speed"
+
+[node name="Sprite2D" parent="VisualRoot" index="0"]
+scale = Vector2(0.110, 0.110)
+texture = ExtResource("2_tex")
