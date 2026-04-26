@@ -14,7 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://bdhvbyv4vwlv0" path="res://Recursos/Textures/drone10.png" id="11_k436j"]
 [ext_resource type="Texture2D" uid="uid://bw06nftq2vqep" path="res://Recursos/Textures/drone11.png" id="12_6roya"]
 [ext_resource type="Texture2D" uid="uid://dvce78dbwcy5e" path="res://Recursos/Textures/drone12.png" id="13_a4440"]
+[ext_resource type="Texture2D" uid="uid://b8uyucycpemmf" path="res://Recursos/Textures/explosion2.png" id="14_ipsmw"]
 [ext_resource type="PackedScene" uid="uid://b0dpfdgx3xjli" path="res://Ecenes/Enemies/EnemyOverheadHealthBar.tscn" id="14_ohb"]
+[ext_resource type="Texture2D" uid="uid://bkjyh0yiij0gp" path="res://Recursos/Textures/explosion3.png" id="15_psesg"]
+[ext_resource type="Texture2D" uid="uid://bcljklne72k81" path="res://Recursos/Textures/explosion4.png" id="16_k436j"]
+[ext_resource type="Texture2D" uid="uid://bjesf04wwi7aj" path="res://Recursos/Textures/explosion5.png" id="17_6roya"]
+[ext_resource type="Texture2D" uid="uid://drvhamru2u6wm" path="res://Recursos/Textures/explosion6.png" id="18_a4440"]
+[ext_resource type="Texture2D" uid="uid://bgj8a0vxcii54" path="res://Recursos/Textures/explosion7.png" id="19_grb4t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(16, 16)
@@ -63,6 +69,32 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_hmaa6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_ipsmw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_psesg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_k436j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_6roya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_a4440")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_grb4t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="EnemyBasic" type="CharacterBody2D" unique_id=1760702728]
 collision_layer = 4
 collision_mask = 5
@@ -80,8 +112,19 @@ sprite_frames = SubResource("SpriteFrames_grb4t")
 autoplay = "default"
 frame_progress = 0.29311904
 
+[node name="Sprite_Explocion" type="AnimatedSprite2D" parent="Mesh" unique_id=26953301]
+visible = false
+position = Vector2(-2.842171e-14, -4.7683716e-07)
+scale = Vector2(0.225256, 0.22525594)
+sprite_frames = SubResource("SpriteFrames_hmaa6")
+autoplay = "default"
+frame_progress = 0.7678947
+speed_scale = 1.5
+
 [node name="HealthComponent" parent="." unique_id=112301481 instance=ExtResource("2_hc")]
 max_health = 10
 hit_invulnerability_duration = 0.0
 
 [node name="OverheadHealthBar" parent="." unique_id=501982510 instance=ExtResource("14_ohb")]
+
+[node name="Audio_Enemy" type="AudioStreamPlayer2D" parent="." unique_id=637233919]

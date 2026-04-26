@@ -8,7 +8,8 @@ class_name BuffPickupBase
 @export var rotate_speed: float = 1.2
 @export var bob_amplitude: float = 3.0
 @export var bob_speed: float = 2.8
-@export var auto_despawn_time: float = 20.0
+## Si es <= 0, el pickup no desaparece solo (ej. limpieza al vencer al jefe final de la run)
+@export var auto_despawn_time: float = 0.0
 @export var push_force: float = 100.0
 @export var push_on_enter: bool = false
 @export var push_when_fully_overlapped: bool = true

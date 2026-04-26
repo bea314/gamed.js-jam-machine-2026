@@ -3,6 +3,10 @@ extends CanvasLayer
 const LEVEL_PATH := "res://Ecenes/level.tscn"
 const MENU_PATH := "res://Ecenes/Menu/Menu.tscn"
 
+@export var fade_in_duration_sec: float = 1.6
+## Tras el fundido, deja el arte a full opacidad un momento antes de dar foco a los botones.
+@export var image_hold_sec: float = 0.5
+
 const _SFX_SCREEN_OPEN := preload("res://Recursos/Sound/SFXS/UX_GAME_OVER/GAME_OVER_SCREEN_OPEN.ogg")
 const _SFX_SELECT_RETRY := preload("res://Recursos/Sound/SFXS/UX_GAME_OVER/GAME_OVER_SELECT_RETRY.ogg")
 const _SFX_SELECT_MAIN_MENU := preload("res://Recursos/Sound/SFXS/UX_GAME_OVER/GAME_OVER_SELECT_MAIN_MENU.ogg")
@@ -20,8 +24,11 @@ const _HOVER_SFX: Array[AudioStream] = [
 @onready var _audio_sfxs: AudioStreamPlayer = $Audio_Sfxs
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+
+
+func _ready() -> void:
 	visible = false
 	_retry_button.pressed.connect(_on_retry_pressed)
 	_menu_button.pressed.connect(_on_menu_pressed)
@@ -33,10 +40,20 @@ func show_game_over() -> void:
 	if visible:
 		return
 	get_tree().paused = true
+	_root.modulate = Color(1, 1, 1, 0)
 	visible = true
 	_play_sfx(_SFX_SCREEN_OPEN)
 	_audio_music.play()
-	_retry_button.grab_focus()
+	var tw: Tween = create_tween()
+	tw.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	tw.tween_property(_root, "modulate", Color(1, 1, 1, 1), maxf(0.05, fade_in_duration_sec))
+	await tw.finished
+	if image_hold_sec > 0.0 and is_instance_valid(self) and is_inside_tree():
+		var hold := create_tween()
+		hold.tween_interval(image_hold_sec)
+		await hold.finished
+	if is_instance_valid(_retry_button) and is_inside_tree():
+		_retry_button.grab_focus()
 
 
 func _play_sfx(stream: AudioStream) -> void:

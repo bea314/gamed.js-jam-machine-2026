@@ -1,14 +1,21 @@
 [gd_scene format=3 uid="uid://exojt5fw8fj2"]
 
-[ext_resource type="Script" path="res://Scripts/ui/pause_menu.gd" id="1_pm"]
+[ext_resource type="Script" uid="uid://b8165tedtfwg6" path="res://Scripts/ui/pause_menu.gd" id="1_pm"]
+[ext_resource type="AudioStream" uid="uid://bovywukr4qd34" path="res://Recursos/Sound/Menus/NAV_01.ogg" id="2_a8mf0"]
+[ext_resource type="AudioStream" uid="uid://g314v5mwfrw3" path="res://Recursos/Sound/Menus/NAV_02.ogg" id="3_yh7ja"]
+[ext_resource type="AudioStream" uid="uid://0napsjk7720n" path="res://Recursos/Sound/Menus/NAV_03.ogg" id="4_070af"]
+[ext_resource type="AudioStream" uid="uid://tfir4g3wb14o" path="res://Recursos/Sound/Menus/NAV_04.ogg" id="5_81ka1"]
+[ext_resource type="AudioStream" uid="uid://dcbxv5carrf8n" path="res://Recursos/Sound/Menus/NAV_05.ogg" id="6_vmb11"]
+[ext_resource type="AudioStream" uid="uid://dlt56rp1iq473" path="res://Recursos/Sound/Menus/NAV_06.ogg" id="7_y83d7"]
 
-[node name="PauseMenu" type="CanvasLayer"]
+[node name="PauseMenu" type="CanvasLayer" unique_id=1246026455]
 process_mode = 3
-visible = false
 layer = 30
+visible = false
 script = ExtResource("1_pm")
+nav_sound_file = Array[AudioStream]([ExtResource("2_a8mf0"), ExtResource("3_yh7ja"), ExtResource("4_070af"), ExtResource("5_81ka1"), ExtResource("6_vmb11"), ExtResource("7_y83d7")])
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=1472974351]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -17,17 +24,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Dim" type="ColorRect" parent="Root"]
+[node name="Dim" type="ColorRect" parent="Root" unique_id=728510715]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 color = Color(0.0784314, 0.0784314, 0.117647, 0.78)
 
-[node name="CenterContainer" type="CenterContainer" parent="Root"]
+[node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=936501346]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,93 +41,101 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainVBox" type="VBoxContainer" parent="Root/CenterContainer"]
+[node name="MainVBox" type="VBoxContainer" parent="Root/CenterContainer" unique_id=44532249]
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="TitleLabel" type="Label" parent="Root/CenterContainer/MainVBox"]
+[node name="TitleLabel" type="Label" parent="Root/CenterContainer/MainVBox" unique_id=191627240]
 layout_mode = 2
-theme_override_font_sizes/font_size = 42
 theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 42
 text = "Pausa"
 horizontal_alignment = 1
 
-[node name="HintLabel" type="Label" parent="Root/CenterContainer/MainVBox"]
+[node name="HintLabel" type="Label" parent="Root/CenterContainer/MainVBox" unique_id=1553041505]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(0.7, 0.7, 0.75, 1)
+theme_override_font_sizes/font_size = 16
 text = "Esc o P: reanudar (menú) · Esc: atrás (opciones)"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="MainButtons" type="VBoxContainer" parent="Root/CenterContainer/MainVBox"]
+[node name="MainButtons" type="VBoxContainer" parent="Root/CenterContainer/MainVBox" unique_id=986105627]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ResumeButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons"]
+[node name="ResumeButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons" unique_id=1032371280]
 layout_mode = 2
 text = "Reanudar partida"
 
-[node name="OptionsButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons"]
+[node name="OptionsButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons" unique_id=1850743941]
 layout_mode = 2
 text = "Opciones"
 
-[node name="MainMenuButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons"]
+[node name="MainMenuButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons" unique_id=513012585]
 layout_mode = 2
 text = "Menú principal"
 
-[node name="ExitButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons"]
+[node name="ExitButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons" unique_id=911206831]
 layout_mode = 2
 text = "Salir"
 
-[node name="OptionsPanel" type="VBoxContainer" parent="Root/CenterContainer/MainVBox"]
+[node name="OptionsPanel" type="VBoxContainer" parent="Root/CenterContainer/MainVBox" unique_id=1401954651]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="OptionsTitle" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="OptionsTitle" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=1656498607]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Opciones"
 horizontal_alignment = 1
 
-[node name="MusicRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="MusicRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=1666385993]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MusicLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow"]
+[node name="MusicLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=361683884]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Música"
 
-[node name="MusicSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow"]
+[node name="MusicSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=787334567]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SFXRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="SFXRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=25924595]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="SFXLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow"]
+[node name="SFXLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=1171692571]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Efectos"
 
-[node name="SFXSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow"]
+[node name="SFXSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=52673201]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="FullscreenCheck" type="CheckButton" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="FullscreenCheck" type="CheckButton" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=33866668]
 layout_mode = 2
 text = "Pantalla completa"
 
-[node name="BackButton" type="Button" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="BackButton" type="Button" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=1830194426]
 layout_mode = 2
 text = "Atrás"
+
+[node name="Pause_Menu" type="AudioStreamPlayer" parent="." unique_id=1890361429]
+
+[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
+[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/OptionsButton" to="." method="_on_options_button_mouse_entered"]
+[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/MainMenuButton" to="." method="_on_main_menu_button_mouse_entered"]
+[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/ExitButton" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/OptionsPanel/BackButton" to="." method="_on_back_button_mouse_entered"]

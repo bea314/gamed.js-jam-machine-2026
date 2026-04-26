@@ -14,6 +14,8 @@ const ENEMY_MASK: int = 4
 var Fuerza_Launch: float = 800
 var distancia_separacion: float = 65.0 # La distancia para que no se solapen
 
+@onready var dinamita_audio: AudioStreamPlayer2D = $Dinamita_Audio
+
 func _ready() -> void:
 	linear_damp = 4.0 
 	angular_damp = 3.0 
@@ -36,7 +38,9 @@ func Launch():
 	var direccion = (mouse_pos - global_position).normalized()
 	
 	apply_central_impulse(direccion * Fuerza_Launch)
-
+	
+	dinamita_audio.play()
+	
 func Explocion():
 	ammu_pistol_sprite.play("default")
 	await get_tree().create_timer(0.8).timeout
@@ -44,7 +48,10 @@ func Explocion():
 	expolocion.visible = true
 	explocion_light.enabled = true
 	expolocion.play("default")
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.7).timeout
+	expolocion.visible = false
+	explocion_light.enabled = false
+	await get_tree().create_timer(1.5).timeout
 	_apply_explosion_damage()
 
 	queue_free()

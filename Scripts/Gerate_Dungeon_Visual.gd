@@ -47,3 +47,9 @@ func render_dungeon_visuals() -> void:
 		if room_node.has_method("setup"):
 			var rk: String = str(data[coords].get("room_kind", RoomKind.START))
 			room_node.setup(neighbors, coords, rk, null)
+
+	if instantiated_rooms.has(Vector2i.ZERO):
+		var p0: Node = get_tree().get_first_node_in_group("Player")
+		var start_room: Node = instantiated_rooms[Vector2i.ZERO]
+		if p0 is Node2D and start_room != null and start_room.has_method("on_player_entered_room"):
+			start_room.on_player_entered_room(p0 as Node2D)
