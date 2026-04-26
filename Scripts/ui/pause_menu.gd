@@ -14,6 +14,16 @@ const MENU_PATH := "res://Ecenes/Menu/Menu.tscn"
 @onready var _fullscreen_check: CheckButton = $Root/CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
 @onready var _back_button: Button = $Root/CenterContainer/MainVBox/OptionsPanel/BackButton
 
+@onready var pause_menu_sound: AudioStreamPlayer = $Pause_Menu
+const PAUSE_ENTER = preload("uid://cqw2v5rk8txgg")
+const PAUSE_OUT = preload("uid://du3t7dpj11dty")
+
+const OPTION_ENTER = preload("uid://dy2u244hlpdq7")
+const OPTION_EXIT = preload("uid://3u2gkut4ygea")
+
+@export_group("Nav sounds")
+@export var nav_sound_file: Array[AudioStream] = []
+
 
 func _ready() -> void:
 	visible = false
@@ -33,6 +43,7 @@ func _ready() -> void:
 	_fullscreen_check.button_pressed = _settings.fullscreen
 
 
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("pause_game"):
 		return
@@ -67,7 +78,9 @@ func open_pause() -> void:
 	_options_panel.visible = false
 	_main_buttons.visible = true
 	_resume_button.grab_focus()
-
+	
+	pause_menu_sound.stream = PAUSE_ENTER
+	pause_menu_sound.play()
 
 func close_pause() -> void:
 	_options_panel.visible = false
@@ -75,12 +88,16 @@ func close_pause() -> void:
 	visible = false
 	get_tree().paused = false
 
-
+	pause_menu_sound.stream = PAUSE_OUT
+	pause_menu_sound.play()
+	
 func _close_options() -> void:
 	_options_panel.visible = false
 	_main_buttons.visible = true
 	_options_button.grab_focus()
-
+	
+	pause_menu_sound.stream = OPTION_EXIT
+	pause_menu_sound.play()
 
 func _on_resume_pressed() -> void:
 	close_pause()
@@ -91,10 +108,11 @@ func _on_options_pressed() -> void:
 	_options_panel.visible = true
 	_back_button.grab_focus()
 
-
+	pause_menu_sound.stream = OPTION_ENTER
+	pause_menu_sound.play()
 func _on_back_pressed() -> void:
 	_close_options()
-
+	
 
 func _on_main_menu_pressed() -> void:
 	_go_to_scene(MENU_PATH)
@@ -121,3 +139,28 @@ func _go_to_scene(path: String) -> void:
 	tree.paused = false
 	visible = false
 	tree.change_scene_to_file(path)
+
+func mouse_focus():
+	if nav_sound_file.size() > 0:
+		pause_menu_sound.stream = nav_sound_file.pick_random()
+		pause_menu_sound.play()
+
+
+func _on_resume_button_mouse_entered() -> void:
+	mouse_focus()
+
+
+func _on_options_button_mouse_entered() -> void:
+	mouse_focus()
+
+
+func _on_main_menu_button_mouse_entered() -> void:
+	mouse_focus()
+
+
+func _on_exit_button_mouse_entered() -> void:
+	mouse_focus()
+
+
+func _on_back_button_mouse_entered() -> void:
+	mouse_focus()

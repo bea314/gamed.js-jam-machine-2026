@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://du4rskadikxhd"]
 
-[ext_resource type="Script" uid="uid://bj6jmyxsn08h6" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
 [ext_resource type="Texture2D" uid="uid://byyh620w5pp6i" path="res://Recursos/Textures/drone1.png" id="2_v448d"]
 [ext_resource type="Texture2D" uid="uid://c880snp417f8t" path="res://Recursos/Textures/drone2.png" id="3_ig6si"]
 [ext_resource type="PackedScene" uid="uid://bvjot5oheirwi" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="3_mhc"]
@@ -89,3 +89,5 @@ hit_invulnerability_duration = 0.0
 [node name="OverheadHealthBar" parent="." unique_id=1453219981 instance=ExtResource("14_ohb")]
 position = Vector2(0, -30)
 fill_color = Color(0.96, 0.76, 0.22, 1)
+
+[node name="Audio_Enemy" type="AudioStreamPlayer2D" parent="." unique_id=1218232734]

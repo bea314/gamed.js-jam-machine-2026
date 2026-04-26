@@ -45,13 +45,41 @@
 [ext_resource type="Texture2D" uid="uid://jao358k3a7dm" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 14.png" id="28_atk14"]
 [ext_resource type="Texture2D" uid="uid://dj3cib7hbprs1" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 15.png" id="29_atk15"]
 [ext_resource type="SpriteFrames" uid="uid://clahuvea6v2m" path="res://Recursos/Textures/Ruka/Muerte/ruka_death_frames.tres" id="30_rukadth"]
+[ext_resource type="AudioStream" uid="uid://0o0tpplau62s" path="res://Recursos/Sound/Guns/WRENCH_SWAP.ogg" id="37_xaix1"]
+[ext_resource type="AudioStream" uid="uid://brr0pmrtwq24n" path="res://Recursos/Sound/Guns/GUN_SWAP.ogg" id="38_ivol6"]
+[ext_resource type="AudioStream" uid="uid://ba4eripawyo6" path="res://Recursos/Sound/Guns/SHOTGUN_SWAP.ogg" id="39_goj5s"]
 [ext_resource type="Texture2D" uid="uid://ck51bdasx3bib" path="res://Recursos/Textures/machine gun with hands2.png" id="39_svu65"]
+[ext_resource type="AudioStream" uid="uid://c7r67ucxqj4nb" path="res://Recursos/Sound/Guns/MACHINE_GUN_SWAP.ogg" id="40_swo23"]
 [ext_resource type="Texture2D" uid="uid://bl7c0g2b3hm6p" path="res://Recursos/Textures/machine gun with hands3.png" id="40_ydvx8"]
+[ext_resource type="AudioStream" uid="uid://yqmojw83is50" path="res://Recursos/Sound/Guns/PISTOL_01.ogg" id="41_6g1j4"]
 [ext_resource type="Texture2D" uid="uid://dkfwiqcui71es" path="res://Recursos/Textures/machine gun with hands4.png" id="41_oul6g"]
 [ext_resource type="Texture2D" uid="uid://drt0bp3swy264" path="res://Recursos/Textures/machine gun with hands.png" id="42_2od4d"]
+[ext_resource type="AudioStream" uid="uid://co8xb7k7k2vvy" path="res://Recursos/Sound/Guns/PISTOL_02.ogg" id="42_qkn61"]
+[ext_resource type="AudioStream" uid="uid://bwbhaoy6ma3bc" path="res://Recursos/Sound/Guns/PISTOL_03.ogg" id="43_or0nj"]
 [ext_resource type="Script" uid="uid://c5p06dkxh6qao" path="res://Ecenes/bomb_sistem.gd" id="43_t50q8"]
+[ext_resource type="AudioStream" uid="uid://bsa6cfwwbxde6" path="res://Recursos/Sound/Guns/PISTOL_04.ogg" id="44_6526l"]
 [ext_resource type="Script" uid="uid://cfmg3y4rmgsra" path="res://Scripts/buffs/buff_runtime_component.gd" id="44_buffrt"]
+[ext_resource type="AudioStream" uid="uid://ddbvqj7ipbnv1" path="res://Recursos/Sound/Guns/PISTOL_05.ogg" id="45_2826w"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Buffs/BuffHud.tscn" id="45_buffhud"]
+[ext_resource type="AudioStream" uid="uid://brlrkw7ogwpor" path="res://Recursos/Sound/Guns/PISTOL_06.ogg" id="46_h0rtq"]
+[ext_resource type="AudioStream" uid="uid://ggbcu620jlnn" path="res://Recursos/Sound/Guns/SHOTGUN_01.ogg" id="47_ipiec"]
+[ext_resource type="AudioStream" uid="uid://hpkfofdfoftq" path="res://Recursos/Sound/Guns/SHOTGUN_02.ogg" id="48_pwjbb"]
+[ext_resource type="AudioStream" uid="uid://dj5tgu78ckfou" path="res://Recursos/Sound/Guns/MACHINE_GUN_01.ogg" id="49_iosrg"]
+[ext_resource type="AudioStream" uid="uid://dqyjfh5k0d5n8" path="res://Recursos/Sound/Guns/MACHINE_GUN_02.ogg" id="50_vm36u"]
+[ext_resource type="AudioStream" uid="uid://fq8n3l01apki" path="res://Recursos/Sound/Guns/MACHINE_GUN_03.ogg" id="51_en176"]
+[ext_resource type="AudioStream" uid="uid://b4tflh5pwji25" path="res://Recursos/Sound/Guns/WRENCH_01.ogg" id="52_py7bm"]
+[ext_resource type="AudioStream" uid="uid://pdfbxdimvw7p" path="res://Recursos/Sound/Guns/WRENCH_02.ogg" id="53_qidfn"]
+[ext_resource type="AudioStream" uid="uid://s14x1dhdhkw6" path="res://Recursos/Sound/Guns/WRENCH_03.ogg" id="54_2jv3r"]
+[ext_resource type="AudioStream" uid="uid://d3qm0lspmcpid" path="res://Recursos/Sound/Guns/WRENCH_04.ogg" id="55_fctjv"]
+[ext_resource type="AudioStream" uid="uid://gxwptrtqgrdq" path="res://Recursos/Sound/Guns/WRENCH_05.ogg" id="56_bt8go"]
+[ext_resource type="AudioStream" uid="uid://botlb2chpueoc" path="res://Recursos/Sound/Guns/WRENCH_06.ogg" id="57_40hjx"]
+[ext_resource type="AudioStream" uid="uid://b7syd41ioyoyi" path="res://Recursos/Sound/Guns/WRENCH_07.ogg" id="58_0b18u"]
+[ext_resource type="AudioStream" uid="uid://dr5ckad26mhmw" path="res://Recursos/Sound/Guns/PISTOL_RELOAD_01.ogg" id="59_fctjv"]
+[ext_resource type="AudioStream" uid="uid://de36678ngckb8" path="res://Recursos/Sound/Guns/PISTOL_RELOAD_02.ogg" id="60_bt8go"]
+[ext_resource type="AudioStream" uid="uid://dpstotslbfdxy" path="res://Recursos/Sound/Guns/SHOTGUN_RELOAD_01.ogg" id="61_40hjx"]
+[ext_resource type="AudioStream" uid="uid://bise4xgd2u22v" path="res://Recursos/Sound/Guns/SHOTGUN_RELOAD_02.ogg" id="62_0b18u"]
+[ext_resource type="AudioStream" uid="uid://dujdo2sxr0yql" path="res://Recursos/Sound/Guns/MACHINE_GUN_RELOAD_01.ogg" id="63_5pm3d"]
+[ext_resource type="AudioStream" uid="uid://3bxe6wl22ynx" path="res://Recursos/Sound/Guns/MACHINE_GUN_RELOAD_02.ogg" id="64_vyclc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 16.0
@@ -605,6 +633,19 @@ wrench_scene = ExtResource("5_wrench")
 revolver_scene = ExtResource("6_rev")
 shotgun_scene = ExtResource("7_sg")
 machinegun_scene = ExtResource("8_mg")
+wrench_equip_sfx = ExtResource("37_xaix1")
+revolver_equip_sfx = ExtResource("38_ivol6")
+shotgun_equip_sfx = ExtResource("39_goj5s")
+machinegun_equip_sfx = ExtResource("40_swo23")
+revolver_fire_sounds = Array[AudioStream]([ExtResource("41_6g1j4"), ExtResource("42_qkn61"), ExtResource("43_or0nj"), ExtResource("44_6526l"), ExtResource("45_2826w"), ExtResource("46_h0rtq")])
+shotgun_fire_sounds = Array[AudioStream]([ExtResource("47_ipiec"), ExtResource("48_pwjbb")])
+machinegun_fire_sounds = Array[AudioStream]([ExtResource("49_iosrg"), ExtResource("50_vm36u"), ExtResource("51_en176")])
+wrench_hit_sounds = Array[AudioStream]([ExtResource("52_py7bm"), ExtResource("53_qidfn"), ExtResource("54_2jv3r"), ExtResource("55_fctjv"), ExtResource("56_bt8go"), ExtResource("57_40hjx"), ExtResource("58_0b18u")])
+revolver_reload_sfx = Array[AudioStream]([ExtResource("59_fctjv"), ExtResource("60_bt8go")])
+shotgun_reload_sfx = Array[AudioStream]([null, ExtResource("61_40hjx"), ExtResource("62_0b18u")])
+machinegun_reload_sfx = Array[AudioStream]([ExtResource("63_5pm3d"), ExtResource("64_vyclc")])
+
+[node name="Sitch" type="AudioStreamPlayer" parent="WeaponPivot/WeaponManager" unique_id=218260466]
 
 [node name="Guns_meshes" type="Node2D" parent="WeaponPivot" unique_id=385556094]
 script = ExtResource("21_1vy0x")

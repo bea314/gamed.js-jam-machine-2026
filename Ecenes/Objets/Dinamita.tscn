@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://drvhamru2u6wm" path="res://Recursos/Textures/explosion6.png" id="13_d0m8v"]
 [ext_resource type="Texture2D" uid="uid://bgj8a0vxcii54" path="res://Recursos/Textures/explosion7.png" id="14_o0kdy"]
 [ext_resource type="Texture2D" uid="uid://bw1mw5w37dk68" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="15_bx7p6"]
+[ext_resource type="AudioStream" uid="uid://co6pb7rnmb4br" path="res://Recursos/Sound/Guns/DINAMITE.ogg" id="16_1metl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5g5wl"]
 animations = [{
@@ -118,5 +119,8 @@ debug_color = Color(1.92523e-06, 0.39577544, 0.4659456, 0.41960785)
 [node name="Collicion" type="CollisionShape2D" parent="Area_Collicion_Interact" unique_id=1323116866]
 shape = SubResource("CircleShape2D_b31tm")
 debug_color = Color(0.78431374, 0.6, 0.69803923, 0.41960785)
+
+[node name="Dinamita_Audio" type="AudioStreamPlayer2D" parent="." unique_id=1677507835]
+stream = ExtResource("16_1metl")
 
 [connection signal="body_entered" from="Area_Collicion_Interact" to="." method="_on_area_2d_body_entered"]
