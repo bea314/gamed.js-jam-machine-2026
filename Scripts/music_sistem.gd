@@ -1,51 +1,67 @@
 extends Node
 
 @onready var base_melody: AudioStreamPlayer = $Base_Melody
+# Asumo que 'melody_random' es el AudioStreamPlayer que tiene el AudioStreamSynchronizer
 @onready var melody_random: AudioStreamPlayer = $Melody_random
+
 @export var boss_theme_stream: AudioStream
 var boss_theme_player: AudioStreamPlayer
 var _ambient_muted: bool = false
 
+# Los preloads se mantienen igual
 const MELODY_I = preload("uid://jvi8ud4uksfq")
 const MELODY_II = preload("uid://d3xdsa042rh8n")
 const MELODY_III = preload("uid://cm70gtycgq1gr")
 
-var list_pistas : Array = [MELODY_I,MELODY_II,MELODY_III]
+var list_pistas : Array = [MELODY_I, MELODY_II, MELODY_III]
 
 func _ready() -> void:
+	# Configuración del Boss Theme
 	boss_theme_player = AudioStreamPlayer.new()
 	boss_theme_player.name = "BossTheme"
 	boss_theme_player.bus = &"Music"
 	if boss_theme_stream != null:
 		boss_theme_player.stream = boss_theme_stream
 	add_child(boss_theme_player)
-	base_melody.play()
-	melody_random.play()
+	
+	# Iniciamos la música
+	start_synced_music()
 
-func _on_melody_random_finished() -> void:
-	if _ambient_muted:
-		return
+func start_synced_music() -> void:
+	if _ambient_muted: return
+	
+	base_melody.play()
+	# Elegimos una pista inicial al azar
 	melody_random.stream = list_pistas.pick_random()
 	melody_random.play()
 
+# ESTA ES LA CLAVE:
+# Conecta la señal 'finished' de melody_random
+func _on_melody_random_finished() -> void:
+	if _ambient_muted:
+		return
+	
+	# Cambiamos el stream internamente. 
+	# El AudioStreamSynchronizer se encargará de que la nueva pista 
+	# entre en el tiempo exacto (fase) de la anterior.
+	var nueva_pista = list_pistas.pick_random()
+	
+	# Evitamos repetir la misma pista dos veces seguidas (opcional pero recomendado)
+	while nueva_pista == melody_random.stream:
+		nueva_pista = list_pistas.pick_random()
+		
+	melody_random.stream = nueva_pista
+	melody_random.play()
 
 func set_ambient_muted(muted: bool) -> void:
 	_ambient_muted = muted
 	if muted:
 		base_melody.stop()
 		melody_random.stop()
-		return
-	if not base_melody.playing:
-		base_melody.play()
-	if not melody_random.playing:
-		melody_random.stream = list_pistas.pick_random()
-		melody_random.play()
-
+	else:
+		start_synced_music()
 
 func play_boss_theme() -> void:
-	if boss_theme_player == null:
-		return
-	if boss_theme_player.stream == null:
-		return
-	if not boss_theme_player.playing:
-		boss_theme_player.play()
+	if boss_theme_player and boss_theme_player.stream:
+		if not boss_theme_player.playing:
+			boss_theme_player.play()
