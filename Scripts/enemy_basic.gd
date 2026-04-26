@@ -36,6 +36,10 @@ var _continuous_first_hit_done: bool = false
 
 var _hit_flash := HitFlashState.new()
 
+# Referencia explocion
+const EXPLOCION = preload("uid://ux7immp0qbnm")
+
+@onready var sprite_anim: AnimatedSprite2D = $Mesh/Sprite_Anim
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -187,4 +191,12 @@ func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 
 
 func _on_health_died() -> void:
+	speed = 0
+	sprite_anim.visible = false
+	var instancia_explocion = EXPLOCION.instantiate()
+	var current_ecene = get_tree().current_scene
+	current_ecene.add_child(instancia_explocion)
+	
+	instancia_explocion.global_position = global_position
+	
 	queue_free()

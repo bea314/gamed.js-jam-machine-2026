@@ -63,6 +63,7 @@ Actualmente el proyecto está plantando la base jugable del combate con implemen
 - Evita que la vida baje de `0`.
 - Activa lógica de derrota o muerte al llegar a cero.
 
+
 ### Sistema de ataque básico
 - Primer ataque funcional orientado a pruebas.
 - Enfocado en validar el flujo:
