@@ -79,7 +79,7 @@ const START_ROOM_TEST_BUFF_POSITIONS: Array[Vector2] = [
 @export_range(0.0, 120.0, 1.0) var ammo_drop_min_distance_from_doors: float = 44.0
 @export_group("Ammo combat periodic drops")
 @export var ammo_combat_drop_enabled: bool = true
-@export_range(1.0, 60.0, 0.5) var ammo_combat_drop_interval_sec: float = 9.0
+@export_range(1.0, 60.0, 0.5) var ammo_combat_drop_interval_sec: float = 4.0
 @export_range(0.0, 1.0, 0.01) var ammo_combat_drop_roll_chance: float = 0.45
 @export_range(0, 12, 1) var ammo_combat_drop_max_live_pickups: int = 2
 @export_range(0, 10, 1) var ammo_pity_guaranteed_after_failures: int = 3
