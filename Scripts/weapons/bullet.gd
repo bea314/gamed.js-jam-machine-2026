@@ -4,7 +4,7 @@ extends Area2D
 @export var damage: int = 1
 @export var life_time: float = 1.2
 
-var direction: Vector2 = Vector2.RIGHT
+@export var direction: Vector2 = Vector2.RIGHT
 ## World position of attacker (for take_damage knockback direction on targets).
 var damage_origin: Vector2 = Vector2.ZERO
 
