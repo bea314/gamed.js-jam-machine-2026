@@ -64,6 +64,9 @@ const START_ROOM_TEST_BUFF_POSITIONS: Array[Vector2] = [
 @export var buff_drop_weight_damage: float = 1.0
 @export var buff_drop_weight_shield: float = 1.0
 @export var buff_drop_weight_speed: float = 1.0
+@export_range(0.0, 64.0, 1.0) var buff_drop_spawn_radius: float = 18.0
+@export_range(0, 10, 1) var buff_pity_guaranteed_after_failures: int = 3
+@export_range(0.0, 1.0, 0.01) var buff_pity_bonus_per_failure: float = 0.08
 
 var current_coords: Vector2i = Vector2i.ZERO
 var _neighbors: Array = []
@@ -403,17 +406,45 @@ func _on_boss_defeated() -> void:
 func _maybe_spawn_buff_drop() -> void:
 	if _room_kind == RoomKind.START or _room_kind == RoomKind.BOSS_NIVEL_1:
 		return
-	if randf() > buff_drop_chance:
+	var failure_streak := _get_buff_drop_failure_streak()
+	var pity_guaranteed := buff_pity_guaranteed_after_failures > 0 and failure_streak >= buff_pity_guaranteed_after_failures
+	var final_chance := minf(1.0, buff_drop_chance + float(failure_streak) * buff_pity_bonus_per_failure)
+	if not pity_guaranteed and randf() > final_chance:
+		_report_buff_drop_result(false)
 		return
 	var scene := _pick_weighted_buff_scene()
 	if scene == null:
+		_report_buff_drop_result(false)
 		return
 	var root := get_node_or_null("Encounters") as Node2D
 	if root == null:
 		root = self
 	var pickup := scene.instantiate() as Node2D
 	root.add_child(pickup)
-	pickup.position = Vector2.ZERO
+	pickup.position = _pick_buff_spawn_position()
+	_report_buff_drop_result(true)
+
+
+func _pick_buff_spawn_position() -> Vector2:
+	if buff_drop_spawn_radius <= 0.0:
+		return Vector2.ZERO
+	var angle := randf() * TAU
+	var dist := sqrt(randf()) * buff_drop_spawn_radius
+	return Vector2(cos(angle), sin(angle)) * dist
+
+
+func _get_buff_drop_failure_streak() -> int:
+	var run_state := get_tree().root.get_node_or_null("Global_Ran")
+	if run_state == null or not run_state.has_method("get_buff_drop_fail_streak"):
+		return 0
+	return int(run_state.get_buff_drop_fail_streak())
+
+
+func _report_buff_drop_result(did_drop: bool) -> void:
+	var run_state := get_tree().root.get_node_or_null("Global_Ran")
+	if run_state == null or not run_state.has_method("register_buff_drop_result"):
+		return
+	run_state.register_buff_drop_result(did_drop)
 
 
 func _pick_weighted_buff_scene() -> PackedScene:
