@@ -37,7 +37,7 @@ var _continuous_first_hit_done: bool = false
 var _hit_flash := HitFlashState.new()
 
 # Referencia explocion
-const EXPLOCION = preload("uid://ux7immp0qbnm")
+const EXPLOCION = preload("res://Ecenes/Objets/Explocion.tscn")
 
 @onready var sprite_anim: AnimatedSprite2D = $Mesh/Sprite_Anim
 
