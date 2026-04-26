@@ -77,6 +77,8 @@ const START_ROOM_TEST_BUFF_POSITIONS: Array[Vector2] = [
 @export var ammo_drop_half_extents: Vector2 = Vector2(220, 110)
 @export_range(1, 16, 1) var ammo_drop_max_attempts: int = 10
 @export_range(0.0, 120.0, 1.0) var ammo_drop_min_distance_from_doors: float = 44.0
+## Reduce el rectángulo de spawn de buffos/munición respecto a `ammo_drop_half_extents` para no colocarlos cerca de los bordes de la sala
+@export_range(0.0, 100.0, 1.0) var pickup_spawn_edge_inset: float = 20.0
 @export_group("Ammo combat periodic drops")
 @export var ammo_combat_drop_enabled: bool = true
 @export_range(1.0, 60.0, 0.5) var ammo_combat_drop_interval_sec: float = 4.0
@@ -350,7 +352,7 @@ func _spawn_start_room_test_buffs(parent: Node2D) -> void:
 			continue
 		parent.add_child(pickup)
 		var spawn_pos: Vector2 = START_ROOM_TEST_BUFF_POSITIONS[i]
-		pickup.position = spawn_pos
+		pickup.position = _clamp_point_to_safe_pickup_rect(spawn_pos)
 
 
 func on_player_entered_room(player: Node2D) -> void:
@@ -487,10 +489,11 @@ func _maybe_spawn_buff_drop() -> void:
 
 func _pick_buff_spawn_position() -> Vector2:
 	if buff_drop_spawn_radius <= 0.0:
-		return Vector2.ZERO
+		return _safe_pickup_local_rect().get_center()
 	var angle := randf() * TAU
 	var dist := sqrt(randf()) * buff_drop_spawn_radius
-	return Vector2(cos(angle), sin(angle)) * dist
+	var p := Vector2(cos(angle), sin(angle)) * dist
+	return _clamp_point_to_safe_pickup_rect(p)
 
 
 func _get_buff_drop_failure_streak() -> int:
@@ -617,17 +620,39 @@ func _pick_weighted_ammo_kind() -> StringName:
 	return WeaponManager.KIND_MACHINEGUN
 
 
+func _safe_pickup_local_rect() -> Rect2:
+	var inset := maxf(0.0, pickup_spawn_edge_inset)
+	var half := Vector2(
+		maxf(0.0, ammo_drop_half_extents.x - inset),
+		maxf(0.0, ammo_drop_half_extents.y - inset)
+	)
+	var c := ammo_drop_center_offset
+	return Rect2(c - half, half * 2.0)
+
+
+func _clamp_point_to_safe_pickup_rect(p: Vector2) -> Vector2:
+	var r := _safe_pickup_local_rect()
+	if r.size.x <= 0.0 or r.size.y <= 0.0:
+		return p
+	return Vector2(
+		clampf(p.x, r.position.x, r.end.x),
+		clampf(p.y, r.position.y, r.end.y)
+	)
+
+
 func _pick_random_ammo_landing_spot() -> Vector2:
-	var half := Vector2(maxf(0.0, ammo_drop_half_extents.x), maxf(0.0, ammo_drop_half_extents.y))
+	var safe := _safe_pickup_local_rect()
+	var half := safe.size * 0.5
+	var c := safe.get_center()
 	var tries := maxi(1, ammo_drop_max_attempts)
 	for _i in range(tries):
-		var p := ammo_drop_center_offset + Vector2(
+		var p := c + Vector2(
 			randf_range(-half.x, half.x),
 			randf_range(-half.y, half.y)
 		)
 		if _is_valid_ammo_drop_point(p):
-			return p
-	return ammo_drop_center_offset
+			return _clamp_point_to_safe_pickup_rect(p)
+	return _clamp_point_to_safe_pickup_rect(c)
 
 
 func _is_valid_ammo_drop_point(local_point: Vector2) -> bool:
