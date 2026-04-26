@@ -36,6 +36,13 @@ var _continuous_first_hit_done: bool = false
 
 var _hit_flash := HitFlashState.new()
 
+# VARIABLES KNOCKBACK (FEEDDBACk al resivir daño)
+@export_group("Knockback")
+@export var knockback_force: float = 250.0  # Fuerza del impulso inicial
+@export var knockback_friction: float = 10.0 # Qué tan rápido frena (mayor = frena antes)
+
+var _knockback_velocity: Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -62,6 +69,10 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if not ActiveRoomService.hostile_may_act(self):
 		return
+	
+	# Reducir el knockback gradualmente con fricción
+	_knockback_velocity = _knockback_velocity.lerp(Vector2.ZERO, knockback_friction * delta)
+	
 	var prev_recovery := _attack_recovery_timer
 	_attack_timer = maxf(_attack_timer - delta, 0.0)
 	_attack_recovery_timer = maxf(_attack_recovery_timer - delta, 0.0)
@@ -69,6 +80,9 @@ func _physics_process(delta: float) -> void:
 
 	_ensure_target()
 	if target == null:
+		# Aun sin target, si hay knockback, debe moverse
+		velocity = _knockback_velocity
+		move_and_slide()
 		return
 
 	var dist_sq := global_position.distance_squared_to(target.global_position)
@@ -81,17 +95,19 @@ func _physics_process(delta: float) -> void:
 	if not in_detection:
 		_reset_attack_telegraph()
 
+	# Lógica de movimiento base ===========
+	var move_velocity := Vector2.ZERO
+	
 	if _attack_recovery_timer > 0.0:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		return
-
-	var to_target := target.global_position - global_position
-	var stop_sq := stop_distance * stop_distance
-	if dist_sq <= stop_sq:
-		velocity = Vector2.ZERO
+		move_velocity = Vector2.ZERO
 	else:
-		velocity = to_target.normalized() * speed
+		var to_target := target.global_position - global_position
+		var stop_sq := stop_distance * stop_distance
+		if dist_sq > stop_sq:
+			move_velocity = to_target.normalized() * speed
+
+	# Combinar movimiento normal con el impulso del golpe
+	velocity = move_velocity + _knockback_velocity
 	move_and_slide()
 
 	if not in_detection:
@@ -184,6 +200,12 @@ func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 	if _health == null:
 		return
 	_health.take_damage(amount, hit_from_global)
+	
+	# --- Lógica de Knockback ---
+	if hit_from_global != Vector2.ZERO:
+		# Calculamos la dirección desde el golpe hacia nosotros y normalizamos
+		var knockback_dir := global_position.direction_to(hit_from_global) * -1.0
+		_knockback_velocity = knockback_dir * knockback_force
 
 
 func _on_health_died() -> void:
