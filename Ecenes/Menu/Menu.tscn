@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://bkk5lowbdhwa3" path="res://Ecenes/Menu/menu.gd" id="1_menu"]
 [ext_resource type="Script" uid="uid://c3eau2edk1aqd" path="res://Ecenes/Menu/music_manager_main_menu.gd" id="8_kbn2w"]
 [ext_resource type="AudioStream" uid="uid://bovywukr4qd34" path="res://Recursos/Sound/Menus/NAV_01.ogg" id="8_l78f6"]
+[ext_resource type="Texture2D" uid="uid://c68qfsrduq2c3" path="res://Recursos/UXUI/MENU/menu box.png" id="8_nvdgv"]
 [ext_resource type="AudioStream" uid="uid://bl67524ro73u" path="res://Recursos/Sound/Menus/INTRO_MAIN_MENU.ogg" id="8_xdsvv"]
 [ext_resource type="AudioStream" uid="uid://dbsrfh2itscha" path="res://Recursos/Sound/Menus/MAIN_MENU.ogg" id="9_qbaf4"]
 [ext_resource type="AudioStream" uid="uid://g314v5mwfrw3" path="res://Recursos/Sound/Menus/NAV_02.ogg" id="9_whvly"]
+[ext_resource type="Texture2D" uid="uid://bdmlkpag2xcsw" path="res://Recursos/UXUI/MENU/logo.png" id="9_y7ccr"]
 [ext_resource type="AudioStream" uid="uid://0napsjk7720n" path="res://Recursos/Sound/Menus/NAV_03.ogg" id="10_ievtg"]
 [ext_resource type="AudioStream" uid="uid://tfir4g3wb14o" path="res://Recursos/Sound/Menus/NAV_04.ogg" id="11_sm15n"]
 [ext_resource type="AudioStream" uid="uid://dcbxv5carrf8n" path="res://Recursos/Sound/Menus/NAV_05.ogg" id="12_xtdd6"]
@@ -86,11 +88,15 @@ custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=1595193701]
-layout_mode = 2
-theme_override_font_sizes/font_size = 42
-text = "Jam RL"
-horizontal_alignment = 1
+[node name="MenuBox" type="Sprite2D" parent="CenterContainer/MainVBox" unique_id=1231531103]
+position = Vector2(216.99997, 142.99997)
+scale = Vector2(0.88979596, 0.88979596)
+texture = ExtResource("8_nvdgv")
+
+[node name="Logo" type="Sprite2D" parent="CenterContainer/MainVBox" unique_id=704626690]
+position = Vector2(198.99998, -243.00002)
+scale = Vector2(0.3323455, 0.33234546)
+texture = ExtResource("9_y7ccr")
 
 [node name="MainButtons" type="VBoxContainer" parent="CenterContainer/MainVBox" unique_id=1171521145]
 layout_mode = 2

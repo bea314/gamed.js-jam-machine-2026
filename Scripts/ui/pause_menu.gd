@@ -3,16 +3,18 @@ extends CanvasLayer
 const MENU_PATH := "res://Ecenes/Menu/Menu.tscn"
 
 @onready var _settings: GameSettings = get_node("/root/SettingsManager") as GameSettings
+@onready var _title_label: Control = $Root/CenterContainer/MainVBox/TitleLabel
+@onready var _hint_label: Control = $Root/CenterContainer/MainVBox/HintLabel
 @onready var _main_buttons: VBoxContainer = $Root/CenterContainer/MainVBox/MainButtons
 @onready var _options_panel: VBoxContainer = $Root/CenterContainer/MainVBox/OptionsPanel
-@onready var _resume_button: Button = $Root/CenterContainer/MainVBox/MainButtons/ResumeButton
-@onready var _options_button: Button = $Root/CenterContainer/MainVBox/MainButtons/OptionsButton
-@onready var _main_menu_button: Button = $Root/CenterContainer/MainVBox/MainButtons/MainMenuButton
-@onready var _exit_button: Button = $Root/CenterContainer/MainVBox/MainButtons/ExitButton
+@onready var _resume_button: BaseButton = $Root/CenterContainer/MainVBox/MainButtons/ResumeButton
+@onready var _options_button: BaseButton = $Root/CenterContainer/MainVBox/MainButtons/OptionsButton
+@onready var _main_menu_button: BaseButton = $Root/CenterContainer/MainVBox/MainButtons/MainMenuButton
+@onready var _exit_button: BaseButton = $Root/CenterContainer/MainVBox/MainButtons/ExitButton
 @onready var _music_slider: HSlider = $Root/CenterContainer/MainVBox/OptionsPanel/MusicRow/MusicSlider
 @onready var _sfx_slider: HSlider = $Root/CenterContainer/MainVBox/OptionsPanel/SFXRow/SFXSlider
 @onready var _fullscreen_check: CheckButton = $Root/CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
-@onready var _back_button: Button = $Root/CenterContainer/MainVBox/OptionsPanel/BackButton
+@onready var _back_button: BaseButton = $Root/CenterContainer/MainVBox/OptionsPanel/BackButton
 
 @onready var pause_menu_sound: AudioStreamPlayer = $Pause_Menu
 const PAUSE_ENTER = preload("uid://cqw2v5rk8txgg")
@@ -43,7 +45,13 @@ func _ready() -> void:
 	_fullscreen_check.button_pressed = _settings.fullscreen
 
 
-	
+func _set_main_menu_visible(show_main: bool) -> void:
+	_title_label.visible = show_main
+	_hint_label.visible = show_main
+	_main_buttons.visible = show_main
+	_options_panel.visible = not show_main
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("pause_game"):
 		return
@@ -75,27 +83,24 @@ func open_pause() -> void:
 		return
 	get_tree().paused = true
 	visible = true
-	_options_panel.visible = false
-	_main_buttons.visible = true
+	_set_main_menu_visible(true)
 	_resume_button.grab_focus()
-	
+
 	pause_menu_sound.stream = PAUSE_ENTER
 	pause_menu_sound.play()
 
 func close_pause() -> void:
-	_options_panel.visible = false
-	_main_buttons.visible = true
+	_set_main_menu_visible(true)
 	visible = false
 	get_tree().paused = false
 
 	pause_menu_sound.stream = PAUSE_OUT
 	pause_menu_sound.play()
-	
+
 func _close_options() -> void:
-	_options_panel.visible = false
-	_main_buttons.visible = true
+	_set_main_menu_visible(true)
 	_options_button.grab_focus()
-	
+
 	pause_menu_sound.stream = OPTION_EXIT
 	pause_menu_sound.play()
 
@@ -104,15 +109,15 @@ func _on_resume_pressed() -> void:
 
 
 func _on_options_pressed() -> void:
-	_main_buttons.visible = false
-	_options_panel.visible = true
+	_set_main_menu_visible(false)
 	_back_button.grab_focus()
 
 	pause_menu_sound.stream = OPTION_ENTER
 	pause_menu_sound.play()
+
 func _on_back_pressed() -> void:
 	_close_options()
-	
+
 
 func _on_main_menu_pressed() -> void:
 	_go_to_scene(MENU_PATH)
