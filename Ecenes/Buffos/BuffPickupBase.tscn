@@ -1,20 +1,50 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://2b34g57e2v86"]
 
-[ext_resource type="Script" path="res://Scripts/buffs/buff_pickup_base.gd" id="1_pickup"]
+[ext_resource type="Script" uid="uid://dv3mwtqk7pe55" path="res://Scripts/buffs/buff_pickup_base.gd" id="1_pickup"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pickup"]
-radius = 18.0
+radius = 7.071068
 
-[node name="BuffPickupBase" type="Area2D"]
-collision_layer = 0
-collision_mask = 2
-monitoring = true
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 10.0
+
+[node name="BuffPickupBase" type="RigidBody2D" unique_id=506409173 groups=["Item"]]
+gravity_scale = 0.0
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_pickup")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=677410015]
 shape = SubResource("CircleShape2D_pickup")
 
-[node name="VisualRoot" type="Node2D" parent="."]
+[node name="VisualRoot" type="Node2D" parent="." unique_id=679416614]
 
-[node name="Sprite2D" type="Sprite2D" parent="VisualRoot"]
-centered = true
+[node name="Sprite2D" type="Sprite2D" parent="VisualRoot" unique_id=940387492]
+
+[node name="Area_Collicion_Interact" type="Area2D" parent="." unique_id=882013612]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Collicion_Interact" unique_id=128909009]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="PickupRadiusVisual" type="Line2D" parent="." unique_id=289010244]
+z_index = -1
+width = 1.5
+default_color = Color(0.65, 0.95, 1, 0.28)
+
+[node name="PickupHintRoot" type="Node2D" parent="." unique_id=167800012]
+position = Vector2(0, -18)
+z_as_relative = false
+z_index = 5000
+
+[node name="HintLabel" type="Label" parent="PickupHintRoot" unique_id=148230011]
+offset_left = -32.0
+offset_top = -8.0
+offset_right = 32.0
+offset_bottom = 8.0
+text = "Pulsa E"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 1, 1, 0.85)
+theme_override_font_sizes/font_size = 12

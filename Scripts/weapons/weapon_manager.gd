@@ -174,3 +174,9 @@ func _sync_gun_mesh_visual() -> void:
 	_gun_mesh_revolver.visible = (current_index == 1)
 	_gun_mesh_shotgun.visible = (current_index == 2)
 	_gun_mesh_machinegun.visible = (current_index == 3)
+
+
+func set_damage_multiplier(multiplier: float) -> void:
+	for w in weapons:
+		if w != null and w.has_method("set_damage_multiplier"):
+			w.set_damage_multiplier(multiplier)

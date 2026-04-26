@@ -6,6 +6,9 @@ const ENEMY_BASIC := preload("res://Ecenes/Enemies/EnemyBasic.tscn")
 const ENEMY_TURRET := preload("res://Ecenes/Enemies/EnemyTurret.tscn")
 const ENEMY_DEFENSE := preload("res://Ecenes/Enemies/EnemyDefenseTank.tscn")
 const ENEMY_BOSS_N1 := preload("res://Ecenes/Enemies/EnemyBossNivel1.tscn")
+const BUFF_DAMAGE_SCENE := preload("res://Ecenes/Buffos/BuffDamage.tscn")
+const BUFF_SHIELD_SCENE := preload("res://Ecenes/Buffos/BuffShield.tscn")
+const BUFF_SPEED_SCENE := preload("res://Ecenes/Buffos/BuffSpeed.tscn")
 const _BOSS_DOOR_SFX_GUARANTEED := preload("res://Recursos/Sound/SFXS/PUERTA/the_door_is_close.ogg")
 const _DOOR_SFX_FALLBACK: Array[AudioStream] = [
 	preload("res://Recursos/Sound/SFXS/PUERTA/the_door_is_close.ogg"),
@@ -33,6 +36,9 @@ const SPAWN_TWO_DEFENSE: Array[Vector2] = [
 const SPAWN_THREE_SMALL: Array[Vector2] = [
 	Vector2(-70, 85), Vector2(0, 95), Vector2(70, 85),
 ]
+const START_ROOM_TEST_BUFF_POSITIONS: Array[Vector2] = [
+	Vector2(-96, 0), Vector2(0, 0), Vector2(96, 0),
+]
 
 @export_group("Puertas — interacción")
 @export var door_collision_size: Vector2 = Vector2(88, 14)
@@ -53,6 +59,11 @@ const SPAWN_THREE_SMALL: Array[Vector2] = [
 @export var cinematic_shake_duration: float = 0.18
 @export var cinematic_qa_speed_multiplier: float = 3.0
 @export var cinematic_wake_sfx: AudioStream
+@export_group("Buff drops")
+@export_range(0.0, 1.0, 0.01) var buff_drop_chance: float = 0.5
+@export var buff_drop_weight_damage: float = 1.0
+@export var buff_drop_weight_shield: float = 1.0
+@export var buff_drop_weight_speed: float = 1.0
 
 var current_coords: Vector2i = Vector2i.ZERO
 var _neighbors: Array = []
@@ -68,6 +79,7 @@ var _boss_defeated: bool = false
 var _boss_spawn_local_pos: Vector2 = Vector2.ZERO
 var _boss_instance: Node2D = null
 var _door_trap_sfx_pool: Array[AudioStream] = []
+var _room_kind: String = RoomKind.START
 
 @onready var door_up = $Doors/DoorPos_Up
 @onready var door_down = $Doors/DoorPos_Down
@@ -90,12 +102,13 @@ func setup(neighbors: Array, my_coords: Vector2i, room_kind: String = RoomKind.S
 	_boss_defeated = false
 	_boss_spawn_local_pos = Vector2.ZERO
 	_boss_instance = null
+	_room_kind = room_kind
 
 	var enc_parent: Node2D = _ensure_encounters_root()
 
 	match room_kind:
 		RoomKind.START:
-			pass
+			_spawn_start_room_test_buffs(enc_parent)
 		RoomKind.COMBAT_EASY_6:
 			_locks_exits = true
 			room_cleared = false
@@ -297,6 +310,21 @@ func _spawn_boss_n1(parent: Node2D, local_pos: Vector2) -> void:
 		hc.died.connect(_on_boss_defeated, CONNECT_ONE_SHOT)
 
 
+func _spawn_start_room_test_buffs(parent: Node2D) -> void:
+	# TODO: eliminar posteriormente, es solo para probar HUD de buffs en primera sala.
+	var scenes: Array[PackedScene] = [BUFF_DAMAGE_SCENE, BUFF_SHIELD_SCENE, BUFF_SPEED_SCENE]
+	for i in range(mini(scenes.size(), START_ROOM_TEST_BUFF_POSITIONS.size())):
+		var scene: PackedScene = scenes[i]
+		if scene == null:
+			continue
+		var pickup: Node2D = scene.instantiate() as Node2D
+		if pickup == null:
+			continue
+		parent.add_child(pickup)
+		var spawn_pos: Vector2 = START_ROOM_TEST_BUFF_POSITIONS[i]
+		pickup.position = spawn_pos
+
+
 func on_player_entered_room(player: Node2D) -> void:
 	if not _is_boss_room:
 		return
@@ -360,6 +388,7 @@ func _on_hostile_died() -> void:
 	_hostiles_alive = maxi(_hostiles_alive - 1, 0)
 	if _locks_exits and _hostiles_alive <= 0:
 		room_cleared = true
+		_maybe_spawn_buff_drop()
 		if _level_generator != null and _level_generator.has_method("unseal_edges_for_cell"):
 			_level_generator.unseal_edges_for_cell(current_coords)
 		else:
@@ -369,6 +398,36 @@ func _on_hostile_died() -> void:
 func _on_boss_defeated() -> void:
 	_boss_defeated = true
 	_boss_intro_running = false
+
+
+func _maybe_spawn_buff_drop() -> void:
+	if _room_kind == RoomKind.START or _room_kind == RoomKind.BOSS_NIVEL_1:
+		return
+	if randf() > buff_drop_chance:
+		return
+	var scene := _pick_weighted_buff_scene()
+	if scene == null:
+		return
+	var root := get_node_or_null("Encounters") as Node2D
+	if root == null:
+		root = self
+	var pickup := scene.instantiate() as Node2D
+	root.add_child(pickup)
+	pickup.position = Vector2.ZERO
+
+
+func _pick_weighted_buff_scene() -> PackedScene:
+	var total := maxf(buff_drop_weight_damage, 0.0) + maxf(buff_drop_weight_shield, 0.0) + maxf(buff_drop_weight_speed, 0.0)
+	if total <= 0.0:
+		return null
+	var roll := randf() * total
+	var acc := maxf(buff_drop_weight_damage, 0.0)
+	if roll <= acc:
+		return BUFF_DAMAGE_SCENE
+	acc += maxf(buff_drop_weight_shield, 0.0)
+	if roll <= acc:
+		return BUFF_SHIELD_SCENE
+	return BUFF_SPEED_SCENE
 
 
 func _refresh_door_states(animate_visual: bool = false) -> void:

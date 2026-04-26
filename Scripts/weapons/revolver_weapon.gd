@@ -16,7 +16,7 @@ func try_fire(owner_node: Node2D, aim_direction: Vector2) -> void:
 	var bullet := bullet_scene.instantiate() as Area2D
 	bullet.global_position = owner_node.global_position
 	bullet.set("direction", aim_direction.normalized())
-	bullet.set("damage", damage)
+	bullet.set("damage", _final_damage())
 	bullet.set("speed", bullet_speed)
 	bullet.set("damage_origin", owner_node.global_position)
 	owner_node.get_tree().current_scene.add_child(bullet)

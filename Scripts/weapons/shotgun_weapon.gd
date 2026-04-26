@@ -21,7 +21,7 @@ func try_fire(owner_node: Node2D, aim_direction: Vector2) -> void:
 			owner_node.global_position + aim * muzzle_offset,
 			aim,
 			owner_node.global_position,
-			damage
+			_final_damage()
 		)
 	owner_node.get_tree().current_scene.add_child(blast)
 	if blast.has_method("run_blast"):

@@ -16,6 +16,7 @@ signal reload_finished()
 var current_ammo: int = 0
 var can_fire: bool = true
 var is_reloading: bool = false
+var _damage_multiplier: float = 1.0
 
 
 func _ready() -> void:
@@ -29,6 +30,18 @@ func try_fire(_owner_node: Node2D, _aim_direction: Vector2) -> void:
 
 func try_reload() -> void:
 	pass
+
+
+func set_damage_multiplier(multiplier: float) -> void:
+	_damage_multiplier = maxf(multiplier, 0.01)
+
+
+func get_damage_multiplier() -> float:
+	return _damage_multiplier
+
+
+func _final_damage() -> int:
+	return maxi(int(round(float(damage) * _damage_multiplier)), 1)
 
 
 func _start_fire_cooldown() -> void:
