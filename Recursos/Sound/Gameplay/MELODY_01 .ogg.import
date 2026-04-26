@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c8u0x1l8tlnsf"
+path="res://.godot/imported/MELODY_01 .ogg-f03b1161b2dfbb3eb5eeaba682a3143a.oggvorbisstr"
+
+[deps]
+
+source_file="res://Recursos/Sound/Gameplay/MELODY_01 .ogg"
+dest_files=["res://.godot/imported/MELODY_01 .ogg-f03b1161b2dfbb3eb5eeaba682a3143a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
