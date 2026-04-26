@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bdhvbyv4vwlv0" path="res://Recursos/Textures/drone10.png" id="11_k436j"]
 [ext_resource type="Texture2D" uid="uid://bw06nftq2vqep" path="res://Recursos/Textures/drone11.png" id="12_6roya"]
 [ext_resource type="Texture2D" uid="uid://dvce78dbwcy5e" path="res://Recursos/Textures/drone12.png" id="13_a4440"]
+[ext_resource type="PackedScene" uid="uid://b0dpfdgx3xjli" path="res://Ecenes/Enemies/EnemyOverheadHealthBar.tscn" id="14_ohb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(16, 16)
@@ -82,3 +83,5 @@ frame_progress = 0.29311904
 [node name="HealthComponent" parent="." unique_id=112301481 instance=ExtResource("2_hc")]
 max_health = 10
 hit_invulnerability_duration = 0.0
+
+[node name="OverheadHealthBar" parent="." unique_id=501982510 instance=ExtResource("14_ohb")]

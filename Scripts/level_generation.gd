@@ -142,3 +142,31 @@ func _on_player_transition(target_coords: Vector2i, side: String):
 				# Backup por si olvidaste poner el marker en alguna puerta
 				player.global_position = target_room.global_position
 			ActiveRoomService.set_active_room(target_room)
+			if target_room.has_method("on_player_entered_room"):
+				target_room.on_player_entered_room(player)
+
+			if target_room.has_method("is_exit_locked") and target_room.is_exit_locked():
+				seal_all_edges_for_cell(target_coords)
+				if target_room.has_method("try_play_trap_close_sfx"):
+					target_room.try_play_trap_close_sfx()
+
+
+# Hook de progresión: desde la intro... o un coordinador externo puedo llamar esto para arrancar cada run
+func start_run_level(level_index: int) -> void:
+	_apply_level_generation_contract(level_index)
+	generate_dungeon()
+	render_dungeon_visuals()
+
+
+# Hook de progresión: cuando derrotamos al boss del nivel actual, se avanza siguiente nivel o termina run
+func on_boss_defeated_advance_level() -> void:
+	var next_level := run_level_index + 1
+	if next_level <= MAX_RUN_LEVEL:
+		start_run_level(next_level)
+		return
+	show_victory_message()
+
+
+# Hook final: reemplaza este placeholder por cambio de escena/UI de victoria.
+func show_victory_message() -> void:
+	push_warning("Run completada: aqui puedes mostrar pantalla o mensaje de victoria.")

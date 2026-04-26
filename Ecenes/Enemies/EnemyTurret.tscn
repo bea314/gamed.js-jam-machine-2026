@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dn5vse1qogt35" path="res://Recursos/Textures/Enemies/turret/turret11.png" id="12_t11"]
 [ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyProjectile.tscn" id="13_proj"]
 [ext_resource type="PackedScene" uid="uid://bvjot5oheirwi" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="14_hc"]
+[ext_resource type="PackedScene" uid="uid://b8k3n2p7mhq1x" path="res://Ecenes/Enemies/EnemyOverheadHealthBar.tscn" id="15_ohb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(44, 44)
@@ -79,3 +80,7 @@ autoplay = "default"
 [node name="HealthComponent" parent="." unique_id=971504880 instance=ExtResource("14_hc")]
 max_health = 60
 hit_invulnerability_duration = 0.0
+
+[node name="OverheadHealthBar" parent="." instance=ExtResource("15_ohb")]
+position = Vector2(0, -28)
+bar_outer_size = Vector2i(32, 8)

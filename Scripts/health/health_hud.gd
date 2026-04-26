@@ -2,6 +2,8 @@ extends CanvasLayer
 
 @onready var _bar_fill: ColorRect = $Root/RightStack/BarTrack/BarFill
 @onready var _bar_track: Control = $Root/RightStack/BarTrack
+@onready var _shield_fill: ColorRect = $Root/RightStack/ShieldTrack/ShieldFill
+@onready var _shield_track: Control = $Root/RightStack/ShieldTrack
 @onready var _damage_label: Label = $Root/RightStack/DamageRow/DamageLabel
 @onready var _health_label: Label = $Root/RightStack/HealthLabel
 
@@ -10,7 +12,7 @@ var _damage_tween: Tween
 
 
 func _ready() -> void:
-	if not _bar_fill or not _bar_track or not _damage_label or not _health_label:
+	if not _bar_fill or not _bar_track or not _shield_fill or not _shield_track or not _damage_label or not _health_label:
 		push_error("HealthHUD: nodos de UI no encontrados. Revisa rutas en health_hud.gd vs health_bar.tscn.")
 		return
 
@@ -26,8 +28,10 @@ func _ready() -> void:
 		return
 
 	_health.health_changed.connect(_on_health_changed)
+	_health.shield_changed.connect(_on_shield_changed)
 	_health.damage_taken.connect(_on_damage_taken)
 	_bar_track.resized.connect(_on_bar_track_resized)
+	_shield_track.resized.connect(_on_shield_track_resized)
 
 	call_deferred("_sync_from_health")
 
@@ -35,11 +39,17 @@ func _ready() -> void:
 func _sync_from_health() -> void:
 	if _health:
 		_on_health_changed(_health.current_health, _health.max_health)
+		_on_shield_changed(_health.current_shield, _health.max_shield)
 
 
 func _on_bar_track_resized() -> void:
 	if _health:
 		_on_health_changed(_health.current_health, _health.max_health)
+
+
+func _on_shield_track_resized() -> void:
+	if _health:
+		_on_shield_changed(_health.current_shield, _health.max_shield)
 
 
 func _on_health_changed(current_health: int, max_health: int) -> void:
@@ -52,6 +62,15 @@ func _on_health_changed(current_health: int, max_health: int) -> void:
 
 	_health_label.text = "%d/%d" % [current_health, max_health]
 	_position_damage_label(w)
+
+
+func _on_shield_changed(current_shield: int, max_shield: int) -> void:
+	if max_shield <= 0:
+		_shield_fill.size = Vector2.ZERO
+		return
+	var ratio: float = clampf(float(current_shield) / float(max_shield), 0.0, 1.0)
+	var w: float = _shield_track.size.x * ratio
+	_shield_fill.size = Vector2(w, _shield_track.size.y)
 
 
 func _on_damage_taken(_amount: int, _hit_from_global: Vector2 = Vector2.ZERO) -> void:

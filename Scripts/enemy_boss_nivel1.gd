@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 ## Jefe nivel 1: ráfagas, ≤50 % cadencia↑, AoE con telegrafía, movimiento lento con IA, ráfaga al morir.
+signal wake_animation_finished
 
 @export var detection_range: float = 440.0
 @export var projectile_scene: PackedScene
@@ -41,13 +42,14 @@ extends CharacterBody2D
 @export_range(0.0, 1.0) var intro_entry_toward_player: float = 0.45
 @export var intro_entry_stop_distance: float = 12.0
 @export var attack_recover_time: float = 0.25
+@export var auto_wake_without_cinematic: bool = true
 
 @onready var _health: HealthComponent = $HealthComponent as HealthComponent
 @onready var _mesh: Node2D = $Mesh
 @onready var _sprite: AnimatedSprite2D = $Mesh/AnimatedSprite2D as AnimatedSprite2D
 
 enum BossState {
-	INTRO_MOVE,
+	DORMANT,
 	INTRO_REVEAL,
 	MOVE,
 	ATTACK_WINDUP,
@@ -68,7 +70,7 @@ var _burst_gap_timer: float = 0.0
 var _line_burst_cd: float = 0.0
 var _aoe_cd: float = 0.0
 var _strafe_t: float = 0.0
-var _state: BossState = BossState.INTRO_MOVE
+var _state: BossState = BossState.DORMANT
 var _entry_point: Vector2 = Vector2.ZERO
 var _entry_point_valid: bool = false
 var _recover_timer: float = 0.0
@@ -117,7 +119,15 @@ func _schedule_next_aoe() -> void:
 func _physics_process(delta: float) -> void:
 	if _dead:
 		return
-	if not ActiveRoomService.hostile_may_act(self):
+	var may_act := ActiveRoomService.hostile_may_act(self)
+	if _state == BossState.DORMANT:
+		if may_act:
+			if auto_wake_without_cinematic:
+				start_wake_sequence()
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+	if not may_act:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
@@ -125,9 +135,6 @@ func _physics_process(delta: float) -> void:
 	_strafe_t += delta
 
 	match _state:
-		BossState.INTRO_MOVE:
-			_process_intro_move()
-			return
 		BossState.INTRO_REVEAL:
 			velocity = Vector2.ZERO
 			move_and_slide()
@@ -225,8 +232,8 @@ func _line_cooldown_after_burst() -> float:
 func _set_state(next: BossState) -> void:
 	_state = next
 	match _state:
-		BossState.INTRO_MOVE:
-			_play_anim(ANIM_MOVE_LOOP)
+		BossState.DORMANT:
+			_set_intro_idle_frame()
 		BossState.INTRO_REVEAL:
 			_play_anim(ANIM_INTRO_REVEAL)
 		BossState.MOVE:
@@ -256,31 +263,39 @@ func _play_anim(anim_name: StringName) -> void:
 	_sprite.play(anim_name)
 
 
-func _process_intro_move() -> void:
-	if _target == null or not is_instance_valid(_target):
-		velocity = Vector2.ZERO
-		move_and_slide()
+func _set_intro_idle_frame() -> void:
+	if _sprite == null:
 		return
-	if not _entry_point_valid:
-		_entry_point = global_position.lerp(_target.global_position, intro_entry_toward_player)
-		_entry_point_valid = true
-	var to_entry := _entry_point - global_position
-	var dist := to_entry.length()
-	if dist <= intro_entry_stop_distance:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		_set_state(BossState.INTRO_REVEAL)
+	var frames := _sprite.sprite_frames
+	if frames == null:
 		return
-	var spd := move_speed_enraged if _is_enraged() else move_speed
-	velocity = to_entry.normalized() * spd
-	move_and_slide()
+	if not frames.has_animation(ANIM_INTRO_REVEAL):
+		return
+	_sprite.play(ANIM_INTRO_REVEAL)
+	_sprite.stop()
+	_sprite.frame = 0
 
 
 func _on_sprite_animation_finished() -> void:
 	if _state == BossState.INTRO_REVEAL:
+		wake_animation_finished.emit()
 		_set_state(BossState.MOVE)
 	elif _state == BossState.ATTACK_WINDUP:
 		_set_state(BossState.ATTACK_SHOOT)
+
+
+func set_sleeping_for_cinematic() -> void:
+	auto_wake_without_cinematic = false
+	_set_state(BossState.DORMANT)
+	velocity = Vector2.ZERO
+
+
+func start_wake_sequence() -> void:
+	if _dead:
+		return
+	if _state == BossState.INTRO_REVEAL:
+		return
+	_set_state(BossState.INTRO_REVEAL)
 
 
 func _setup_sprite_animations() -> void:
@@ -293,7 +308,7 @@ func _setup_sprite_animations() -> void:
 	_add_animation(frames, ANIM_ATTACK_SHOOT_LOOP, _build_paths("res://Recursos/Textures/Enemies/Boss/Disparando/boss shooting", 1, 13), true, 14.0)
 	_sprite.sprite_frames = frames
 	_sprite.centered = true
-	_play_anim(ANIM_MOVE_LOOP)
+	_set_intro_idle_frame()
 
 
 func _add_animation(frames: SpriteFrames, name: StringName, paths: Array[String], loop: bool, fps: float) -> void:

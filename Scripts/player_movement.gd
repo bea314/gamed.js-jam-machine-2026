@@ -59,6 +59,9 @@ var death_sounds: Array = [
 @export var extra_delay_sec_before_game_over: float = 0.0
 
 var _game_over_shown: bool = false
+var _cinematic_input_blocked: bool = false
+var _speed_multiplier: float = 1.0
+var _movement_speed_flat_bonus: float = 0.0
 
 func _ready() -> void:
 	_mesh = get_node_or_null("Mesh") as MeshInstance2D
@@ -125,6 +128,35 @@ func _show_game_over() -> void:
 	go.show_game_over()
 
 
+func set_cinematic_input_blocked(blocked: bool) -> void:
+	_cinematic_input_blocked = blocked
+	if blocked:
+		velocity = Vector2.ZERO
+
+
+func set_gameplay_hud_visible(is_visible: bool) -> void:
+	var weapon_hud_node := get_node_or_null("WeaponHud") as CanvasItem
+	if weapon_hud_node != null:
+		weapon_hud_node.visible = is_visible
+	var health_hud_node := get_node_or_null("HealthBar") as CanvasItem
+	if health_hud_node != null:
+		health_hud_node.visible = is_visible
+	var buffs_hud_node := get_node_or_null("BuffHud") as CanvasItem
+	if buffs_hud_node != null:
+		buffs_hud_node.visible = is_visible
+	var minimap_hud_node := get_node_or_null("DungeonMinimapHud") as CanvasItem
+	if minimap_hud_node != null:
+		minimap_hud_node.visible = is_visible
+
+
+func set_speed_multiplier(multiplier: float) -> void:
+	_speed_multiplier = maxf(multiplier, 0.01)
+
+
+func set_movement_speed_flat_bonus(bonus: float) -> void:
+	_movement_speed_flat_bonus = bonus
+
+
 func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:
 	_invuln_flicker_time = 0.0
 	audio_player.stream = damage_taken_sounds.pick_random()
@@ -181,6 +213,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	_sync_invuln_flicker(delta)
+	if _game_over_shown:
+		return
+	if _cinematic_input_blocked:
+		return
 
 	var to_mouse := get_global_mouse_position() - global_position
 	
@@ -224,6 +260,18 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if _game_over_shown:
+		velocity = Vector2.ZERO
+		return
+	if _cinematic_input_blocked:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		_attack_visual_on = false
+		_attack_finish_one_more_loop = false
+		if mesh_sistem:
+			mesh_sistem.reset_attack_loop_tracking()
+			mesh_sistem.Change_State("Idle")
+		return
 	if _dash:
 		_dash.tick(delta)
 
@@ -249,7 +297,8 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var direction := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
-	var target_velocity := direction * speed
+	var target_speed := maxf(speed + _movement_speed_flat_bonus, 0.0)
+	var target_velocity := direction * target_speed * _speed_multiplier
 	if direction == Vector2.ZERO:
 		velocity = velocity.move_toward(Vector2.ZERO, deceleration * delta)
 	else:
