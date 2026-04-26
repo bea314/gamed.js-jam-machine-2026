@@ -1,23 +1,20 @@
 [gd_scene format=3 uid="uid://cy4wj5k5vsq0q"]
 
-[ext_resource type="Script" path="res://Scripts/weapons/machine_gun_bullet.gd" id="1_mgb"]
+[ext_resource type="Script" uid="uid://di7mk8x4a2bvp" path="res://Scripts/weapons/machine_gun_bullet.gd" id="1_mgb"]
 [ext_resource type="Texture2D" uid="uid://dgwxdeom0ecxl" path="res://Recursos/Textures/Ruka/Balas/bullets2.png" id="2_tex"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mg"]
-size = Vector2(20, 5)
+[sub_resource type="CircleShape2D" id="CircleShape2D_mg"]
+radius = 24.0
 
-[node name="MachineGunBullet" type="Area2D"]
-collision_layer = 1
+[node name="MachineGunBullet" type="Area2D" unique_id=825704752]
+scale = Vector2(0.30570316, 0.30570316)
 collision_mask = 4
 monitorable = false
 script = ExtResource("1_mgb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_mg")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=383309973]
+shape = SubResource("CircleShape2D_mg")
 
-[node name="Vis" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 1)
-position = Vector2(0, 0)
-scale = Vector2(0.1, 0.1)
+[node name="Vis" type="Sprite2D" parent="." unique_id=706411979]
+position = Vector2(-30, 0)
 texture = ExtResource("2_tex")
-centered = true
