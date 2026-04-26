@@ -1,16 +1,18 @@
+class_name LevelGeneration
 extends Node2D
 
 # --- CONFIGURACIÓN ---
 @export var room_scene: PackedScene
 @export var total_rooms_goal: int = 8
 @export var room_separation: Vector2 = Vector2(710, 400)
-@export_range(1, 3, 1) var run_level_index: int = 1
+## Entrega actual: una sola “plantilla” de run; sube este valor y amplía `LEVEL_GENERATION_PROFILES` cuando haya más niveles.
+@export_range(1, 1, 1) var run_level_index: int = 1
 @export var use_profile_room_count: bool = true
 ## Al activarlo, el jefe queda en la sala **contigua** a la inicial (a la derecha) para probar sin recorrer el mapa. Desactívalo al terminar el debug.
 @export var debug_boss_room_beside_start: bool = false
 ## Celda del jefe en modo debug (derecha de `(0,0)`; hay puerta hacia ella).
 const DEBUG_BOSS_NEIGHBOUR_CELL: Vector2i = Vector2i(1, 0)
-const MAX_RUN_LEVEL: int = 3
+const MAX_RUN_LEVEL: int = 1
 const LEVEL_GENERATION_PROFILES := {
 	1: {
 		"room_count": 8,
@@ -20,28 +22,6 @@ const LEVEL_GENERATION_PROFILES := {
 			RoomKind.MID_TURRET,
 			RoomKind.TURRET_PLUS_BASICS,
 			RoomKind.DEFENSE_TWO_PLUS_THREE,
-		],
-	},
-	# Placeholder para cuando existan room kinds y escenas de nivel 2.
-	2: {
-		"room_count": 10,
-		"boss_room_kind": RoomKind.BOSS_NIVEL_1,
-		"normal_cycle": [
-			RoomKind.MID_TURRET,
-			RoomKind.TURRET_PLUS_BASICS,
-			RoomKind.DEFENSE_TWO_PLUS_THREE,
-			RoomKind.COMBAT_EASY_6,
-		],
-	},
-	# Placeholder para cuando existan room kinds y escenas de nivel 3.
-	3: {
-		"room_count": 12,
-		"boss_room_kind": RoomKind.BOSS_NIVEL_1,
-		"normal_cycle": [
-			RoomKind.TURRET_PLUS_BASICS,
-			RoomKind.DEFENSE_TWO_PLUS_THREE,
-			RoomKind.MID_TURRET,
-			RoomKind.COMBAT_EASY_6,
 		],
 	},
 }
@@ -110,6 +90,10 @@ func _apply_level_generation_contract(level_index: int) -> void:
 	_active_level_profile = _get_level_profile(run_level_index)
 	if use_profile_room_count:
 		total_rooms_goal = int(_active_level_profile.get("room_count", total_rooms_goal))
+
+
+func get_max_run_level() -> int:
+	return MAX_RUN_LEVEL
 
 
 func _get_level_profile(level_index: int) -> Dictionary:

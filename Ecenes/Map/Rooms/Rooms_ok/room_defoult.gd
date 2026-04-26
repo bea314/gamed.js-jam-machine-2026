@@ -401,6 +401,38 @@ func _on_hostile_died() -> void:
 func _on_boss_defeated() -> void:
 	_boss_defeated = true
 	_boss_intro_running = false
+	if _is_final_boss_of_run():
+		_free_all_buff_pickups_in_current_scene()
+
+
+func _is_final_boss_of_run() -> bool:
+	if _level_generator == null:
+		return false
+	var idx_var: Variant = _level_generator.get("run_level_index")
+	if idx_var == null:
+		return false
+	var cap: int = 1
+	if _level_generator.has_method("get_max_run_level"):
+		cap = int(_level_generator.call("get_max_run_level"))
+	return int(idx_var) >= cap
+
+
+func _collect_buff_pickup_nodes(node: Node, acc: Array) -> void:
+	for child in node.get_children():
+		_collect_buff_pickup_nodes(child, acc)
+	if node is BuffPickupBase:
+		acc.append(node)
+
+
+func _free_all_buff_pickups_in_current_scene() -> void:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	var pickups: Array = []
+	_collect_buff_pickup_nodes(scene, pickups)
+	for p in pickups:
+		if is_instance_valid(p) and p is BuffPickupBase:
+			(p as BuffPickupBase).queue_free()
 
 
 func _maybe_spawn_buff_drop() -> void:

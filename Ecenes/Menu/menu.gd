@@ -82,7 +82,7 @@ func start_run_level(level_index: int) -> void:
 
 func on_boss_defeated_advance_level(current_level: int) -> void:
 	var next_level := current_level + 1
-	if next_level <= 3:
+	if next_level <= LevelGeneration.MAX_RUN_LEVEL:
 		start_run_level(next_level)
 		return
 	show_victory_message()
