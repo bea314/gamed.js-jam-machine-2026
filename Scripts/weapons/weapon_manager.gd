@@ -31,7 +31,7 @@ var _damage_flat_bonus: int = 0
 @onready var _gun_mesh_wrench: Sprite2D = $"../Guns_meshes/llave_inglesa"
 @onready var _gun_mesh_revolver: Sprite2D = $"../Guns_meshes/Revolver"
 @onready var _gun_mesh_shotgun: Sprite2D = $"../Guns_meshes/Shot_Gun"
-@onready var _gun_mesh_machinegun: Sprite2D = $"../Guns_meshes/Ametralladora"
+@onready var _gun_mesh_machinegun: AnimatedSprite2D = $"../Guns_meshes/Ametralladora"
 @onready var _weapon_sfx_player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 
 
@@ -66,10 +66,17 @@ func setup(player: Node2D) -> void:
 func _forward_weapon_fired() -> void:
 	weapon_actually_fired.emit()
 	_play_fire_sfx_for_current_weapon()
-	var anim := _recoil_anim_name(current_index)
-	if anim != StringName() and anima_weapons.has_animation(anim):
-		## anima_weapons.play(anim)
-		anima_weapons.play("Shot_Gun_Shot")
+
+	# Verificamos si el índice es 0 (Llave Inglesa)
+	if current_index == 0:
+		var anim = "LLave_inglesa_shot"
+		if anima_weapons.has_animation(anim):
+			anima_weapons.stop() 
+			anima_weapons.play(anim)
+	else:
+		var anim_generic = _recoil_anim_name(current_index)
+		if anima_weapons.has_animation(anim_generic):
+			anima_weapons.play(anim_generic)
 
 
 func _recoil_anim_name(index: int) -> StringName:
