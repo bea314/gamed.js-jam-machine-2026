@@ -12,12 +12,12 @@ anchors_preset = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 400.0
-offset_bottom = 96.0
+offset_bottom = 112.0
 
 [node name="RightStack" type="VBoxContainer" parent="Root" unique_id=818736041]
 layout_mode = 0
 offset_right = 384.0
-offset_bottom = 80.0
+offset_bottom = 96.0
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
@@ -52,6 +52,25 @@ layout_mode = 0
 offset_right = 220.0
 offset_bottom = 22.0
 color = Color(0.92, 0.18, 0.16, 1)
+
+[node name="ShieldTrack" type="Control" parent="Root/RightStack" unique_id=662921114]
+clip_contents = true
+custom_minimum_size = Vector2(220, 11)
+layout_mode = 2
+
+[node name="ShieldBg" type="ColorRect" parent="Root/RightStack/ShieldTrack" unique_id=1065428832]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21, 0.29, 0.38, 1)
+
+[node name="ShieldFill" type="ColorRect" parent="Root/RightStack/ShieldTrack" unique_id=189372405]
+layout_mode = 0
+offset_bottom = 11.0
+color = Color(0.2, 0.58, 1, 1)
 
 [node name="HealthLabel" type="Label" parent="Root/RightStack" unique_id=797335827]
 layout_mode = 2

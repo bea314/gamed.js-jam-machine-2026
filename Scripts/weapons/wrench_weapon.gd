@@ -11,7 +11,7 @@ func try_fire(owner_node: Node2D, aim_direction: Vector2) -> void:
 
 	var hitbox := melee_scene.instantiate()
 	owner_node.get_tree().current_scene.add_child(hitbox)
-	hitbox.set("damage", damage)
+	hitbox.set("damage", _final_damage())
 	hitbox.call("activate", owner_node, aim_direction)
 
 	weapon_fired.emit()

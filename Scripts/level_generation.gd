@@ -263,6 +263,8 @@ func _on_player_transition(target_coords: Vector2i, side: String) -> void:
 	ActiveRoomService.set_active_room(target_room as Node2D)
 	# Diferir el teletransporte evita que el motor dispare otra puerta en la misma pila de llamadas.
 	player.set_deferred(&"global_position", spawn_global)
+	if target_room.has_method("on_player_entered_room"):
+		target_room.on_player_entered_room(player)
 
 	if target_room.has_method("is_exit_locked") and target_room.is_exit_locked():
 		seal_all_edges_for_cell(target_coords)

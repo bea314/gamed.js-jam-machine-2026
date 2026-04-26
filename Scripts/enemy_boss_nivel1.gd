@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 ## Jefe nivel 1: ráfagas, ≤50 % cadencia↑, AoE con telegrafía, movimiento lento con IA, ráfaga al morir.
+signal wake_animation_finished
 
 @export var detection_range: float = 440.0
 @export var projectile_scene: PackedScene
@@ -38,9 +39,29 @@ extends CharacterBody2D
 ## Fuerza del “orbitado” (tangencial) a distancia intermedia.
 @export var strafe_strength: float = 0.55
 @export var adjust_radial: float = 0.3
+@export_range(0.0, 1.0) var intro_entry_toward_player: float = 0.45
+@export var intro_entry_stop_distance: float = 12.0
+@export var attack_recover_time: float = 0.25
+@export var auto_wake_without_cinematic: bool = true
 
 @onready var _health: HealthComponent = $HealthComponent as HealthComponent
 @onready var _mesh: Node2D = $Mesh
+@onready var _sprite: AnimatedSprite2D = $Mesh/AnimatedSprite2D as AnimatedSprite2D
+
+enum BossState {
+	DORMANT,
+	INTRO_REVEAL,
+	MOVE,
+	ATTACK_WINDUP,
+	ATTACK_SHOOT,
+	RECOVER,
+	DEAD,
+}
+
+const ANIM_INTRO_REVEAL := "intro_reveal"
+const ANIM_MOVE_LOOP := "move_loop"
+const ANIM_ATTACK_WINDUP := "attack_windup"
+const ANIM_ATTACK_SHOOT_LOOP := "attack_shoot_loop"
 
 var _dead: bool = false
 var _target: Node2D = null
@@ -49,12 +70,17 @@ var _burst_gap_timer: float = 0.0
 var _line_burst_cd: float = 0.0
 var _aoe_cd: float = 0.0
 var _strafe_t: float = 0.0
+var _state: BossState = BossState.DORMANT
+var _entry_point: Vector2 = Vector2.ZERO
+var _entry_point_valid: bool = false
+var _recover_timer: float = 0.0
 
 var _hit_flash := HitFlashState.new()
 
 
 func _ready() -> void:
 	add_to_group("enemies")
+	_setup_sprite_animations()
 	if projectile_scene == null:
 		projectile_scene = load("res://Ecenes/Enemies/EnemyProjectile.tscn") as PackedScene
 	if aoe_scene == null:
@@ -64,6 +90,8 @@ func _ready() -> void:
 	if _health:
 		_health.died.connect(_on_health_died)
 		_health.damage_taken.connect(_on_health_damage_visual)
+	if _sprite:
+		_sprite.animation_finished.connect(_on_sprite_animation_finished)
 
 
 func _on_health_damage_visual(_amount: int, _hit_from_global: Vector2) -> void:
@@ -91,18 +119,45 @@ func _schedule_next_aoe() -> void:
 func _physics_process(delta: float) -> void:
 	if _dead:
 		return
-	if not ActiveRoomService.hostile_may_act(self):
+	var may_act := ActiveRoomService.hostile_may_act(self)
+	if _state == BossState.DORMANT:
+		if may_act:
+			if auto_wake_without_cinematic:
+				start_wake_sequence()
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+	if not may_act:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
 	_ensure_target()
 	_strafe_t += delta
-	_update_movement(delta)
+
+	match _state:
+		BossState.INTRO_REVEAL:
+			velocity = Vector2.ZERO
+			move_and_slide()
+			return
+		BossState.RECOVER:
+			_recover_timer = maxf(_recover_timer - delta, 0.0)
+			velocity = Vector2.ZERO
+			move_and_slide()
+			if _recover_timer <= 0.0:
+				_set_state(BossState.MOVE)
+			return
+		BossState.ATTACK_WINDUP, BossState.ATTACK_SHOOT:
+			velocity = Vector2.ZERO
+			move_and_slide()
+		BossState.MOVE:
+			_update_movement(delta)
+		_:
+			pass
 
 	_line_burst_cd = maxf(_line_burst_cd - delta, 0.0)
 	_aoe_cd = maxf(_aoe_cd - delta, 0.0)
 
-	if _aoe_cd <= 0.0:
+	if _state == BossState.MOVE and _aoe_cd <= 0.0:
 		_spawn_aoe()
 		_schedule_next_aoe()
 
@@ -115,11 +170,12 @@ func _physics_process(delta: float) -> void:
 		_burst_left = 0
 		return
 
-	if _burst_left == 0 and _line_burst_cd <= 0.0:
-		_burst_left = maxi(line_burst_count, 1)
-		_burst_gap_timer = 0.0
+	if _state == BossState.MOVE and _line_burst_cd <= 0.0:
+		_set_state(BossState.ATTACK_WINDUP)
+		return
 
-	_process_line_burst(delta)
+	if _state == BossState.ATTACK_SHOOT:
+		_process_line_burst(delta)
 
 
 ## IA: mantiene distancias, acerca si le pillas lejos, retrocede si te pones bajo, strafe a media distancia.
@@ -173,6 +229,105 @@ func _line_cooldown_after_burst() -> float:
 	return line_burst_cooldown
 
 
+func _set_state(next: BossState) -> void:
+	_state = next
+	match _state:
+		BossState.DORMANT:
+			_set_intro_idle_frame()
+		BossState.INTRO_REVEAL:
+			_play_anim(ANIM_INTRO_REVEAL)
+		BossState.MOVE:
+			_play_anim(ANIM_MOVE_LOOP)
+		BossState.ATTACK_WINDUP:
+			_play_anim(ANIM_ATTACK_WINDUP)
+		BossState.ATTACK_SHOOT:
+			_play_anim(ANIM_ATTACK_SHOOT_LOOP)
+			_burst_left = maxi(line_burst_count, 1)
+			_burst_gap_timer = 0.0
+		BossState.RECOVER:
+			_recover_timer = attack_recover_time
+			_play_anim(ANIM_MOVE_LOOP)
+		BossState.DEAD:
+			pass
+
+
+func _play_anim(anim_name: StringName) -> void:
+	if _sprite == null:
+		return
+	if _sprite.sprite_frames == null:
+		return
+	if not _sprite.sprite_frames.has_animation(anim_name):
+		return
+	if _sprite.animation == anim_name and _sprite.is_playing():
+		return
+	_sprite.play(anim_name)
+
+
+func _set_intro_idle_frame() -> void:
+	if _sprite == null:
+		return
+	var frames := _sprite.sprite_frames
+	if frames == null:
+		return
+	if not frames.has_animation(ANIM_INTRO_REVEAL):
+		return
+	_sprite.play(ANIM_INTRO_REVEAL)
+	_sprite.stop()
+	_sprite.frame = 0
+
+
+func _on_sprite_animation_finished() -> void:
+	if _state == BossState.INTRO_REVEAL:
+		wake_animation_finished.emit()
+		_set_state(BossState.MOVE)
+	elif _state == BossState.ATTACK_WINDUP:
+		_set_state(BossState.ATTACK_SHOOT)
+
+
+func set_sleeping_for_cinematic() -> void:
+	auto_wake_without_cinematic = false
+	_set_state(BossState.DORMANT)
+	velocity = Vector2.ZERO
+
+
+func start_wake_sequence() -> void:
+	if _dead:
+		return
+	if _state == BossState.INTRO_REVEAL:
+		return
+	_set_state(BossState.INTRO_REVEAL)
+
+
+func _setup_sprite_animations() -> void:
+	if _sprite == null:
+		return
+	var frames := SpriteFrames.new()
+	_add_animation(frames, ANIM_INTRO_REVEAL, _build_paths("res://Recursos/Textures/Enemies/Boss/Aparición/boss reveal", 1, 18), false, 12.0)
+	_add_animation(frames, ANIM_MOVE_LOOP, _build_paths("res://Recursos/Textures/Enemies/Boss/Aparición/boss reveal", 8, 12), true, 10.0)
+	_add_animation(frames, ANIM_ATTACK_WINDUP, _build_paths("res://Recursos/Textures/Enemies/Boss/Aparición/boss reveal", 8, 14), false, 14.0)
+	_add_animation(frames, ANIM_ATTACK_SHOOT_LOOP, _build_paths("res://Recursos/Textures/Enemies/Boss/Disparando/boss shooting", 1, 13), true, 14.0)
+	_sprite.sprite_frames = frames
+	_sprite.centered = true
+	_set_intro_idle_frame()
+
+
+func _add_animation(frames: SpriteFrames, name: StringName, paths: Array[String], loop: bool, fps: float) -> void:
+	frames.add_animation(name)
+	frames.set_animation_loop(name, loop)
+	frames.set_animation_speed(name, fps)
+	for path in paths:
+		var tex := load(path) as Texture2D
+		if tex != null:
+			frames.add_frame(name, tex)
+
+
+func _build_paths(base: String, start_idx: int, end_idx: int) -> Array[String]:
+	var out: Array[String] = []
+	for idx in range(start_idx, end_idx + 1):
+		out.append("%s%d.png" % [base, idx])
+	return out
+
+
 func _spawn_aoe() -> void:
 	if aoe_scene == null:
 		return
@@ -214,6 +369,7 @@ func _process_line_burst(delta: float) -> void:
 		_burst_gap_timer = line_burst_gap
 	else:
 		_line_burst_cd = _line_cooldown_after_burst()
+		_set_state(BossState.RECOVER)
 
 
 func _spawn_projectile(dir: Vector2, dmg: int) -> void:
@@ -237,6 +393,7 @@ func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 
 func _on_health_died() -> void:
 	_dead = true
+	_state = BossState.DEAD
 	set_physics_process(false)
 	velocity = Vector2.ZERO
 	if GameEvents != null:
