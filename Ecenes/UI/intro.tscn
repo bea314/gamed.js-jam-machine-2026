@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://8lfk7fgfw1ic"]
+
+[ext_resource type="Script" uid="uid://dwvb07xdapmcc" path="res://Ecenes/UI/intro.gd" id="1_jajb2"]
+[ext_resource type="AudioStream" uid="uid://cgiwnse2u5yps" path="res://Recursos/Textures/intro/INTRO_ANIMADA.ogg" id="2_bryxx"]
+[ext_resource type="Texture2D" uid="uid://r4nswq7b661r" path="res://Recursos/Textures/intro/intro pag 1.png" id="2_tvodw"]
+
+[sub_resource type="Animation" id="Animation_bryxx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tvodw"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n1njh"]
+_data = {
+&"RESET": SubResource("Animation_bryxx"),
+&"new_animation": SubResource("Animation_tvodw")
+}
+
+[node name="Intro" type="Node2D" unique_id=1975574901]
+script = ExtResource("1_jajb2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=986616513]
+position = Vector2(971.00006, 550)
+scale = Vector2(1.0129054, 1.0129054)
+texture = ExtResource("2_tvodw")
+
+[node name="fade" type="Sprite2D" parent="." unique_id=167967893]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(971.00006, 550)
+scale = Vector2(1.0129054, 1.0129054)
+texture = ExtResource("2_tvodw")
+
+[node name="fade" type="AnimationPlayer" parent="fade" unique_id=40965619]
+libraries/ = SubResource("AnimationLibrary_n1njh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=377717083]
+stream = ExtResource("2_bryxx")
+autoplay = true
