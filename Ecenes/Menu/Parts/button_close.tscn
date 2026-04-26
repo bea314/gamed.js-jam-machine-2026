@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3mx8btnclos1"]
+
+[ext_resource type="Texture2D" uid="uid://bpkmi5ognnfl" path="res://Recursos/UXUI/MENU/button close.png" id="1_tx"]
+
+[node name="ButtonClose" type="TextureButton"]
+layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("1_tx")
+ignore_texture_size = true
+stretch_mode = 5
