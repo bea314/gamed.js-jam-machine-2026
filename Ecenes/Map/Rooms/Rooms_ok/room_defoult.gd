@@ -662,6 +662,10 @@ func _refresh_door_states(animate_visual: bool = false) -> void:
 	_set_door_state(door_down, "down", "down" in _neighbors, allow_monitoring, animate_visual)
 	_set_door_state(door_left, "left", "left" in _neighbors, allow_monitoring, animate_visual)
 	_set_door_state(door_right, "right", "right" in _neighbors, allow_monitoring, animate_visual)
+	# Si el jugador ya estaba solapando la puerta mientras monitoring estaba en false, Godot no emite
+	# body_entered al reactivarlo; hay que comprobar solapes después de actualizar el área.
+	if allow_monitoring:
+		call_deferred(&"_probe_doors_for_standing_player")
 
 
 func _set_door_state(door: Area2D, side: String, has_neighbor: bool, allow_monitoring: bool, animate_visual: bool) -> void:
@@ -675,33 +679,46 @@ func _set_door_state(door: Area2D, side: String, has_neighbor: bool, allow_monit
 		door.monitoring = has_neighbor and allow_monitoring
 
 
-func _on_door_pos_up_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("Player"):
+func _try_request_transition_through_door(body: Node2D, target_delta: Vector2i, side: String) -> void:
+	if body == null or not body.is_in_group("Player"):
 		return
 	if _locks_exits and not room_cleared:
 		return
-	room_transition_requested.emit(current_coords + Vector2i.UP, "up")
+	room_transition_requested.emit(current_coords + target_delta, side)
+
+
+func _probe_doors_for_standing_player() -> void:
+	if _locks_exits and not room_cleared:
+		return
+	var checks: Array = [
+		[door_up, Vector2i.UP, "up"],
+		[door_down, Vector2i.DOWN, "down"],
+		[door_left, Vector2i.LEFT, "left"],
+		[door_right, Vector2i.RIGHT, "right"],
+	]
+	for row in checks:
+		var door_area: Area2D = row[0]
+		var delta: Vector2i = row[1]
+		var side: String = row[2]
+		if door_area == null or not door_area.monitoring:
+			continue
+		for body in door_area.get_overlapping_bodies():
+			if body is Node2D:
+				_try_request_transition_through_door(body as Node2D, delta, side)
+				return
+
+
+func _on_door_pos_up_body_entered(body: Node2D) -> void:
+	_try_request_transition_through_door(body, Vector2i.UP, "up")
 
 
 func _on_door_pos_down_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("Player"):
-		return
-	if _locks_exits and not room_cleared:
-		return
-	room_transition_requested.emit(current_coords + Vector2i.DOWN, "down")
+	_try_request_transition_through_door(body, Vector2i.DOWN, "down")
 
 
 func _on_door_pos_left_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("Player"):
-		return
-	if _locks_exits and not room_cleared:
-		return
-	room_transition_requested.emit(current_coords + Vector2i.LEFT, "left")
+	_try_request_transition_through_door(body, Vector2i.LEFT, "left")
 
 
 func _on_door_pos_right_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("Player"):
-		return
-	if _locks_exits and not room_cleared:
-		return
-	room_transition_requested.emit(current_coords + Vector2i.RIGHT, "right")
+	_try_request_transition_through_door(body, Vector2i.RIGHT, "right")
