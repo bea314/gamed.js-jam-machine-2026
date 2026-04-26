@@ -1,0 +1,440 @@
+[gd_scene format=3 uid="uid://bdudndsmxiqie"]
+
+[ext_resource type="Texture2D" uid="uid://bcljklne72k81" path="res://Recursos/Textures/explosion4.png" id="1_lgwvb"]
+[ext_resource type="Texture2D" uid="uid://1yrflwfxwm3l" path="res://Recursos/Textures/logo_game.png" id="1_pyn01"]
+[ext_resource type="Script" uid="uid://c0ctxtlkegdgy" path="res://Scripts/credits_control.gd" id="1_s81jr"]
+[ext_resource type="Texture2D" uid="uid://3ptb26mx4yef" path="res://Recursos/Textures/dynamite3.png" id="2_4awek"]
+[ext_resource type="FontFile" uid="uid://buhqmpclsjygy" path="res://Recursos/Textures/Comic Shark.ttf" id="2_km6w4"]
+[ext_resource type="FontFile" uid="uid://bugvg0v12awji" path="res://Recursos/Textures/KOMTXKBI.ttf" id="3_lgwvb"]
+[ext_resource type="Texture2D" uid="uid://b0qjirph52iur" path="res://Recursos/Textures/Enemies/turret/turret7.png" id="3_s81jr"]
+[ext_resource type="AudioStream" uid="uid://bi2pf0sx5p0yq" path="res://Recursos/Sound/Menus/MAIN MENU.ogg" id="8_vh1ms"]
+
+[sub_resource type="Animation" id="Animation_pyn01"]
+resource_name = "Inicio"
+length = 0.17506802
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.16559212),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(1.2063982, 1.2063982), Vector2(0.7380669, 0.7380669), Vector2(0.7888845, 0.7888845)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.14539796, 0.17366979),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5),
+"update": 0,
+"values": [-0.098321274, 0.045970514, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.066198334),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5rlnj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.7380669, 0.7380669)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.045970514]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_km6w4"]
+_data = {
+&"Inicio": SubResource("Animation_pyn01"),
+&"RESET": SubResource("Animation_5rlnj")
+}
+
+[node name="Final_Credits" type="Node2D" unique_id=518749173]
+
+[node name="Credits_Control" type="Control" parent="." unique_id=652521695]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -407.0
+offset_right = 1920.0
+offset_bottom = 7126.0
+script = ExtResource("1_s81jr")
+
+[node name="Image 1" type="Sprite2D" parent="Credits_Control" unique_id=1991102157]
+position = Vector2(1606, 2525)
+rotation = 0.24916661
+scale = Vector2(2.726756, 2.726756)
+texture = ExtResource("1_lgwvb")
+
+[node name="Image 2" type="Sprite2D" parent="Credits_Control" unique_id=1651581053]
+position = Vector2(849, 3684.0002)
+rotation = -0.033764184
+scale = Vector2(1.5213239, 1.5213239)
+texture = ExtResource("2_4awek")
+
+[node name="Image 3" type="Sprite2D" parent="Credits_Control" unique_id=1032334116]
+position = Vector2(285, 4890)
+rotation = -0.033764184
+scale = Vector2(0.8750923, 0.8750923)
+texture = ExtResource("3_s81jr")
+
+[node name="Logo" type="TextureRect" parent="Credits_Control" unique_id=1228709926]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49
+anchor_top = 0.126
+anchor_right = 0.49
+anchor_bottom = 0.126
+offset_left = -940.80005
+offset_top = -604.956
+offset_right = 939.2705
+offset_bottom = 576.044
+rotation = 0.045970514
+scale = Vector2(0.7380669, 0.7380669)
+pivot_offset = Vector2(939.76794, 591.23267)
+texture = ExtResource("1_pyn01")
+
+[node name="Anim_Logo" type="AnimationPlayer" parent="Credits_Control/Logo" unique_id=187840023]
+libraries/ = SubResource("AnimationLibrary_km6w4")
+
+[node name="Pagina_Arte2D" type="Control" parent="Credits_Control" unique_id=1954237759]
+anchors_preset = 0
+offset_top = 1613.0
+offset_right = 1920.0
+offset_bottom = 2860.0
+pivot_offset = Vector2(960, 624)
+
+[node name="Nombre" type="Label" parent="Credits_Control/Pagina_Arte2D" unique_id=2027462123]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 365.0
+theme_override_constants/outline_size = 76
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 190
+text = "Nuria Keller"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Titulo" type="Label" parent="Credits_Control/Pagina_Arte2D" unique_id=1814802674]
+layout_mode = 0
+offset_left = -22.0
+offset_top = 183.0
+offset_right = 1898.0
+offset_bottom = 548.0
+theme_override_constants/outline_size = 69
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 135
+text = "Art director"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Areas1" type="Label" parent="Credits_Control/Pagina_Arte2D" unique_id=417494178]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011000001
+anchor_top = 0.293
+anchor_right = 0.011000001
+anchor_bottom = 0.293
+offset_left = 187.88
+offset_top = 186.629
+offset_right = 2860.88
+offset_bottom = 972.629
+scale = Vector2(0.298693, 0.31409147)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Concept artist
+Character and asset designer
+Character animator"
+vertical_alignment = 1
+
+[node name="Areas2" type="Label" parent="Credits_Control/Pagina_Arte2D" unique_id=319463587]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011000001
+anchor_top = 0.293
+anchor_right = 0.011000001
+anchor_bottom = 0.293
+offset_left = 1022.88
+offset_top = 143.629
+offset_right = 3695.88
+offset_bottom = 1192.629
+scale = Vector2(0.29116926, 0.30617988)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Storyboard artist
+Illustrator
+Graphic designer
+UI / UX designer"
+vertical_alignment = 1
+
+[node name="Pagina_Audio" type="Control" parent="Credits_Control" unique_id=1307692894]
+anchors_preset = 0
+offset_top = 2691.0
+offset_right = 1920.0
+offset_bottom = 3938.0
+pivot_offset = Vector2(960, 624)
+
+[node name="Nombre" type="Label" parent="Credits_Control/Pagina_Audio" unique_id=1539897281]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 365.0
+theme_override_constants/outline_size = 76
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 190
+text = "Matt Slaven"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Titulo" type="Label" parent="Credits_Control/Pagina_Audio" unique_id=918137573]
+layout_mode = 0
+offset_left = -22.0
+offset_top = 198.0
+offset_right = 1898.0
+offset_bottom = 563.0
+theme_override_constants/outline_size = 69
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 135
+text = "Audio Director / Composer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Areas1" type="Label" parent="Credits_Control/Pagina_Audio" unique_id=1945366619]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011000001
+anchor_top = 0.293
+anchor_right = 0.011000001
+anchor_bottom = 0.293
+offset_left = 187.88
+offset_top = 186.629
+offset_right = 2860.88
+offset_bottom = 972.629
+scale = Vector2(0.298693, 0.31409147)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Audio direction
+Original music composition
+Music production
+Music arrangement
+Audio editing
+Audio recording
+Mixing engineer"
+vertical_alignment = 1
+
+[node name="Areas2" type="Label" parent="Credits_Control/Pagina_Audio" unique_id=50077243]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011000001
+anchor_top = 0.293
+anchor_right = 0.011000001
+anchor_bottom = 0.293
+offset_left = 994.88
+offset_top = 204.629
+offset_right = 3667.88
+offset_bottom = 1575.629
+scale = Vector2(0.29116926, 0.30617988)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Sound effects design
+UI sound effects
+UX sound effects
+Interactive audio concept
+Audio assets preparation
+Game audio supervision"
+vertical_alignment = 1
+
+[node name="Pagina_Programacion1" type="Control" parent="Credits_Control" unique_id=1611014501]
+anchors_preset = 0
+offset_top = 3831.0
+offset_right = 1920.0
+offset_bottom = 5078.0
+pivot_offset = Vector2(960, 624)
+
+[node name="Nombre" type="Label" parent="Credits_Control/Pagina_Programacion1" unique_id=1498773276]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 365.0
+theme_override_constants/outline_size = 76
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 190
+text = "Beatriz Del Pinal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Titulo" type="Label" parent="Credits_Control/Pagina_Programacion1" unique_id=532982498]
+layout_mode = 0
+offset_left = -22.0
+offset_top = 198.0
+offset_right = 1898.0
+offset_bottom = 563.0
+theme_override_constants/outline_size = 69
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 135
+text = "Game developerer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Areas1" type="Label" parent="Credits_Control/Pagina_Programacion1" unique_id=1836126820]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.512
+anchor_right = 0.016
+anchor_bottom = 0.512
+offset_left = -0.7200012
+offset_top = 0.5359497
+offset_right = 3153.0193
+offset_bottom = 913.53595
+scale = Vector2(0.298693, 0.31409147)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Game programming (GDScript / Godot)
+Enemy and behavior
+design and implementation.
+Combat/health/UI systems in-game."
+vertical_alignment = 1
+
+[node name="Areas2" type="Label" parent="Credits_Control/Pagina_Programacion1" unique_id=1042506844]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.52900004
+anchor_top = 0.45700002
+anchor_right = 0.52900004
+anchor_bottom = 0.45700002
+offset_left = 0.3199463
+offset_top = 0.12097168
+offset_right = 2816.5513
+offset_bottom = 1371.121
+scale = Vector2(0.29116926, 0.30617988)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Godot Engine
+Integration of scenes and prefabs
+Collaboration in game jams /
+short iterative projects
+Git / team version control"
+vertical_alignment = 1
+
+[node name="Pagina_Programacion2" type="Control" parent="Credits_Control" unique_id=1400781296]
+anchors_preset = 0
+offset_left = 30.0
+offset_top = 4936.0
+offset_right = 1950.0
+offset_bottom = 6183.0
+pivot_offset = Vector2(960, 624)
+
+[node name="Nombre" type="Label" parent="Credits_Control/Pagina_Programacion2" unique_id=15723085]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 365.0
+theme_override_constants/outline_size = 76
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 190
+text = "KlessDEV"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Titulo" type="Label" parent="Credits_Control/Pagina_Programacion2" unique_id=322323893]
+layout_mode = 0
+offset_left = -22.0
+offset_top = 198.0
+offset_right = 1898.0
+offset_bottom = 563.0
+theme_override_constants/outline_size = 69
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 135
+text = "Game developerer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Areas1" type="Label" parent="Credits_Control/Pagina_Programacion2" unique_id=339225114]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.512
+anchor_right = 0.016
+anchor_bottom = 0.512
+offset_left = -0.7200012
+offset_top = 0.5359497
+offset_right = 3153.0193
+offset_bottom = 913.53595
+scale = Vector2(0.298693, 0.31409147)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Game programming (GDScript / Godot)
+Character movement
+dungeon generation
+character implementation in the scene
+"
+vertical_alignment = 1
+
+[node name="Areas2" type="Label" parent="Credits_Control/Pagina_Programacion2" unique_id=97585912]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.52900004
+anchor_top = 0.45700002
+anchor_right = 0.52900004
+anchor_bottom = 0.45700002
+offset_left = 0.3199463
+offset_top = 0.12097168
+offset_right = 2816.5513
+offset_bottom = 1371.121
+scale = Vector2(0.29116926, 0.30617988)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Godot Engine
+Integration of scenes and prefabs
+audio and music integration
+integration items"
+vertical_alignment = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1481957078]
+stream = ExtResource("8_vh1ms")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
