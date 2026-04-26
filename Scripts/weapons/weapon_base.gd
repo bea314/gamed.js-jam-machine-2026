@@ -17,6 +17,7 @@ var current_ammo: int = 0
 var can_fire: bool = true
 var is_reloading: bool = false
 var _damage_multiplier: float = 1.0
+var _damage_flat_bonus: int = 0
 
 
 func _ready() -> void:
@@ -40,8 +41,12 @@ func get_damage_multiplier() -> float:
 	return _damage_multiplier
 
 
+func set_damage_flat_bonus(bonus: int) -> void:
+	_damage_flat_bonus = bonus
+
+
 func _final_damage() -> int:
-	return maxi(int(round(float(damage) * _damage_multiplier)), 1)
+	return maxi(int(round(float(damage) * _damage_multiplier)) + _damage_flat_bonus, 1)
 
 
 func _start_fire_cooldown() -> void:

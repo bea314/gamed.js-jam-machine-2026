@@ -9,10 +9,10 @@ script = ExtResource("1_buff_hud_script")
 [node name="Root" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 16.0
-offset_top = 118.0
-offset_right = 260.0
-offset_bottom = 182.0
+offset_left = 428.0
+offset_top = 34.0
+offset_right = 620.0
+offset_bottom = 98.0
 
 [node name="BuffRow" type="HBoxContainer" parent="Root"]
 layout_mode = 1

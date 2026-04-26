@@ -20,6 +20,9 @@ var _invuln_remaining: float = 0.0
 
 func _ready() -> void:
 	current_health = max_health
+	# Escudo y vida comparten tope para evitar sobrellenado de escudo.
+	max_shield = max_health
+	current_shield = mini(current_shield, max_shield)
 	_emit_health_changed()
 	_emit_shield_changed()
 

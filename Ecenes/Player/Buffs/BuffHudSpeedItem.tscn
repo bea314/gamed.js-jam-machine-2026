@@ -1,8 +1,9 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scripts/ui/buffs/buff_hud_item.gd" id="1_buff_item_script"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Map/Buffos/speed buff.png" id="2_speed_icon"]
 
-[node name="BuffHudItem" type="Control"]
+[node name="BuffHudSpeedItem" type="Control"]
 custom_minimum_size = Vector2(48, 48)
 script = ExtResource("1_buff_item_script")
 
@@ -19,6 +20,7 @@ offset_right = 18.0
 offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_speed_icon")
 expand_mode = 1
 stretch_mode = 5
 

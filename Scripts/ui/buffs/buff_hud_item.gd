@@ -8,35 +8,20 @@ class_name BuffHudItem
 	get:
 		return _icon_scale
 
-@export var ring_radius: float = 22.0:
+@export var slot_size: float = 48.0:
 	set(value):
-		_ring_radius = maxf(value, 2.0)
+		_slot_size = maxf(value, 24.0)
 		_update_minimum_size()
-		queue_redraw()
 	get:
-		return _ring_radius
-
-@export var ring_width: float = 4.0:
-	set(value):
-		_ring_width = maxf(value, 1.0)
-		queue_redraw()
-	get:
-		return _ring_width
-
-@export var ring_color: Color = Color(0.16, 0.85, 0.35, 1.0):
-	set(value):
-		_ring_color = value
-		queue_redraw()
-	get:
-		return _ring_color
+		return _slot_size
 
 @onready var _icon: TextureRect = $Icon
+@onready var _stack_label: Label = $StackLabel
+@onready var _pop_label: Label = $PopLabel
 
-var _progress: float = 1.0
 var _icon_scale: float = 0.8
-var _ring_radius: float = 22.0
-var _ring_width: float = 4.0
-var _ring_color: Color = Color(0.16, 0.85, 0.35, 1.0)
+var _slot_size: float = 48.0
+var _pop_tween: Tween = null
 
 
 func _ready() -> void:
@@ -49,13 +34,34 @@ func set_icon(texture: Texture2D) -> void:
 		_icon.texture = texture
 
 
-func set_progress(normalized_value: float) -> void:
-	_progress = clampf(normalized_value, 0.0, 1.0)
-	queue_redraw()
+func set_stack_count(value: int) -> void:
+	if _stack_label == null:
+		return
+	_stack_label.text = "x%d" % maxi(value, 0)
+
+
+func play_pop(text: String, color: Color) -> void:
+	if _pop_label == null:
+		return
+	if _pop_tween != null and _pop_tween.is_running():
+		_pop_tween.kill()
+	_pop_label.text = text
+	_pop_label.modulate = Color(color.r, color.g, color.b, 1.0)
+	_pop_label.position = Vector2(12.0, -9.0)
+	_pop_label.visible = true
+	_pop_tween = create_tween()
+	_pop_tween.set_parallel(true)
+	_pop_tween.tween_property(_pop_label, "position:y", -19.0, 0.28)
+	_pop_tween.tween_property(_pop_label, "modulate:a", 0.0, 0.28)
+	_pop_tween.set_parallel(false)
+	_pop_tween.tween_callback(func() -> void:
+		if _pop_label != null:
+			_pop_label.visible = false
+	)
 
 
 func _update_minimum_size() -> void:
-	var side: float = (_ring_radius * 2.0) + _ring_width + 4.0
+	var side: float = _slot_size
 	custom_minimum_size = Vector2(side, side)
 	if is_inside_tree():
 		size = custom_minimum_size
@@ -69,14 +75,3 @@ func _update_icon_size() -> void:
 	var target_side: float = maxf(base_side * _icon_scale, 2.0)
 	_icon.custom_minimum_size = Vector2(target_side, target_side)
 	_icon.size = _icon.custom_minimum_size
-
-
-func _draw() -> void:
-	var center: Vector2 = size * 0.5
-	var arc_radius: float = minf(size.x, size.y) * 0.5 - _ring_width
-	var points: int = max(24, int(96 * _progress))
-	if points <= 1 or _progress <= 0.0:
-		return
-	var start_angle: float = -PI * 0.5
-	var end_angle: float = start_angle + (TAU * _progress)
-	draw_arc(center, arc_radius, start_angle, end_angle, points, _ring_color, _ring_width, true)

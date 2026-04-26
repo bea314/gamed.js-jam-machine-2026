@@ -61,6 +61,7 @@ var death_sounds: Array = [
 var _game_over_shown: bool = false
 var _cinematic_input_blocked: bool = false
 var _speed_multiplier: float = 1.0
+var _movement_speed_flat_bonus: float = 0.0
 
 func _ready() -> void:
 	_mesh = get_node_or_null("Mesh") as MeshInstance2D
@@ -164,6 +165,10 @@ func set_gameplay_hud_visible(is_visible: bool) -> void:
 
 func set_speed_multiplier(multiplier: float) -> void:
 	_speed_multiplier = maxf(multiplier, 0.01)
+
+
+func set_movement_speed_flat_bonus(bonus: float) -> void:
+	_movement_speed_flat_bonus = bonus
 
 
 func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:
@@ -313,7 +318,8 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var direction := Input.get_vector("Mover_izquierda", "Mover_derecha", "Mover_arriba", "Mover_abajo")
-	var target_velocity := direction * speed * _speed_multiplier
+	var target_speed := maxf(speed + _movement_speed_flat_bonus, 0.0)
+	var target_velocity := direction * target_speed * _speed_multiplier
 	if direction == Vector2.ZERO:
 		velocity = velocity.move_toward(Vector2.ZERO, deceleration * delta)
 	else:

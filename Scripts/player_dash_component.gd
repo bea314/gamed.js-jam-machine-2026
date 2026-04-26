@@ -8,6 +8,7 @@ signal dash_ended()
 @export var dash_duration: float = 0.16
 @export var dash_cooldown: float = 0.48
 var _dash_speed_multiplier: float = 1.0
+var _dash_speed_flat_bonus: float = 0.0
 
 var _dash_dir: Vector2 = Vector2.RIGHT
 var _time_left: float = 0.0
@@ -54,8 +55,13 @@ func try_dash(direction: Vector2) -> bool:
 
 
 func get_dash_velocity() -> Vector2:
-	return _dash_dir * dash_speed * _dash_speed_multiplier
+	var effective_dash_speed := maxf(dash_speed + _dash_speed_flat_bonus, 0.0)
+	return _dash_dir * effective_dash_speed * _dash_speed_multiplier
 
 
 func set_dash_speed_multiplier(multiplier: float) -> void:
 	_dash_speed_multiplier = maxf(multiplier, 0.01)
+
+
+func set_dash_speed_flat_bonus(bonus: float) -> void:
+	_dash_speed_flat_bonus = bonus
