@@ -50,4 +50,4 @@ func _ready() -> void:
 	await get_tree().create_timer(3).timeout
 	fade.play("new_animation")
 	await get_tree().create_timer(1).timeout
-	
+	get_tree().change_scene_to_file("res://Ecenes/level.tscn")

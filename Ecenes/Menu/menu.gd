@@ -78,17 +78,15 @@ func start_intro_if_any() -> void:
 
 
 func start_run_level(level_index: int) -> void:
-	var scene_path: String = str(RUN_LEVEL_SCENES.get(level_index, RUN_LEVEL_SCENES[1]))
 	$Start.stream = PRESS_START
 	$Start.play()
 	$Pantalla_Fade/AnimationPlayer.play("fade")
 	await get_tree().create_timer(3.0).timeout
+
 	
-	if ResourceLoader.exists(scene_path):
-		get_tree().change_scene_to_file(scene_path)
-	else:
-		push_warning("No existe la escena para el nivel %d: %s" % [level_index, scene_path])
-		get_tree().change_scene_to_file(RUN_LEVEL_SCENES[1])
+
+	get_tree().change_scene_to_file("res://Ecenes/UI/intro.tscn")
+
 
 
 func on_boss_defeated_advance_level(current_level: int) -> void:
