@@ -44,9 +44,13 @@
 [ext_resource type="Texture2D" uid="uid://dytxsno2pmybl" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 13.png" id="27_atk13"]
 [ext_resource type="Texture2D" uid="uid://jao358k3a7dm" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 14.png" id="28_atk14"]
 [ext_resource type="Texture2D" uid="uid://dj3cib7hbprs1" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 15.png" id="29_atk15"]
-[ext_resource type="SpriteFrames" uid="uid://d6y42wsmuerte" path="res://Recursos/Textures/Ruka/Muerte/ruka_death_frames.tres" id="30_rukadth"]
+[ext_resource type="SpriteFrames" uid="uid://clahuvea6v2m" path="res://Recursos/Textures/Ruka/Muerte/ruka_death_frames.tres" id="30_rukadth"]
+[ext_resource type="Texture2D" uid="uid://ck51bdasx3bib" path="res://Recursos/Textures/machine gun with hands2.png" id="39_svu65"]
+[ext_resource type="Texture2D" uid="uid://bl7c0g2b3hm6p" path="res://Recursos/Textures/machine gun with hands3.png" id="40_ydvx8"]
+[ext_resource type="Texture2D" uid="uid://dkfwiqcui71es" path="res://Recursos/Textures/machine gun with hands4.png" id="41_oul6g"]
+[ext_resource type="Texture2D" uid="uid://drt0bp3swy264" path="res://Recursos/Textures/machine gun with hands.png" id="42_2od4d"]
 [ext_resource type="Script" uid="uid://c5p06dkxh6qao" path="res://Ecenes/bomb_sistem.gd" id="43_t50q8"]
-[ext_resource type="Script" path="res://Scripts/buffs/buff_runtime_component.gd" id="44_buffrt"]
+[ext_resource type="Script" uid="uid://cfmg3y4rmgsra" path="res://Scripts/buffs/buff_runtime_component.gd" id="44_buffrt"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Buffs/BuffHud.tscn" id="45_buffhud"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
@@ -238,6 +242,26 @@ _data = {
 &"Walk": SubResource("Animation_4w18w")
 }
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_xaix1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_svu65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_ydvx8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_oul6g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_2od4d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="Animation" id="Animation_tlgrw"]
 resource_name = "Ametralladora_shot"
 length = 0.073983274
@@ -251,7 +275,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(-2),
 "update": 0,
-"values": [Vector2(1.9999995, 7)]
+"values": [Vector2(-1.085, 12.605)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -260,10 +284,10 @@ tracks/1/path = NodePath("Ametralladora:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.03361032, 0.06666667),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"times": PackedFloat32Array(0, 0.015569193, 0.031972196, 0.05026367, 0.06666667),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
 "update": 0,
-"values": [0.0, -0.30631787, 0.0]
+"values": [0.0, -0.30631787, 0.0, -0.30631787, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -592,11 +616,12 @@ scale = Vector2(-0.048755817, 0.046721376)
 texture = ExtResource("21_4678e")
 offset = Vector2(-173.73056, -1.5258789e-05)
 
-[node name="Ametralladora" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=444859424]
-visible = false
+[node name="Ametralladora" type="AnimatedSprite2D" parent="WeaponPivot/Guns_meshes" unique_id=1629976427]
 position = Vector2(1.9999995, 7)
 scale = Vector2(-0.048755817, 0.046721376)
-texture = ExtResource("21_4678e")
+sprite_frames = SubResource("SpriteFrames_xaix1")
+autoplay = "default"
+frame_progress = 0.6300114
 offset = Vector2(-269.23825, -3.0517578e-05)
 
 [node name="Revolver" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=1915530335]
@@ -607,6 +632,7 @@ texture = ExtResource("22_kgnrb")
 offset = Vector2(-173.73056, -1.5258789e-05)
 
 [node name="llave_inglesa" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=712731411]
+visible = false
 position = Vector2(-0.5199281, 11.507511)
 scale = Vector2(0.048755817, -0.046721376)
 texture = ExtResource("24_tlgrw")
@@ -631,7 +657,7 @@ libraries/ = SubResource("AnimationLibrary_1vy0x")
 script = ExtResource("2_health")
 hit_invulnerability_duration = 0.18
 
-[node name="BuffRuntimeComponent" type="Node" parent="."]
+[node name="BuffRuntimeComponent" type="Node" parent="." unique_id=1377518740]
 script = ExtResource("44_buffrt")
 
 [node name="Bomb_Sistem" type="Node" parent="." unique_id=1554711748]
@@ -639,7 +665,7 @@ script = ExtResource("43_t50q8")
 
 [node name="HealthBar" parent="." unique_id=1318513250 instance=ExtResource("3_hbar")]
 
-[node name="BuffHud" parent="." instance=ExtResource("45_buffhud")]
+[node name="BuffHud" parent="." unique_id=1263834597 instance=ExtResource("45_buffhud")]
 
 [node name="DungeonMinimapHud" parent="." unique_id=113773765 instance=ExtResource("11_minimap")]
 

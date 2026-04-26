@@ -118,7 +118,7 @@ position = Vector2(-2.842171e-14, -4.7683716e-07)
 scale = Vector2(0.225256, 0.22525594)
 sprite_frames = SubResource("SpriteFrames_hmaa6")
 autoplay = "default"
-frame_progress = 0.005008864
+frame_progress = 0.7678947
 speed_scale = 1.5
 
 [node name="HealthComponent" parent="." unique_id=112301481 instance=ExtResource("2_hc")]
