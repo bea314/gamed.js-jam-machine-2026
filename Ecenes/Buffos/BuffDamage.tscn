@@ -11,5 +11,3 @@ collision_mask = 2
 scale = Vector2(0.11, 0.11)
 texture = ExtResource("2_tex")
 
-[node name="Area_Collicion_Interact" parent="." index="2" unique_id=882013612]
-scale = Vector2(1.3734696, 1.3734696)
