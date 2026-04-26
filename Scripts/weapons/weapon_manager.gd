@@ -34,6 +34,23 @@ var _damage_flat_bonus: int = 0
 @onready var _gun_mesh_machinegun: AnimatedSprite2D = $"../Guns_meshes/Ametralladora"
 @onready var _weapon_sfx_player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 
+#sound gun
+@export_group("Equip Sounds")
+@export var wrench_equip_sfx: AudioStream
+@export var revolver_equip_sfx: AudioStream
+@export var shotgun_equip_sfx: AudioStream
+@export var machinegun_equip_sfx: AudioStream
+
+@export_group("Fire Sounds Pools")
+@export var revolver_fire_sounds: Array[AudioStream] = []
+@export var shotgun_fire_sounds: Array[AudioStream] = []
+@export var machinegun_fire_sounds: Array[AudioStream] = []
+@export var wrench_hit_sounds: Array[AudioStream] = []
+
+@export_group("Reload Sounds")
+@export var revolver_reload_sfx: Array[AudioStream] = []
+@export var shotgun_reload_sfx: Array[AudioStream] = []
+@export var machinegun_reload_sfx: Array[AudioStream] = []
 
 func _ready() -> void:
 	add_child(_weapon_sfx_player)
@@ -52,6 +69,7 @@ func setup(player: Node2D) -> void:
 
 	for w in weapons:
 		add_child(w)
+		w.reload_started.connect(_on_weapon_reload_started)
 		w.ammo_changed.connect(_on_ammo_changed)
 		w.reload_started.connect(_emit_weapon_changed)
 		w.reload_finished.connect(_emit_weapon_changed)
@@ -94,22 +112,30 @@ func _recoil_anim_name(index: int) -> StringName:
 
 
 func _play_fire_sfx_for_current_weapon() -> void:
-	var stream: AudioStream = null
+	var sound_pool: Array[AudioStream] = []
+	
+	# 2. Elegimos el array según el arma
 	match current_index:
-		1:
-			stream = revolver_fire_sfx
-		2:
-			stream = shotgun_fire_sfx
-		3:
-			stream = machinegun_fire_sfx
-		_:
-			return
+		0: sound_pool = wrench_hit_sounds
+		1: sound_pool = revolver_fire_sounds
+		2: sound_pool = shotgun_fire_sounds
+		3: sound_pool = machinegun_fire_sounds
+		_: return
 
-	if stream == null:
+	# 3. Verificamos que el pool no esté vacío
+	if sound_pool.is_empty():
 		return
 
-	_weapon_sfx_player.stream = stream
-	_weapon_sfx_player.play()
+	# 4. Elegimos un sonido al azar del array
+	var random_index = randi() % sound_pool.size()
+	var selected_stream = sound_pool[random_index]
+
+	if selected_stream:
+		# Usamos play_one_shot si quieres que los sonidos se solapen 
+		# o simplemente asignamos y damos play. 
+		# Como ya usas max_polyphony = 8, esto funcionará bien:
+		_weapon_sfx_player.stream = selected_stream
+		_weapon_sfx_player.play()
 
 
 func current_weapon() -> WeaponBase:
@@ -184,6 +210,8 @@ func _sync_gun_mesh_visual() -> void:
 	_gun_mesh_revolver.visible = (current_index == 1)
 	_gun_mesh_shotgun.visible = (current_index == 2)
 	_gun_mesh_machinegun.visible = (current_index == 3)
+	
+	_play_equip_sfx()
 
 
 func set_damage_multiplier(multiplier: float) -> void:
@@ -197,3 +225,38 @@ func set_damage_flat_bonus(bonus: int) -> void:
 	for w in weapons:
 		if w != null and w.has_method("set_damage_flat_bonus"):
 			w.set_damage_flat_bonus(_damage_flat_bonus)
+
+func _on_weapon_reload_started() -> void:
+	var sound_pool: Array[AudioStream] = []
+	
+	match current_index:
+		1: sound_pool = revolver_reload_sfx
+		2: sound_pool = shotgun_reload_sfx
+		3: sound_pool = machinegun_reload_sfx
+		_: return # La llave inglesa (0) no suele recargar
+
+	if sound_pool.is_empty():
+		return
+
+	# Seleccionamos un sonido aleatorio del pool
+	var random_index = randi() % sound_pool.size()
+	var selected_stream = sound_pool[random_index]
+
+	if selected_stream:
+		_weapon_sfx_player.stream = selected_stream
+		_weapon_sfx_player.play()
+
+# SONIDO CAMBIO DE ARMAS ==================
+func _play_equip_sfx() -> void:
+	var stream: AudioStream = null
+	
+	match current_index:
+		0: stream = wrench_equip_sfx
+		1: stream = revolver_equip_sfx
+		2: stream = shotgun_equip_sfx
+		3: stream = machinegun_equip_sfx
+	
+	if stream != null:
+		_weapon_sfx_player.stream = stream
+		_weapon_sfx_player.play()
+	

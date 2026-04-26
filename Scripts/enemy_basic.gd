@@ -41,6 +41,17 @@ const EXPLOCION = preload("uid://ux7immp0qbnm")
 
 @onready var sprite_anim: AnimatedSprite2D = $Mesh/Sprite_Anim
 
+# SOUND TAKE DAMAGE
+const ENEMY_DAMAGE_01 = preload("uid://b553viqjxck3j")
+const ENEMY_DAMAGE_02 = preload("uid://bnectp5b8uhs3")
+const ENEMY_DAMAGE_03 = preload("uid://cqwjq74ix1q4p")
+const ENEMY_DAMAGE_04 = preload("uid://dkxxayuax36pe")
+const ENEMY_DAMAGE_05 = preload("uid://4hojh3v6yp5i")
+const ENEMY_DAMAGE_06 = preload("uid://c3mc11o6i7etc")
+
+var sound_enemy : Array = [ENEMY_DAMAGE_01,ENEMY_DAMAGE_02,ENEMY_DAMAGE_03,ENEMY_DAMAGE_04,ENEMY_DAMAGE_05,ENEMY_DAMAGE_06]
+@onready var audio_enemy: AudioStreamPlayer2D = $Audio_Enemy
+
 func _ready() -> void:
 	add_to_group("enemies")
 	if _health:
@@ -188,7 +199,14 @@ func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 	if _health == null:
 		return
 	_health.take_damage(amount, hit_from_global)
+	
+	if sound_enemy.is_empty():
+		return
 
+	var pick_sound = sound_enemy.pick_random()
+	
+	audio_enemy.stream = pick_sound
+	audio_enemy.play()
 
 func _on_health_died() -> void:
 	speed = 0

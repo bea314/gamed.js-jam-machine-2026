@@ -24,6 +24,7 @@ var interact_sounds : Array = [
 
 const MENU_ENTER = preload("uid://bevpc4b70fpvx")
 const MENU_EXIT = preload("uid://t0pwodsktgbw")
+const PRESS_START = preload("uid://cmm3opf6lauau")
 
 
 @onready var audio_sfxs: AudioStreamPlayer = $Audio_Sfxs
@@ -38,6 +39,11 @@ const RUN_LEVEL_SCENES := {
 	2: "res://Ecenes/level_2.tscn",
 	3: "res://Ecenes/level_3.tscn",
 }
+
+@export_group("Nav sounds")
+@export var nav_sound_file: Array[AudioStream] = []
+
+
 
 func _ready() -> void:
 	_new_game_button.pressed.connect(_on_new_game_pressed)
@@ -73,6 +79,11 @@ func start_intro_if_any() -> void:
 
 func start_run_level(level_index: int) -> void:
 	var scene_path: String = str(RUN_LEVEL_SCENES.get(level_index, RUN_LEVEL_SCENES[1]))
+	$Start.stream = PRESS_START
+	$Start.play()
+	$Pantalla_Fade/AnimationPlayer.play("fade")
+	await get_tree().create_timer(3.0).timeout
+	
 	if ResourceLoader.exists(scene_path):
 		get_tree().change_scene_to_file(scene_path)
 	else:
@@ -95,36 +106,40 @@ func show_victory_message() -> void:
 	push_warning("Placeholder: mostrar mensaje de victoria final del roguelike.")
 
 func _on_mouse_entered_new_game():
-	audio_sfxs.stream = interact_sounds.pick_random()
-	audio_sfxs.play()
+	mouse_focus()
 # =============
 
 # OPTIONS BUTTON ==============
 func _on_options_pressed() -> void:
 	_main_buttons.visible = false
 	_options_panel.visible = true
-	audio_sfxs.stream = MENU_ENTER
-	audio_sfxs.play()
+	$Start.stream = MENU_ENTER
+	$Start.play()
 
 func _on_mouse_entered_options():
-	audio_sfxs.stream = interact_sounds.pick_random()
-	audio_sfxs.play()
+	mouse_focus()
 # =============
 # CREDITS BUTTON==============
 func _on_credits_pressed() -> void:
 	get_tree().change_scene_to_file("res://Ecenes/Menu/Credits.tscn")
 
+func _on_credits_button_mouse_entered() -> void:
+	mouse_focus()
 # =============
 # Exit BUTTON ==============
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+	
+
+func _on_mouse_entered() -> void:
+	mouse_focus()
 # =============
 
 func _on_back_pressed() -> void:
 	_options_panel.visible = false
 	_main_buttons.visible = true
-	audio_sfxs.stream = MENU_EXIT
-	audio_sfxs.play()
+	$Start.stream = MENU_EXIT
+	$Start.play()
 
 func _on_music_changed(value: float) -> void:
 	_settings.set_music_volume(value)
@@ -137,17 +152,10 @@ func _on_sfx_changed(value: float) -> void:
 func _on_fullscreen_toggled(pressed: bool) -> void:
 	_settings.set_fullscreen(pressed)
 
+func mouse_focus():
+	if nav_sound_file.size() > 0:
+		audio_sfxs.stream = nav_sound_file.pick_random()
+		audio_sfxs.play()
 
-func _on_audio_music_finished() -> void:
-	#Asignamos el stream
-	audio_music.stream = MAIN_MENU
-	
-	#Reproducimos de nuevo
-	audio_music.play()
-	
-	audio_music.stream.loop = true
-	
-	# Desconectamos la señal para que no vuelva a entrar aquí
-	if audio_music.finished.is_connected(_on_audio_music_finished):
-		audio_music.finished.disconnect(_on_audio_music_finished)
+
 		

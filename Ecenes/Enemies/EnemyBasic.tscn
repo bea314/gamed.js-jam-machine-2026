@@ -126,3 +126,5 @@ max_health = 10
 hit_invulnerability_duration = 0.0
 
 [node name="OverheadHealthBar" parent="." unique_id=501982510 instance=ExtResource("14_ohb")]
+
+[node name="Audio_Enemy" type="AudioStreamPlayer2D" parent="." unique_id=637233919]
