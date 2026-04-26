@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/ui/buffs/buff_hud.gd" id="1_buff_hud_script"]
+
+[node name="BuffHud" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_buff_hud_script")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 428.0
+offset_top = 34.0
+offset_right = 620.0
+offset_bottom = 98.0
+
+[node name="BuffRow" type="HBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 0

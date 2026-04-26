@@ -247,6 +247,8 @@ func _on_player_transition(target_coords: Vector2i, side: String):
 				# Backup por si olvidaste poner el marker en alguna puerta
 				player.global_position = target_room.global_position
 			ActiveRoomService.set_active_room(target_room)
+			if target_room.has_method("on_player_entered_room"):
+				target_room.on_player_entered_room(player)
 
 			if target_room.has_method("is_exit_locked") and target_room.is_exit_locked():
 				seal_all_edges_for_cell(target_coords)

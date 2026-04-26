@@ -6,9 +6,9 @@
 [node name="ShotgunWeapon" type="Node"]
 script = ExtResource("1_script")
 weapon_name = "Shotgun"
-damage = 15
+damage = 18
 fire_rate = 0.85
-magazine_size = 5
+magazine_size = 4
 reserve_ammo = 20
 automatic = false
 muzzle_offset = 18.0
