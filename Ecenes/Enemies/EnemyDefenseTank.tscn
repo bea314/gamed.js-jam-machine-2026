@@ -88,3 +88,4 @@ hit_invulnerability_duration = 0.0
 
 [node name="OverheadHealthBar" parent="." unique_id=1453219981 instance=ExtResource("14_ohb")]
 position = Vector2(0, -30)
+fill_color = Color(0.96, 0.76, 0.22, 1)
