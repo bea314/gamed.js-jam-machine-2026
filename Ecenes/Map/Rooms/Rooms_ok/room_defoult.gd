@@ -433,6 +433,8 @@ func _on_boss_defeated() -> void:
 	_boss_intro_running = false
 	if _is_final_boss_of_run():
 		_free_all_buff_pickups_in_current_scene()
+	if _level_generator != null and _level_generator.has_method("on_boss_defeated_advance_level"):
+		_level_generator.call_deferred("on_boss_defeated_advance_level")
 
 
 func _is_final_boss_of_run() -> bool:

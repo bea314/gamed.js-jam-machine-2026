@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bcljklne72k81" path="res://Recursos/Textures/explosion4.png" id="1_lgwvb"]
 [ext_resource type="Texture2D" uid="uid://1yrflwfxwm3l" path="res://Recursos/Textures/logo_game.png" id="1_pyn01"]
+[ext_resource type="Texture2D" uid="uid://c4yrcc5ly6dpd" path="res://Recursos/Textures/intro/pantalla victoria.png" id="1_rmvk5"]
 [ext_resource type="Script" uid="uid://c0ctxtlkegdgy" path="res://Scripts/credits_control.gd" id="1_s81jr"]
 [ext_resource type="Texture2D" uid="uid://3ptb26mx4yef" path="res://Recursos/Textures/dynamite3.png" id="2_4awek"]
 [ext_resource type="FontFile" uid="uid://buhqmpclsjygy" path="res://Recursos/Textures/Comic Shark.ttf" id="2_km6w4"]
@@ -95,6 +96,11 @@ _data = {
 }
 
 [node name="Final_Credits" type="Node2D" unique_id=518749173]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=183598330]
+position = Vector2(958, 515)
+scale = Vector2(1.0250396, 1.0873765)
+texture = ExtResource("1_rmvk5")
 
 [node name="Credits_Control" type="Control" parent="." unique_id=652521695]
 layout_mode = 3
@@ -431,6 +437,111 @@ text = "Godot Engine
 Integration of scenes and prefabs
 audio and music integration
 integration items"
+vertical_alignment = 1
+
+[node name="Pagina_Programacion4" type="Control" parent="Credits_Control" unique_id=2097408296]
+anchors_preset = 0
+offset_left = 30.0
+offset_top = 6531.0
+offset_right = 1950.0
+offset_bottom = 7778.0
+pivot_offset = Vector2(960, 624)
+
+[node name="Nombre" type="Label" parent="Credits_Control/Pagina_Programacion4" unique_id=807033068]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 365.0
+theme_override_constants/outline_size = 76
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 190
+text = "Andro"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Titulo" type="Label" parent="Credits_Control/Pagina_Programacion4" unique_id=622251192]
+layout_mode = 0
+offset_left = -22.0
+offset_top = 198.0
+offset_right = 1898.0
+offset_bottom = 563.0
+theme_override_constants/outline_size = 69
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 135
+text = "Character Voice Performer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Areas1" type="Label" parent="Credits_Control/Pagina_Programacion4" unique_id=348712968]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.512
+anchor_right = 0.016
+anchor_bottom = 0.512
+offset_left = 252.28
+offset_top = -90.46405
+offset_right = 3406.0193
+offset_bottom = 822.53595
+scale = Vector2(0.298693, 0.31409147)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Character vocalizations
+In-game voice reactions
+Character efforts
+"
+vertical_alignment = 1
+
+[node name="Areas2" type="Label" parent="Credits_Control/Pagina_Programacion4" unique_id=1016733898]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.52900004
+anchor_top = 0.45700002
+anchor_right = 0.52900004
+anchor_bottom = 0.45700002
+offset_left = -24.680054
+offset_top = -131.87903
+offset_right = 2791.5513
+offset_bottom = 1239.121
+scale = Vector2(0.29116926, 0.30617988)
+theme_override_fonts/font = ExtResource("3_lgwvb")
+theme_override_font_sizes/font_size = 190
+text = "Hit reactions
+Action voice sounds
+Character vocal SFX"
+vertical_alignment = 1
+
+[node name="Pagina_Programacion3" type="Control" parent="Credits_Control" unique_id=1208949075]
+anchors_preset = 0
+offset_left = 36.0
+offset_top = 5988.0
+offset_right = 1956.0
+offset_bottom = 7235.0
+pivot_offset = Vector2(960, 624)
+
+[node name="Nombre" type="Label" parent="Credits_Control/Pagina_Programacion3" unique_id=1936418140]
+layout_mode = 0
+offset_left = 52.0
+offset_right = 2032.0
+offset_bottom = 365.0
+scale = Vector2(0.90895, 0.90895)
+theme_override_constants/outline_size = 76
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 190
+text = "Guido Cisterna (kaiser)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Titulo" type="Label" parent="Credits_Control/Pagina_Programacion3" unique_id=2116859182]
+layout_mode = 0
+offset_left = -22.0
+offset_top = 198.0
+offset_right = 1898.0
+offset_bottom = 563.0
+theme_override_constants/outline_size = 69
+theme_override_fonts/font = ExtResource("2_km6w4")
+theme_override_font_sizes/font_size = 135
+text = "game director/ game designe"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=1481957078]

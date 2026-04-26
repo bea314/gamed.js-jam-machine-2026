@@ -13,6 +13,7 @@ extends Node2D
 ## Celda del jefe en modo debug (derecha de `(0,0)`; hay puerta hacia ella).
 const DEBUG_BOSS_NEIGHBOUR_CELL: Vector2i = Vector2i(1, 0)
 const MAX_RUN_LEVEL: int = 1
+const FINAL_CREDITS_SCENE_PATH := "res://Ecenes/UI/final_credits.tscn"
 const LEVEL_GENERATION_PROFILES := {
 	1: {
 		"room_count": 8,
@@ -279,6 +280,9 @@ func on_boss_defeated_advance_level() -> void:
 	show_victory_message()
 
 
-# Hook final: reemplaza este placeholder por cambio de escena/UI de victoria.
+# Hook final: créditos al completar la última planta de la run.
 func show_victory_message() -> void:
-	push_warning("Run completada: aqui puedes mostrar pantalla o mensaje de victoria.")
+	if ResourceLoader.exists(FINAL_CREDITS_SCENE_PATH):
+		get_tree().change_scene_to_file(FINAL_CREDITS_SCENE_PATH)
+		return
+	push_warning("Run completada: no existe la escena de créditos: %s" % FINAL_CREDITS_SCENE_PATH)
