@@ -11,6 +11,8 @@ signal reload_finished()
 @export var fire_rate: float = 0.3
 @export var magazine_size: int = 0
 @export var reserve_ammo: int = 0
+## <= 0 significa "sin tope".
+@export var reserve_ammo_max: int = -1
 @export var automatic: bool = false
 
 var current_ammo: int = 0
@@ -59,6 +61,29 @@ func _start_fire_cooldown() -> void:
 
 func _emit_ammo() -> void:
 	ammo_changed.emit(current_ammo, reserve_ammo)
+
+
+## Suma munición a la reserva respetando el tope. Devuelve cuánto se añadió.
+func add_reserve_ammo(amount: int) -> int:
+	if amount <= 0:
+		return 0
+	if reserve_ammo_max > 0:
+		var space := maxi(reserve_ammo_max - reserve_ammo, 0)
+		if space <= 0:
+			return 0
+		var to_add := mini(amount, space)
+		reserve_ammo += to_add
+		_emit_ammo()
+		return to_add
+	reserve_ammo += amount
+	_emit_ammo()
+	return amount
+
+
+func is_reserve_full() -> bool:
+	if reserve_ammo_max <= 0:
+		return false
+	return reserve_ammo >= reserve_ammo_max
 
 
 func start_standard_reload(reload_duration: float) -> void:

@@ -1,6 +1,12 @@
 extends Node
 class_name WeaponManager
 
+## Identificadores estables para mapear pickups u otra lógica externa al arma correcta.
+const KIND_REVOLVER: StringName = &"revolver"
+const KIND_SHOTGUN: StringName = &"shotgun"
+const KIND_MACHINEGUN: StringName = &"machinegun"
+const RANGED_KINDS: Array[StringName] = [KIND_REVOLVER, KIND_SHOTGUN, KIND_MACHINEGUN]
+
 ## Solo cuando el arma realmente ejecuta un disparo / melee (no click en vacío ni sin munición).
 signal weapon_actually_fired()
 
@@ -190,3 +196,45 @@ func set_damage_flat_bonus(bonus: int) -> void:
 	for w in weapons:
 		if w != null and w.has_method("set_damage_flat_bonus"):
 			w.set_damage_flat_bonus(_damage_flat_bonus)
+
+
+func _index_for_kind(kind: StringName) -> int:
+	match kind:
+		KIND_REVOLVER:
+			return 1
+		KIND_SHOTGUN:
+			return 2
+		KIND_MACHINEGUN:
+			return 3
+		_:
+			return -1
+
+
+func get_weapon_for_kind(kind: StringName) -> WeaponBase:
+	var idx := _index_for_kind(kind)
+	if idx < 0 or idx >= weapons.size():
+		return null
+	return weapons[idx]
+
+
+## Suma munición a la reserva del arma indicada. Devuelve cuánto se añadió (0 si no aplica o reserva llena).
+func add_ammo_for_kind(kind: StringName, amount: int) -> int:
+	var w := get_weapon_for_kind(kind)
+	if w == null:
+		return 0
+	return w.add_reserve_ammo(amount)
+
+
+## True cuando la reserva del arma indicada está al tope (si tiene `reserve_ammo_max` > 0).
+func is_reserve_full_for_kind(kind: StringName) -> bool:
+	var w := get_weapon_for_kind(kind)
+	if w == null:
+		return true
+	return w.is_reserve_full()
+
+
+func get_magazine_size_for_kind(kind: StringName) -> int:
+	var w := get_weapon_for_kind(kind)
+	if w == null:
+		return 0
+	return w.magazine_size

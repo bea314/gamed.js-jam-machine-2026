@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Objets/ammo_sky_drop.gd" id="1_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pickup"]
+radius = 16.0
+
+[node name="AmmoSkyDrop" type="Node2D" groups=["Item"]]
+script = ExtResource("1_script")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.45)
+scale = Vector2(0.45, 0.16)
+centered = true
+
+[node name="VisualAnchor" type="Node2D" parent="."]
+
+[node name="PickupArea" type="Area2D" parent="."]
+monitoring = true
+monitorable = true
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_pickup")
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

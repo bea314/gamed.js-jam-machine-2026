@@ -9,6 +9,7 @@ const ENEMY_BOSS_N1 := preload("res://Ecenes/Enemies/EnemyBossNivel1.tscn")
 const BUFF_DAMAGE_SCENE := preload("res://Ecenes/Buffos/BuffDamage.tscn")
 const BUFF_SHIELD_SCENE := preload("res://Ecenes/Buffos/BuffShield.tscn")
 const BUFF_SPEED_SCENE := preload("res://Ecenes/Buffos/BuffSpeed.tscn")
+const AMMO_SKY_DROP_SCENE := preload("res://Ecenes/Objets/AmmoSkyDrop/AmmoSkyDrop.tscn")
 const _BOSS_DOOR_SFX_GUARANTEED := preload("res://Recursos/Sound/SFXS/PUERTA/the_door_is_close.ogg")
 const _DOOR_SFX_FALLBACK: Array[AudioStream] = [
 	preload("res://Recursos/Sound/SFXS/PUERTA/the_door_is_close.ogg"),
@@ -67,6 +68,22 @@ const START_ROOM_TEST_BUFF_POSITIONS: Array[Vector2] = [
 @export_range(0.0, 64.0, 1.0) var buff_drop_spawn_radius: float = 18.0
 @export_range(0, 10, 1) var buff_pity_guaranteed_after_failures: int = 3
 @export_range(0.0, 1.0, 0.01) var buff_pity_bonus_per_failure: float = 0.08
+@export_group("Ammo drops")
+@export_range(0.0, 1.0, 0.01) var ammo_drop_chance: float = 0.3
+@export var ammo_drop_weight_revolver: float = 1.0
+@export var ammo_drop_weight_shotgun: float = 1.0
+@export var ammo_drop_weight_machinegun: float = 1.0
+@export var ammo_drop_center_offset: Vector2 = Vector2(0, 28)
+@export var ammo_drop_half_extents: Vector2 = Vector2(220, 110)
+@export_range(1, 16, 1) var ammo_drop_max_attempts: int = 10
+@export_range(0.0, 120.0, 1.0) var ammo_drop_min_distance_from_doors: float = 44.0
+@export_group("Ammo combat periodic drops")
+@export var ammo_combat_drop_enabled: bool = true
+@export_range(1.0, 60.0, 0.5) var ammo_combat_drop_interval_sec: float = 9.0
+@export_range(0.0, 1.0, 0.01) var ammo_combat_drop_roll_chance: float = 0.45
+@export_range(0, 12, 1) var ammo_combat_drop_max_live_pickups: int = 2
+@export_range(0, 10, 1) var ammo_pity_guaranteed_after_failures: int = 3
+@export_range(0.0, 1.0, 0.01) var ammo_pity_bonus_per_failure: float = 0.1
 
 var current_coords: Vector2i = Vector2i.ZERO
 var _neighbors: Array = []
@@ -83,6 +100,8 @@ var _boss_spawn_local_pos: Vector2 = Vector2.ZERO
 var _boss_instance: Node2D = null
 var _door_trap_sfx_pool: Array[AudioStream] = []
 var _room_kind: String = RoomKind.START
+var _ammo_drop_elapsed_sec: float = 0.0
+var _player_inside_room: bool = false
 
 @onready var door_up = $Doors/DoorPos_Up
 @onready var door_down = $Doors/DoorPos_Down
@@ -106,6 +125,8 @@ func setup(neighbors: Array, my_coords: Vector2i, room_kind: String = RoomKind.S
 	_boss_spawn_local_pos = Vector2.ZERO
 	_boss_instance = null
 	_room_kind = room_kind
+	_ammo_drop_elapsed_sec = 0.0
+	_player_inside_room = false
 
 	var enc_parent: Node2D = _ensure_encounters_root()
 
@@ -155,6 +176,10 @@ func is_exit_locked() -> bool:
 
 func refresh_door_states(animate_visual: bool = false) -> void:
 	_refresh_door_states(animate_visual)
+
+
+func _process(delta: float) -> void:
+	_update_periodic_ammo_drop(delta)
 
 
 func _neighbor_cell_for_side(side: String) -> Vector2i:
@@ -329,6 +354,8 @@ func _spawn_start_room_test_buffs(parent: Node2D) -> void:
 
 
 func on_player_entered_room(player: Node2D) -> void:
+	_player_inside_room = true
+	_ammo_drop_elapsed_sec = 0.0
 	if not _is_boss_room:
 		return
 	if _boss_defeated:
@@ -392,6 +419,7 @@ func _on_hostile_died() -> void:
 	if _locks_exits and _hostiles_alive <= 0:
 		room_cleared = true
 		_maybe_spawn_buff_drop()
+		_maybe_spawn_ammo_drop_on_room_clear()
 		if _level_generator != null and _level_generator.has_method("unseal_edges_for_cell"):
 			_level_generator.unseal_edges_for_cell(current_coords)
 		else:
@@ -491,6 +519,141 @@ func _pick_weighted_buff_scene() -> PackedScene:
 	if roll <= acc:
 		return BUFF_SHIELD_SCENE
 	return BUFF_SPEED_SCENE
+
+
+func _update_periodic_ammo_drop(delta: float) -> void:
+	if not ammo_combat_drop_enabled:
+		return
+	# Solo la sala de inicio queda sin lluvia de munición (zona segura). El jefe SÍ recibe caídas durante la pelea.
+	if _room_kind == RoomKind.START:
+		return
+	if not _player_inside_room:
+		return
+	if not _locks_exits or room_cleared:
+		return
+	if _hostiles_alive <= 0:
+		return
+	var interval := maxf(0.01, ammo_combat_drop_interval_sec)
+	_ammo_drop_elapsed_sec += delta
+	if _ammo_drop_elapsed_sec < interval:
+		return
+	_ammo_drop_elapsed_sec = 0.0
+	if ammo_combat_drop_max_live_pickups > 0 and _count_live_ammo_pickups() >= ammo_combat_drop_max_live_pickups:
+		return
+	if randf() > ammo_combat_drop_roll_chance:
+		return
+	_spawn_ammo_sky_drop_once(_pick_weighted_ammo_kind(), false)
+
+
+func _maybe_spawn_ammo_drop_on_room_clear() -> void:
+	# Pity/roll al limpiar la sala. La de inicio nunca; tras matar al jefe también puede caer munición.
+	if _room_kind == RoomKind.START:
+		return
+	var failure_streak := _get_ammo_drop_failure_streak()
+	var pity_guaranteed := ammo_pity_guaranteed_after_failures > 0 and failure_streak >= ammo_pity_guaranteed_after_failures
+	var final_chance := minf(1.0, ammo_drop_chance + float(failure_streak) * ammo_pity_bonus_per_failure)
+	if not pity_guaranteed and randf() > final_chance:
+		_report_ammo_drop_result(false)
+		return
+	_spawn_ammo_sky_drop_once(_pick_weighted_ammo_kind(), true)
+
+
+func _spawn_ammo_sky_drop_once(kind: StringName, report_pity_result: bool) -> bool:
+	if kind == StringName():
+		if report_pity_result:
+			_report_ammo_drop_result(false)
+		return false
+	var root := get_node_or_null("Encounters") as Node2D
+	if root == null:
+		root = self
+	var pickup := AMMO_SKY_DROP_SCENE.instantiate() as Node2D
+	if pickup == null:
+		if report_pity_result:
+			_report_ammo_drop_result(false)
+		return false
+	var landing_local := _pick_random_ammo_landing_spot()
+	root.add_child(pickup)
+	if pickup.has_method("set_ammo_kind"):
+		pickup.call("set_ammo_kind", kind)
+	else:
+		pickup.set("ammo_kind", kind)
+	if pickup.has_method("setup_landing_position"):
+		pickup.call("setup_landing_position", landing_local)
+	else:
+		pickup.position = landing_local
+	if report_pity_result:
+		_report_ammo_drop_result(true)
+	return true
+
+
+func _count_live_ammo_pickups() -> int:
+	var root := get_node_or_null("Encounters") as Node2D
+	if root == null:
+		return 0
+	var total := 0
+	for child in root.get_children():
+		if child != null and child.has_method("setup_landing_position"):
+			total += 1
+	return total
+
+
+func _pick_weighted_ammo_kind() -> StringName:
+	var w_rev := maxf(ammo_drop_weight_revolver, 0.0)
+	var w_sho := maxf(ammo_drop_weight_shotgun, 0.0)
+	var w_mg := maxf(ammo_drop_weight_machinegun, 0.0)
+	var total := w_rev + w_sho + w_mg
+	# Evita dejar de spawnear silenciosamente si en el .tscn se pusieron los tres pesos a 0.
+	if total <= 0.0:
+		w_rev = 1.0
+		w_sho = 1.0
+		w_mg = 1.0
+		total = 3.0
+	var roll := randf() * total
+	if roll <= w_rev:
+		return WeaponManager.KIND_REVOLVER
+	roll -= w_rev
+	if roll <= w_sho:
+		return WeaponManager.KIND_SHOTGUN
+	return WeaponManager.KIND_MACHINEGUN
+
+
+func _pick_random_ammo_landing_spot() -> Vector2:
+	var half := Vector2(maxf(0.0, ammo_drop_half_extents.x), maxf(0.0, ammo_drop_half_extents.y))
+	var tries := maxi(1, ammo_drop_max_attempts)
+	for _i in range(tries):
+		var p := ammo_drop_center_offset + Vector2(
+			randf_range(-half.x, half.x),
+			randf_range(-half.y, half.y)
+		)
+		if _is_valid_ammo_drop_point(p):
+			return p
+	return ammo_drop_center_offset
+
+
+func _is_valid_ammo_drop_point(local_point: Vector2) -> bool:
+	if ammo_drop_min_distance_from_doors <= 0.0:
+		return true
+	var doors: Array[Node2D] = [door_up, door_down, door_left, door_right]
+	for door in doors:
+		if door == null:
+			continue
+		if local_point.distance_to(door.position) < ammo_drop_min_distance_from_doors:
+			return false
+	return true
+
+
+func _get_ammo_drop_failure_streak() -> int:
+	var run_state := get_tree().root.get_node_or_null("Global_Ran")
+	if run_state == null or not run_state.has_method("get_ammo_drop_fail_streak"):
+		return 0
+	return int(run_state.get_ammo_drop_fail_streak())
+
+
+func _report_ammo_drop_result(did_drop: bool) -> void:
+	var run_state := get_tree().root.get_node_or_null("Global_Ran")
+	if run_state == null or not run_state.has_method("register_ammo_drop_result"):
+		return
+	run_state.register_ammo_drop_result(did_drop)
 
 
 func _refresh_door_states(animate_visual: bool = false) -> void:

@@ -166,6 +166,13 @@ func render_dungeon_visuals() -> void:
 			var rk: String = str(dungeon_data[coords].get("room_kind", RoomKind.START))
 			room_node.setup(neighbors, coords, rk, self)
 
+	# Tras setup (que reinicia _player_inside_room), igual que al cruzar puerta: sala inicial.
+	if instantiated_rooms.has(Vector2i.ZERO):
+		var p0: Node = get_tree().get_first_node_in_group("Player")
+		var start_room: Node = instantiated_rooms[Vector2i.ZERO]
+		if p0 is Node2D and start_room != null and start_room.has_method("on_player_entered_room"):
+			start_room.on_player_entered_room(p0 as Node2D)
+
 # --- FASE 3: CONEXIÓN REAL ---
 func _edge_key(a: Vector2i, b: Vector2i) -> String:
 	if a.x < b.x or (a.x == b.x and a.y < b.y):
