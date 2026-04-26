@@ -10,17 +10,6 @@
 [ext_resource type="AudioStream" uid="uid://tfir4g3wb14o" path="res://Recursos/Sound/Menus/NAV_04.ogg" id="11_sm15n"]
 [ext_resource type="AudioStream" uid="uid://dcbxv5carrf8n" path="res://Recursos/Sound/Menus/NAV_05.ogg" id="12_xtdd6"]
 [ext_resource type="AudioStream" uid="uid://dlt56rp1iq473" path="res://Recursos/Sound/Menus/NAV_06.ogg" id="13_51tj1"]
-[ext_resource type="PackedScene" uid="uid://cqmx8menu0box" path="res://Ecenes/Menu/Parts/menu_box_panel.tscn" id="14_mbox"]
-[ext_resource type="PackedScene" uid="uid://b7mx8txtlong1" path="res://Ecenes/Menu/Parts/text_box_long_panel.tscn" id="15_tlong"]
-[ext_resource type="PackedScene" uid="uid://d4mx8txtboxdf" path="res://Ecenes/Menu/Parts/text_box_panel.tscn" id="16_tbox"]
-[ext_resource type="PackedScene" uid="uid://c8mx8txtshrt1" path="res://Ecenes/Menu/Parts/text_box_short_panel.tscn" id="17_tshrt"]
-[ext_resource type="PackedScene" uid="uid://b2mx8btnplay1" path="res://Ecenes/Menu/Parts/button_play.tscn" id="18_bplay"]
-[ext_resource type="PackedScene" uid="uid://f6mx8btnsetg1" path="res://Ecenes/Menu/Parts/button_settings.tscn" id="19_bset"]
-[ext_resource type="PackedScene" uid="uid://c3mx8btnclos1" path="res://Ecenes/Menu/Parts/button_close.tscn" id="20_bcls"]
-[ext_resource type="PackedScene" uid="uid://e5mx8btnretn1" path="res://Ecenes/Menu/Parts/button_return.tscn" id="21_bret"]
-[ext_resource type="PackedScene" uid="uid://d4mx8btnpause" path="res://Ecenes/Menu/Parts/button_pause.tscn" id="22_bpau"]
-[ext_resource type="PackedScene" uid="uid://g7mx8btnmute1" path="res://Ecenes/Menu/Parts/button_mute.tscn" id="23_bmut"]
-[ext_resource type="PackedScene" uid="uid://h8mx8btnunmut" path="res://Ecenes/Menu/Parts/button_unmute.tscn" id="24_bunm"]
 
 [sub_resource type="Animation" id="Animation_v0hnx"]
 length = 0.001
@@ -97,118 +86,82 @@ custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="TitleFrame" parent="CenterContainer/MainVBox" unique_id=1595193700 instance=ExtResource("16_tbox")]
-layout_mode = 2
-size_flags_horizontal = 4
-custom_minimum_size = Vector2(360, 72)
-
-[node name="TitleLabel" type="Label" parent="CenterContainer/MainVBox/TitleFrame/Content" unique_id=1595193701]
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=1595193701]
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
 text = "Jam RL"
 horizontal_alignment = 1
 
-[node name="MenuBoxPanel" parent="CenterContainer/MainVBox" unique_id=1595193699 instance=ExtResource("14_mbox")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MainButtons" type="VBoxContainer" parent="CenterContainer/MainVBox/MenuBoxPanel/Content" unique_id=1171521145]
+[node name="MainButtons" type="VBoxContainer" parent="CenterContainer/MainVBox" unique_id=1171521145]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="NewGameButton" parent="CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons" unique_id=369927157 instance=ExtResource("18_bplay")]
+[node name="NewGameButton" type="Button" parent="CenterContainer/MainVBox/MainButtons" unique_id=369927157]
 layout_mode = 2
-custom_minimum_size = Vector2(120, 44)
+text = "New Game"
 
-[node name="OptionsButton" parent="CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons" unique_id=803164642 instance=ExtResource("19_bset")]
+[node name="OptionsButton" type="Button" parent="CenterContainer/MainVBox/MainButtons" unique_id=803164642]
 layout_mode = 2
-custom_minimum_size = Vector2(120, 44)
+text = "Options"
 
-[node name="FramedCredits" parent="CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons" unique_id=1819182621 instance=ExtResource("17_tshrt")]
+[node name="CreditsButton" type="Button" parent="CenterContainer/MainVBox/MainButtons" unique_id=1819182622]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 52)
-
-[node name="CreditsButton" type="Button" parent="CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons/FramedCredits/Content" unique_id=1819182622]
-layout_mode = 2
-size_flags_vertical = 3
 text = "Credits"
 
-[node name="ExitButton" parent="CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons" unique_id=1312483982 instance=ExtResource("20_bcls")]
+[node name="ExitButton" type="Button" parent="CenterContainer/MainVBox/MainButtons" unique_id=1312483982]
 layout_mode = 2
-custom_minimum_size = Vector2(120, 44)
+text = "Exit"
 
-[node name="OptionsBoxPanel" parent="CenterContainer/MainVBox" unique_id=726346386 instance=ExtResource("15_tlong")]
+[node name="OptionsPanel" type="VBoxContainer" parent="CenterContainer/MainVBox" unique_id=726346387]
 visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-custom_minimum_size = Vector2(440, 0)
-
-[node name="OptionsPanel" type="VBoxContainer" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content" unique_id=726346387]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="OptionsTitle" type="Label" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel" unique_id=1351181469]
+[node name="OptionsTitle" type="Label" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=1351181469]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Options"
 horizontal_alignment = 1
 
-[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel" unique_id=543402766]
+[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=543402766]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MusicLabel" type="Label" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel/MusicRow" unique_id=39181632]
+[node name="MusicLabel" type="Label" parent="CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=39181632]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Music"
 
-[node name="MusicSlider" type="HSlider" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel/MusicRow" unique_id=1185868217]
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=1185868217]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SFXRow" type="HBoxContainer" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel" unique_id=77389758]
+[node name="SFXRow" type="HBoxContainer" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=77389758]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="SFXLabel" type="Label" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel/SFXRow" unique_id=252786509]
+[node name="SFXLabel" type="Label" parent="CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=252786509]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "SFX"
 
-[node name="SFXSlider" type="HSlider" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel/SFXRow" unique_id=1324878094]
+[node name="SFXSlider" type="HSlider" parent="CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=1324878094]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="FullscreenCheck" type="CheckButton" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel" unique_id=474529384]
+[node name="FullscreenCheck" type="CheckButton" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=474529384]
 layout_mode = 2
 text = "Fullscreen"
 
-[node name="BackButton" parent="CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel" unique_id=801481808 instance=ExtResource("21_bret")]
+[node name="BackButton" type="Button" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=801481808]
 layout_mode = 2
-custom_minimum_size = Vector2(96, 40)
-
-[node name="MenuUtilityTray" type="HBoxContainer" parent="CenterContainer/MainVBox" unique_id=1887722010]
-layout_mode = 2
-alignment = 1
-theme_override_constants/separation = 16
-
-[node name="ButtonPauseRef" parent="CenterContainer/MainVBox/MenuUtilityTray" unique_id=1887722011 instance=ExtResource("22_bpau")]
-layout_mode = 2
-custom_minimum_size = Vector2(56, 56)
-
-[node name="ButtonMuteRef" parent="CenterContainer/MainVBox/MenuUtilityTray" unique_id=1887722012 instance=ExtResource("23_bmut")]
-layout_mode = 2
-custom_minimum_size = Vector2(56, 56)
-
-[node name="ButtonUnmuteRef" parent="CenterContainer/MainVBox/MenuUtilityTray" unique_id=1887722013 instance=ExtResource("24_bunm")]
-layout_mode = 2
-custom_minimum_size = Vector2(56, 56)
+text = "Back"
 
 [node name="Pantalla_Fade" type="ColorRect" parent="." unique_id=1370247422]
 layout_mode = 1
@@ -236,4 +189,4 @@ bus = &"Music"
 script = ExtResource("8_kbn2w")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons/FramedCredits/Content/CreditsButton" to="." method="_on_credits_button_mouse_entered"]
+[connection signal="mouse_entered" from="CenterContainer/MainVBox/MainButtons/CreditsButton" to="." method="_on_credits_button_mouse_entered"]

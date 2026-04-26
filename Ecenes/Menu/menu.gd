@@ -2,17 +2,16 @@ extends Control
 
 @onready var _settings: GameSettings = get_node("/root/SettingsManager") as GameSettings
 
-@onready var _menu_box_panel: Control = $CenterContainer/MainVBox/MenuBoxPanel
-@onready var _options_box_panel: Control = $CenterContainer/MainVBox/OptionsBoxPanel
-@onready var _options_panel: VBoxContainer = $CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel
-@onready var _new_game_button: BaseButton = $CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons/NewGameButton
-@onready var _options_button: BaseButton = $CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons/OptionsButton
-@onready var _credits_button: Button = $CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons/FramedCredits/Content/CreditsButton
-@onready var _exit_button: BaseButton = $CenterContainer/MainVBox/MenuBoxPanel/Content/MainButtons/ExitButton
-@onready var _music_slider: HSlider = $CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel/MusicRow/MusicSlider
-@onready var _sfx_slider: HSlider = $CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel/SFXRow/SFXSlider
-@onready var _fullscreen_check: CheckButton = $CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel/FullscreenCheck
-@onready var _back_button: BaseButton = $CenterContainer/MainVBox/OptionsBoxPanel/Content/OptionsPanel/BackButton
+@onready var _main_buttons: VBoxContainer = $CenterContainer/MainVBox/MainButtons
+@onready var _options_panel: VBoxContainer = $CenterContainer/MainVBox/OptionsPanel
+@onready var _new_game_button: Button = $CenterContainer/MainVBox/MainButtons/NewGameButton
+@onready var _options_button: Button = $CenterContainer/MainVBox/MainButtons/OptionsButton
+@onready var _credits_button: Button = $CenterContainer/MainVBox/MainButtons/CreditsButton
+@onready var _exit_button: Button = $CenterContainer/MainVBox/MainButtons/ExitButton
+@onready var _music_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/MusicRow/MusicSlider
+@onready var _sfx_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/SFXRow/SFXSlider
+@onready var _fullscreen_check: CheckButton = $CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
+@onready var _back_button: Button = $CenterContainer/MainVBox/OptionsPanel/BackButton
 
 var interact_sounds : Array = [
 	preload("uid://bg3t7v510agae"),
@@ -112,8 +111,7 @@ func _on_mouse_entered_new_game():
 
 # OPTIONS BUTTON ==============
 func _on_options_pressed() -> void:
-	_menu_box_panel.visible = false
-	_options_box_panel.visible = true
+	_main_buttons.visible = false
 	_options_panel.visible = true
 	$Start.stream = MENU_ENTER
 	$Start.play()
@@ -138,9 +136,8 @@ func _on_mouse_entered() -> void:
 # =============
 
 func _on_back_pressed() -> void:
-	_options_box_panel.visible = false
 	_options_panel.visible = false
-	_menu_box_panel.visible = true
+	_main_buttons.visible = true
 	$Start.stream = MENU_EXIT
 	$Start.play()
 
