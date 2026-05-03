@@ -1,60 +1,28 @@
 extends Node2D
 
 const SKIP_FONT := preload("res://Recursos/KOMTXKBI.ttf")
+const INTRO_VIDEO_PATH := "res://Recursos/Textures/intro/bug in the machine intro.ogv"
+const INTRO_START_SECONDS := 2.0
 
-const INTRO_PAG_1 = preload("uid://r4nswq7b661r")
-const INTRO_PAG_2 = preload("uid://bg7fpgsk2k6jm")
-const INTRO_PAG_3 = preload("uid://bgb73yfpr74g2")
-const INTRO_PAG_4 = preload("uid://ne2bwynloqb1")
-const INTRO_PAG_5 = preload("uid://bsoptid5horiw")
-const INTRO_PAG_6 = preload("uid://cj2y04ckwuhcn")
-const INTRO_PAG_8 = preload("uid://bfptnybjrssxe")
-const INTRO_PAG_9 = preload("uid://bflqhvqnfgme6")
-const INTRO_PAG_10 = preload("uid://jkhma5i5rn7e")
-const INTRO_PAG_11 = preload("uid://d06i01kceuc14")
-const INTRO_PAG_12 = preload("uid://csesn7mjhnwr5")
-const INTRO_PAG_13 = preload("uid://cc3ivci0rk4pa")
-const INTRO_PAG_14 = preload("uid://dof6sjl5oqxjp")
-const INTRO_PAG_15 = preload("uid://blr8djkhv827t")
+@onready var _video: VideoStreamPlayer = $VideoLayer/VideoStreamPlayer
+@onready var _fade: ColorRect = $FadeLayer/Fade
 
-
-@onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var fade: AnimationPlayer = $fade/fade
-@onready var _audio: AudioStreamPlayer = $AudioStreamPlayer
+var _exiting: bool = false
 
 
 func _ready() -> void:
 	_setup_skip_button()
-	sprite_2d.texture = INTRO_PAG_1
-	await get_tree().create_timer(6.0).timeout
-	sprite_2d.texture = INTRO_PAG_2
-	await get_tree().create_timer(6.0).timeout
-	sprite_2d.texture = INTRO_PAG_3
-	await get_tree().create_timer(8.0).timeout
-	sprite_2d.texture = INTRO_PAG_4
-	await get_tree().create_timer(2.0).timeout
-	sprite_2d.texture = INTRO_PAG_5
-	await get_tree().create_timer(2.0).timeout
-	sprite_2d.texture = INTRO_PAG_6
-	await get_tree().create_timer(6.0).timeout
-	sprite_2d.texture = INTRO_PAG_8
-	await get_tree().create_timer(9.0).timeout
-	sprite_2d.texture = INTRO_PAG_9
-	await get_tree().create_timer(7.5).timeout
-	sprite_2d.texture = INTRO_PAG_10
-	await get_tree().create_timer(1.2).timeout
-	sprite_2d.texture = INTRO_PAG_11
-	await get_tree().create_timer(1.2).timeout
-	sprite_2d.texture = INTRO_PAG_12
-	await get_tree().create_timer(1.2).timeout
-	sprite_2d.texture = INTRO_PAG_13
-	await get_tree().create_timer(1.2).timeout
-	sprite_2d.texture = INTRO_PAG_14
-	await get_tree().create_timer(1.2).timeout
-	sprite_2d.texture = INTRO_PAG_15
-	await get_tree().create_timer(3).timeout
-	fade.play("new_animation")
-	await get_tree().create_timer(1).timeout
+	_video.stream = load(INTRO_VIDEO_PATH) as VideoStream
+	_video.finished.connect(_on_video_finished)
+	_video.play()
+	await get_tree().process_frame
+	_video.stream_position = INTRO_START_SECONDS
+
+
+func _on_video_finished() -> void:
+	var tw := create_tween()
+	tw.tween_property(_fade, "modulate:a", 1.0, 1.0)
+	await tw.finished
 	_go_to_game()
 
 
@@ -114,9 +82,12 @@ func _make_skip_style() -> StyleBoxFlat:
 
 
 func _on_skip_pressed() -> void:
-	_audio.stop()
+	_video.stop()
 	_go_to_game()
 
 
 func _go_to_game() -> void:
+	if _exiting:
+		return
+	_exiting = true
 	get_tree().change_scene_to_file("res://Ecenes/level.tscn")
