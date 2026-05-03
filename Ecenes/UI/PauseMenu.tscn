@@ -1,17 +1,23 @@
-[gd_scene format=3 uid="uid://exojt5fw8fj2"]
+[gd_scene format=3 uid="uid://f3522kvpics3"]
 
-[ext_resource type="Script" uid="uid://b8165tedtfwg6" path="res://Scripts/ui/pause_menu.gd" id="1_pm"]
+[ext_resource type="Script" path="res://Scripts/ui/pause_menu.gd" id="1_pm"]
 [ext_resource type="AudioStream" uid="uid://bovywukr4qd34" path="res://Recursos/Sound/Menus/NAV_01.ogg" id="2_a8mf0"]
 [ext_resource type="AudioStream" uid="uid://g314v5mwfrw3" path="res://Recursos/Sound/Menus/NAV_02.ogg" id="3_yh7ja"]
 [ext_resource type="AudioStream" uid="uid://0napsjk7720n" path="res://Recursos/Sound/Menus/NAV_03.ogg" id="4_070af"]
 [ext_resource type="AudioStream" uid="uid://tfir4g3wb14o" path="res://Recursos/Sound/Menus/NAV_04.ogg" id="5_81ka1"]
 [ext_resource type="AudioStream" uid="uid://dcbxv5carrf8n" path="res://Recursos/Sound/Menus/NAV_05.ogg" id="6_vmb11"]
 [ext_resource type="AudioStream" uid="uid://dlt56rp1iq473" path="res://Recursos/Sound/Menus/NAV_06.ogg" id="7_y83d7"]
+[ext_resource type="Texture2D" uid="uid://cbl2aj2qc6wvj" path="res://Recursos/Textures/Menus/pause menu/pause_background.webp" id="8_yh7ja"]
+[ext_resource type="Texture2D" uid="uid://dyap68y46v0fy" path="res://Recursos/Textures/Menus/pause menu/pause_contenedor.webp" id="9_070af"]
+[ext_resource type="Texture2D" uid="uid://ba65nfnog77ou" path="res://Recursos/Textures/Menus/pause menu/pause_button_x.webp" id="10_ol6g4"]
+[ext_resource type="Texture2D" uid="uid://d3j7231te0etn" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_mainmenu.webp" id="11_rptn3"]
+[ext_resource type="Texture2D" uid="uid://nxmiu6n8jcmx" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_options.webp" id="12_caceg"]
+[ext_resource type="Texture2D" uid="uid://csubx1gfn5yt4" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_quit.webp" id="13_ah87h"]
+[ext_resource type="Texture2D" uid="uid://bqn1442mfhwq1" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_resume.webp" id="14_yaabx"]
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=1246026455]
 process_mode = 3
 layer = 30
-visible = false
 script = ExtResource("1_pm")
 nav_sound_file = Array[AudioStream]([ExtResource("2_a8mf0"), ExtResource("3_yh7ja"), ExtResource("4_070af"), ExtResource("5_81ka1"), ExtResource("6_vmb11"), ExtResource("7_y83d7")])
 
@@ -32,6 +38,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0784314, 0.0784314, 0.117647, 0.78)
+
+[node name="PauseBackground" type="Sprite2D" parent="Root/Dim" unique_id=680367004]
+position = Vector2(960, 544)
+texture = ExtResource("8_yh7ja")
+
+[node name="PauseContenedor" type="Sprite2D" parent="Root/Dim" unique_id=584897667]
+position = Vector2(960, 544)
+texture = ExtResource("9_070af")
 
 [node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=936501346]
 layout_mode = 1
@@ -132,7 +146,27 @@ text = "Pantalla completa"
 layout_mode = 2
 text = "Atrás"
 
+[node name="PauseButtonX" type="Sprite2D" parent="." unique_id=2065972102]
+position = Vector2(962, 540)
+texture = ExtResource("10_ol6g4")
+
 [node name="Pause_Menu" type="AudioStreamPlayer" parent="." unique_id=1890361429]
+
+[node name="PauseButtonMainmenu" type="Sprite2D" parent="." unique_id=1582710547]
+position = Vector2(960, 544)
+texture = ExtResource("11_rptn3")
+
+[node name="PauseButtonOptions" type="Sprite2D" parent="." unique_id=1573519273]
+position = Vector2(960, 544)
+texture = ExtResource("12_caceg")
+
+[node name="PauseButtonQuit" type="Sprite2D" parent="." unique_id=379019651]
+position = Vector2(960, 544)
+texture = ExtResource("13_ah87h")
+
+[node name="PauseButtonResume" type="Sprite2D" parent="." unique_id=1847424470]
+position = Vector2(960, 544)
+texture = ExtResource("14_yaabx")
 
 [connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
 [connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/OptionsButton" to="." method="_on_options_button_mouse_entered"]
