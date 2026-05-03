@@ -1,6 +1,6 @@
 extends Node
 
-const DINAMITA = preload("uid://056yesodqe0h")
+const DINAMITA = preload("res://Ecenes/Objets/Dinamita.tscn")
 
 
 func _input(event: InputEvent) -> void:
