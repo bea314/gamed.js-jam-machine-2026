@@ -4,6 +4,10 @@ const SKIP_FONT := preload("res://Recursos/KOMTXKBI.ttf")
 const INTRO_VIDEO_PATH := "res://Recursos/Textures/intro/bug in the machine intro.ogv"
 const INTRO_START_SECONDS := 1.5
 
+## Fundido de salida para evitar corte brusco de imagen y audio
+const EXIT_FADE_SEC := 2.15
+const EXIT_VOL_DB := -50.0
+
 @onready var _video: VideoStreamPlayer = $VideoLayer/VideoStreamPlayer
 @onready var _fade: ColorRect = $FadeLayer/Fade
 
@@ -12,6 +16,8 @@ var _exiting: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_video.volume_db = 0.0
+	_video.modulate = Color(1, 1, 1, 1)
 	_setup_skip_button()
 	_video.stream = load(INTRO_VIDEO_PATH) as VideoStream
 	_video.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -24,10 +30,25 @@ func _ready() -> void:
 func _on_video_finished() -> void:
 	if _exiting:
 		return
+	_run_exit_fade()
+
+
+func _run_exit_fade() -> void:
+	if _exiting:
+		return
+	_exiting = true
+	if _video.finished.is_connected(_on_video_finished):
+		_video.finished.disconnect(_on_video_finished)
 	var tw := create_tween()
-	tw.tween_property(_fade, "modulate:a", 1.0, 1.0)
+	tw.set_parallel(true)
+	tw.set_trans(Tween.TRANS_QUART)
+	tw.set_ease(Tween.EASE_OUT)
+	tw.tween_property(_fade, "modulate:a", 1.0, EXIT_FADE_SEC)
+	tw.tween_property(_video, "volume_db", EXIT_VOL_DB, EXIT_FADE_SEC)
+	tw.tween_property(_video, "modulate:a", 0.0, EXIT_FADE_SEC * 0.95)
 	await tw.finished
-	_go_to_game()
+	_video.stop()
+	get_tree().call_deferred("change_scene_to_file", "res://Ecenes/level.tscn")
 
 
 func _setup_skip_button() -> void:
@@ -88,12 +109,4 @@ func _on_skip_pressed() -> void:
 		return
 	if _video.finished.is_connected(_on_video_finished):
 		_video.finished.disconnect(_on_video_finished)
-	_video.stop()
-	_go_to_game()
-
-
-func _go_to_game() -> void:
-	if _exiting:
-		return
-	_exiting = true
-	get_tree().call_deferred("change_scene_to_file", "res://Ecenes/level.tscn")
+	_run_exit_fade()
