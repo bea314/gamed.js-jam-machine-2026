@@ -3,14 +3,8 @@
 [ext_resource type="Script" uid="uid://bkk5lowbdhwa3" path="res://Ecenes/Menu/menu.gd" id="1_menu"]
 [ext_resource type="Texture2D" uid="uid://bmh6p4rqotlm6" path="res://Recursos/Textures/Menus/main menu.webp" id="8_51tj1"]
 [ext_resource type="Script" path="res://Ecenes/Menu/music_manager_main_menu.gd" id="8_kbn2w"]
-[ext_resource type="AudioStream" uid="uid://bovywukr4qd34" path="res://Recursos/Sound/Menus/NAV_01.ogg" id="8_l78f6"]
 [ext_resource type="AudioStream" uid="uid://bl67524ro73u" path="res://Recursos/Sound/Menus/INTRO_MAIN_MENU.ogg" id="8_xdsvv"]
 [ext_resource type="AudioStream" uid="uid://dbsrfh2itscha" path="res://Recursos/Sound/Menus/MAIN_MENU.ogg" id="9_qbaf4"]
-[ext_resource type="AudioStream" uid="uid://g314v5mwfrw3" path="res://Recursos/Sound/Menus/NAV_02.ogg" id="9_whvly"]
-[ext_resource type="AudioStream" uid="uid://0napsjk7720n" path="res://Recursos/Sound/Menus/NAV_03.ogg" id="10_ievtg"]
-[ext_resource type="AudioStream" uid="uid://tfir4g3wb14o" path="res://Recursos/Sound/Menus/NAV_04.ogg" id="11_sm15n"]
-[ext_resource type="AudioStream" uid="uid://dcbxv5carrf8n" path="res://Recursos/Sound/Menus/NAV_05.ogg" id="12_xtdd6"]
-[ext_resource type="AudioStream" uid="uid://dlt56rp1iq473" path="res://Recursos/Sound/Menus/NAV_06.ogg" id="13_51tj1"]
 [ext_resource type="Texture2D" uid="uid://bfd1fvkf58mit" path="res://Recursos/Textures/Menus/main-menu_bug.webp" id="14_lyciq"]
 [ext_resource type="PackedScene" uid="uid://dmmbtnnewgm01" path="res://Ecenes/Menu/buttons/main_menu_button_newgame.tscn" id="15_newbtn"]
 [ext_resource type="PackedScene" uid="uid://dmmbtnopcio01" path="res://Ecenes/Menu/buttons/main_menu_button_opciones.tscn" id="16_optbtn"]
@@ -70,7 +64,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_menu")
-nav_sound_file = Array[AudioStream]([ExtResource("8_l78f6"), ExtResource("9_whvly"), ExtResource("10_ievtg"), ExtResource("11_sm15n"), ExtResource("12_xtdd6"), ExtResource("13_51tj1")])
 
 [node name="Background" type="ColorRect" parent="." unique_id=1720081649]
 layout_mode = 1

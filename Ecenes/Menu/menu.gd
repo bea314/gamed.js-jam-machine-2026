@@ -14,13 +14,13 @@ extends Control
 @onready var _fullscreen_check: CheckButton = $CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
 @onready var _back_button: Button = $CenterContainer/MainVBox/OptionsPanel/BackButton
 
-var interact_sounds : Array = [
-	preload("uid://bg3t7v510agae"),
-	preload("uid://csxs8xt3nbl6l"),
-	preload("uid://ciyg5mfmsbm46"),
-	preload("uid://dyqakihhko1sl"),
-	preload("uid://cpkbnkjid8ffk"),
-	preload("uid://ce67uaa41r2lw")
+const NAV_SOUNDS: Array[AudioStream] = [
+	preload("res://Recursos/Sound/Menus/NAV_01.ogg"),
+	preload("res://Recursos/Sound/Menus/NAV_02.ogg"),
+	preload("res://Recursos/Sound/Menus/NAV_03.ogg"),
+	preload("res://Recursos/Sound/Menus/NAV_04.ogg"),
+	preload("res://Recursos/Sound/Menus/NAV_05.ogg"),
+	preload("res://Recursos/Sound/Menus/NAV_06.ogg"),
 ]
 
 const MENU_ENTER = preload("uid://bevpc4b70fpvx")
@@ -40,10 +40,6 @@ const RUN_LEVEL_SCENES := {
 	2: "res://Ecenes/level_2.tscn",
 	3: "res://Ecenes/level_3.tscn",
 }
-
-@export_group("Nav sounds")
-@export var nav_sound_file: Array[AudioStream] = []
-
 
 
 func _ready() -> void:
@@ -152,10 +148,6 @@ func _on_sfx_changed(value: float) -> void:
 func _on_fullscreen_toggled(pressed: bool) -> void:
 	_settings.set_fullscreen(pressed)
 
-func mouse_focus():
-	if nav_sound_file.size() > 0:
-		audio_sfxs.stream = nav_sound_file.pick_random()
-		audio_sfxs.play()
-
-
-		
+func mouse_focus() -> void:
+	audio_sfxs.stream = NAV_SOUNDS.pick_random()
+	audio_sfxs.play()
