@@ -193,19 +193,6 @@ offset_top = 624.0
 offset_right = 1640.0
 offset_bottom = 700.0
 
-[node name="Pantalla_Fade" type="ColorRect" parent="." unique_id=1370247422]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pantalla_Fade" unique_id=1611609073]
-libraries/ = SubResource("AnimationLibrary_xdsvv")
-
 [node name="Audio_Sfxs" type="AudioStreamPlayer" parent="." unique_id=1659693253]
 bus = &"SFX"
 
@@ -225,5 +212,19 @@ texture = ExtResource("14_lyciq")
 [node name="MainMenuButtonSombras" type="Sprite2D" parent="." unique_id=36226116]
 position = Vector2(960, 536)
 texture = ExtResource("17_sm15n")
+
+[node name="Pantalla_Fade" type="ColorRect" parent="." unique_id=1370247422]
+z_index = 200
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pantalla_Fade" unique_id=1611609073]
+libraries/ = SubResource("AnimationLibrary_xdsvv")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

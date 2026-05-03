@@ -79,12 +79,14 @@ func start_intro_if_any() -> void:
 
 
 func start_run_level(level_index: int) -> void:
+	# Toda la escena sigue visible; solo el fade (z_index alto en Menu.tscn) la cubre poco a poco.
+	var fade: ColorRect = $Pantalla_Fade
+	fade.mouse_filter = Control.MOUSE_FILTER_STOP
+
 	$Start.stream = PRESS_START
 	$Start.play()
 	$Pantalla_Fade/AnimationPlayer.play("fade")
 	await get_tree().create_timer(3.0).timeout
-
-	
 
 	get_tree().change_scene_to_file("res://Ecenes/UI/intro.tscn")
 
