@@ -11,8 +11,10 @@ var _exiting: bool = false
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_setup_skip_button()
 	_video.stream = load(INTRO_VIDEO_PATH) as VideoStream
+	_video.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_video.finished.connect(_on_video_finished)
 	_video.play()
 	await get_tree().process_frame
@@ -20,6 +22,8 @@ func _ready() -> void:
 
 
 func _on_video_finished() -> void:
+	if _exiting:
+		return
 	var tw := create_tween()
 	tw.tween_property(_fade, "modulate:a", 1.0, 1.0)
 	await tw.finished
@@ -55,9 +59,7 @@ func _setup_skip_button() -> void:
 	btn.add_theme_stylebox_override(&"hover", style_hover)
 	btn.add_theme_stylebox_override(&"pressed", style_pressed)
 
-	btn.anchor_left = 1.0
-	btn.anchor_right = 1.0
-	btn.anchor_top = 0.0
+	btn.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	btn.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	btn.offset_left = -152.0
 	btn.offset_right = -28.0
@@ -82,6 +84,10 @@ func _make_skip_style() -> StyleBoxFlat:
 
 
 func _on_skip_pressed() -> void:
+	if _exiting:
+		return
+	if _video.finished.is_connected(_on_video_finished):
+		_video.finished.disconnect(_on_video_finished)
 	_video.stop()
 	_go_to_game()
 
@@ -90,4 +96,4 @@ func _go_to_game() -> void:
 	if _exiting:
 		return
 	_exiting = true
-	get_tree().change_scene_to_file("res://Ecenes/level.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://Ecenes/level.tscn")
