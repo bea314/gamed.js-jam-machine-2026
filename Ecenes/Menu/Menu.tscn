@@ -12,11 +12,11 @@
 [ext_resource type="AudioStream" uid="uid://dcbxv5carrf8n" path="res://Recursos/Sound/Menus/NAV_05.ogg" id="12_xtdd6"]
 [ext_resource type="AudioStream" uid="uid://dlt56rp1iq473" path="res://Recursos/Sound/Menus/NAV_06.ogg" id="13_51tj1"]
 [ext_resource type="Texture2D" uid="uid://bfd1fvkf58mit" path="res://Recursos/Textures/Menus/main-menu_bug.webp" id="14_lyciq"]
-[ext_resource type="Texture2D" uid="uid://5flg2fdmxqu" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_newgame.webp" id="15_vrfmh"]
-[ext_resource type="Texture2D" uid="uid://cmkytsrgwj2hb" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_opciones.webp" id="16_aqele"]
-[ext_resource type="Texture2D" uid="uid://dxe1sod37okkr" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_logros.webp" id="17_ei2c3"]
-[ext_resource type="Texture2D" uid="uid://ploxekrct8gw" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_creditos.webp" id="18_cfbdu"]
-[ext_resource type="Texture2D" uid="uid://0hwbty6ay6fh" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_exit.webp" id="19_4mopn"]
+[ext_resource type="PackedScene" uid="uid://dmmbtnnewgm01" path="res://Ecenes/Menu/buttons/main_menu_button_newgame.tscn" id="15_newbtn"]
+[ext_resource type="PackedScene" uid="uid://dmmbtnopcio01" path="res://Ecenes/Menu/buttons/main_menu_button_opciones.tscn" id="16_optbtn"]
+[ext_resource type="PackedScene" uid="uid://dmmbtnlogrs01" path="res://Ecenes/Menu/buttons/main_menu_button_logros.tscn" id="17_logbtn"]
+[ext_resource type="PackedScene" uid="uid://dmmbtncredt01" path="res://Ecenes/Menu/buttons/main_menu_button_creditos.tscn" id="18_crebtn"]
+[ext_resource type="PackedScene" uid="uid://dmmbtnexit001" path="res://Ecenes/Menu/buttons/main_menu_button_exit.tscn" id="19_exibtn"]
 
 [sub_resource type="Animation" id="Animation_v0hnx"]
 length = 0.001
@@ -93,6 +93,7 @@ position = Vector2(960, 536)
 texture = ExtResource("8_51tj1")
 
 [node name="MainVBox" type="VBoxContainer" parent="CenterContainer" unique_id=1388275231]
+z_index = 1
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
@@ -101,21 +102,20 @@ theme_override_constants/separation = 20
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="NewGameButton" type="Button" parent="CenterContainer/MainVBox/MainButtons" unique_id=369927157]
+[node name="NewGameButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=369927157 instance=ExtResource("15_newbtn")]
 layout_mode = 2
-text = "New Game"
 
-[node name="OptionsButton" type="Button" parent="CenterContainer/MainVBox/MainButtons" unique_id=803164642]
+[node name="OptionsButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=803164642 instance=ExtResource("16_optbtn")]
 layout_mode = 2
-text = "Options"
 
-[node name="CreditsButton" type="Button" parent="CenterContainer/MainVBox/MainButtons" unique_id=1819182622]
+[node name="LogrosButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=1844220100 instance=ExtResource("17_logbtn")]
 layout_mode = 2
-text = "Credits"
 
-[node name="ExitButton" type="Button" parent="CenterContainer/MainVBox/MainButtons" unique_id=1312483982]
+[node name="CreditsButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=1819182622 instance=ExtResource("18_crebtn")]
 layout_mode = 2
-text = "Exit"
+
+[node name="ExitButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=1312483982 instance=ExtResource("19_exibtn")]
+layout_mode = 2
 
 [node name="OptionsPanel" type="VBoxContainer" parent="CenterContainer/MainVBox" unique_id=726346387]
 visible = false
@@ -197,25 +197,4 @@ script = ExtResource("8_kbn2w")
 position = Vector2(962, 541)
 texture = ExtResource("14_lyciq")
 
-[node name="MainMenuButtonNewgame" type="Sprite2D" parent="." unique_id=201083959]
-position = Vector2(960, 536)
-texture = ExtResource("15_vrfmh")
-
-[node name="MainMenuButtonOpciones" type="Sprite2D" parent="." unique_id=843206777]
-position = Vector2(960, 536)
-texture = ExtResource("16_aqele")
-
-[node name="MainMenuButtonLogros" type="Sprite2D" parent="." unique_id=133687354]
-position = Vector2(960, 536)
-texture = ExtResource("17_ei2c3")
-
-[node name="MainMenuButtonCreditos" type="Sprite2D" parent="." unique_id=478571946]
-position = Vector2(960, 536)
-texture = ExtResource("18_cfbdu")
-
-[node name="MainMenuButtonExit" type="Sprite2D" parent="." unique_id=655489954]
-position = Vector2(960, 544)
-texture = ExtResource("19_4mopn")
-
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="CenterContainer/MainVBox/MainButtons/CreditsButton" to="." method="_on_credits_button_mouse_entered"]

@@ -4,10 +4,11 @@ extends Control
 
 @onready var _main_buttons: VBoxContainer = $CenterContainer/MainVBox/MainButtons
 @onready var _options_panel: VBoxContainer = $CenterContainer/MainVBox/OptionsPanel
-@onready var _new_game_button: Button = $CenterContainer/MainVBox/MainButtons/NewGameButton
-@onready var _options_button: Button = $CenterContainer/MainVBox/MainButtons/OptionsButton
-@onready var _credits_button: Button = $CenterContainer/MainVBox/MainButtons/CreditsButton
-@onready var _exit_button: Button = $CenterContainer/MainVBox/MainButtons/ExitButton
+@onready var _new_game_button: BaseButton = $CenterContainer/MainVBox/MainButtons/NewGameButton/ClickArea
+@onready var _options_button: BaseButton = $CenterContainer/MainVBox/MainButtons/OptionsButton/ClickArea
+@onready var _logros_button: BaseButton = $CenterContainer/MainVBox/MainButtons/LogrosButton/ClickArea
+@onready var _credits_button: BaseButton = $CenterContainer/MainVBox/MainButtons/CreditsButton/ClickArea
+@onready var _exit_button: BaseButton = $CenterContainer/MainVBox/MainButtons/ExitButton/ClickArea
 @onready var _music_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/MusicRow/MusicSlider
 @onready var _sfx_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/SFXRow/SFXSlider
 @onready var _fullscreen_check: CheckButton = $CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
@@ -47,11 +48,15 @@ const RUN_LEVEL_SCENES := {
 
 func _ready() -> void:
 	_new_game_button.pressed.connect(_on_new_game_pressed)
-	_new_game_button.mouse_entered.connect(_on_mouse_entered_new_game)
+	_new_game_button.mouse_entered.connect(mouse_focus)
 	_options_button.pressed.connect(_on_options_pressed)
-	_options_button.mouse_entered.connect(_on_mouse_entered_options)
+	_options_button.mouse_entered.connect(mouse_focus)
+	_logros_button.pressed.connect(_on_logros_pressed)
+	_logros_button.mouse_entered.connect(mouse_focus)
 	_credits_button.pressed.connect(_on_credits_pressed)
+	_credits_button.mouse_entered.connect(mouse_focus)
 	_exit_button.pressed.connect(_on_exit_pressed)
+	_exit_button.mouse_entered.connect(mouse_focus)
 	_back_button.pressed.connect(_on_back_pressed)
 	_music_slider.value_changed.connect(_on_music_changed)
 	_sfx_slider.value_changed.connect(_on_sfx_changed)
@@ -103,8 +108,6 @@ func show_victory_message() -> void:
 		return
 	push_warning("Placeholder: mostrar mensaje de victoria final del roguelike.")
 
-func _on_mouse_entered_new_game():
-	mouse_focus()
 # =============
 
 # OPTIONS BUTTON ==============
@@ -114,15 +117,14 @@ func _on_options_pressed() -> void:
 	$Start.stream = MENU_ENTER
 	$Start.play()
 
-func _on_mouse_entered_options():
-	mouse_focus()
-# =============
-# CREDITS BUTTON==============
+# LOGROS / ACHIEVEMENTS ==============
+func _on_logros_pressed() -> void:
+	push_warning("Logros: sin escena asignada; añade la ruta en menu.gd → _on_logros_pressed().")
+
+# CREDITS ==============
 func _on_credits_pressed() -> void:
 	get_tree().change_scene_to_file("res://Ecenes/Menu/Credits.tscn")
 
-func _on_credits_button_mouse_entered() -> void:
-	mouse_focus()
 # =============
 # Exit BUTTON ==============
 func _on_exit_pressed() -> void:

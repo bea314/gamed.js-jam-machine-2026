@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dmmbtnlogrs01"]
+
+[ext_resource type="Script" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
+[ext_resource type="Texture2D" uid="uid://dxe1sod37okkr" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_logros.webp" id="2_idle"]
+[ext_resource type="Texture2D" uid="uid://rvwbua5tpsqu" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_logros_selected.webp" id="3_hover"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
+
+[node name="LogrosButton" type="Control" unique_id=954983407]
+custom_minimum_size = Vector2(420, 76)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_scr")
+texture_idle = ExtResource("2_idle")
+texture_hover = ExtResource("3_hover")
+
+[node name="Graphic" type="TextureRect" parent="." unique_id=1150687664]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2036.0
+offset_top = -300.0
+offset_right = -2036.0
+offset_bottom = -300.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(9.009471, 9.009471)
+mouse_filter = 2
+texture = ExtResource("2_idle")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ClickArea" type="Button" parent="." unique_id=892509985]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
+flat = true
+
+[node name="HitAreaOutline" type="ReferenceRect" parent="." unique_id=718022892]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.25, 0.9, 0.55, 0.95)
+border_width = 2.0
+editor_only = true
