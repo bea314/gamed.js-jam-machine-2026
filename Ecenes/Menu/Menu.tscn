@@ -1,17 +1,22 @@
 [gd_scene format=3 uid="uid://b8k3m7n0qxp5r"]
 
 [ext_resource type="Script" uid="uid://bkk5lowbdhwa3" path="res://Ecenes/Menu/menu.gd" id="1_menu"]
-[ext_resource type="Script" uid="uid://c3eau2edk1aqd" path="res://Ecenes/Menu/music_manager_main_menu.gd" id="8_kbn2w"]
+[ext_resource type="Texture2D" uid="uid://bmh6p4rqotlm6" path="res://Recursos/Textures/Menus/main menu.webp" id="8_51tj1"]
+[ext_resource type="Script" path="res://Ecenes/Menu/music_manager_main_menu.gd" id="8_kbn2w"]
 [ext_resource type="AudioStream" uid="uid://bovywukr4qd34" path="res://Recursos/Sound/Menus/NAV_01.ogg" id="8_l78f6"]
-[ext_resource type="Texture2D" uid="uid://c68qfsrduq2c3" path="res://Recursos/UXUI/MENU/menu box.png" id="8_nvdgv"]
 [ext_resource type="AudioStream" uid="uid://bl67524ro73u" path="res://Recursos/Sound/Menus/INTRO_MAIN_MENU.ogg" id="8_xdsvv"]
 [ext_resource type="AudioStream" uid="uid://dbsrfh2itscha" path="res://Recursos/Sound/Menus/MAIN_MENU.ogg" id="9_qbaf4"]
 [ext_resource type="AudioStream" uid="uid://g314v5mwfrw3" path="res://Recursos/Sound/Menus/NAV_02.ogg" id="9_whvly"]
-[ext_resource type="Texture2D" uid="uid://bdmlkpag2xcsw" path="res://Recursos/UXUI/MENU/logo.png" id="9_y7ccr"]
 [ext_resource type="AudioStream" uid="uid://0napsjk7720n" path="res://Recursos/Sound/Menus/NAV_03.ogg" id="10_ievtg"]
 [ext_resource type="AudioStream" uid="uid://tfir4g3wb14o" path="res://Recursos/Sound/Menus/NAV_04.ogg" id="11_sm15n"]
 [ext_resource type="AudioStream" uid="uid://dcbxv5carrf8n" path="res://Recursos/Sound/Menus/NAV_05.ogg" id="12_xtdd6"]
 [ext_resource type="AudioStream" uid="uid://dlt56rp1iq473" path="res://Recursos/Sound/Menus/NAV_06.ogg" id="13_51tj1"]
+[ext_resource type="Texture2D" uid="uid://bfd1fvkf58mit" path="res://Recursos/Textures/Menus/main-menu_bug.webp" id="14_lyciq"]
+[ext_resource type="Texture2D" uid="uid://5flg2fdmxqu" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_newgame.webp" id="15_vrfmh"]
+[ext_resource type="Texture2D" uid="uid://cmkytsrgwj2hb" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_opciones.webp" id="16_aqele"]
+[ext_resource type="Texture2D" uid="uid://dxe1sod37okkr" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_logros.webp" id="17_ei2c3"]
+[ext_resource type="Texture2D" uid="uid://ploxekrct8gw" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_creditos.webp" id="18_cfbdu"]
+[ext_resource type="Texture2D" uid="uid://0hwbty6ay6fh" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_exit.webp" id="19_4mopn"]
 
 [sub_resource type="Animation" id="Animation_v0hnx"]
 length = 0.001
@@ -83,20 +88,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="MainMenu" type="Sprite2D" parent="CenterContainer" unique_id=1204853767]
+position = Vector2(960, 536)
+texture = ExtResource("8_51tj1")
+
 [node name="MainVBox" type="VBoxContainer" parent="CenterContainer" unique_id=1388275231]
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
-
-[node name="MenuBox" type="Sprite2D" parent="CenterContainer/MainVBox" unique_id=1231531103]
-position = Vector2(216.99997, 142.99997)
-scale = Vector2(0.88979596, 0.88979596)
-texture = ExtResource("8_nvdgv")
-
-[node name="Logo" type="Sprite2D" parent="CenterContainer/MainVBox" unique_id=704626690]
-position = Vector2(198.99998, -243.00002)
-scale = Vector2(0.3323455, 0.33234546)
-texture = ExtResource("9_y7ccr")
 
 [node name="MainButtons" type="VBoxContainer" parent="CenterContainer/MainVBox" unique_id=1171521145]
 layout_mode = 2
@@ -193,6 +192,30 @@ stream = SubResource("AudioStreamSynchronized_nvdgv")
 autoplay = true
 bus = &"Music"
 script = ExtResource("8_kbn2w")
+
+[node name="MainMenuBug" type="Sprite2D" parent="." unique_id=1310719400]
+position = Vector2(962, 541)
+texture = ExtResource("14_lyciq")
+
+[node name="MainMenuButtonNewgame" type="Sprite2D" parent="." unique_id=201083959]
+position = Vector2(960, 536)
+texture = ExtResource("15_vrfmh")
+
+[node name="MainMenuButtonOpciones" type="Sprite2D" parent="." unique_id=843206777]
+position = Vector2(960, 536)
+texture = ExtResource("16_aqele")
+
+[node name="MainMenuButtonLogros" type="Sprite2D" parent="." unique_id=133687354]
+position = Vector2(960, 536)
+texture = ExtResource("17_ei2c3")
+
+[node name="MainMenuButtonCreditos" type="Sprite2D" parent="." unique_id=478571946]
+position = Vector2(960, 536)
+texture = ExtResource("18_cfbdu")
+
+[node name="MainMenuButtonExit" type="Sprite2D" parent="." unique_id=655489954]
+position = Vector2(960, 544)
+texture = ExtResource("19_4mopn")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="CenterContainer/MainVBox/MainButtons/CreditsButton" to="." method="_on_credits_button_mouse_entered"]
