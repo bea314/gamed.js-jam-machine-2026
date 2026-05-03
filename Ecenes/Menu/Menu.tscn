@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dmmbtnnewgm01" path="res://Ecenes/Menu/buttons/main_menu_button_newgame.tscn" id="15_newbtn"]
 [ext_resource type="PackedScene" uid="uid://dmmbtnopcio01" path="res://Ecenes/Menu/buttons/main_menu_button_opciones.tscn" id="16_optbtn"]
 [ext_resource type="PackedScene" uid="uid://dmmbtnlogrs01" path="res://Ecenes/Menu/buttons/main_menu_button_logros.tscn" id="17_logbtn"]
+[ext_resource type="Texture2D" uid="uid://dnkc7wty2kbfj" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_sombras.webp" id="17_sm15n"]
 [ext_resource type="PackedScene" uid="uid://dmmbtncredt01" path="res://Ecenes/Menu/buttons/main_menu_button_creditos.tscn" id="18_crebtn"]
 [ext_resource type="PackedScene" uid="uid://dmmbtnexit001" path="res://Ecenes/Menu/buttons/main_menu_button_exit.tscn" id="19_exibtn"]
 
@@ -98,25 +99,6 @@ custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="MainButtons" type="VBoxContainer" parent="CenterContainer/MainVBox" unique_id=1171521145]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="NewGameButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=369927157 instance=ExtResource("15_newbtn")]
-layout_mode = 2
-
-[node name="OptionsButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=803164642 instance=ExtResource("16_optbtn")]
-layout_mode = 2
-
-[node name="LogrosButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=1844220100 instance=ExtResource("17_logbtn")]
-layout_mode = 2
-
-[node name="CreditsButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=1819182622 instance=ExtResource("18_crebtn")]
-layout_mode = 2
-
-[node name="ExitButton" parent="CenterContainer/MainVBox/MainButtons" unique_id=1312483982 instance=ExtResource("19_exibtn")]
-layout_mode = 2
-
 [node name="OptionsPanel" type="VBoxContainer" parent="CenterContainer/MainVBox" unique_id=726346387]
 visible = false
 layout_mode = 2
@@ -168,6 +150,56 @@ text = "Fullscreen"
 layout_mode = 2
 text = "Back"
 
+[node name="MainButtonsFree" type="Control" parent="." unique_id=2010010020]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -839.99994
+offset_top = -296.0
+offset_right = -840.0
+offset_bottom = -296.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.6398422, 1.6398422)
+mouse_filter = 2
+
+[node name="NewGameButton" parent="MainButtonsFree" unique_id=369927157 instance=ExtResource("15_newbtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 280.0
+offset_right = 1640.0
+offset_bottom = 356.0
+
+[node name="OptionsButton" parent="MainButtonsFree" unique_id=803164642 instance=ExtResource("16_optbtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 366.0
+offset_right = 1640.0
+offset_bottom = 442.0
+
+[node name="LogrosButton" parent="MainButtonsFree" unique_id=1844220100 instance=ExtResource("17_logbtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 452.0
+offset_right = 1640.0
+offset_bottom = 528.0
+
+[node name="CreditsButton" parent="MainButtonsFree" unique_id=1819182622 instance=ExtResource("18_crebtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 538.0
+offset_right = 1640.0
+offset_bottom = 614.0
+
+[node name="ExitButton" parent="MainButtonsFree" unique_id=1312483982 instance=ExtResource("19_exibtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 624.0
+offset_right = 1640.0
+offset_bottom = 700.0
+
 [node name="Pantalla_Fade" type="ColorRect" parent="." unique_id=1370247422]
 layout_mode = 1
 anchors_preset = 15
@@ -196,5 +228,9 @@ script = ExtResource("8_kbn2w")
 [node name="MainMenuBug" type="Sprite2D" parent="." unique_id=1310719400]
 position = Vector2(962, 541)
 texture = ExtResource("14_lyciq")
+
+[node name="MainMenuButtonSombras" type="Sprite2D" parent="." unique_id=36226116]
+position = Vector2(960, 536)
+texture = ExtResource("17_sm15n")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

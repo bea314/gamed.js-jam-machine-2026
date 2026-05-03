@@ -2,13 +2,13 @@ extends Control
 
 @onready var _settings: GameSettings = get_node("/root/SettingsManager") as GameSettings
 
-@onready var _main_buttons: VBoxContainer = $CenterContainer/MainVBox/MainButtons
+@onready var _main_buttons: Control = $MainButtonsFree
 @onready var _options_panel: VBoxContainer = $CenterContainer/MainVBox/OptionsPanel
-@onready var _new_game_button: BaseButton = $CenterContainer/MainVBox/MainButtons/NewGameButton/ClickArea
-@onready var _options_button: BaseButton = $CenterContainer/MainVBox/MainButtons/OptionsButton/ClickArea
-@onready var _logros_button: BaseButton = $CenterContainer/MainVBox/MainButtons/LogrosButton/ClickArea
-@onready var _credits_button: BaseButton = $CenterContainer/MainVBox/MainButtons/CreditsButton/ClickArea
-@onready var _exit_button: BaseButton = $CenterContainer/MainVBox/MainButtons/ExitButton/ClickArea
+@onready var _new_game_button: BaseButton = $MainButtonsFree/NewGameButton/ClickArea
+@onready var _options_button: BaseButton = $MainButtonsFree/OptionsButton/ClickArea
+@onready var _logros_button: BaseButton = $MainButtonsFree/LogrosButton/ClickArea
+@onready var _credits_button: BaseButton = $MainButtonsFree/CreditsButton/ClickArea
+@onready var _exit_button: BaseButton = $MainButtonsFree/ExitButton/ClickArea
 @onready var _music_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/MusicRow/MusicSlider
 @onready var _sfx_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/SFXRow/SFXSlider
 @onready var _fullscreen_check: CheckButton = $CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
