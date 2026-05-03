@@ -15,6 +15,9 @@ const MELODY_III = preload("uid://cm70gtycgq1gr")
 
 var list_pistas : Array = [MELODY_I, MELODY_II, MELODY_III]
 
+const AMBIENT_FADE_IN_SEC := 2.0
+const AMBIENT_START_DB := -48.0
+
 func _ready() -> void:
 	# Configuración del Boss Theme
 	boss_theme_player = AudioStreamPlayer.new()
@@ -28,12 +31,19 @@ func _ready() -> void:
 	start_synced_music()
 
 func start_synced_music() -> void:
-	if _ambient_muted: return
-	
+	if _ambient_muted:
+		return
+	base_melody.volume_db = AMBIENT_START_DB
+	melody_random.volume_db = AMBIENT_START_DB
 	base_melody.play()
-	# Elegimos una pista inicial al azar
 	melody_random.stream = list_pistas.pick_random()
 	melody_random.play()
+	var tw := create_tween()
+	tw.set_parallel(true)
+	tw.set_trans(Tween.TRANS_QUART)
+	tw.set_ease(Tween.EASE_OUT)
+	tw.tween_property(base_melody, "volume_db", 0.0, AMBIENT_FADE_IN_SEC)
+	tw.tween_property(melody_random, "volume_db", 0.0, AMBIENT_FADE_IN_SEC)
 
 # ESTA ES LA CLAVE:
 # Conecta la señal 'finished' de melody_random

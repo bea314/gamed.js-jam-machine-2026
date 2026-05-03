@@ -20,13 +20,11 @@ script = ExtResource("1_0qq8a")
 
 [node name="Base_Melody" type="AudioStreamPlayer" parent="." unique_id=409079904]
 stream = ExtResource("2_y8lhn")
-autoplay = true
 bus = &"Music"
 parameters/looping = true
 
 [node name="Melody_random" type="AudioStreamPlayer" parent="." unique_id=698222531]
 stream = SubResource("AudioStreamSynchronized_0qq8a")
-autoplay = true
 bus = &"Music"
 
 [connection signal="finished" from="Melody_random" to="." method="_on_melody_random_finished"]

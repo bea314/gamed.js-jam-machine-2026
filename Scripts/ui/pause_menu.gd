@@ -59,6 +59,9 @@ func _set_main_menu_visible(show_main: bool) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("pause_game"):
 		return
+	# Sin esto, la repetición automática de tecla (hold / echo) alterna abrir↔cerrar cada frame.
+	if event is InputEventKey and event.echo:
+		return
 	if _is_game_over_blocking():
 		return
 	if _options_panel.visible:

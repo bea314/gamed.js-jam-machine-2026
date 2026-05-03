@@ -4,26 +4,63 @@ const SKIP_FONT := preload("res://Recursos/KOMTXKBI.ttf")
 const INTRO_VIDEO_PATH := "res://Recursos/Textures/intro/bug in the machine intro.ogv"
 const INTRO_START_SECONDS := 1.5
 
+## Fundido de salida para evitar corte brusco de imagen y audio
+const EXIT_FADE_SEC := 2.15
+const EXIT_VOL_DB := -50.0
+## Sube desde silencio al entrar en la escena (el menú ya baja antes del cambio).
+const INTRO_AUDIO_FADE_IN_SEC := 1.15
+const INTRO_AUDIO_START_DB := -38.0
+
 @onready var _video: VideoStreamPlayer = $VideoLayer/VideoStreamPlayer
 @onready var _fade: ColorRect = $FadeLayer/Fade
 
 var _exiting: bool = false
+var _intro_audio_in_tween: Tween
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	_video.volume_db = INTRO_AUDIO_START_DB
+	_video.modulate = Color(1, 1, 1, 1)
 	_setup_skip_button()
 	_video.stream = load(INTRO_VIDEO_PATH) as VideoStream
+	_video.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_video.finished.connect(_on_video_finished)
 	_video.play()
 	await get_tree().process_frame
 	_video.stream_position = INTRO_START_SECONDS
+	_intro_audio_in_tween = create_tween()
+	_intro_audio_in_tween.set_trans(Tween.TRANS_QUART)
+	_intro_audio_in_tween.set_ease(Tween.EASE_OUT)
+	_intro_audio_in_tween.tween_property(_video, "volume_db", 0.0, INTRO_AUDIO_FADE_IN_SEC)
 
 
 func _on_video_finished() -> void:
+	if _exiting:
+		return
+	_run_exit_fade()
+
+
+func _run_exit_fade() -> void:
+	if _exiting:
+		return
+	_exiting = true
+	if _intro_audio_in_tween != null and is_instance_valid(_intro_audio_in_tween):
+		_intro_audio_in_tween.kill()
+	_intro_audio_in_tween = null
+	if _video.finished.is_connected(_on_video_finished):
+		_video.finished.disconnect(_on_video_finished)
 	var tw := create_tween()
-	tw.tween_property(_fade, "modulate:a", 1.0, 1.0)
+	tw.set_parallel(true)
+	tw.set_trans(Tween.TRANS_QUART)
+	tw.set_ease(Tween.EASE_OUT)
+	tw.tween_property(_fade, "modulate:a", 1.0, EXIT_FADE_SEC)
+	tw.tween_property(_video, "volume_db", EXIT_VOL_DB, EXIT_FADE_SEC)
+	tw.tween_property(_video, "modulate:a", 0.0, EXIT_FADE_SEC * 0.95)
 	await tw.finished
-	_go_to_game()
+	_video.stop()
+	# Tras el fundido negro existente en intro, pasamos por la pantalla de carga (mismo tratamiento visual).
+	LoadingTransition.goto_scene("res://Ecenes/level.tscn")
 
 
 func _setup_skip_button() -> void:
@@ -55,9 +92,7 @@ func _setup_skip_button() -> void:
 	btn.add_theme_stylebox_override(&"hover", style_hover)
 	btn.add_theme_stylebox_override(&"pressed", style_pressed)
 
-	btn.anchor_left = 1.0
-	btn.anchor_right = 1.0
-	btn.anchor_top = 0.0
+	btn.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	btn.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	btn.offset_left = -152.0
 	btn.offset_right = -28.0
@@ -82,12 +117,8 @@ func _make_skip_style() -> StyleBoxFlat:
 
 
 func _on_skip_pressed() -> void:
-	_video.stop()
-	_go_to_game()
-
-
-func _go_to_game() -> void:
 	if _exiting:
 		return
-	_exiting = true
-	get_tree().change_scene_to_file("res://Ecenes/level.tscn")
+	if _video.finished.is_connected(_on_video_finished):
+		_video.finished.disconnect(_on_video_finished)
+	_run_exit_fade()
