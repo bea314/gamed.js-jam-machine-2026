@@ -2,7 +2,7 @@ extends Node2D
 
 const SKIP_FONT := preload("res://Recursos/KOMTXKBI.ttf")
 const INTRO_VIDEO_PATH := "res://Recursos/Textures/intro/bug in the machine intro.ogv"
-const INTRO_START_SECONDS := 2.0
+const INTRO_START_SECONDS := 1.5
 
 @onready var _video: VideoStreamPlayer = $VideoLayer/VideoStreamPlayer
 @onready var _fade: ColorRect = $FadeLayer/Fade
