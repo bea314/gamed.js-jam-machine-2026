@@ -33,6 +33,8 @@ const PRESS_START = preload("uid://cmm3opf6lauau")
 
 const MAIN_MENU_INTRO = preload("uid://31lw0x3j1gsn")
 const MAIN_MENU = preload("uid://bi2pf0sx5p0yq")
+## Misma duración que `Pantalla_Fade/AnimationPlayer` → "fade"; baja hasta casi silencio con la pantalla.
+const MENU_MUSIC_FADE_OUT_DB := -50.0
 const INTRO_SCENE_PATH := "res://Ecenes/Intro/Intro.tscn"
 const VICTORY_SCENE_PATH := "res://Ecenes/Menu/Victory.tscn"
 const RUN_LEVEL_SCENES := {
@@ -80,12 +82,22 @@ func start_intro_if_any() -> void:
 
 func start_run_level(level_index: int) -> void:
 	# Toda la escena sigue visible; solo el fade (z_index alto en Menu.tscn) la cubre poco a poco.
-	var fade: ColorRect = $Pantalla_Fade
-	fade.mouse_filter = Control.MOUSE_FILTER_STOP
+	var fade_rect: ColorRect = $Pantalla_Fade
+	fade_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 
 	$Start.stream = PRESS_START
 	$Start.play()
-	$Pantalla_Fade/AnimationPlayer.play("fade")
+
+	var ap: AnimationPlayer = fade_rect.get_node("AnimationPlayer")
+	var fade_anim: Animation = ap.get_animation("fade")
+	var fade_sec: float = fade_anim.length if fade_anim != null else 1.0
+
+	ap.play("fade")
+
+	var music_from_db: float = audio_music.volume_db
+	var tw: Tween = create_tween()
+	tw.tween_property(audio_music, "volume_db", MENU_MUSIC_FADE_OUT_DB, fade_sec).from(music_from_db)
+
 	await get_tree().create_timer(3.0).timeout
 
 	get_tree().change_scene_to_file("res://Ecenes/UI/intro.tscn")

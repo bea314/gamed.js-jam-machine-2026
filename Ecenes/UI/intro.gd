@@ -7,16 +7,20 @@ const INTRO_START_SECONDS := 1.5
 ## Fundido de salida para evitar corte brusco de imagen y audio
 const EXIT_FADE_SEC := 2.15
 const EXIT_VOL_DB := -50.0
+## Sube desde silencio al entrar en la escena (el menú ya baja antes del cambio).
+const INTRO_AUDIO_FADE_IN_SEC := 1.15
+const INTRO_AUDIO_START_DB := -38.0
 
 @onready var _video: VideoStreamPlayer = $VideoLayer/VideoStreamPlayer
 @onready var _fade: ColorRect = $FadeLayer/Fade
 
 var _exiting: bool = false
+var _intro_audio_in_tween: Tween
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_video.volume_db = 0.0
+	_video.volume_db = INTRO_AUDIO_START_DB
 	_video.modulate = Color(1, 1, 1, 1)
 	_setup_skip_button()
 	_video.stream = load(INTRO_VIDEO_PATH) as VideoStream
@@ -25,6 +29,10 @@ func _ready() -> void:
 	_video.play()
 	await get_tree().process_frame
 	_video.stream_position = INTRO_START_SECONDS
+	_intro_audio_in_tween = create_tween()
+	_intro_audio_in_tween.set_trans(Tween.TRANS_QUART)
+	_intro_audio_in_tween.set_ease(Tween.EASE_OUT)
+	_intro_audio_in_tween.tween_property(_video, "volume_db", 0.0, INTRO_AUDIO_FADE_IN_SEC)
 
 
 func _on_video_finished() -> void:
@@ -37,6 +45,9 @@ func _run_exit_fade() -> void:
 	if _exiting:
 		return
 	_exiting = true
+	if _intro_audio_in_tween != null and is_instance_valid(_intro_audio_in_tween):
+		_intro_audio_in_tween.kill()
+	_intro_audio_in_tween = null
 	if _video.finished.is_connected(_on_video_finished):
 		_video.finished.disconnect(_on_video_finished)
 	var tw := create_tween()
