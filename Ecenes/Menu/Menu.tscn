@@ -81,6 +81,10 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0784314, 0.0784314, 0.117647, 1)
 
+[node name="MainMenu" type="Sprite2D" parent="Background" unique_id=1204853767]
+position = Vector2(960, 536)
+texture = ExtResource("8_51tj1")
+
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=154465064]
 layout_mode = 1
 anchors_preset = 15
@@ -88,10 +92,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MainMenu" type="Sprite2D" parent="CenterContainer" unique_id=1204853767]
-position = Vector2(960, 536)
-texture = ExtResource("8_51tj1")
 
 [node name="MainVBox" type="VBoxContainer" parent="CenterContainer" unique_id=1388275231]
 z_index = 1
