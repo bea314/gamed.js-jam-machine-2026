@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://pmenu_btn_close01"]
+
+[ext_resource type="Script" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
+[ext_resource type="Texture2D" uid="uid://ba65nfnog77ou" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_x.webp" id="2_idle"]
+[ext_resource type="Texture2D" uid="uid://d3i2gg6qsfodk" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_resume_selected.webp" id="3_hover"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
+
+[node name="ClosePauseButton" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_scr")
+texture_idle = ExtResource("2_idle")
+texture_hover = ExtResource("3_hover")
+
+[node name="Graphic" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2037.0001
+offset_top = -209.00002
+offset_right = -2037.0001
+offset_bottom = -209.00002
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(9.009471, 9.009471)
+mouse_filter = 2
+texture = ExtResource("2_idle")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ClickArea" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
+flat = true
+
+[node name="HitAreaOutline" type="ReferenceRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.25, 0.9, 0.55, 0.95)
+border_width = 2.0
+editor_only = true

@@ -3,14 +3,13 @@ extends CanvasLayer
 const MENU_PATH := "res://Ecenes/Menu/Menu.tscn"
 
 @onready var _settings: GameSettings = get_node("/root/SettingsManager") as GameSettings
-@onready var _title_label: Control = $Root/CenterContainer/MainVBox/TitleLabel
-@onready var _hint_label: Control = $Root/CenterContainer/MainVBox/HintLabel
-@onready var _main_buttons: VBoxContainer = $Root/CenterContainer/MainVBox/MainButtons
+@onready var _main_buttons: Control = $Root/MainButtonsFree
 @onready var _options_panel: VBoxContainer = $Root/CenterContainer/MainVBox/OptionsPanel
-@onready var _resume_button: BaseButton = $Root/CenterContainer/MainVBox/MainButtons/ResumeButton
-@onready var _options_button: BaseButton = $Root/CenterContainer/MainVBox/MainButtons/OptionsButton
-@onready var _main_menu_button: BaseButton = $Root/CenterContainer/MainVBox/MainButtons/MainMenuButton
-@onready var _exit_button: BaseButton = $Root/CenterContainer/MainVBox/MainButtons/ExitButton
+@onready var _resume_button: BaseButton = $Root/MainButtonsFree/ResumeButton/ClickArea
+@onready var _options_button: BaseButton = $Root/MainButtonsFree/OptionsButton/ClickArea
+@onready var _main_menu_button: BaseButton = $Root/MainButtonsFree/MainMenuButton/ClickArea
+@onready var _exit_button: BaseButton = $Root/MainButtonsFree/ExitButton/ClickArea
+@onready var _close_pause_button: BaseButton = $Root/MainButtonsFree/ClosePauseButton/ClickArea
 @onready var _music_slider: HSlider = $Root/CenterContainer/MainVBox/OptionsPanel/MusicRow/MusicSlider
 @onready var _sfx_slider: HSlider = $Root/CenterContainer/MainVBox/OptionsPanel/SFXRow/SFXSlider
 @onready var _fullscreen_check: CheckButton = $Root/CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
@@ -32,10 +31,17 @@ func _ready() -> void:
 	_options_panel.visible = false
 
 	_resume_button.pressed.connect(_on_resume_pressed)
+	_close_pause_button.pressed.connect(_on_resume_pressed)
 	_options_button.pressed.connect(_on_options_pressed)
 	_back_button.pressed.connect(_on_back_pressed)
 	_main_menu_button.pressed.connect(_on_main_menu_pressed)
 	_exit_button.pressed.connect(_on_exit_pressed)
+	_resume_button.mouse_entered.connect(mouse_focus)
+	_close_pause_button.mouse_entered.connect(mouse_focus)
+	_options_button.mouse_entered.connect(mouse_focus)
+	_main_menu_button.mouse_entered.connect(mouse_focus)
+	_exit_button.mouse_entered.connect(mouse_focus)
+	_back_button.mouse_entered.connect(mouse_focus)
 	_music_slider.value_changed.connect(_on_music_changed)
 	_sfx_slider.value_changed.connect(_on_sfx_changed)
 	_fullscreen_check.toggled.connect(_on_fullscreen_toggled)
@@ -46,8 +52,6 @@ func _ready() -> void:
 
 
 func _set_main_menu_visible(show_main: bool) -> void:
-	_title_label.visible = show_main
-	_hint_label.visible = show_main
 	_main_buttons.visible = show_main
 	_options_panel.visible = not show_main
 
@@ -145,27 +149,8 @@ func _go_to_scene(path: String) -> void:
 	visible = false
 	tree.change_scene_to_file(path)
 
-func mouse_focus():
+
+func mouse_focus() -> void:
 	if nav_sound_file.size() > 0:
 		pause_menu_sound.stream = nav_sound_file.pick_random()
 		pause_menu_sound.play()
-
-
-func _on_resume_button_mouse_entered() -> void:
-	mouse_focus()
-
-
-func _on_options_button_mouse_entered() -> void:
-	mouse_focus()
-
-
-func _on_main_menu_button_mouse_entered() -> void:
-	mouse_focus()
-
-
-func _on_exit_button_mouse_entered() -> void:
-	mouse_focus()
-
-
-func _on_back_button_mouse_entered() -> void:
-	mouse_focus()

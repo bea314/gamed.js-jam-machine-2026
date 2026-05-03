@@ -9,19 +9,19 @@
 [ext_resource type="AudioStream" uid="uid://dlt56rp1iq473" path="res://Recursos/Sound/Menus/NAV_06.ogg" id="7_y83d7"]
 [ext_resource type="Texture2D" uid="uid://cbl2aj2qc6wvj" path="res://Recursos/Textures/Menus/pause menu/pause_background.webp" id="8_yh7ja"]
 [ext_resource type="Texture2D" uid="uid://dyap68y46v0fy" path="res://Recursos/Textures/Menus/pause menu/pause_contenedor.webp" id="9_070af"]
-[ext_resource type="Texture2D" uid="uid://ba65nfnog77ou" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_x.webp" id="10_ol6g4"]
-[ext_resource type="Texture2D" uid="uid://d3j7231te0etn" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_mainmenu.webp" id="11_rptn3"]
-[ext_resource type="Texture2D" uid="uid://nxmiu6n8jcmx" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_options.webp" id="12_caceg"]
-[ext_resource type="Texture2D" uid="uid://csubx1gfn5yt4" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_quit.webp" id="13_ah87h"]
-[ext_resource type="Texture2D" uid="uid://bqn1442mfhwq1" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_resume.webp" id="14_yaabx"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_resume.tscn" id="10_resbtn"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_options.tscn" id="11_optbtn"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_mainmenu.tscn" id="12_menubtn"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_quit.tscn" id="13_qitbtn"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_close.tscn" id="14_clsbtn"]
 
-[node name="PauseMenu" type="CanvasLayer" unique_id=1246026455]
+[node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 layer = 30
 script = ExtResource("1_pm")
 nav_sound_file = Array[AudioStream]([ExtResource("2_a8mf0"), ExtResource("3_yh7ja"), ExtResource("4_070af"), ExtResource("5_81ka1"), ExtResource("6_vmb11"), ExtResource("7_y83d7")])
 
-[node name="Root" type="Control" parent="." unique_id=1472974351]
+[node name="Root" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -30,7 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Dim" type="ColorRect" parent="Root" unique_id=728510715]
+[node name="Dim" type="ColorRect" parent="Root"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,15 +39,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0784314, 0.0784314, 0.117647, 0.78)
 
-[node name="PauseBackground" type="Sprite2D" parent="Root/Dim" unique_id=680367004]
+[node name="PauseBackground" type="Sprite2D" parent="Root/Dim"]
 position = Vector2(960, 544)
 texture = ExtResource("8_yh7ja")
 
-[node name="PauseContenedor" type="Sprite2D" parent="Root/Dim" unique_id=584897667]
+[node name="PauseContenedor" type="Sprite2D" parent="Root/Dim"]
 position = Vector2(960, 544)
 texture = ExtResource("9_070af")
 
-[node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=936501346]
+[node name="CenterContainer" type="CenterContainer" parent="Root"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,121 +55,111 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainVBox" type="VBoxContainer" parent="Root/CenterContainer" unique_id=44532249]
+[node name="MainVBox" type="VBoxContainer" parent="Root/CenterContainer"]
+z_index = 1
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="TitleLabel" type="Label" parent="Root/CenterContainer/MainVBox" unique_id=191627240]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
-theme_override_font_sizes/font_size = 42
-text = "Pausa"
-horizontal_alignment = 1
-
-[node name="HintLabel" type="Label" parent="Root/CenterContainer/MainVBox" unique_id=1553041505]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.7, 0.75, 1)
-theme_override_font_sizes/font_size = 16
-text = "Esc o P: reanudar (menú) · Esc: atrás (opciones)"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="MainButtons" type="VBoxContainer" parent="Root/CenterContainer/MainVBox" unique_id=986105627]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="ResumeButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons" unique_id=1032371280]
-layout_mode = 2
-text = "Reanudar partida"
-
-[node name="OptionsButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons" unique_id=1850743941]
-layout_mode = 2
-text = "Opciones"
-
-[node name="MainMenuButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons" unique_id=513012585]
-layout_mode = 2
-text = "Menú principal"
-
-[node name="ExitButton" type="Button" parent="Root/CenterContainer/MainVBox/MainButtons" unique_id=911206831]
-layout_mode = 2
-text = "Salir"
-
-[node name="OptionsPanel" type="VBoxContainer" parent="Root/CenterContainer/MainVBox" unique_id=1401954651]
+[node name="OptionsPanel" type="VBoxContainer" parent="Root/CenterContainer/MainVBox"]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="OptionsTitle" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=1656498607]
+[node name="OptionsTitle" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Opciones"
 horizontal_alignment = 1
 
-[node name="MusicRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=1666385993]
+[node name="MusicRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MusicLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=361683884]
+[node name="MusicLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Música"
 
-[node name="MusicSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=787334567]
+[node name="MusicSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SFXRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=25924595]
+[node name="SFXRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="SFXLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=1171692571]
+[node name="SFXLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Efectos"
 
-[node name="SFXSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=52673201]
+[node name="SFXSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="FullscreenCheck" type="CheckButton" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=33866668]
+[node name="FullscreenCheck" type="CheckButton" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
 layout_mode = 2
 text = "Pantalla completa"
 
-[node name="BackButton" type="Button" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=1830194426]
+[node name="BackButton" type="Button" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
 layout_mode = 2
 text = "Atrás"
 
-[node name="PauseButtonX" type="Sprite2D" parent="." unique_id=2065972102]
-position = Vector2(962, 540)
-texture = ExtResource("10_ol6g4")
+[node name="MainButtonsFree" type="Control" parent="Root"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -839.99994
+offset_top = -296.0
+offset_right = -840.0
+offset_bottom = -296.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.6398422, 1.6398422)
+mouse_filter = 2
 
-[node name="Pause_Menu" type="AudioStreamPlayer" parent="." unique_id=1890361429]
+[node name="ResumeButton" parent="Root/MainButtonsFree" instance=ExtResource("10_resbtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 280.0
+offset_right = 1640.0
+offset_bottom = 356.0
 
-[node name="PauseButtonMainmenu" type="Sprite2D" parent="." unique_id=1582710547]
-position = Vector2(960, 544)
-texture = ExtResource("11_rptn3")
+[node name="OptionsButton" parent="Root/MainButtonsFree" instance=ExtResource("11_optbtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 366.0
+offset_right = 1640.0
+offset_bottom = 442.0
 
-[node name="PauseButtonOptions" type="Sprite2D" parent="." unique_id=1573519273]
-position = Vector2(960, 544)
-texture = ExtResource("12_caceg")
+[node name="MainMenuButton" parent="Root/MainButtonsFree" instance=ExtResource("12_menubtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 452.0
+offset_right = 1640.0
+offset_bottom = 528.0
 
-[node name="PauseButtonQuit" type="Sprite2D" parent="." unique_id=379019651]
-position = Vector2(960, 544)
-texture = ExtResource("13_ah87h")
+[node name="ExitButton" parent="Root/MainButtonsFree" instance=ExtResource("13_qitbtn")]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 538.0
+offset_right = 1640.0
+offset_bottom = 614.0
 
-[node name="PauseButtonResume" type="Sprite2D" parent="." unique_id=1847424470]
-position = Vector2(960, 544)
-texture = ExtResource("14_yaabx")
+[node name="ClosePauseButton" parent="Root/MainButtonsFree" instance=ExtResource("14_clsbtn")]
+layout_mode = 0
+offset_left = 1568.0
+offset_top = 268.0
+offset_right = 1668.0
+offset_bottom = 368.0
 
-[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
-[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/OptionsButton" to="." method="_on_options_button_mouse_entered"]
-[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/MainMenuButton" to="." method="_on_main_menu_button_mouse_entered"]
-[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/MainButtons/ExitButton" to="." method="_on_exit_button_mouse_entered"]
-[connection signal="mouse_entered" from="Root/CenterContainer/MainVBox/OptionsPanel/BackButton" to="." method="_on_back_button_mouse_entered"]
+[node name="Pause_Menu" type="AudioStreamPlayer" parent="."]
