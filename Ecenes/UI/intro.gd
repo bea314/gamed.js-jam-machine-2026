@@ -59,8 +59,8 @@ func _run_exit_fade() -> void:
 	tw.tween_property(_video, "modulate:a", 0.0, EXIT_FADE_SEC * 0.95)
 	await tw.finished
 	_video.stop()
-	# Cambio directo evita un fotograma intermedio con estado raro (deferred + escena anterior).
-	get_tree().change_scene_to_file("res://Ecenes/level.tscn")
+	# Tras el fundido negro existente en intro, pasamos por la pantalla de carga (mismo tratamiento visual).
+	LoadingTransition.goto_scene("res://Ecenes/level.tscn")
 
 
 func _setup_skip_button() -> void:

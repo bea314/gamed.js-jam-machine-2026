@@ -36,6 +36,7 @@ const MAIN_MENU = preload("uid://bi2pf0sx5p0yq")
 ## Misma duración que `Pantalla_Fade/AnimationPlayer` → "fade"; baja hasta casi silencio con la pantalla.
 const MENU_MUSIC_FADE_OUT_DB := -50.0
 const INTRO_SCENE_PATH := "res://Ecenes/Intro/Intro.tscn"
+const DEFAULT_INTRO_SCENE := "res://Ecenes/UI/intro.tscn"
 const VICTORY_SCENE_PATH := "res://Ecenes/Menu/Victory.tscn"
 const RUN_LEVEL_SCENES := {
 	1: "res://Ecenes/level.tscn",
@@ -72,16 +73,18 @@ func _on_new_game_pressed() -> void:
 
 
 func start_intro_if_any() -> void:
-	# AQUI PUEDES COLOCAR EL INTRO Y UN EJEMPLO DE COMO INSERTAR UNA EXCENA
-	# Ejemplo: si existe intro, cargas intro; si no existe, arrancas de una en nivel 1.
-	if ResourceLoader.exists(INTRO_SCENE_PATH):
-		get_tree().change_scene_to_file(INTRO_SCENE_PATH)
-		return
-	start_run_level(1)
+	var path := INTRO_SCENE_PATH if ResourceLoader.exists(INTRO_SCENE_PATH) else DEFAULT_INTRO_SCENE
+	_fade_menu_then_goto_via_loading(path)
 
 
 func start_run_level(level_index: int) -> void:
-	# Toda la escena sigue visible; solo el fade (z_index alto en Menu.tscn) la cubre poco a poco.
+	var path: String = RUN_LEVEL_SCENES.get(level_index, RUN_LEVEL_SCENES[1])
+	_fade_menu_then_goto_via_loading(path)
+
+
+func _fade_menu_then_goto_via_loading(target_path: String) -> void:
+	# Misma rutina visual que antes: pantalla oscurece (`Pantalla_Fade`), música sigue la curva ligada al fade,
+	# luego espera breve sobre negro; el cambio real pasa por `LoadingTransition` sin saltarse esos fades.
 	var fade_rect: ColorRect = $Pantalla_Fade
 	fade_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 
@@ -100,7 +103,7 @@ func start_run_level(level_index: int) -> void:
 
 	await get_tree().create_timer(3.0).timeout
 
-	get_tree().change_scene_to_file("res://Ecenes/UI/intro.tscn")
+	LoadingTransition.goto_scene(target_path)
 
 
 
