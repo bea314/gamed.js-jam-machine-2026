@@ -5,6 +5,8 @@ signal health_changed(current_health: int, max_health: int)
 signal shield_changed(current_shield: int, max_shield: int)
 ## `hit_from_global` es la posición del atacante (o Vector2.ZERO si no aplica); sirve para knockback.
 signal damage_taken(amount: int, hit_from_global: Vector2)
+## Daño absorbido por escudo (no quita vida). Para feedback en HUD sin animación de hurt.
+signal shield_damage_taken(amount: int, hit_from_global: Vector2)
 signal died()
 
 @export var max_health: int = 100
@@ -57,15 +59,18 @@ func take_damage(amount: int, hit_from_global: Vector2 = Vector2.ZERO) -> void:
 
 	var scaled_amount := maxi(int(round(float(amount) * damage_taken_multiplier)), 1)
 	var pending_damage: int = scaled_amount
+	var absorbed_by_shield: int = 0
 
 	if current_shield > 0:
 		var shield_before: int = current_shield
 		current_shield = maxi(current_shield - pending_damage, 0)
-		var absorbed: int = shield_before - current_shield
-		pending_damage -= absorbed
+		absorbed_by_shield = shield_before - current_shield
+		pending_damage -= absorbed_by_shield
 		_emit_shield_changed()
 
 	if pending_damage <= 0:
+		if absorbed_by_shield > 0:
+			shield_damage_taken.emit(absorbed_by_shield, hit_from_global)
 		if hit_invulnerability_duration > 0.0:
 			_invuln_remaining = hit_invulnerability_duration
 			set_process(true)

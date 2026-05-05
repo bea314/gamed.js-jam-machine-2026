@@ -44,6 +44,7 @@ func _ready() -> void:
 	_health.health_changed.connect(_on_health_changed)
 	_health.shield_changed.connect(_on_shield_changed)
 	_health.damage_taken.connect(_on_damage_taken)
+	_health.shield_damage_taken.connect(_on_damage_taken)
 	_hp_track.resized.connect(_on_bar_track_resized)
 	_shield_group.resized.connect(_on_shield_track_resized)
 
