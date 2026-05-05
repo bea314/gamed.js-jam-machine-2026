@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://pmenu_btn_resume01"]
+[gd_scene format=3 uid="uid://cebc0vu4soess"]
 
-[ext_resource type="Script" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
+[ext_resource type="Script" uid="uid://cmfbtnvishtb1" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
 [ext_resource type="Texture2D" uid="uid://bqn1442mfhwq1" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_resume.webp" id="2_idle"]
 [ext_resource type="Texture2D" uid="uid://d3i2gg6qsfodk" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_resume_selected.webp" id="3_hover"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
 
-[node name="ResumeButton" type="Control"]
+[node name="ResumeButton" type="Control" unique_id=1411632595]
 custom_minimum_size = Vector2(420, 76)
 layout_mode = 3
 anchors_preset = 0
@@ -15,24 +15,24 @@ script = ExtResource("1_scr")
 texture_idle = ExtResource("2_idle")
 texture_hover = ExtResource("3_hover")
 
-[node name="Graphic" type="TextureRect" parent="."]
+[node name="Graphic" type="TextureRect" parent="." unique_id=432863728]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2037.0001
-offset_top = -209.00002
-offset_right = -2037.0001
-offset_bottom = -209.00002
+offset_left = -1718.9999
+offset_top = -196.0
+offset_right = -1718.9999
+offset_bottom = -196.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(9.009471, 9.009471)
+scale = Vector2(9.128777, 8.498897)
 mouse_filter = 2
 texture = ExtResource("2_idle")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ClickArea" type="Button" parent="."]
+[node name="ClickArea" type="Button" parent="." unique_id=1860882394]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +48,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
 flat = true
 
-[node name="HitAreaOutline" type="ReferenceRect" parent="."]
+[node name="HitAreaOutline" type="ReferenceRect" parent="." unique_id=1310416423]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,4 +58,3 @@ grow_vertical = 2
 mouse_filter = 2
 border_color = Color(0.25, 0.9, 0.55, 0.95)
 border_width = 2.0
-editor_only = true

@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://f3522kvpics3"]
+[gd_scene format=3 uid="uid://c4gdeb3cwbl4h"]
 
-[ext_resource type="Script" path="res://Scripts/ui/pause_menu.gd" id="1_pm"]
+[ext_resource type="Script" uid="uid://b8165tedtfwg6" path="res://Scripts/ui/pause_menu.gd" id="1_pm"]
 [ext_resource type="AudioStream" uid="uid://bovywukr4qd34" path="res://Recursos/Sound/Menus/NAV_01.ogg" id="2_a8mf0"]
 [ext_resource type="AudioStream" uid="uid://g314v5mwfrw3" path="res://Recursos/Sound/Menus/NAV_02.ogg" id="3_yh7ja"]
 [ext_resource type="AudioStream" uid="uid://0napsjk7720n" path="res://Recursos/Sound/Menus/NAV_03.ogg" id="4_070af"]
@@ -9,19 +9,19 @@
 [ext_resource type="AudioStream" uid="uid://dlt56rp1iq473" path="res://Recursos/Sound/Menus/NAV_06.ogg" id="7_y83d7"]
 [ext_resource type="Texture2D" uid="uid://cbl2aj2qc6wvj" path="res://Recursos/Textures/Menus/pause menu/pause_background.webp" id="8_yh7ja"]
 [ext_resource type="Texture2D" uid="uid://dyap68y46v0fy" path="res://Recursos/Textures/Menus/pause menu/pause_contenedor.webp" id="9_070af"]
-[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_resume.tscn" id="10_resbtn"]
-[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_options.tscn" id="11_optbtn"]
-[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_mainmenu.tscn" id="12_menubtn"]
-[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_quit.tscn" id="13_qitbtn"]
-[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/pause_menu_button_close.tscn" id="14_clsbtn"]
+[ext_resource type="PackedScene" uid="uid://cebc0vu4soess" path="res://Ecenes/UI/buttons/pause_menu_button_resume.tscn" id="10_resbtn"]
+[ext_resource type="PackedScene" uid="uid://lwfp8seq2e64" path="res://Ecenes/UI/buttons/pause_menu_button_options.tscn" id="11_optbtn"]
+[ext_resource type="PackedScene" uid="uid://dl1fa8j8o5n3h" path="res://Ecenes/UI/buttons/pause_menu_button_mainmenu.tscn" id="12_menubtn"]
+[ext_resource type="PackedScene" uid="uid://cox7bir8jdi74" path="res://Ecenes/UI/buttons/pause_menu_button_quit.tscn" id="13_qitbtn"]
+[ext_resource type="PackedScene" uid="uid://csbyupinujltk" path="res://Ecenes/UI/buttons/pause_menu_button_close.tscn" id="14_clsbtn"]
 
-[node name="PauseMenu" type="CanvasLayer"]
+[node name="PauseMenu" type="CanvasLayer" unique_id=1359144008]
 process_mode = 3
 layer = 30
 script = ExtResource("1_pm")
 nav_sound_file = Array[AudioStream]([ExtResource("2_a8mf0"), ExtResource("3_yh7ja"), ExtResource("4_070af"), ExtResource("5_81ka1"), ExtResource("6_vmb11"), ExtResource("7_y83d7")])
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=37409049]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -30,7 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Dim" type="ColorRect" parent="Root"]
+[node name="Dim" type="ColorRect" parent="Root" unique_id=1652796968]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,15 +39,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0784314, 0.0784314, 0.117647, 0.78)
 
-[node name="PauseBackground" type="Sprite2D" parent="Root/Dim"]
+[node name="PauseBackground" type="Sprite2D" parent="Root/Dim" unique_id=1377945420]
 position = Vector2(960, 544)
 texture = ExtResource("8_yh7ja")
 
-[node name="PauseContenedor" type="Sprite2D" parent="Root/Dim"]
+[node name="PauseContenedor" type="Sprite2D" parent="Root/Dim" unique_id=786330531]
 position = Vector2(960, 544)
 texture = ExtResource("9_070af")
 
-[node name="CenterContainer" type="CenterContainer" parent="Root"]
+[node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=1956832729]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,111 +55,111 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainVBox" type="VBoxContainer" parent="Root/CenterContainer"]
+[node name="MainVBox" type="VBoxContainer" parent="Root/CenterContainer" unique_id=1688502605]
 z_index = 1
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="OptionsPanel" type="VBoxContainer" parent="Root/CenterContainer/MainVBox"]
+[node name="OptionsPanel" type="VBoxContainer" parent="Root/CenterContainer/MainVBox" unique_id=1059601492]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="OptionsTitle" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="OptionsTitle" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=1508287319]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Opciones"
 horizontal_alignment = 1
 
-[node name="MusicRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="MusicRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=166588597]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MusicLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow"]
+[node name="MusicLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=1122049144]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Música"
 
-[node name="MusicSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow"]
+[node name="MusicSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=1847413069]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SFXRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="SFXRow" type="HBoxContainer" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=547228334]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="SFXLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow"]
+[node name="SFXLabel" type="Label" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=582282744]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Efectos"
 
-[node name="SFXSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow"]
+[node name="SFXSlider" type="HSlider" parent="Root/CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=353775798]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="FullscreenCheck" type="CheckButton" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="FullscreenCheck" type="CheckButton" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=1910370595]
 layout_mode = 2
 text = "Pantalla completa"
 
-[node name="BackButton" type="Button" parent="Root/CenterContainer/MainVBox/OptionsPanel"]
+[node name="BackButton" type="Button" parent="Root/CenterContainer/MainVBox/OptionsPanel" unique_id=787238069]
 layout_mode = 2
 text = "Atrás"
 
-[node name="MainButtonsFree" type="Control" parent="Root"]
+[node name="MainButtonsFree" type="Control" parent="Root" unique_id=1225373028]
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -839.99994
-offset_top = -296.0
-offset_right = -840.0
-offset_bottom = -296.0
+offset_left = -1347.0
+offset_top = -117.000046
+offset_right = -1347.0
+offset_bottom = -117.00006
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.6398422, 1.6398422)
 mouse_filter = 2
 
-[node name="ResumeButton" parent="Root/MainButtonsFree" instance=ExtResource("10_resbtn")]
+[node name="ResumeButton" parent="Root/MainButtonsFree" unique_id=394798675 instance=ExtResource("10_resbtn")]
 layout_mode = 0
 offset_left = 1220.0
 offset_top = 280.0
 offset_right = 1640.0
 offset_bottom = 356.0
 
-[node name="OptionsButton" parent="Root/MainButtonsFree" instance=ExtResource("11_optbtn")]
+[node name="OptionsButton" parent="Root/MainButtonsFree" unique_id=1292863434 instance=ExtResource("11_optbtn")]
 layout_mode = 0
 offset_left = 1220.0
 offset_top = 366.0
 offset_right = 1640.0
 offset_bottom = 442.0
 
-[node name="MainMenuButton" parent="Root/MainButtonsFree" instance=ExtResource("12_menubtn")]
+[node name="MainMenuButton" parent="Root/MainButtonsFree" unique_id=1345117226 instance=ExtResource("12_menubtn")]
 layout_mode = 0
 offset_left = 1220.0
 offset_top = 452.0
 offset_right = 1640.0
 offset_bottom = 528.0
 
-[node name="ExitButton" parent="Root/MainButtonsFree" instance=ExtResource("13_qitbtn")]
+[node name="ExitButton" parent="Root/MainButtonsFree" unique_id=288099887 instance=ExtResource("13_qitbtn")]
 layout_mode = 0
 offset_left = 1220.0
 offset_top = 538.0
 offset_right = 1640.0
 offset_bottom = 614.0
 
-[node name="ClosePauseButton" parent="Root/MainButtonsFree" instance=ExtResource("14_clsbtn")]
+[node name="ClosePauseButton" parent="Root/MainButtonsFree" unique_id=1558484627 instance=ExtResource("14_clsbtn")]
 layout_mode = 0
-offset_left = 1568.0
-offset_top = 268.0
-offset_right = 1668.0
-offset_bottom = 368.0
+offset_left = 1629.425
+offset_top = 121.96299
+offset_right = 1729.425
+offset_bottom = 221.96298
 
-[node name="Pause_Menu" type="AudioStreamPlayer" parent="."]
+[node name="Pause_Menu" type="AudioStreamPlayer" parent="." unique_id=481754206]

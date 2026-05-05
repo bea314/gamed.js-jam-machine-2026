@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://pmenu_btn_quit001"]
+[gd_scene format=3 uid="uid://cox7bir8jdi74"]
 
-[ext_resource type="Script" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
+[ext_resource type="Script" uid="uid://cmfbtnvishtb1" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
 [ext_resource type="Texture2D" uid="uid://csubx1gfn5yt4" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_quit.webp" id="2_idle"]
 [ext_resource type="Texture2D" uid="uid://d0w0y3m2g25el" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_quit_selected.webp" id="3_hover"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
 
-[node name="ExitButton" type="Control"]
+[node name="ExitButton" type="Control" unique_id=1481003424]
 custom_minimum_size = Vector2(420, 76)
 layout_mode = 3
 anchors_preset = 0
@@ -15,15 +15,15 @@ script = ExtResource("1_scr")
 texture_idle = ExtResource("2_idle")
 texture_hover = ExtResource("3_hover")
 
-[node name="Graphic" type="TextureRect" parent="."]
+[node name="Graphic" type="TextureRect" parent="." unique_id=998353692]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2032.0
-offset_top = -496.0
-offset_right = -2032.0
-offset_bottom = -496.0
+offset_left = -1706.0
+offset_top = -495.0
+offset_right = -1706.0
+offset_bottom = -495.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(9.009471, 9.009471)
@@ -32,7 +32,7 @@ texture = ExtResource("2_idle")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ClickArea" type="Button" parent="."]
+[node name="ClickArea" type="Button" parent="." unique_id=845548220]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +48,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
 flat = true
 
-[node name="HitAreaOutline" type="ReferenceRect" parent="."]
+[node name="HitAreaOutline" type="ReferenceRect" parent="." unique_id=504028725]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,4 +58,3 @@ grow_vertical = 2
 mouse_filter = 2
 border_color = Color(0.25, 0.9, 0.55, 0.95)
 border_width = 2.0
-editor_only = true
