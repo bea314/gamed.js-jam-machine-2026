@@ -159,7 +159,7 @@ offset_bottom = 614.0
 layout_mode = 0
 offset_left = 1629.425
 offset_top = 121.96299
-offset_right = 1729.425
-offset_bottom = 221.96298
+offset_right = 1749.425
+offset_bottom = 241.96298
 
 [node name="Pause_Menu" type="AudioStreamPlayer" parent="." unique_id=481754206]

@@ -1,29 +1,27 @@
 [gd_scene format=3 uid="uid://csbyupinujltk"]
 
-[ext_resource type="Script" uid="uid://cmfbtnvishtb1" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
+[ext_resource type="Script" uid="uid://cmwddu7qeoyki" path="res://Ecenes/UI/buttons/pause_menu_button_close.gd" id="1_scr"]
 [ext_resource type="Texture2D" uid="uid://ba65nfnog77ou" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_x.webp" id="2_idle"]
-[ext_resource type="Texture2D" uid="uid://d3i2gg6qsfodk" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_resume_selected.webp" id="3_hover"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
 
 [node name="ClosePauseButton" type="Control" unique_id=2022414018]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(120, 120)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_scr")
 texture_idle = ExtResource("2_idle")
-texture_hover = ExtResource("3_hover")
 
 [node name="Graphic" type="TextureRect" parent="." unique_id=1294236336]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -814.0
-offset_top = -325.0
-offset_right = -814.0
-offset_bottom = -325.0
+offset_left = -974.0
+offset_top = -391.0
+offset_right = -974.0
+offset_bottom = -391.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(11.892884, 11.892884)
