@@ -80,6 +80,8 @@
 [ext_resource type="AudioStream" uid="uid://bise4xgd2u22v" path="res://Recursos/Sound/Guns/SHOTGUN_RELOAD_02.ogg" id="62_0b18u"]
 [ext_resource type="AudioStream" uid="uid://dujdo2sxr0yql" path="res://Recursos/Sound/Guns/MACHINE_GUN_RELOAD_01.ogg" id="63_5pm3d"]
 [ext_resource type="AudioStream" uid="uid://3bxe6wl22ynx" path="res://Recursos/Sound/Guns/MACHINE_GUN_RELOAD_02.ogg" id="64_vyclc"]
+[ext_resource type="Script" path="res://Scripts/player_shield_overlay.gd" id="85_shov"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Map/Buffos/shield.png" id="86_shtx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r1887"]
 radius = 16.0
@@ -617,6 +619,14 @@ texture = ExtResource("14_kgnrb")
 
 [node name="Anim_Player" type="AnimationPlayer" parent="Mesh_Sistem" unique_id=501687736]
 libraries/ = SubResource("AnimationLibrary_fhpmd")
+
+[node name="ShieldOverlay" type="Node2D" parent="Mesh_Sistem" unique_id=772910001]
+z_index = 5
+script = ExtResource("85_shov")
+shield_texture = ExtResource("86_shtx")
+height_vs_torso = 1.12
+
+[node name="Sprite2D" type="Sprite2D" parent="Mesh_Sistem/ShieldOverlay" unique_id=772910002]
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1459835334]
 scale = Vector2(0.022525849, 0.02252583)
