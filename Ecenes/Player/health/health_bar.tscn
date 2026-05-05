@@ -56,6 +56,7 @@ scale = Vector2(3.2369308, 3.1547146)
 mouse_filter = 2
 
 [node name="DamageLabel" type="Label" parent="Root/DamagePopup" unique_id=1680224346]
+visible = false
 layout_mode = 0
 offset_left = 43.868717
 offset_top = 0.6339719

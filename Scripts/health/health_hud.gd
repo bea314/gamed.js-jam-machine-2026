@@ -16,9 +16,7 @@ const DAMAGE_RED := Color(0.92, 0.18, 0.16, 1.0)
 @onready var _ruka_portrait: TextureRect = $Root/RukaPortrait
 @onready var _hp_state: TextureRect = $Root/HPGroup/HPState
 @onready var _hp_track: Control = $Root/HPGroup
-@onready var _shield_clip: Control = $Root/ShieldGroup/ShieldClip
-@onready var _shield_fill: TextureRect = $Root/ShieldGroup/ShieldClip/ShieldFill
-@onready var _shield_track: Control = $Root/ShieldGroup
+@onready var _shield_group: Control = $Root/ShieldGroup
 @onready var _damage_label: Label = $Root/DamagePopup/DamageLabel
 
 var _health: HealthComponent
@@ -26,8 +24,8 @@ var _damage_tween: Tween
 
 
 func _ready() -> void:
-	if not _ruka_portrait or not _hp_state or not _hp_track or not _shield_clip or not _shield_fill or not _shield_track or not _damage_label:
-		push_error("HealthHUD: nodos de UI no encontrados. Revisa rutas en health_hud.gd vs health_bar.tscn.")
+	if not _ruka_portrait or not _hp_state or not _hp_track or not _shield_group or not _damage_label:
+		push_error("HealthHUD: nodos de UI no encontrados. Revisa rutas en health_hud.gd (Root/ShieldGroup, HP, retrato, daño).")
 		return
 
 	_damage_label.visible = false
@@ -47,9 +45,11 @@ func _ready() -> void:
 	_health.shield_changed.connect(_on_shield_changed)
 	_health.damage_taken.connect(_on_damage_taken)
 	_hp_track.resized.connect(_on_bar_track_resized)
-	_shield_track.resized.connect(_on_shield_track_resized)
+	_shield_group.resized.connect(_on_shield_track_resized)
 
-	call_deferred("_sync_from_health")
+	# Un frame de layout antes del primer sync (vida/escudo).
+	await get_tree().process_frame
+	_sync_from_health()
 
 
 func _sync_from_health() -> void:
@@ -143,8 +143,5 @@ func _update_hp_state(health_ratio: float) -> void:
 
 
 func _update_shield_fill(shield_ratio: float) -> void:
-	var full_size := _shield_track.size
-	var visible_width: float = full_size.x * shield_ratio
-	_shield_clip.size = Vector2(visible_width, full_size.y)
-	_shield_fill.size = full_size
-	_shield_clip.visible = visible_width > 0.0
+	var r: float = clampf(shield_ratio, 0.0, 1.0)
+	_shield_group.call(&"set_shield_fill", r)

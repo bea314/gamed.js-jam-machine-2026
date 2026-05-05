@@ -1,15 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3shldgr001vk"]
+[gd_scene format=3 uid="uid://c3shldgr001vk"]
 
 [ext_resource type="Texture2D" uid="uid://vf4twlu3md5k" path="res://Recursos/UXUI/HP y escudo/shield space.png" id="1_shield_space"]
 [ext_resource type="Texture2D" uid="uid://88fui52sgeb2" path="res://Recursos/UXUI/HP y escudo/shield.png" id="2_shield"]
+[ext_resource type="Script" uid="uid://degowx2g1d8d7" path="res://Scripts/health/shield_group.gd" id="3_shield_grp"]
 
-[node name="ShieldGroup" type="Control"]
+[node name="ShieldGroup" type="Control" unique_id=472141201]
+custom_minimum_size = Vector2(240, 28)
 layout_mode = 3
 anchors_preset = 0
-custom_minimum_size = Vector2(240, 28)
+offset_right = 240.0
+offset_bottom = 28.0
 mouse_filter = 2
+script = ExtResource("3_shield_grp")
 
-[node name="ShieldSpace" type="TextureRect" parent="."]
+[node name="ShieldSpace" type="TextureRect" parent="." unique_id=1473412430]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,18 +25,55 @@ texture = ExtResource("1_shield_space")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ShieldClip" type="Control" parent="."]
-clip_contents = true
-layout_mode = 0
-offset_right = 240.0
-offset_bottom = 28.0
+[node name="ShieldArcProgress" type="TextureProgressBar" parent="." unique_id=1348030403]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 101.0
+offset_top = 3.9999995
+offset_right = 421.0
+offset_bottom = 396.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.10272683
+scale = Vector2(0.064726785, 0.061621994)
 mouse_filter = 2
+step = 0.1
+value = 100.0
+fill_mode = 5
+radial_initial_angle = 190.0
+radial_fill_degrees = 133.0
+radial_center_offset = Vector2(55, 13)
+texture_progress = ExtResource("2_shield")
 
-[node name="ShieldFill" type="TextureRect" parent="ShieldClip"]
+[node name="ShieldArcFullPreview" type="TextureRect" parent="." unique_id=1348030404]
+visible = false
 layout_mode = 0
-offset_right = 240.0
-offset_bottom = 28.0
+offset_left = 101.0
+offset_top = 3.9999995
+offset_right = 661.0
+offset_bottom = 424.0
+rotation = -0.10272683
+scale = Vector2(0.064726785, 0.061621994)
 mouse_filter = 2
 texture = ExtResource("2_shield")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="RadialFillCenterGizmo" type="Control" parent="." unique_id=743583287]
+anchors_preset = 0
+offset_left = 430.0
+offset_top = 221.0
+offset_right = 442.0
+offset_bottom = 233.0
+
+[node name="GizmoVisual" type="ColorRect" parent="RadialFillCenterGizmo" unique_id=771300317]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.25, 0.85, 1, 0.5)
