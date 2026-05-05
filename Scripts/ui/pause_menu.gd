@@ -25,6 +25,8 @@ const OPTION_EXIT = preload("uid://3u2gkut4ygea")
 @export_group("Nav sounds")
 @export var nav_sound_file: Array[AudioStream] = []
 
+var _last_nav_control: Control
+
 
 func _ready() -> void:
 	visible = false
@@ -36,12 +38,19 @@ func _ready() -> void:
 	_back_button.pressed.connect(_on_back_pressed)
 	_main_menu_button.pressed.connect(_on_main_menu_pressed)
 	_exit_button.pressed.connect(_on_exit_pressed)
-	_resume_button.mouse_entered.connect(mouse_focus)
-	_close_pause_button.mouse_entered.connect(mouse_focus)
-	_options_button.mouse_entered.connect(mouse_focus)
-	_main_menu_button.mouse_entered.connect(mouse_focus)
-	_exit_button.mouse_entered.connect(mouse_focus)
-	_back_button.mouse_entered.connect(mouse_focus)
+	for c: Control in [
+		_resume_button,
+		_close_pause_button,
+		_options_button,
+		_main_menu_button,
+		_exit_button,
+		_back_button,
+		_music_slider,
+		_sfx_slider,
+		_fullscreen_check,
+	]:
+		c.focus_entered.connect(_on_pause_control_focus_entered.bind(c))
+		c.mouse_entered.connect(_on_pause_control_mouse_entered.bind(c))
 	_music_slider.value_changed.connect(_on_music_changed)
 	_sfx_slider.value_changed.connect(_on_sfx_changed)
 	_fullscreen_check.toggled.connect(_on_fullscreen_toggled)
@@ -91,15 +100,14 @@ func open_pause() -> void:
 	get_tree().paused = true
 	visible = true
 	_set_main_menu_visible(true)
+	_last_nav_control = null
 	_resume_button.grab_focus()
-
-	pause_menu_sound.stream = PAUSE_ENTER
-	pause_menu_sound.play()
 
 func close_pause() -> void:
 	_set_main_menu_visible(true)
 	visible = false
 	get_tree().paused = false
+	_last_nav_control = null
 
 	pause_menu_sound.stream = PAUSE_OUT
 	pause_menu_sound.play()
@@ -131,6 +139,8 @@ func _on_main_menu_pressed() -> void:
 
 
 func _on_exit_pressed() -> void:
+	pause_menu_sound.stream = PAUSE_OUT
+	pause_menu_sound.play()
 	get_tree().quit()
 
 
@@ -153,7 +163,25 @@ func _go_to_scene(path: String) -> void:
 	tree.change_scene_to_file(path)
 
 
-func mouse_focus() -> void:
-	if nav_sound_file.size() > 0:
+func _on_pause_control_focus_entered(which: Control) -> void:
+	if not visible:
+		return
+	if (
+		_last_nav_control != null
+		and _last_nav_control != which
+		and nav_sound_file.size() > 0
+	):
 		pause_menu_sound.stream = nav_sound_file.pick_random()
 		pause_menu_sound.play()
+	else:
+		pause_menu_sound.stream = PAUSE_ENTER
+		pause_menu_sound.play()
+	_last_nav_control = which
+
+
+func _on_pause_control_mouse_entered(which: Control) -> void:
+	if not visible:
+		return
+	pause_menu_sound.stream = PAUSE_ENTER
+	pause_menu_sound.play()
+	_last_nav_control = which
