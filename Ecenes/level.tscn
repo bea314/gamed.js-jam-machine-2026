@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://mtkfihhomh0w" path="res://Ecenes/Player.tscn" id="1_xt35t"]
 [ext_resource type="PackedScene" uid="uid://c5sojnp5a6jq1" path="res://Ecenes/Camera_Gameplay.tscn" id="2_jgr5g"]
 [ext_resource type="PackedScene" uid="uid://dkbxbrq5x45dx" path="res://Ecenes/Music_SISTEM.tscn" id="5_80fcu"]
-[ext_resource type="PackedScene" uid="uid://exojt5fw8fj2" path="res://Ecenes/UI/PauseMenu.tscn" id="6_pause"]
+[ext_resource type="PackedScene" uid="uid://f3522kvpics3" path="res://Ecenes/UI/PauseMenu.tscn" id="6_pause"]
 
 [node name="Level" type="Node2D" unique_id=956876147]
 

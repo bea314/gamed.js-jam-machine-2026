@@ -11,11 +11,14 @@ const EXIT_VOL_DB := -50.0
 const INTRO_AUDIO_FADE_IN_SEC := 1.15
 const INTRO_AUDIO_START_DB := -38.0
 
+const LEVEL_SCENE_PATH := "res://Ecenes/level.tscn"
+
 @onready var _video: VideoStreamPlayer = $VideoLayer/VideoStreamPlayer
 @onready var _fade: ColorRect = $FadeLayer/Fade
 
 var _exiting: bool = false
 var _intro_audio_in_tween: Tween
+var _skip_root: Control
 
 
 func _ready() -> void:
@@ -57,21 +60,34 @@ func _run_exit_fade() -> void:
 	tw.tween_property(_fade, "modulate:a", 1.0, EXIT_FADE_SEC)
 	tw.tween_property(_video, "volume_db", EXIT_VOL_DB, EXIT_FADE_SEC)
 	tw.tween_property(_video, "modulate:a", 0.0, EXIT_FADE_SEC * 0.95)
+	if _skip_root != null:
+		tw.tween_property(_skip_root, "modulate:a", 0.0, EXIT_FADE_SEC * 0.9)
 	await tw.finished
 	_video.stop()
-	# Tras el fundido negro existente en intro, pasamos por la pantalla de carga (mismo tratamiento visual).
-	LoadingTransition.goto_scene("res://Ecenes/level.tscn")
+	_go_to_level_after_intro()
+
+
+## Tras `await` en el fade, el cambio de escena conviene diferir a idle (evita fallos esporádicos en Godot).
+func _go_to_level_after_intro() -> void:
+	call_deferred("_deferred_after_intro")
+
+
+func _deferred_after_intro() -> void:
+	# Tras el último fade, el árbol puede estar en stack raro; deferred + unlock evita colisiones con el candado.
+	LoadingTransition.unlock_for_next_goto()
+	LoadingTransition.goto_scene(LEVEL_SCENE_PATH)
 
 
 func _setup_skip_button() -> void:
 	var layer := CanvasLayer.new()
-	layer.layer = 100
+	layer.layer = 1
 	add_child(layer)
 
 	var root := Control.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(root)
+	_skip_root = root
 
 	var btn := Button.new()
 	btn.text = "SKIP"

@@ -5,6 +5,8 @@ extends Control
 ## Arte en `res://Recursos/Textures/loading/` (atlas ligero).
 const ENTRY_FADE_SEC := 0.55
 const EXIT_FADE_SEC := 0.9
+const MAX_THREAD_WAIT_MS := 15000
+const SCENE_CHANGE_RETRIES := 3
 
 
 ## Velocidad fija del “idle” visible (ligera; no igual al FPS del GIF).
@@ -35,11 +37,14 @@ var _gif_active: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_target_path = LoadingTransition.next_scene_path
+	_target_path = LoadingTransition.get_pending_or_last_scene_path()
 	if _target_path.is_empty():
-		push_error("LoadingScreen: `next_scene_path` vacío; vuelvo al menú.")
 		await get_tree().process_frame
-		get_tree().change_scene_to_file("res://Ecenes/Menu/Menu.tscn")
+		_target_path = LoadingTransition.get_pending_or_last_scene_path()
+	if _target_path.is_empty():
+		push_error("LoadingScreen: sin destino tras transición (`next_scene_path` vacío); vuelvo al menú.")
+		await get_tree().process_frame
+		call_deferred("_deferred_commit_scene_path_or_menu", LoadingTransition.MENU_SCENE_PATH)
 		return
 
 	_bg.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -51,41 +56,77 @@ func _ready() -> void:
 	_fade.modulate = Color(1, 1, 1, 1)
 	_fade.visible = true
 
-	await get_tree().process_frame
+	# Dos frames: layout estable antes del tween (evita reveal “muerto” tras intro en negro).
+	for _i in 2:
+		await get_tree().process_frame
 
 	var reveal := create_tween()
 	reveal.set_trans(Tween.TRANS_QUART)
 	reveal.set_ease(Tween.EASE_OUT)
-	reveal.tween_property(_fade, "modulate:a", 0.0, ENTRY_FADE_SEC)
+	reveal.tween_property(_fade, "modulate", Color(1, 1, 1, 0), ENTRY_FADE_SEC)
 	await reveal.finished
 
-	ResourceLoader.load_threaded_request(_target_path)
+	var packed_scene: PackedScene = await _load_target_packed_scene()
+	if packed_scene == null:
+		push_error("LoadingScreen: no se pudo resolver PackedScene para %s; intento `change_scene_to_file`." % _target_path)
+		await _fade_out_and_change_to_file(_target_path)
+		return
 
+	var commit_path := _target_path
+	LoadingTransition.clear_pending()
+
+	await _play_exit_fade()
+
+	call_deferred("_deferred_commit_loaded_scene", packed_scene, commit_path)
+	return
+
+
+func _load_target_packed_scene() -> PackedScene:
+	if OS.has_feature("web"):
+		var web_ps := _try_load_packed_sync(_target_path)
+		if web_ps != null:
+			return web_ps
+
+	var request_err := ResourceLoader.load_threaded_request(_target_path)
+	if request_err != OK and request_err != ERR_BUSY:
+		push_warning(
+			"LoadingScreen: threaded request %s (%s); pruebo carga síncrona."
+			% [_target_path, error_string(request_err)]
+		)
+		return _try_load_packed_sync(_target_path)
+
+	var started_ms: int = Time.get_ticks_msec()
 	while true:
-		match ResourceLoader.load_threaded_get_status(_target_path):
+		var status := ResourceLoader.load_threaded_get_status(_target_path)
+		match status:
 			ResourceLoader.THREAD_LOAD_LOADED:
 				break
 			ResourceLoader.THREAD_LOAD_FAILED:
-				push_error("LoadingScreen: falló la carga de %s" % _target_path)
-				get_tree().change_scene_to_file("res://Ecenes/Menu/Menu.tscn")
-				return
+				push_warning("LoadingScreen: threaded falló %s; pruebo carga síncrona." % _target_path)
+				return _try_load_packed_sync(_target_path)
+			ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+				push_warning("LoadingScreen: threaded inválido %s; pruebo carga síncrona." % _target_path)
+				return _try_load_packed_sync(_target_path)
 			_:
+				if Time.get_ticks_msec() - started_ms >= MAX_THREAD_WAIT_MS:
+					push_warning("LoadingScreen: timeout threaded %s; pruebo carga síncrona." % _target_path)
+					return _try_load_packed_sync(_target_path)
 				await get_tree().process_frame
 
-	var packed := ResourceLoader.load_threaded_get(_target_path)
-	if packed is PackedScene:
-		LoadingTransition.clear_pending()
+	var packed_res: Variant = ResourceLoader.load_threaded_get(_target_path)
+	if packed_res is PackedScene:
+		return packed_res as PackedScene
+	push_warning("LoadingScreen: resultado threaded no es PackedScene; pruebo carga síncrona.")
+	return _try_load_packed_sync(_target_path)
 
-		var out := create_tween()
-		out.set_trans(Tween.TRANS_QUART)
-		out.set_ease(Tween.EASE_IN)
-		out.tween_property(_fade, "modulate:a", 1.0, EXIT_FADE_SEC)
-		await out.finished
-		get_tree().change_scene_to_packed(packed)
-		return
 
-	push_error("LoadingScreen: recurso no es PackedScene (%s)." % _target_path)
-	get_tree().change_scene_to_file("res://Ecenes/Menu/Menu.tscn")
+func _try_load_packed_sync(path: String) -> PackedScene:
+	if path.is_empty() or not ResourceLoader.exists(path):
+		return null
+	var res: Resource = ResourceLoader.load(path)
+	if res is PackedScene:
+		return res as PackedScene
+	return null
 
 
 func _setup_visual() -> void:
@@ -188,3 +229,93 @@ func _process(delta: float) -> void:
 func _on_art_resized() -> void:
 	if _art != null:
 		_art.pivot_offset = _art.size * 0.5
+
+
+func _play_exit_fade() -> void:
+	var out := create_tween()
+	out.set_trans(Tween.TRANS_QUART)
+	out.set_ease(Tween.EASE_IN)
+	out.tween_property(_fade, "modulate:a", 1.0, EXIT_FADE_SEC)
+	await out.finished
+
+
+func _fade_out_and_change_to_file(path: String) -> void:
+	LoadingTransition.clear_pending()
+	await _play_exit_fade()
+	var safe_path := path if ResourceLoader.exists(path) else LoadingTransition.MENU_SCENE_PATH
+	call_deferred("_deferred_commit_scene_path_or_menu", safe_path)
+
+
+func _deferred_commit_loaded_scene(packed_scene: PackedScene, commit_path: String) -> void:
+	if not is_inside_tree():
+		return
+	var tree := get_tree()
+	var err: int = _with_retries(
+		SCENE_CHANGE_RETRIES,
+		tree.change_scene_to_packed.bind(packed_scene),
+		"change_scene_to_packed(%s)" % commit_path
+	)
+	if err != OK:
+		push_warning(
+			"LoadingScreen: change_scene_to_packed err=%s → change_scene_to_file(%s)"
+			% [error_string(err), commit_path]
+		)
+		err = _with_retries(
+			SCENE_CHANGE_RETRIES,
+			tree.change_scene_to_file.bind(commit_path),
+			"change_scene_to_file(%s)" % commit_path
+		)
+	if err != OK:
+		push_warning(
+			"LoadingScreen: change_scene_to_file err=%s → change_scene_to_node(instantiate)"
+			% error_string(err)
+		)
+		var instance: Node = packed_scene.instantiate()
+		if instance != null:
+			err = tree.change_scene_to_node(instance)
+	if err != OK:
+		push_error(
+			"LoadingScreen: no se pudo montar el nivel %s (%s); vuelvo al menú."
+			% [commit_path, error_string(err)]
+		)
+		_with_retries(
+			SCENE_CHANGE_RETRIES,
+			tree.change_scene_to_file.bind(LoadingTransition.MENU_SCENE_PATH),
+			"change_scene_to_file(menu)"
+		)
+
+
+func _deferred_commit_scene_path_or_menu(path: String) -> void:
+	if not is_inside_tree():
+		return
+	var tree := get_tree()
+	var err: int = _with_retries(
+		SCENE_CHANGE_RETRIES,
+		tree.change_scene_to_file.bind(path),
+		"change_scene_to_file(%s)" % path
+	)
+	if err != OK:
+		push_error(
+			"LoadingScreen: change_scene_to_file(%s) err=%s; vuelvo al menú."
+			% [path, error_string(err)]
+		)
+		_with_retries(
+			SCENE_CHANGE_RETRIES,
+			tree.change_scene_to_file.bind(LoadingTransition.MENU_SCENE_PATH),
+			"change_scene_to_file(menu)"
+		)
+
+
+func _with_retries(retries: int, change: Callable, label: String) -> int:
+	var attempts := maxi(1, retries)
+	var err := FAILED
+	for i in range(attempts):
+		err = change.call()
+		if err == OK:
+			return OK
+		if i < attempts - 1:
+			push_warning(
+				"LoadingScreen: reintento %s/%s %s err=%s"
+				% [i + 1, attempts, label, error_string(err)]
+			)
+	return err

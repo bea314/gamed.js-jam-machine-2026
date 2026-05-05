@@ -21,7 +21,7 @@ layer = 30
 script = ExtResource("1_pm")
 nav_sound_file = Array[AudioStream]([ExtResource("2_a8mf0"), ExtResource("3_yh7ja"), ExtResource("4_070af"), ExtResource("5_81ka1"), ExtResource("6_vmb11"), ExtResource("7_y83d7")])
 
-[node name="Root" type="Control"]
+[node name="Root" type="Control" parent="."]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15

@@ -47,8 +47,15 @@ func _ready() -> void:
 func generate_dungeon():
 	dungeon_data.clear()
 	add_room_data(Vector2i(0, 0), "start")
-	
+	var guard := 0
 	while dungeon_data.size() < total_rooms_goal:
+		guard += 1
+		if guard > 12000:
+			push_error(
+				"LevelGeneration: demasiados intentos sin alcanzar total_rooms_goal=%s (actual=%s); aborto para evitar bloqueo."
+				% [total_rooms_goal, dungeon_data.size()]
+			)
+			break
 		var keys = dungeon_data.keys()
 		var random_origin = keys[randi() % keys.size()]
 		var direction = directions.pick_random()
