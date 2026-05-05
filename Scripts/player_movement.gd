@@ -14,6 +14,12 @@ const _GAME_OVER_SCENE := preload("res://Ecenes/UI/GameOverScreen.tscn")
 @export var turn_acceleration_multiplier: float = 1.9
 ## Impulso al recibir golpe (alejándose del origen del daño).
 @export var hit_knockback_speed: float = 110.0
+## Sacudida de `Camera2D` al perder vida (suave; la cinemática del boss la ignora).
+@export var damage_camera_shake_hp_magnitude: float = 2.2
+@export var damage_camera_shake_hp_duration: float = 0.14
+## Sacudida cuando el daño lo absorbe solo el escudo (más leve).
+@export var damage_camera_shake_shield_magnitude: float = 1.15
+@export var damage_camera_shake_shield_duration: float = 0.11
 ## Color del parpadeo al recibir daño (vuelve a blanco).
 @export var hit_flash_tint: Color = Color(1.0, 0.55, 0.55, 1.0)
 ## Medio ciclo blanco↔tinte durante `HealthComponent` i-frames (acoplado a `is_invulnerable`).
@@ -71,6 +77,7 @@ func _ready() -> void:
 	if _health:
 		_health.died.connect(_on_health_died)
 		_health.damage_taken.connect(_on_damage_taken)
+		_health.shield_damage_taken.connect(_on_shield_damage_camera_shake)
 
 	weapon_hud.setup(weapon_manager)
 	weapon_manager.setup(self)
@@ -171,7 +178,18 @@ func set_movement_speed_flat_bonus(bonus: float) -> void:
 	_movement_speed_flat_bonus = bonus
 
 
+func _trigger_damage_camera_shake(magnitude: float, duration: float) -> void:
+	var cam := get_viewport().get_camera_2d()
+	if cam != null and cam.has_method(&"shake_once"):
+		cam.shake_once(magnitude, duration)
+
+
+func _on_shield_damage_camera_shake(_amount: int, _hit_from_global: Vector2) -> void:
+	_trigger_damage_camera_shake(damage_camera_shake_shield_magnitude, damage_camera_shake_shield_duration)
+
+
 func _on_damage_taken(_amount: int, hit_from_global: Vector2) -> void:
+	_trigger_damage_camera_shake(damage_camera_shake_hp_magnitude, damage_camera_shake_hp_duration)
 	_invuln_flicker_time = 0.0
 	audio_player.stream = damage_taken_sounds.pick_random()
 	audio_player.play()

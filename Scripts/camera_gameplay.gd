@@ -99,6 +99,8 @@ func finish_boss_cinematic_focus(player: Node2D) -> void:
 
 
 func shake_once(magnitude: float = 3.0, duration: float = 0.18) -> void:
+	if _cinematic_active:
+		return
 	if magnitude <= 0.0 or duration <= 0.0:
 		offset = Vector2.ZERO
 		return

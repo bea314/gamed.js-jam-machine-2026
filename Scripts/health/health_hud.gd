@@ -12,6 +12,8 @@ const HP_TEXTURES = [
 ]
 
 const DAMAGE_RED := Color(0.92, 0.18, 0.16, 1.0)
+## Pulso de golpe sin `scale` (escalar TextureRect con pivote desplaza el layout en Godot).
+const HUD_PULSE_PEAK := Color(1.14, 1.1, 1.1, 1.0)
 
 @onready var _ruka_portrait: TextureRect = $Root/RukaPortrait
 @onready var _hp_state: TextureRect = $Root/HPGroup/HPState
@@ -21,6 +23,7 @@ const DAMAGE_RED := Color(0.92, 0.18, 0.16, 1.0)
 
 var _health: HealthComponent
 var _damage_tween: Tween
+var _pulse_tween: Tween
 
 
 func _ready() -> void:
@@ -86,11 +89,27 @@ func _on_shield_changed(current_shield: int, max_shield: int) -> void:
 	_update_shield_fill(ratio)
 
 
+func _play_hud_hit_pulse() -> void:
+	if _ruka_portrait == null or _hp_track == null:
+		return
+	if _pulse_tween != null and is_instance_valid(_pulse_tween):
+		_pulse_tween.kill()
+	_pulse_tween = create_tween()
+	_pulse_tween.set_parallel(true)
+	_pulse_tween.tween_property(_ruka_portrait, "modulate", HUD_PULSE_PEAK, 0.055).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_pulse_tween.tween_property(_hp_track, "modulate", HUD_PULSE_PEAK, 0.055).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_pulse_tween.set_parallel(false)
+	_pulse_tween.set_parallel(true)
+	_pulse_tween.tween_property(_ruka_portrait, "modulate", Color.WHITE, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_pulse_tween.tween_property(_hp_track, "modulate", Color.WHITE, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
 func _on_damage_taken(_amount: int, _hit_from_global: Vector2 = Vector2.ZERO) -> void:
 	if _damage_label == null:
 		return
 	_damage_label.text = "-%d" % _amount
 	_damage_label.visible = true
+	_play_hud_hit_pulse()
 	call_deferred("_play_damage_feedback")
 
 
