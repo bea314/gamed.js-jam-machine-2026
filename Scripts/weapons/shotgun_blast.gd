@@ -1,11 +1,34 @@
+@tool
 extends Area2D
 
+@export_group("Combate")
 @export var damage: int = 1
+
+@export_subgroup("Área del cono (vértice en origen local, abre hacia +X)")
+var _cone_half_angle_deg: float = 38.0
 ## Half-angle of the cone (total arc = 2 × esto): triángulo con vértice en el origen local +X.
-@export var cone_half_angle_deg: float = 38.0
-@export var sector_radius: float = 120.0
-## Segundos que se mantiene visible el triángulo (el daño se aplica al instante).
+@export_range(1.0, 89.0, 0.5) var cone_half_angle_deg: float:
+	get:
+		return _cone_half_angle_deg
+	set(v):
+		_cone_half_angle_deg = v
+		_queue_geometry_refresh()
+
+var _sector_radius: float = 120.0
+@export var sector_radius: float:
+	get:
+		return _sector_radius
+	set(v):
+		_sector_radius = maxf(v, 1.0)
+		_queue_geometry_refresh()
+
+@export_subgroup("Tiempo en pantalla")
+## Segundos que se mantiene visible el efecto (el daño se aplica al instante).
 @export var visual_duration: float = 0.14
+
+@export_group("Vista previa")
+## En el editor siempre ves relleno + borde encima del sprite. En partida usa solo la textura; activa esto solo para depuración.
+@export var show_hitbox_overlay_in_game: bool = false
 
 var damage_origin: Vector2 = Vector2.ZERO
 var _damaged: Dictionary = {}
@@ -25,9 +48,12 @@ func configure(world_pos: Vector2, aim: Vector2, origin: Vector2, dmg: int) -> v
 	_configure_damage = dmg
 
 
+func _queue_geometry_refresh() -> void:
+	call_deferred("_apply_geometry")
+
+
 func _build_triangle_verts() -> PackedVector2Array:
 	var half_r := deg_to_rad(cone_half_angle_deg)
-	# Triángulo: vértice en origen, base como arco de dos puntos (cono / "triángulo" de área).
 	return PackedVector2Array([
 		Vector2.ZERO,
 		Vector2(cos(-half_r), sin(-half_r)) * sector_radius,
@@ -35,12 +61,42 @@ func _build_triangle_verts() -> PackedVector2Array:
 	])
 
 
+func _apply_geometry() -> void:
+	if not is_inside_tree():
+		return
+	var verts := _build_triangle_verts()
+	var cp := get_node_or_null("CollisionPolygon2D") as CollisionPolygon2D
+	if cp:
+		cp.polygon = verts
+	var vis := get_node_or_null("BlastVisual") as Polygon2D
+	if vis:
+		vis.polygon = verts
+		vis.color = Color(1.0, 0.78, 0.2, 0.62)
+	var outline := get_node_or_null("BlastOutline") as Line2D
+	if outline:
+		outline.points = verts
+		outline.closed = true
+	_update_overlay_visibility()
+
+
+func _update_overlay_visibility() -> void:
+	var show_overlay := Engine.is_editor_hint() or show_hitbox_overlay_in_game
+	var vis := get_node_or_null("BlastVisual") as Polygon2D
+	if vis:
+		vis.visible = show_overlay
+	var outline := get_node_or_null("BlastOutline") as Line2D
+	if outline:
+		outline.visible = show_overlay
+
+
 func _ready() -> void:
-	# Por encima del suelo y del jugador (z típico 0–10) para que el cono se vea.
 	z_index = 48
 	z_as_relative = false
+	_apply_geometry()
 
-	# layer 1 (world): must be non-zero so enemy bodies (mask includes world) pair with this Area2D.
+	if Engine.is_editor_hint():
+		return
+
 	collision_layer = 1
 	collision_mask = 4
 	monitorable = false
@@ -51,36 +107,7 @@ func _ready() -> void:
 	global_rotation = _configure_aim.angle()
 
 	body_entered.connect(_on_body_entered)
-
-	var verts := _build_triangle_verts()
-
-	var cp := get_node_or_null("CollisionPolygon2D") as CollisionPolygon2D
-	if cp:
-		cp.polygon = verts
-	var vis := get_node_or_null("BlastVisual") as Polygon2D
-	if vis:
-		vis.polygon = verts
-		vis.z_index = 1
-		vis.z_as_relative = false
-		vis.color = Color(1.0, 0.78, 0.2, 0.62)
-	_outline_triangle(verts)
-
-
-func _outline_triangle(verts: PackedVector2Array) -> void:
-	if verts.size() < 3:
-		return
-	var line := Line2D.new()
-	line.z_index = 2
-	line.z_as_relative = false
-	line.width = 2.5
-	line.default_color = Color(1.0, 0.95, 0.45, 0.95)
-	line.joint_mode = Line2D.LINE_JOINT_ROUND
-	line.begin_cap_mode = Line2D.LINE_CAP_ROUND
-	line.end_cap_mode = Line2D.LINE_CAP_ROUND
-	var closed := verts.duplicate()
-	closed.append(verts[0])
-	line.points = closed
-	add_child(line)
+	_update_overlay_visibility()
 
 
 func _on_body_entered(body: Node) -> void:
@@ -131,7 +158,6 @@ func _apply_overlapping() -> void:
 func run_blast() -> void:
 	await get_tree().physics_frame
 	_apply_overlapping()
-	# Mantener el triángulo visible lo suficiente para leerlo (antes: 1 frame ≈ invisible).
 	if visual_duration > 0.0:
 		await get_tree().create_timer(visual_duration).timeout
 	queue_free()
