@@ -2,6 +2,8 @@ extends CanvasLayer
 
 ## Único HUD de armas del juego: instanciado solo en `Ecenes/Player.tscn` como hijo `WeaponHud`.
 ## HUD munición: balas en cargador | capacidad cargador | **reserva** (solo bolsa; sin lo cargado en el arma).
+## Slots bajo `Root/WeaponSlotsRoot`: **no van dentro de VBox/HBox** para poder moverlos en el editor con `layout_mode` manual.
+## Mueve todo el grupo arrastrando `WeaponSlotsRoot`; mueve cada arma activando un `HudWeaponSlotN` y editando posición/tamaño (hijos con anclas llenan cada slot).
 
 @export_group("Weapon icons")
 @export var texture_wrench: Texture2D
@@ -10,7 +12,13 @@ extends CanvasLayer
 @export var texture_machine_gun: Texture2D
 
 @onready var _weapon_name: Label = $Root/WeaponNameLabel
-@onready var _icon_tex: TextureRect = $Root/VBox/WeaponIconSlot/InsetArea/WeaponIconTexture
+## Orden HUD: índice 0 = arma **actual** (slot visual 1); siguientes = rotación cíclica 2→4.
+@onready var _slot_icons: Array[TextureRect] = [
+	%HudWeaponSlot1/WeaponIcon,
+	%HudWeaponSlot2/WeaponIcon,
+	%HudWeaponSlot3/WeaponIcon,
+	%HudWeaponSlot4/WeaponIcon,
+]
 @onready var _ammo_current: Label = $Root/AmmoCurrentInWeaponLabel
 @onready var _ammo_magazine_capacity: Label = $Root/AmmoMagazineCapacityLabel
 @onready var _ammo_reserve: Label = $Root/AmmoReserveLabel
@@ -115,12 +123,25 @@ func _texture_for_weapon(name: String) -> Texture2D:
 			return null
 
 
-func _apply_weapon_icon(weapon_name: String) -> void:
-	var tex := _texture_for_weapon(weapon_name)
-	var has_tex := tex != null
-	if _icon_tex:
-		_icon_tex.texture = tex
-		_icon_tex.visible = has_tex
+func _apply_weapon_slot_row() -> void:
+	if _weapon_manager == null:
+		return
+	var list: Array[WeaponBase] = _weapon_manager.weapons
+	if list.is_empty():
+		return
+	var n := list.size()
+	var start: int = _weapon_manager.current_index
+	for i in _slot_icons.size():
+		var tr: TextureRect = _slot_icons[i]
+		if tr == null:
+			continue
+		var w_idx: int = (start + i) % n
+		var w: WeaponBase = list[w_idx]
+		var tex: Texture2D = null
+		if w != null:
+			tex = _texture_for_weapon(w.weapon_name)
+		tr.texture = tex
+		tr.visible = tex != null
 
 
 ## Tras pickups u otros cambios, re-sincroniza con el arma actual (reserva = bolsa).
@@ -166,4 +187,4 @@ func _on_weapon_changed(
 			_ammo_reserve.text = "(%d)" % reserve_ammo
 	if _reload_label:
 		_reload_label.visible = is_reloading and magazine_size > 0
-	_apply_weapon_icon(weapon_name)
+	_apply_weapon_slot_row()
