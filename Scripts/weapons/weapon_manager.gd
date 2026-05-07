@@ -77,7 +77,6 @@ func setup(player: Node2D) -> void:
 		add_child(w)
 		w.reload_started.connect(_on_weapon_reload_started)
 		w.ammo_changed.connect(_on_ammo_changed)
-		w.reload_started.connect(_emit_weapon_changed)
 		w.reload_finished.connect(_emit_weapon_changed)
 		w.weapon_fired.connect(_forward_weapon_fired)
 		if w.has_method("set_damage_flat_bonus"):
