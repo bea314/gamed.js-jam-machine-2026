@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://b85e04ko0rrme"]
 
 [ext_resource type="Script" uid="uid://bnenvj6ya4ysi" path="res://Scripts/weapons/weapon_hud.gd" id="1_hud"]
-[ext_resource type="Texture2D" uid="uid://c0tdmeurx54g3" path="res://Recursos/Textures/Menus/elementos menu/text box short.png" id="2_frame"]
+[ext_resource type="Texture2D" uid="uid://dy84w6uh7cpjo" path="res://Recursos/UXUI/Armas/interface/background.webp" id="2_7dv11"]
+[ext_resource type="Texture2D" uid="uid://dvqu6cct5bym1" path="res://Recursos/UXUI/Armas/interface/containers.webp" id="3_xk6ph"]
+[ext_resource type="FontFile" uid="uid://dlxrsbe2brulj" path="res://Recursos/KOMTXKBI.ttf" id="4_kom"]
 
 [node name="WeaponHud" type="CanvasLayer" unique_id=220290602]
 layer = 25
@@ -19,14 +21,6 @@ offset_bottom = 220.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Panel" type="Panel" parent="Root" unique_id=12002651]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="VBox" type="VBoxContainer" parent="Root" unique_id=1389444091]
 layout_mode = 1
 anchors_preset = 15
@@ -40,42 +34,28 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="WeaponNameLabel" type="Label" parent="Root/VBox" unique_id=1642555306]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "Weapon"
+[node name="Background" type="Sprite2D" parent="Root/VBox" unique_id=1613296903]
+position = Vector2(-617.5, 503)
+texture = ExtResource("2_7dv11")
+
+[node name="Containers" type="Sprite2D" parent="Root/VBox" unique_id=1926434824]
+position = Vector2(-616.5, 502)
+texture = ExtResource("3_xk6ph")
 
 [node name="WeaponIconSlot" type="Control" parent="Root/VBox" unique_id=1507962342]
 custom_minimum_size = Vector2(240, 78)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="FrameTextBox" type="TextureRect" parent="Root/VBox/WeaponIconSlot" unique_id=415255472]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.5
-offset_top = -45.0
-offset_right = 0.5
-offset_bottom = -45.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.4794897, 2.18912)
-mouse_filter = 2
-texture = ExtResource("2_frame")
-expand_mode = 1
-stretch_mode = 5
-
 [node name="InsetArea" type="Control" parent="Root/VBox/WeaponIconSlot" unique_id=476853910]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 123.49999
-offset_top = 7.0000005
-offset_right = 91.5
-offset_bottom = -21.0
+offset_left = -100.49997
+offset_top = 47.999985
+offset_right = -132.49997
+offset_bottom = 19.999985
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.49441504, 1.5799153)
@@ -86,11 +66,54 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.045191
+offset_top = -1.265892
+offset_right = 4.0451965
+offset_bottom = -1.2659035
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
 [node name="WeaponIconTexture" type="TextureRect" parent="Root/VBox/WeaponIconSlot/InsetArea" unique_id=1515552111]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InsetArea2" type="Control" parent="Root/VBox/WeaponIconSlot" unique_id=203441321]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.49997
+offset_top = 47.999985
+offset_right = -132.49997
+offset_bottom = 19.999985
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.49441504, 1.5799153)
+mouse_filter = 2
+
+[node name="WhiteCanvas" type="ColorRect" parent="Root/VBox/WeaponIconSlot/InsetArea2" unique_id=1512532241]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.045191
+offset_top = -1.265892
+offset_right = 4.0451965
+offset_bottom = -1.2659035
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WeaponIconTexture" type="TextureRect" parent="Root/VBox/WeaponIconSlot/InsetArea2" unique_id=228537746]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -125,3 +148,22 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.78, 0.82, 1)
 theme_override_font_sizes/font_size = 12
 text = "Q / E · mouse wheel · 1–4   |   R reload   |   LMB · Space · J attack"
+
+[node name="WeaponNameLabel" type="Label" parent="Root" unique_id=1642555306]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -354.0
+offset_top = 179.0
+offset_right = -94.0
+offset_bottom = 207.0
+grow_horizontal = 2
+scale = Vector2(1.2695563, 1.2695563)
+pivot_offset = Vector2(130, 14)
+theme_override_colors/font_color = Color(0.976471, 0.937255, 0.454902, 1)
+theme_override_fonts/font = ExtResource("4_kom")
+theme_override_font_sizes/font_size = 22
+text = "Weapon"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -8,7 +8,7 @@ extends CanvasLayer
 @export var texture_shotgun: Texture2D
 @export var texture_machine_gun: Texture2D
 
-@onready var _weapon_name: Label = $Root/VBox/WeaponNameLabel
+@onready var _weapon_name: Label = $Root/WeaponNameLabel
 @onready var _icon_tex: TextureRect = $Root/VBox/WeaponIconSlot/InsetArea/WeaponIconTexture
 @onready var _ammo: Label = $Root/VBox/AmmoLabel
 @onready var _reload_label: Label = $Root/VBox/ReloadLabel
