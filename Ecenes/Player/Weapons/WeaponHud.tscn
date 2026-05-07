@@ -1,18 +1,17 @@
-[gd_scene load_steps=1 format=3 uid="uid://weaponhudmoonjam"]
+[gd_scene format=3 uid="uid://b85e04ko0rrme"]
 
-[ext_resource type="Script" path="res://Scripts/weapons/weapon_hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://bnenvj6ya4ysi" path="res://Scripts/weapons/weapon_hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://c0tdmeurx54g3" path="res://Recursos/Textures/Menus/elementos menu/text box short.png" id="2_frame"]
 
-[node name="WeaponHud" type="CanvasLayer"]
+[node name="WeaponHud" type="CanvasLayer" unique_id=220290602]
 layer = 25
 script = ExtResource("1_hud")
 
-[node name="Root" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 2
+[node name="Root" type="Control" parent="." unique_id=164322957]
+layout_mode = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 offset_left = -300.0
 offset_top = 24.0
 offset_right = -20.0
@@ -20,7 +19,7 @@ offset_bottom = 220.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Panel" type="Panel" parent="Root"]
+[node name="Panel" type="Panel" parent="Root" unique_id=12002651]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="Root"]
+[node name="VBox" type="VBoxContainer" parent="Root" unique_id=1389444091]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,37 +40,87 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="WeaponNameLabel" type="Label" parent="Root/VBox"]
+[node name="WeaponNameLabel" type="Label" parent="Root/VBox" unique_id=1642555306]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Weapon"
 
-[node name="WeaponIcon" type="ColorRect" parent="Root/VBox"]
-custom_minimum_size = Vector2(52, 52)
+[node name="WeaponIconSlot" type="Control" parent="Root/VBox" unique_id=1507962342]
+custom_minimum_size = Vector2(240, 78)
 layout_mode = 2
 size_flags_horizontal = 0
-color = Color(0.55, 0.58, 0.62, 1)
 
-[node name="AmmoLabel" type="Label" parent="Root/VBox"]
+[node name="FrameTextBox" type="TextureRect" parent="Root/VBox/WeaponIconSlot" unique_id=415255472]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.5
+offset_top = -45.0
+offset_right = 0.5
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.4794897, 2.18912)
+mouse_filter = 2
+texture = ExtResource("2_frame")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InsetArea" type="Control" parent="Root/VBox/WeaponIconSlot" unique_id=476853910]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 123.49999
+offset_top = 7.0000005
+offset_right = 91.5
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.49441504, 1.5799153)
+mouse_filter = 2
+
+[node name="WhiteCanvas" type="ColorRect" parent="Root/VBox/WeaponIconSlot/InsetArea" unique_id=1075006613]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WeaponIconTexture" type="TextureRect" parent="Root/VBox/WeaponIconSlot/InsetArea" unique_id=1515552111]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AmmoLabel" type="Label" parent="Root/VBox" unique_id=905715567]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "—"
 
-[node name="PickupFeedLabel" type="Label" parent="Root/VBox"]
+[node name="PickupFeedLabel" type="Label" parent="Root/VBox" unique_id=941792673]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45, 1, 0.55, 1)
 theme_override_font_sizes/font_size = 18
-text = ""
 
-[node name="ReloadLabel" type="Label" parent="Root/VBox"]
+[node name="ReloadLabel" type="Label" parent="Root/VBox" unique_id=472849851]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.65, 0.35, 1)
 theme_override_font_sizes/font_size = 14
 text = "RELOADING…"
 
-[node name="HintsLabel" type="Label" parent="Root/VBox"]
+[node name="HintsLabel" type="Label" parent="Root/VBox" unique_id=2018919269]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.78, 0.82, 1)
 theme_override_font_sizes/font_size = 12

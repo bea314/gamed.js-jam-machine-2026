@@ -1,7 +1,15 @@
 extends CanvasLayer
 
+## Único HUD de armas del juego: instanciado solo en `Ecenes/Player.tscn` como hijo `WeaponHud`.
+
+@export_group("Weapon icons")
+@export var texture_wrench: Texture2D
+@export var texture_revolver: Texture2D
+@export var texture_shotgun: Texture2D
+@export var texture_machine_gun: Texture2D
+
 @onready var _weapon_name: Label = $Root/VBox/WeaponNameLabel
-@onready var _icon: ColorRect = $Root/VBox/WeaponIcon
+@onready var _icon_tex: TextureRect = $Root/VBox/WeaponIconSlot/InsetArea/WeaponIconTexture
 @onready var _ammo: Label = $Root/VBox/AmmoLabel
 @onready var _reload_label: Label = $Root/VBox/ReloadLabel
 @onready var _pickup_feed: Label = $Root/VBox/PickupFeedLabel
@@ -66,6 +74,28 @@ func _label_for_ammo_kind(kind: StringName) -> String:
 			return str(kind)
 
 
+func _texture_for_weapon(name: String) -> Texture2D:
+	match name:
+		"Wrench":
+			return texture_wrench
+		"Revolver":
+			return texture_revolver
+		"Shotgun":
+			return texture_shotgun
+		"Machine Gun":
+			return texture_machine_gun
+		_:
+			return null
+
+
+func _apply_weapon_icon(weapon_name: String) -> void:
+	var tex := _texture_for_weapon(weapon_name)
+	var has_tex := tex != null
+	if _icon_tex:
+		_icon_tex.texture = tex
+		_icon_tex.visible = has_tex
+
+
 func _on_weapon_changed(
 	weapon_name: String,
 	current_ammo: int,
@@ -82,19 +112,4 @@ func _on_weapon_changed(
 			_ammo.text = "%d / %d  (res: %d)" % [current_ammo, magazine_size, reserve_ammo]
 	if _reload_label:
 		_reload_label.visible = is_reloading and magazine_size > 0
-	if _icon:
-		_icon.color = _color_for_weapon(weapon_name)
-
-
-func _color_for_weapon(name: String) -> Color:
-	match name:
-		"Wrench":
-			return Color(0.65, 0.7, 0.75)
-		"Revolver":
-			return Color(0.85, 0.55, 0.35)
-		"Shotgun":
-			return Color(0.55, 0.7, 0.45)
-		"Machine Gun":
-			return Color(0.75, 0.4, 0.4)
-		_:
-			return Color(0.7, 0.7, 0.7)
+	_apply_weapon_icon(weapon_name)
