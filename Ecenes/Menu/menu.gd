@@ -1,18 +1,12 @@
 extends Control
 
-@onready var _settings: GameSettings = get_node("/root/SettingsManager") as GameSettings
-
 @onready var _main_buttons: Control = $MainButtonsFree
-@onready var _options_panel: VBoxContainer = $CenterContainer/MainVBox/OptionsPanel
+@onready var _options_menu: CanvasLayer = $OptionsMenu
 @onready var _new_game_button: BaseButton = $MainButtonsFree/NewGameButton/ClickArea
 @onready var _options_button: BaseButton = $MainButtonsFree/OptionsButton/ClickArea
 @onready var _logros_button: BaseButton = $MainButtonsFree/LogrosButton/ClickArea
 @onready var _credits_button: BaseButton = $MainButtonsFree/CreditsButton/ClickArea
 @onready var _exit_button: BaseButton = $MainButtonsFree/ExitButton/ClickArea
-@onready var _music_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/MusicRow/MusicSlider
-@onready var _sfx_slider: HSlider = $CenterContainer/MainVBox/OptionsPanel/SFXRow/SFXSlider
-@onready var _fullscreen_check: CheckButton = $CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
-@onready var _back_button: Button = $CenterContainer/MainVBox/OptionsPanel/BackButton
 
 const NAV_SOUNDS: Array[AudioStream] = [
 	preload("res://Recursos/Sound/Menus/NAV_01.ogg"),
@@ -55,16 +49,8 @@ func _ready() -> void:
 	_credits_button.mouse_entered.connect(mouse_focus)
 	_exit_button.pressed.connect(_on_exit_pressed)
 	_exit_button.mouse_entered.connect(mouse_focus)
-	_back_button.pressed.connect(_on_back_pressed)
-	_music_slider.value_changed.connect(_on_music_changed)
-	_sfx_slider.value_changed.connect(_on_sfx_changed)
-	_fullscreen_check.toggled.connect(_on_fullscreen_toggled)
+	_options_menu.closed.connect(_on_options_menu_closed)
 
-	_music_slider.value = _settings.music_volume
-	_sfx_slider.value = _settings.sfx_volume
-	_fullscreen_check.button_pressed = _settings.fullscreen
-
-	_options_panel.visible = false
 
 # NEW GAME BUTTON ==============
 func _on_new_game_pressed() -> void:
@@ -129,8 +115,14 @@ func show_victory_message() -> void:
 # OPTIONS BUTTON ==============
 func _on_options_pressed() -> void:
 	_main_buttons.visible = false
-	_options_panel.visible = true
+	_options_menu.show_panel()
 	$Start.stream = MENU_ENTER
+	$Start.play()
+
+
+func _on_options_menu_closed() -> void:
+	_main_buttons.visible = true
+	$Start.stream = MENU_EXIT
 	$Start.play()
 
 # LOGROS / ACHIEVEMENTS ==============
@@ -150,23 +142,6 @@ func _on_exit_pressed() -> void:
 func _on_mouse_entered() -> void:
 	mouse_focus()
 # =============
-
-func _on_back_pressed() -> void:
-	_options_panel.visible = false
-	_main_buttons.visible = true
-	$Start.stream = MENU_EXIT
-	$Start.play()
-
-func _on_music_changed(value: float) -> void:
-	_settings.set_music_volume(value)
-
-
-func _on_sfx_changed(value: float) -> void:
-	_settings.set_sfx_volume(value)
-
-
-func _on_fullscreen_toggled(pressed: bool) -> void:
-	_settings.set_fullscreen(pressed)
 
 func mouse_focus() -> void:
 	audio_sfxs.stream = NAV_SOUNDS.pick_random()

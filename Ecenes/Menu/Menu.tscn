@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dnkc7wty2kbfj" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_sombras.webp" id="17_sm15n"]
 [ext_resource type="PackedScene" uid="uid://dmmbtncredt01" path="res://Ecenes/Menu/buttons/main_menu_button_creditos.tscn" id="18_crebtn"]
 [ext_resource type="PackedScene" uid="uid://dmmbtnexit001" path="res://Ecenes/Menu/buttons/main_menu_button_exit.tscn" id="19_exibtn"]
+[ext_resource type="PackedScene" uid="uid://dmoptionsmenu001" path="res://Ecenes/UI/OptionsMenu.tscn" id="20_opts"]
 
 [sub_resource type="Animation" id="Animation_v0hnx"]
 length = 0.001
@@ -77,71 +78,6 @@ color = Color(0.0784314, 0.0784314, 0.117647, 1)
 [node name="MainMenu" type="Sprite2D" parent="Background" unique_id=1204853767]
 position = Vector2(960, 536)
 texture = ExtResource("8_51tj1")
-
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=154465064]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MainVBox" type="VBoxContainer" parent="CenterContainer" unique_id=1388275231]
-z_index = 1
-custom_minimum_size = Vector2(420, 0)
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="OptionsPanel" type="VBoxContainer" parent="CenterContainer/MainVBox" unique_id=726346387]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="OptionsTitle" type="Label" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=1351181469]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Options"
-horizontal_alignment = 1
-
-[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=543402766]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="MusicLabel" type="Label" parent="CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=39181632]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-text = "Music"
-
-[node name="MusicSlider" type="HSlider" parent="CenterContainer/MainVBox/OptionsPanel/MusicRow" unique_id=1185868217]
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="SFXRow" type="HBoxContainer" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=77389758]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="SFXLabel" type="Label" parent="CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=252786509]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-text = "SFX"
-
-[node name="SFXSlider" type="HSlider" parent="CenterContainer/MainVBox/OptionsPanel/SFXRow" unique_id=1324878094]
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="FullscreenCheck" type="CheckButton" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=474529384]
-layout_mode = 2
-text = "Fullscreen"
-
-[node name="BackButton" type="Button" parent="CenterContainer/MainVBox/OptionsPanel" unique_id=801481808]
-layout_mode = 2
-text = "Back"
 
 [node name="MainButtonsFree" type="Control" parent="." unique_id=2010010020]
 z_index = 1
@@ -212,6 +148,8 @@ texture = ExtResource("14_lyciq")
 [node name="MainMenuButtonSombras" type="Sprite2D" parent="." unique_id=36226116]
 position = Vector2(960, 536)
 texture = ExtResource("17_sm15n")
+
+[node name="OptionsMenu" parent="." unique_id=801002033 instance=ExtResource("20_opts")]
 
 [node name="Pantalla_Fade" type="ColorRect" parent="." unique_id=1370247422]
 z_index = 200

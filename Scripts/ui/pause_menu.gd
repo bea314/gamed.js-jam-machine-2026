@@ -4,16 +4,12 @@ const MENU_PATH := "res://Ecenes/Menu/Menu.tscn"
 
 @onready var _settings: GameSettings = get_node("/root/SettingsManager") as GameSettings
 @onready var _main_buttons: Control = $Root/MainButtonsFree
-@onready var _options_panel: VBoxContainer = $Root/CenterContainer/MainVBox/OptionsPanel
+@onready var _options_menu: CanvasLayer = $OptionsMenu
 @onready var _resume_button: BaseButton = $Root/MainButtonsFree/ResumeButton/ClickArea
 @onready var _options_button: BaseButton = $Root/MainButtonsFree/OptionsButton/ClickArea
 @onready var _main_menu_button: BaseButton = $Root/MainButtonsFree/MainMenuButton/ClickArea
 @onready var _exit_button: BaseButton = $Root/MainButtonsFree/ExitButton/ClickArea
 @onready var _close_pause_button: BaseButton = $Root/MainButtonsFree/ClosePauseButton/ClickArea
-@onready var _music_slider: HSlider = $Root/CenterContainer/MainVBox/OptionsPanel/MusicRow/MusicSlider
-@onready var _sfx_slider: HSlider = $Root/CenterContainer/MainVBox/OptionsPanel/SFXRow/SFXSlider
-@onready var _fullscreen_check: CheckButton = $Root/CenterContainer/MainVBox/OptionsPanel/FullscreenCheck
-@onready var _back_button: BaseButton = $Root/CenterContainer/MainVBox/OptionsPanel/BackButton
 
 @onready var pause_menu_sound: AudioStreamPlayer = $Pause_Menu
 const PAUSE_ENTER = preload("uid://cqw2v5rk8txgg")
@@ -30,39 +26,28 @@ var _last_nav_control: Control
 
 func _ready() -> void:
 	visible = false
-	_options_panel.visible = false
 
 	_resume_button.pressed.connect(_on_resume_pressed)
 	_close_pause_button.pressed.connect(_on_resume_pressed)
 	_options_button.pressed.connect(_on_options_pressed)
-	_back_button.pressed.connect(_on_back_pressed)
 	_main_menu_button.pressed.connect(_on_main_menu_pressed)
 	_exit_button.pressed.connect(_on_exit_pressed)
+	_options_menu.closed.connect(_on_options_menu_closed)
 	for c: Control in [
 		_resume_button,
 		_close_pause_button,
 		_options_button,
 		_main_menu_button,
 		_exit_button,
-		_back_button,
-		_music_slider,
-		_sfx_slider,
-		_fullscreen_check,
 	]:
 		c.focus_entered.connect(_on_pause_control_focus_entered.bind(c))
 		c.mouse_entered.connect(_on_pause_control_mouse_entered.bind(c))
-	_music_slider.value_changed.connect(_on_music_changed)
-	_sfx_slider.value_changed.connect(_on_sfx_changed)
-	_fullscreen_check.toggled.connect(_on_fullscreen_toggled)
-
-	_music_slider.value = _settings.music_volume
-	_sfx_slider.value = _settings.sfx_volume
-	_fullscreen_check.button_pressed = _settings.fullscreen
 
 
 func _set_main_menu_visible(show_main: bool) -> void:
 	_main_buttons.visible = show_main
-	_options_panel.visible = not show_main
+	if show_main:
+		_options_menu.force_hide()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -73,8 +58,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if _is_game_over_blocking():
 		return
-	if _options_panel.visible:
-		_close_options()
+	if _options_menu.visible:
+		_options_menu.hide_panel()
 		get_viewport().set_input_as_handled()
 		return
 	if visible:
@@ -103,8 +88,10 @@ func open_pause() -> void:
 	_last_nav_control = null
 	_resume_button.grab_focus()
 
+
 func close_pause() -> void:
-	_set_main_menu_visible(true)
+	_options_menu.force_hide()
+	_main_buttons.visible = true
 	visible = false
 	get_tree().paused = false
 	_last_nav_control = null
@@ -112,26 +99,25 @@ func close_pause() -> void:
 	pause_menu_sound.stream = PAUSE_OUT
 	pause_menu_sound.play()
 
-func _close_options() -> void:
-	_set_main_menu_visible(true)
+
+func _on_options_menu_closed() -> void:
+	_main_buttons.visible = true
 	_options_button.grab_focus()
 
 	pause_menu_sound.stream = OPTION_EXIT
 	pause_menu_sound.play()
+
 
 func _on_resume_pressed() -> void:
 	close_pause()
 
 
 func _on_options_pressed() -> void:
-	_set_main_menu_visible(false)
-	_back_button.grab_focus()
+	_main_buttons.visible = false
+	_options_menu.show_panel()
 
 	pause_menu_sound.stream = OPTION_ENTER
 	pause_menu_sound.play()
-
-func _on_back_pressed() -> void:
-	_close_options()
 
 
 func _on_main_menu_pressed() -> void:
@@ -142,18 +128,6 @@ func _on_exit_pressed() -> void:
 	pause_menu_sound.stream = PAUSE_OUT
 	pause_menu_sound.play()
 	get_tree().quit()
-
-
-func _on_music_changed(value: float) -> void:
-	_settings.set_music_volume(value)
-
-
-func _on_sfx_changed(value: float) -> void:
-	_settings.set_sfx_volume(value)
-
-
-func _on_fullscreen_toggled(pressed: bool) -> void:
-	_settings.set_fullscreen(pressed)
 
 
 func _go_to_scene(path: String) -> void:
