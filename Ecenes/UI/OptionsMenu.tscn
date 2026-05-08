@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://je4och1y22cq" path="res://Recursos/Textures/Menus/options menu/containers.webp" id="3_frame"]
 [ext_resource type="PackedScene" uid="uid://bvc0la2lopy6o" path="res://Ecenes/UI/buttons/options_menu_button_back.tscn" id="4_back"]
 [ext_resource type="PackedScene" uid="uid://duyaaiysebfgn" path="res://Ecenes/UI/buttons/options_menu_button_close.tscn" id="5_clsbtn"]
+[ext_resource type="PackedScene" uid="uid://c8v3qmxn0chk1" path="res://Ecenes/UI/toggles/texture_checkbox_button.tscn" id="6_togchk"]
 
 [node name="OptionsMenu" type="CanvasLayer" unique_id=-1230790582]
 process_mode = 3
@@ -101,6 +102,10 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="FullscreenCheck" type="CheckButton" parent="Root/MainVBox" unique_id=-1384596699]
-layout_mode = 2
-text = "Pantalla completa"
+[node name="FullscreenCheck" parent="Root" unique_id=-1384596699 instance=ExtResource("6_togchk")]
+z_index = 1
+layout_mode = 0
+offset_left = 1184.0
+offset_top = 816.0
+offset_right = 1248.0
+offset_bottom = 880.0

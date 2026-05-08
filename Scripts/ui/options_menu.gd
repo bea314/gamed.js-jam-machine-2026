@@ -4,11 +4,11 @@ extends CanvasLayer
 signal closed
 
 @onready var _settings: GameSettings = get_node("/root/SettingsManager") as GameSettings
-@onready var _music_slider: HSlider = $Root/CenterContainer/MainVBox/MusicRow/MusicSlider
-@onready var _sfx_slider: HSlider = $Root/CenterContainer/MainVBox/SFXRow/SFXSlider
-@onready var _fullscreen_check: CheckButton = $Root/CenterContainer/MainVBox/FullscreenCheck
-@onready var _back_button: BaseButton = $Root/MainButtonsFree/BackButton/ClickArea
-@onready var _close_pause_button: BaseButton = $Root/MainButtonsFree/ClosePauseButton/ClickArea
+@onready var _music_slider: HSlider = $Root/MainVBox/MusicRow/MusicSlider
+@onready var _sfx_slider: HSlider = $Root/MainVBox/SFXRow/SFXSlider
+@onready var _fullscreen_check: TextureCheckboxButton = $Root/FullscreenCheck
+@onready var _back_button: BaseButton = $Root/BackButton/ClickArea
+@onready var _close_pause_button: BaseButton = $Root/ClosePauseButton/ClickArea
 
 
 func _ready() -> void:
@@ -22,7 +22,7 @@ func _ready() -> void:
 
 	_music_slider.value = _settings.music_volume
 	_sfx_slider.value = _settings.sfx_volume
-	_fullscreen_check.button_pressed = _settings.fullscreen
+	_fullscreen_check.set_pressed_no_signal(_settings.fullscreen)
 
 
 func show_panel() -> void:
