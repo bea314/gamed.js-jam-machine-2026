@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Jam_RL"
+config/name="BUG IN THE MACHINE"
+config/description="Ruka, a brave cockroach fed up with the humans' cruelty against her kind, seeks revenge and won't stop until she destroys what she knows to be humanity's most precious thing: THEIR ICE CREAM MACHINE."
 run/main_scene="res://Ecenes/Menu/Menu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.0627451, 0.06666667, 0.101960786, 1)
+boot_splash/stretch_mode=0
+boot_splash/image="uid://bdmlkpag2xcsw"
+config/icon="uid://coqi0lcjvwjop"
 
 [autoload]
 
@@ -31,7 +35,6 @@ AchievementToastLayer="*res://Ecenes/UI/Achievements/AchievementToastLayer.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
 window/stretch/mode="viewport"
 
 [file_customization]
