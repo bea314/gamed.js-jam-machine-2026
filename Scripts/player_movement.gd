@@ -79,7 +79,8 @@ func _ready() -> void:
 		_health.damage_taken.connect(_on_damage_taken)
 		_health.shield_damage_taken.connect(_on_shield_damage_camera_shake)
 
-	weapon_hud.setup(weapon_manager)
+	if weapon_hud != null and weapon_hud.has_method("setup"):
+		weapon_hud.setup(weapon_manager)
 	weapon_manager.setup(self)
 	weapon_manager.weapon_actually_fired.connect(_on_weapon_actually_fired)
 

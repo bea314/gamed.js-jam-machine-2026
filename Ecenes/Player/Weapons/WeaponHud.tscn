@@ -10,10 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://cwjik3r7i6hug" path="res://Recursos/Textures/revolver with hands.png" id="7_revolver"]
 [ext_resource type="Texture2D" uid="uid://bwm1j4y43jxpl" path="res://Recursos/Textures/shotgun with hands.png" id="8_shotgun"]
 [ext_resource type="Texture2D" uid="uid://ck51bdasx3bib" path="res://Recursos/Textures/machine gun with hands2.png" id="9_mg"]
+[ext_resource type="PackedScene" uid="uid://7tyi0v2cfjni" path="res://Ecenes/Player/Weapons/WeaponHudSlotAuthoring.tscn" id="10_pose_authoring"]
 
 [node name="WeaponHud" type="CanvasLayer" unique_id=220290602]
 layer = 25
 script = ExtResource("1_hud")
+weapon_pose_authoring_scene = ExtResource("10_pose_authoring")
 texture_wrench = ExtResource("6_wrench")
 texture_revolver = ExtResource("7_revolver")
 texture_shotgun = ExtResource("8_shotgun")
@@ -66,6 +68,7 @@ offset_top = -33.0
 offset_right = -98.0
 offset_bottom = 23.0
 scale = Vector2(2.1030867, 2.1030867)
+pivot_offset = Vector2(28, 28)
 mouse_filter = 2
 
 [node name="WeaponIcon" type="TextureRect" parent="Root/WeaponSlotsRoot/HudWeaponSlot1" unique_id=1515552111]
@@ -73,12 +76,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 11.357815
+offset_top = 12.30878
+offset_right = 3.3578148
+offset_bottom = 4.3087807
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.2082093, 1.2082093)
 mouse_filter = 2
 texture = ExtResource("6_wrench")
 expand_mode = 1
@@ -87,10 +91,12 @@ stretch_mode = 5
 [node name="HudWeaponSlot2" type="Control" parent="Root/WeaponSlotsRoot" unique_id=476853911]
 unique_name_in_owner = true
 anchors_preset = 0
-offset_left = -14.0
-offset_top = 47.0
-offset_right = 42.0
-offset_bottom = 103.0
+offset_left = -19.0
+offset_top = 45.0
+offset_right = 37.0
+offset_bottom = 101.0
+scale = Vector2(1.134495, 1.134495)
+pivot_offset = Vector2(28, 28)
 mouse_filter = 2
 
 [node name="WeaponIcon" type="TextureRect" parent="Root/WeaponSlotsRoot/HudWeaponSlot2" unique_id=1515552112]
@@ -98,12 +104,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 19.391903
+offset_top = -5.2886972
+offset_right = 11.391907
+offset_bottom = -13.288696
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 0.55205715
 mouse_filter = 2
 texture = ExtResource("7_revolver")
 expand_mode = 1
@@ -113,10 +120,11 @@ stretch_mode = 5
 unique_name_in_owner = true
 anchors_preset = 0
 offset_left = 39.0
-offset_top = 39.0
+offset_top = 45.0
 offset_right = 95.0
-offset_bottom = 95.0
-scale = Vector2(1.295673, 1.2205307)
+offset_bottom = 101.0
+scale = Vector2(1.134495, 1.134495)
+pivot_offset = Vector2(28, 28)
 mouse_filter = 2
 
 [node name="WeaponIcon" type="TextureRect" parent="Root/WeaponSlotsRoot/HudWeaponSlot3" unique_id=1515552113]
@@ -124,12 +132,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 19.391903
+offset_top = -5.2886972
+offset_right = 11.391907
+offset_bottom = -13.288696
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 0.55205715
 mouse_filter = 2
 texture = ExtResource("8_shotgun")
 expand_mode = 1
@@ -138,12 +147,12 @@ stretch_mode = 5
 [node name="HudWeaponSlot4" type="Control" parent="Root/WeaponSlotsRoot" unique_id=476853913]
 unique_name_in_owner = true
 anchors_preset = 0
-offset_left = 115.0
-offset_top = 20.999996
-offset_right = 171.0
-offset_bottom = 77.0
-rotation = 0.47552034
-scale = Vector2(1.38501, 1.38501)
+offset_left = 109.0
+offset_top = 45.0
+offset_right = 165.0
+offset_bottom = 101.0
+scale = Vector2(1.134495, 1.134495)
+pivot_offset = Vector2(28, 28)
 mouse_filter = 2
 
 [node name="WeaponIcon" type="TextureRect" parent="Root/WeaponSlotsRoot/HudWeaponSlot4" unique_id=1515552114]
@@ -151,12 +160,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 19.391903
+offset_top = -5.2886972
+offset_right = 11.391907
+offset_bottom = -13.288696
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 0.55205715
 mouse_filter = 2
 texture = ExtResource("9_mg")
 expand_mode = 1
@@ -167,10 +177,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -137.0
-offset_top = 138.0
-offset_right = -54.0
-offset_bottom = 118.0
+offset_left = -171.0
+offset_top = 183.0
+offset_right = -88.0
+offset_bottom = 163.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6

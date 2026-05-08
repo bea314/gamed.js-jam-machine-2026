@@ -29,6 +29,8 @@ signal weapon_changed(
 
 var weapons: Array[WeaponBase] = []
 var current_index: int = 0
+## +1 = forward in weapon cycle, -1 = backward (HUD secondary slots follow this).
+var last_switch_direction: int = 1
 var owner_player: Node2D
 var _damage_flat_bonus: int = 0
 
@@ -166,6 +168,7 @@ func reload() -> void:
 func next_weapon() -> void:
 	if not _can_switch_weapons():
 		return
+	last_switch_direction = 1
 	current_index = (current_index + 1) % weapons.size()
 	_emit_weapon_changed()
 	_sync_gun_mesh_visual()
@@ -174,6 +177,7 @@ func next_weapon() -> void:
 func prev_weapon() -> void:
 	if not _can_switch_weapons():
 		return
+	last_switch_direction = -1
 	current_index = (current_index - 1 + weapons.size()) % weapons.size()
 	_emit_weapon_changed()
 	_sync_gun_mesh_visual()
@@ -182,8 +186,14 @@ func prev_weapon() -> void:
 func set_weapon(index: int) -> void:
 	if index < 0 or index >= weapons.size():
 		return
+	if index == current_index:
+		return
 	if not _can_switch_weapons():
 		return
+	var n := weapons.size()
+	var fwd := (index - current_index + n) % n
+	var bwd := (current_index - index + n) % n
+	last_switch_direction = -1 if bwd < fwd else 1
 	current_index = index
 	_emit_weapon_changed()
 	_sync_gun_mesh_visual()
