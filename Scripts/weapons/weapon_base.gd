@@ -94,16 +94,21 @@ func start_standard_reload(reload_duration: float) -> void:
 	if reserve_ammo <= 0:
 		return
 
+	# Aplicar carga de inmediato para que HUD / reserva reflejen el cambio al pulsar R;
+	# `reload_duration` sigue bloqueando disparo y animación hasta completarse.
+	var needed: int = magazine_size - current_ammo
+	var to_load: int = mini(needed, reserve_ammo)
+	current_ammo += to_load
+	reserve_ammo -= to_load
+
 	is_reloading = true
+	_emit_ammo()
 	reload_started.emit()
+
 	var timer := get_tree().create_timer(reload_duration)
 	timer.timeout.connect(func() -> void:
 		if not is_instance_valid(self):
 			return
-		var needed: int = magazine_size - current_ammo
-		var to_load: int = mini(needed, reserve_ammo)
-		current_ammo += to_load
-		reserve_ammo -= to_load
 		is_reloading = false
 		_emit_ammo()
 		reload_finished.emit()

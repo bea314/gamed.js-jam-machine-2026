@@ -1,78 +1,263 @@
-[gd_scene load_steps=1 format=3 uid="uid://weaponhudmoonjam"]
+[gd_scene format=3 uid="uid://b85e04ko0rrme"]
 
-[ext_resource type="Script" path="res://Scripts/weapons/weapon_hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://bnenvj6ya4ysi" path="res://Scripts/weapons/weapon_hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://dy84w6uh7cpjo" path="res://Recursos/UXUI/Armas/interface/background.webp" id="2_7dv11"]
+[ext_resource type="Texture2D" uid="uid://dvqu6cct5bym1" path="res://Recursos/UXUI/Armas/interface/containers.webp" id="3_xk6ph"]
+[ext_resource type="FontFile" uid="uid://dlxrsbe2brulj" path="res://Recursos/KOMTXKBI.ttf" id="4_kom"]
+[ext_resource type="Texture2D" uid="uid://bwtm6ke1b4f5i" path="res://Recursos/UXUI/Armas/interface/bullet icon.webp" id="4_mqvyk"]
+[ext_resource type="Texture2D" uid="uid://cmkxbbh4jx8nr" path="res://Recursos/UXUI/Armas/interface/slash.webp" id="5_60tn8"]
+[ext_resource type="Texture2D" uid="uid://dwr21lm1o381s" path="res://Recursos/Textures/wrench with hands.png" id="6_wrench"]
+[ext_resource type="Texture2D" uid="uid://cwjik3r7i6hug" path="res://Recursos/Textures/revolver with hands.png" id="7_revolver"]
+[ext_resource type="Texture2D" uid="uid://bwm1j4y43jxpl" path="res://Recursos/Textures/shotgun with hands.png" id="8_shotgun"]
+[ext_resource type="Texture2D" uid="uid://ck51bdasx3bib" path="res://Recursos/Textures/machine gun with hands2.png" id="9_mg"]
+[ext_resource type="PackedScene" uid="uid://7tyi0v2cfjni" path="res://Ecenes/Player/Weapons/WeaponHudSlotAuthoring.tscn" id="10_pose_authoring"]
 
-[node name="WeaponHud" type="CanvasLayer"]
+[node name="WeaponHud" type="CanvasLayer" unique_id=220290602]
 layer = 25
 script = ExtResource("1_hud")
+weapon_pose_authoring_scene = ExtResource("10_pose_authoring")
+texture_wrench = ExtResource("6_wrench")
+texture_revolver = ExtResource("7_revolver")
+texture_shotgun = ExtResource("8_shotgun")
+texture_machine_gun = ExtResource("9_mg")
 
-[node name="Root" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 2
+[node name="Root" type="Control" parent="." unique_id=164322957]
+layout_mode = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
-offset_left = -300.0
-offset_top = 24.0
-offset_right = -20.0
-offset_bottom = 220.0
+offset_left = -229.0
+offset_top = -41.0
+offset_right = 51.0
+offset_bottom = 155.0
 grow_horizontal = 0
-grow_vertical = 0
 
-[node name="Panel" type="Panel" parent="Root"]
+[node name="Background" type="Sprite2D" parent="Root" unique_id=1613296903]
+position = Vector2(-659, 513)
+texture = ExtResource("2_7dv11")
+
+[node name="Containers" type="Sprite2D" parent="Root" unique_id=1926434824]
+position = Vector2(-658, 512)
+texture = ExtResource("3_xk6ph")
+
+[node name="BulletIcon" type="Sprite2D" parent="Root" unique_id=1210899146]
+position = Vector2(-657, 514)
+texture = ExtResource("4_mqvyk")
+
+[node name="Slash" type="Sprite2D" parent="Root" unique_id=471148261]
+position = Vector2(-668, 515)
+texture = ExtResource("5_60tn8")
+
+[node name="WeaponSlotsRoot" type="Control" parent="Root" unique_id=1507962342]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -274.0
+offset_top = 108.0
+offset_right = -6.0
+offset_bottom = 176.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="HudWeaponSlot1" type="Control" parent="Root/WeaponSlotsRoot" unique_id=476853910]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -154.0
+offset_top = -33.0
+offset_right = -98.0
+offset_bottom = 23.0
+scale = Vector2(2.1030867, 2.1030867)
+pivot_offset = Vector2(28, 28)
+mouse_filter = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="Root/WeaponSlotsRoot/HudWeaponSlot1" unique_id=1515552111]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 11.357815
+offset_top = 12.30878
+offset_right = 3.3578148
+offset_bottom = 4.3087807
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.2082093, 1.2082093)
+mouse_filter = 2
+texture = ExtResource("6_wrench")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="VBox" type="VBoxContainer" parent="Root"]
+[node name="HudWeaponSlot2" type="Control" parent="Root/WeaponSlotsRoot" unique_id=476853911]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -19.0
+offset_top = 45.0
+offset_right = 37.0
+offset_bottom = 101.0
+scale = Vector2(1.134495, 1.134495)
+pivot_offset = Vector2(28, 28)
+mouse_filter = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="Root/WeaponSlotsRoot/HudWeaponSlot2" unique_id=1515552112]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 10.0
-offset_right = -12.0
-offset_bottom = -10.0
+offset_left = 19.391903
+offset_top = -5.2886972
+offset_right = 11.391907
+offset_bottom = -13.288696
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.55205715
+mouse_filter = 2
+texture = ExtResource("7_revolver")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HudWeaponSlot3" type="Control" parent="Root/WeaponSlotsRoot" unique_id=476853912]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 39.0
+offset_top = 45.0
+offset_right = 95.0
+offset_bottom = 101.0
+scale = Vector2(1.134495, 1.134495)
+pivot_offset = Vector2(28, 28)
+mouse_filter = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="Root/WeaponSlotsRoot/HudWeaponSlot3" unique_id=1515552113]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.391903
+offset_top = -5.2886972
+offset_right = 11.391907
+offset_bottom = -13.288696
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.55205715
+mouse_filter = 2
+texture = ExtResource("8_shotgun")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HudWeaponSlot4" type="Control" parent="Root/WeaponSlotsRoot" unique_id=476853913]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 109.0
+offset_top = 45.0
+offset_right = 165.0
+offset_bottom = 101.0
+scale = Vector2(1.134495, 1.134495)
+pivot_offset = Vector2(28, 28)
+mouse_filter = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="Root/WeaponSlotsRoot/HudWeaponSlot4" unique_id=1515552114]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.391903
+offset_top = -5.2886972
+offset_right = 11.391907
+offset_bottom = -13.288696
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.55205715
+mouse_filter = 2
+texture = ExtResource("9_mg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="Root" unique_id=1389444091]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -171.0
+offset_top = 183.0
+offset_right = -88.0
+offset_bottom = 163.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="WeaponNameLabel" type="Label" parent="Root/VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "Weapon"
-
-[node name="WeaponIcon" type="ColorRect" parent="Root/VBox"]
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-size_flags_horizontal = 0
-color = Color(0.55, 0.58, 0.62, 1)
-
-[node name="AmmoLabel" type="Label" parent="Root/VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "—"
-
-[node name="PickupFeedLabel" type="Label" parent="Root/VBox"]
+[node name="PickupFeedLabel" type="Label" parent="Root/VBox" unique_id=941792673]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45, 1, 0.55, 1)
 theme_override_font_sizes/font_size = 18
-text = ""
 
-[node name="ReloadLabel" type="Label" parent="Root/VBox"]
+[node name="ReloadLabel" type="Label" parent="Root/VBox" unique_id=472849851]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.65, 0.35, 1)
 theme_override_font_sizes/font_size = 14
 text = "RELOADING…"
 
-[node name="HintsLabel" type="Label" parent="Root/VBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.78, 0.82, 1)
-theme_override_font_sizes/font_size = 12
-text = "Q / E · mouse wheel · 1–4   |   R reload   |   LMB · Space · J attack"
+[node name="WeaponNameLabel" type="Label" parent="Root" unique_id=1642555306]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -354.0
+offset_top = 179.0
+offset_right = -94.0
+offset_bottom = 207.0
+grow_horizontal = 2
+scale = Vector2(1.2695563, 1.2695563)
+pivot_offset = Vector2(130, 14)
+theme_override_colors/font_color = Color(0.976471, 0.937255, 0.454902, 1)
+theme_override_fonts/font = ExtResource("4_kom")
+theme_override_font_sizes/font_size = 22
+text = "Weapon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmmoCurrentInWeaponLabel" type="Label" parent="Root" unique_id=905715567]
+layout_mode = 1
+offset_left = 14.0
+offset_top = 103.00001
+offset_right = 94.0
+offset_bottom = 131.0
+scale = Vector2(3.026652, 2.9639785)
+pivot_offset = Vector2(40, 14)
+theme_override_colors/font_color = Color(0.976471, 0.937255, 0.454902, 1)
+theme_override_fonts/font = ExtResource("4_kom")
+theme_override_font_sizes/font_size = 16
+text = "—"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmmoMagazineCapacityLabel" type="Label" parent="Root" unique_id=905715568]
+layout_mode = 1
+offset_left = 80.0
+offset_top = 101.0
+offset_right = 160.0
+offset_bottom = 129.0
+scale = Vector2(3.0266516, 2.963978)
+pivot_offset = Vector2(40, 14)
+theme_override_colors/font_color = Color(0.976471, 0.937255, 0.454902, 1)
+theme_override_fonts/font = ExtResource("4_kom")
+theme_override_font_sizes/font_size = 16
+text = "—"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmmoReserveLabel" type="Label" parent="Root" unique_id=905715569]
+layout_mode = 1
+offset_left = 124.0
+offset_top = 123.0
+offset_right = 204.0
+offset_bottom = 151.0
+scale = Vector2(2.3174565, 2.2694685)
+pivot_offset = Vector2(40, 14)
+theme_override_colors/font_color = Color(0.976471, 0.937255, 0.454902, 1)
+theme_override_fonts/font = ExtResource("4_kom")
+theme_override_font_sizes/font_size = 16
+text = "—"
+horizontal_alignment = 1
+vertical_alignment = 1
