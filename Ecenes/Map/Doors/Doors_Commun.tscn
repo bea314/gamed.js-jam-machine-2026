@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d2kbhr3pflg3i"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scripts/doors_commun.gd" id="1_doors"]
 [ext_resource type="Script" path="res://Scripts/door_animated_sprites.gd" id="2_anim"]
@@ -8,14 +8,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boi01"]
 size = Vector2(9, 95)
 
-[node name="DoorsCommun" type="Area2D" unique_id=2077045764 groups=["Door_Connect"]]
+[node name="DoorsCommun" type="Area2D" groups=["Door_Connect"]]
 collision_mask = 2
 script = ExtResource("1_doors")
 
-[node name="Mesh_sistem" type="Node2D" parent="." unique_id=917673563]
+[node name="Mesh_sistem" type="Node2D" parent="."]
 script = ExtResource("2_anim")
 
-[node name="Mesh_Door" type="MeshInstance2D" parent="Mesh_sistem" unique_id=2129755179]
+[node name="Mesh_Door" type="MeshInstance2D" parent="Mesh_sistem"]
 position = Vector2(0.75, -3.000002)
 scale = Vector2(40.500004, 106)
 mesh = SubResource("BoxMesh_2nff2")
@@ -23,7 +23,7 @@ mesh = SubResource("BoxMesh_2nff2")
 [node name="DoorSprite" type="Sprite2D" parent="Mesh_sistem"]
 position = Vector2(0.75, -3)
 
-[node name="Mostra_path" type="Label" parent="Mesh_sistem" unique_id=1011597609]
+[node name="Mostra_path" type="Label" parent="Mesh_sistem"]
 offset_left = -14.0
 offset_top = -45.0
 offset_right = 15.0
@@ -32,10 +32,10 @@ pivot_offset = Vector2(14, 12)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=7575843]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-26.5, -2.5)
 shape = SubResource("RectangleShape2D_boi01")
 debug_color = Color(0, 0.24313726, 0.69803923, 0.41960785)
 
-[node name="SpawnMarker" type="Marker2D" parent="." unique_id=544169964]
+[node name="SpawnMarker" type="Marker2D" parent="."]
 position = Vector2(-72, 0)

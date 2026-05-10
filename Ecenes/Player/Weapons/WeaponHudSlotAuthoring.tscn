@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://7tyi0v2cfjni"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://calrtnyj20vqh" path="res://Scripts/weapons/weapon_hud_slot_authoring.gd" id="1_author"]
-[ext_resource type="PackedScene" uid="uid://b85e04ko0rrme" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="2_soiwm"]
-[ext_resource type="Texture2D" uid="uid://dwr21lm1o381s" path="res://Recursos/Textures/wrench with hands.png" id="2_wrench"]
-[ext_resource type="Texture2D" uid="uid://cwjik3r7i6hug" path="res://Recursos/Textures/revolver with hands.png" id="3_revolver"]
-[ext_resource type="Texture2D" uid="uid://bwm1j4y43jxpl" path="res://Recursos/Textures/shotgun with hands.png" id="4_shotgun"]
-[ext_resource type="Texture2D" uid="uid://ck51bdasx3bib" path="res://Recursos/Textures/machine gun with hands2.png" id="5_mg"]
+[ext_resource type="Script" path="res://Scripts/weapons/weapon_hud_slot_authoring.gd" id="1_author"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="2_soiwm"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/wrench with hands.png" id="2_wrench"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/revolver with hands.png" id="3_revolver"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/shotgun with hands.png" id="4_shotgun"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/machine gun with hands2.png" id="5_mg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bounds"]
 bg_color = Color(0.06, 0.08, 0.11, 0.35)
@@ -15,7 +15,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.25, 0.88, 0.98, 0.92)
 
-[node name="WeaponHudSlotAuthoring" type="Control" unique_id=606492955]
+[node name="WeaponHudSlotAuthoring" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ grow_vertical = 2
 script = ExtResource("1_author")
 weapon_hud_scene = ExtResource("2_soiwm")
 
-[node name="Margin" type="MarginContainer" parent="." unique_id=384960474]
+[node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,49 +37,49 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 12
 
-[node name="Main" type="VBoxContainer" parent="Margin" unique_id=2018558689]
+[node name="Main" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="HeaderHelp" type="Label" parent="Margin/Main" unique_id=425439054]
+[node name="HeaderHelp" type="Label" parent="Margin/Main"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
 theme_override_font_sizes/font_size = 14
 text = "El HUD en juego toma las poses desde esta escena. Árbol: Margin/Main/WeaponsRow → columna → SlotHost/HudWeaponSlot1/WeaponIcon (offset, escala, rotación por arma). El borde cyan copia el tamaño del slot grande del WeaponHud."
 autowrap_mode = 3
 
-[node name="StatusLine" type="Label" parent="Margin/Main" unique_id=1153600979]
+[node name="StatusLine" type="Label" parent="Margin/Main"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.88, 1, 1)
 theme_override_font_sizes/font_size = 13
 text = "Cuadro cyan = mismo tamaño que HudWeaponSlot1 del WeaponHud (actualízalo abriendo esta escena). Esas mismas poses se cargan en el HUD en runtime."
 
-[node name="WeaponsRow" type="HBoxContainer" parent="Margin/Main" unique_id=1295319582]
+[node name="WeaponsRow" type="HBoxContainer" parent="Margin/Main"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="A_Wrench" type="VBoxContainer" parent="Margin/Main/WeaponsRow" unique_id=647694540]
+[node name="A_Wrench" type="VBoxContainer" parent="Margin/Main/WeaponsRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="WeaponTitle" type="Label" parent="Margin/Main/WeaponsRow/A_Wrench" unique_id=2088173106]
+[node name="WeaponTitle" type="Label" parent="Margin/Main/WeaponsRow/A_Wrench"]
 layout_mode = 2
 text = "Llave inglesa"
 horizontal_alignment = 1
 
-[node name="SlotHost" type="Control" parent="Margin/Main/WeaponsRow/A_Wrench" unique_id=1645209617]
+[node name="SlotHost" type="Control" parent="Margin/Main/WeaponsRow/A_Wrench"]
 custom_minimum_size = Vector2(117.77286, 117.77286)
 layout_mode = 2
 size_flags_horizontal = 16
 size_flags_vertical = 0
 
-[node name="BoundsFrame" type="Panel" parent="Margin/Main/WeaponsRow/A_Wrench/SlotHost" unique_id=1869510844]
+[node name="BoundsFrame" type="Panel" parent="Margin/Main/WeaponsRow/A_Wrench/SlotHost"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -90,7 +90,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bounds")
 
-[node name="HudWeaponSlot1" type="Control" parent="Margin/Main/WeaponsRow/A_Wrench/SlotHost" unique_id=871223576]
+[node name="HudWeaponSlot1" type="Control" parent="Margin/Main/WeaponsRow/A_Wrench/SlotHost"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,7 +99,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="WeaponIcon" type="TextureRect" parent="Margin/Main/WeaponsRow/A_Wrench/SlotHost/HudWeaponSlot1" unique_id=2144555520]
+[node name="WeaponIcon" type="TextureRect" parent="Margin/Main/WeaponsRow/A_Wrench/SlotHost/HudWeaponSlot1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,30 +116,30 @@ texture = ExtResource("2_wrench")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SlotDims" type="Label" parent="Margin/Main/WeaponsRow/A_Wrench" unique_id=628591062]
+[node name="SlotDims" type="Label" parent="Margin/Main/WeaponsRow/A_Wrench"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.78, 0.9, 1)
 theme_override_font_sizes/font_size = 11
 text = "118×118 px"
 horizontal_alignment = 1
 
-[node name="B_Revolver" type="VBoxContainer" parent="Margin/Main/WeaponsRow" unique_id=552654731]
+[node name="B_Revolver" type="VBoxContainer" parent="Margin/Main/WeaponsRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="WeaponTitle" type="Label" parent="Margin/Main/WeaponsRow/B_Revolver" unique_id=360281930]
+[node name="WeaponTitle" type="Label" parent="Margin/Main/WeaponsRow/B_Revolver"]
 layout_mode = 2
 text = "Revólver"
 horizontal_alignment = 1
 
-[node name="SlotHost" type="Control" parent="Margin/Main/WeaponsRow/B_Revolver" unique_id=1009633297]
+[node name="SlotHost" type="Control" parent="Margin/Main/WeaponsRow/B_Revolver"]
 custom_minimum_size = Vector2(117.77286, 117.77286)
 layout_mode = 2
 size_flags_horizontal = 16
 size_flags_vertical = 0
 
-[node name="BoundsFrame" type="Panel" parent="Margin/Main/WeaponsRow/B_Revolver/SlotHost" unique_id=2044211019]
+[node name="BoundsFrame" type="Panel" parent="Margin/Main/WeaponsRow/B_Revolver/SlotHost"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -150,7 +150,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bounds")
 
-[node name="HudWeaponSlot1" type="Control" parent="Margin/Main/WeaponsRow/B_Revolver/SlotHost" unique_id=1200012522]
+[node name="HudWeaponSlot1" type="Control" parent="Margin/Main/WeaponsRow/B_Revolver/SlotHost"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -159,7 +159,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="WeaponIcon" type="TextureRect" parent="Margin/Main/WeaponsRow/B_Revolver/SlotHost/HudWeaponSlot1" unique_id=1355569921]
+[node name="WeaponIcon" type="TextureRect" parent="Margin/Main/WeaponsRow/B_Revolver/SlotHost/HudWeaponSlot1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -176,30 +176,30 @@ texture = ExtResource("3_revolver")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SlotDims" type="Label" parent="Margin/Main/WeaponsRow/B_Revolver" unique_id=935509182]
+[node name="SlotDims" type="Label" parent="Margin/Main/WeaponsRow/B_Revolver"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.78, 0.9, 1)
 theme_override_font_sizes/font_size = 11
 text = "118×118 px"
 horizontal_alignment = 1
 
-[node name="C_Shotgun" type="VBoxContainer" parent="Margin/Main/WeaponsRow" unique_id=2070639427]
+[node name="C_Shotgun" type="VBoxContainer" parent="Margin/Main/WeaponsRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="WeaponTitle" type="Label" parent="Margin/Main/WeaponsRow/C_Shotgun" unique_id=552048941]
+[node name="WeaponTitle" type="Label" parent="Margin/Main/WeaponsRow/C_Shotgun"]
 layout_mode = 2
 text = "Escopeta"
 horizontal_alignment = 1
 
-[node name="SlotHost" type="Control" parent="Margin/Main/WeaponsRow/C_Shotgun" unique_id=1231740392]
+[node name="SlotHost" type="Control" parent="Margin/Main/WeaponsRow/C_Shotgun"]
 custom_minimum_size = Vector2(117.77286, 117.77286)
 layout_mode = 2
 size_flags_horizontal = 16
 size_flags_vertical = 0
 
-[node name="BoundsFrame" type="Panel" parent="Margin/Main/WeaponsRow/C_Shotgun/SlotHost" unique_id=777762713]
+[node name="BoundsFrame" type="Panel" parent="Margin/Main/WeaponsRow/C_Shotgun/SlotHost"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -210,7 +210,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bounds")
 
-[node name="HudWeaponSlot1" type="Control" parent="Margin/Main/WeaponsRow/C_Shotgun/SlotHost" unique_id=412412684]
+[node name="HudWeaponSlot1" type="Control" parent="Margin/Main/WeaponsRow/C_Shotgun/SlotHost"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -219,7 +219,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="WeaponIcon" type="TextureRect" parent="Margin/Main/WeaponsRow/C_Shotgun/SlotHost/HudWeaponSlot1" unique_id=641108819]
+[node name="WeaponIcon" type="TextureRect" parent="Margin/Main/WeaponsRow/C_Shotgun/SlotHost/HudWeaponSlot1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -237,30 +237,30 @@ texture = ExtResource("4_shotgun")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SlotDims" type="Label" parent="Margin/Main/WeaponsRow/C_Shotgun" unique_id=175406256]
+[node name="SlotDims" type="Label" parent="Margin/Main/WeaponsRow/C_Shotgun"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.78, 0.9, 1)
 theme_override_font_sizes/font_size = 11
 text = "118×118 px"
 horizontal_alignment = 1
 
-[node name="D_MachineGun" type="VBoxContainer" parent="Margin/Main/WeaponsRow" unique_id=61266495]
+[node name="D_MachineGun" type="VBoxContainer" parent="Margin/Main/WeaponsRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="WeaponTitle" type="Label" parent="Margin/Main/WeaponsRow/D_MachineGun" unique_id=1353222820]
+[node name="WeaponTitle" type="Label" parent="Margin/Main/WeaponsRow/D_MachineGun"]
 layout_mode = 2
 text = "Ametralladora"
 horizontal_alignment = 1
 
-[node name="SlotHost" type="Control" parent="Margin/Main/WeaponsRow/D_MachineGun" unique_id=1725885771]
+[node name="SlotHost" type="Control" parent="Margin/Main/WeaponsRow/D_MachineGun"]
 custom_minimum_size = Vector2(117.77286, 117.77286)
 layout_mode = 2
 size_flags_horizontal = 16
 size_flags_vertical = 0
 
-[node name="BoundsFrame" type="Panel" parent="Margin/Main/WeaponsRow/D_MachineGun/SlotHost" unique_id=937779663]
+[node name="BoundsFrame" type="Panel" parent="Margin/Main/WeaponsRow/D_MachineGun/SlotHost"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -271,7 +271,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bounds")
 
-[node name="HudWeaponSlot1" type="Control" parent="Margin/Main/WeaponsRow/D_MachineGun/SlotHost" unique_id=414942923]
+[node name="HudWeaponSlot1" type="Control" parent="Margin/Main/WeaponsRow/D_MachineGun/SlotHost"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -280,7 +280,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="WeaponIcon" type="TextureRect" parent="Margin/Main/WeaponsRow/D_MachineGun/SlotHost/HudWeaponSlot1" unique_id=295992737]
+[node name="WeaponIcon" type="TextureRect" parent="Margin/Main/WeaponsRow/D_MachineGun/SlotHost/HudWeaponSlot1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -298,7 +298,7 @@ texture = ExtResource("5_mg")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SlotDims" type="Label" parent="Margin/Main/WeaponsRow/D_MachineGun" unique_id=953061587]
+[node name="SlotDims" type="Label" parent="Margin/Main/WeaponsRow/D_MachineGun"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.78, 0.9, 1)
 theme_override_font_sizes/font_size = 11

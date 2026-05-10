@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8hpgrpw001vk"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Texture2D" uid="uid://dawaj4til0fam" path="res://Recursos/UXUI/HP y escudo/HP space.png" id="1_hp_space"]
-[ext_resource type="Texture2D" uid="uid://b2ndlhvnpgvh2" path="res://Recursos/UXUI/HP y escudo/HP 5-5.png" id="2_hp_full"]
+[ext_resource type="Texture2D" path="res://Recursos/UXUI/HP y escudo/HP space.png" id="1_hp_space"]
+[ext_resource type="Texture2D" path="res://Recursos/UXUI/HP y escudo/HP 5-5.png" id="2_hp_full"]
 
 [node name="HPGroup" type="Control"]
 layout_mode = 3

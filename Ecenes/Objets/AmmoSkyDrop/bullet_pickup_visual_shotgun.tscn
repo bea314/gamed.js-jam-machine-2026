@@ -1,21 +1,21 @@
-[gd_scene format=3 uid="uid://3dpi40gqsy5x"]
+[gd_scene format=3]
 
-[ext_resource type="Texture2D" uid="uid://0n3r3qpn4ajr" path="res://Recursos/Textures/Balas_SHOTGUN_PlaceHolder.png" id="1_tex"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Balas_SHOTGUN_PlaceHolder.png" id="1_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pickup"]
 radius = 20.0
 
-[node name="BulletPickupVisualShotgun" type="Node2D" unique_id=9699572]
+[node name="BulletPickupVisualShotgun" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=271662487]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.140625, 0.140625)
 texture = ExtResource("1_tex")
 
-[node name="PickupTemplate" type="Area2D" parent="." unique_id=2141646515]
+[node name="PickupTemplate" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupTemplate" unique_id=2063529621]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupTemplate"]
 shape = SubResource("CircleShape2D_pickup")

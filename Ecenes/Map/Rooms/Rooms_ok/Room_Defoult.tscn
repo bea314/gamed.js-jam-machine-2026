@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://7twtc5bcs0h1"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://br4wap2ho8w1n" path="res://Ecenes/Map/Rooms/Rooms_ok/room_defoult.gd" id="1_hldx2"]
-[ext_resource type="Texture2D" uid="uid://7rril7qp5rpw" path="res://Recursos/Textures/Map/mapa.png" id="2_3sb7n"]
-[ext_resource type="Script" uid="uid://b8m7jagvg6dwo" path="res://Scripts/bloque_ROOM.gd" id="3_ytpui"]
-[ext_resource type="PackedScene" uid="uid://d2kbhr3pflg3i" path="res://Ecenes/Map/Doors/Doors_Commun.tscn" id="4_yrbo2"]
-[ext_resource type="Script" uid="uid://cuj2x5lml12vj" path="res://Scripts/indc_player.gd" id="5_hldx2"]
+[ext_resource type="Script" path="res://Ecenes/Map/Rooms/Rooms_ok/room_defoult.gd" id="1_hldx2"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Map/mapa.png" id="2_3sb7n"]
+[ext_resource type="Script" path="res://Scripts/bloque_ROOM.gd" id="3_ytpui"]
+[ext_resource type="PackedScene" path="res://Ecenes/Map/Doors/Doors_Commun.tscn" id="4_yrbo2"]
+[ext_resource type="Script" path="res://Scripts/indc_player.gd" id="5_hldx2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhv5w"]
 size = Vector2(724, 64)
@@ -21,57 +21,57 @@ size = Vector2(69, 360)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7itkm"]
 size = Vector2(566, 264)
 
-[node name="RoomDefoult" type="Node2D" unique_id=894031416]
+[node name="RoomDefoult" type="Node2D"]
 script = ExtResource("1_hldx2")
 
-[node name="Sprites" type="Node2D" parent="." unique_id=1125104523]
+[node name="Sprites" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Sprites" unique_id=238992111]
+[node name="Sprite2D" type="Sprite2D" parent="Sprites"]
 scale = Vector2(0.37037036, 0.37037036)
 texture = ExtResource("2_3sb7n")
 
-[node name="Bloque" type="StaticBody2D" parent="." unique_id=1406841259 groups=["Room"]]
+[node name="Bloque" type="StaticBody2D" parent="." groups=["Room"]]
 script = ExtResource("3_ytpui")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bloque" unique_id=300187009]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bloque"]
 position = Vector2(1, 167)
 shape = SubResource("RectangleShape2D_mhv5w")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bloque" unique_id=389988888]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bloque"]
 position = Vector2(1, -167.5)
 shape = SubResource("RectangleShape2D_3sb7n")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bloque" unique_id=165110790]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bloque"]
 position = Vector2(325, -1)
 shape = SubResource("RectangleShape2D_h0emj")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bloque" unique_id=1792012617]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bloque"]
 position = Vector2(-324.5, -1)
 shape = SubResource("RectangleShape2D_di4ky")
 
-[node name="Indc_Player" type="Area2D" parent="." unique_id=1701888005]
+[node name="Indc_Player" type="Area2D" parent="."]
 script = ExtResource("5_hldx2")
 
-[node name="Collicion_indic" type="CollisionShape2D" parent="Indc_Player" unique_id=759035391]
+[node name="Collicion_indic" type="CollisionShape2D" parent="Indc_Player"]
 position = Vector2(1, 2)
 shape = SubResource("RectangleShape2D_7itkm")
 debug_color = Color(0.808098, 0.41147196, 0.12574488, 0.41960785)
 
-[node name="Doors" type="Node2D" parent="." unique_id=171207970]
+[node name="Doors" type="Node2D" parent="."]
 
-[node name="DoorPos_Right" parent="Doors" unique_id=2077045764 instance=ExtResource("4_yrbo2")]
+[node name="DoorPos_Right" parent="Doors" instance=ExtResource("4_yrbo2")]
 position = Vector2(293, 1)
 rotation = 1.5707964
 
-[node name="DoorPos_Left" parent="Doors" unique_id=1785222738 instance=ExtResource("4_yrbo2")]
+[node name="DoorPos_Left" parent="Doors" instance=ExtResource("4_yrbo2")]
 position = Vector2(-293, 0)
 rotation = -1.5707964
 
-[node name="DoorPos_Down" parent="Doors" unique_id=32046318 instance=ExtResource("4_yrbo2")]
+[node name="DoorPos_Down" parent="Doors" instance=ExtResource("4_yrbo2")]
 position = Vector2(-1, 142)
 rotation = 3.1415925
 
-[node name="DoorPos_Up" parent="Doors" unique_id=355860876 instance=ExtResource("4_yrbo2")]
+[node name="DoorPos_Up" parent="Doors" instance=ExtResource("4_yrbo2")]
 position = Vector2(-1, -141)
 
 [connection signal="body_entered" from="Indc_Player" to="Indc_Player" method="_on_body_entered"]

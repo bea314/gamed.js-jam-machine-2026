@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqdl855xj51rg"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://dwvb07xdapmcc" path="res://Ecenes/UI/intro.gd" id="1_jajb2"]
+[ext_resource type="Script" path="res://Ecenes/UI/intro.gd" id="1_jajb2"]
 
-[node name="Intro" type="Node2D" unique_id=1975574901]
+[node name="Intro" type="Node2D"]
 script = ExtResource("1_jajb2")
 
 [node name="VideoLayer" type="CanvasLayer" parent="."]

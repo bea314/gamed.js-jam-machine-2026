@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://dmmbtncredt01"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://cmfbtnvishtb1" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
-[ext_resource type="Texture2D" uid="uid://ploxekrct8gw" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_creditos.webp" id="2_idle"]
-[ext_resource type="Texture2D" uid="uid://48ikh3csbdt4" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_credutos_selected.webp" id="3_hover"]
+[ext_resource type="Script" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_creditos.webp" id="2_idle"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_credutos_selected.webp" id="3_hover"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
 

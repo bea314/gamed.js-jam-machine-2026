@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c8n5j2k1toast"]
+[gd_scene format=3]
 
 [node name="AchievementToastLayer" type="CanvasLayer"]
 layer = 80

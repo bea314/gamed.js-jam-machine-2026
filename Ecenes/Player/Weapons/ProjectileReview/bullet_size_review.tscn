@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://b5bjdc3mwaxp2"]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" uid="uid://cy4wj5k5vsq0q" path="res://Ecenes/Player/Weapons/MachineGunBullet.tscn" id="1_mg_bullet"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/MachineGunBullet.tscn" id="1_mg_bullet"]
 
-[node name="BulletSizeReview" type="Node2D" unique_id=50989162]
+[node name="BulletSizeReview" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1223374755]
+[node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
-[node name="MachineGunBullet" parent="." unique_id=193685057 instance=ExtResource("1_mg_bullet")]
+[node name="MachineGunBullet" parent="." instance=ExtResource("1_mg_bullet")]
 speed = 0.0
 life_time = 120.0

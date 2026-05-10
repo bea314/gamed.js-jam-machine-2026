@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://dkbxbrq5x45dx"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://bgfx73ldm20gd" path="res://Scripts/music_sistem.gd" id="1_0qq8a"]
-[ext_resource type="AudioStream" uid="uid://be83xkhjhs7yo" path="res://Recursos/Sound/Gameplay/BASE_STAGE.ogg" id="2_y8lhn"]
-[ext_resource type="AudioStream" uid="uid://0a63vkcfgd2o" path="res://Recursos/Sound/Menus/MELODY_01_ok .ogg" id="3_6sves"]
-[ext_resource type="AudioStream" uid="uid://biq5dhl2tp1mh" path="res://Recursos/Sound/Menus/MELODY_02_ok.ogg" id="4_v38or"]
-[ext_resource type="AudioStream" uid="uid://dyx1m3gcunydh" path="res://Recursos/Sound/Menus/MELODY_03_ok.ogg" id="5_una2c"]
+[ext_resource type="Script" path="res://Scripts/music_sistem.gd" id="1_0qq8a"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Gameplay/BASE_STAGE.ogg" id="2_y8lhn"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Menus/MELODY_01_ok .ogg" id="3_6sves"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Menus/MELODY_02_ok.ogg" id="4_v38or"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Menus/MELODY_03_ok.ogg" id="5_una2c"]
 
 [sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_0qq8a"]
 stream_count = 3
@@ -15,15 +15,15 @@ stream_1/volume = 0.0
 stream_2/stream = ExtResource("5_una2c")
 stream_2/volume = 0.0
 
-[node name="MusicSistem" type="Node" unique_id=967773942]
+[node name="MusicSistem" type="Node"]
 script = ExtResource("1_0qq8a")
 
-[node name="Base_Melody" type="AudioStreamPlayer" parent="." unique_id=409079904]
+[node name="Base_Melody" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_y8lhn")
 bus = &"Music"
 parameters/looping = true
 
-[node name="Melody_random" type="AudioStreamPlayer" parent="." unique_id=698222531]
+[node name="Melody_random" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamSynchronized_0qq8a")
 bus = &"Music"
 

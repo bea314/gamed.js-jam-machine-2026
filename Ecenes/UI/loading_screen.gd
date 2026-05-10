@@ -68,7 +68,18 @@ func _ready() -> void:
 
 	var packed_scene: PackedScene = await _load_target_packed_scene()
 	if packed_scene == null:
-		push_error("LoadingScreen: no se pudo resolver PackedScene para %s; intento `change_scene_to_file`." % _target_path)
+		push_error(
+			"LoadingScreen: fase LOAD — no se obtuvo PackedScene para `%s`; intento `change_scene_to_file`."
+			% _target_path
+		)
+		await _fade_out_and_change_to_file(_target_path)
+		return
+	if not packed_scene.can_instantiate():
+		push_error(
+			"LoadingScreen: fase VALIDATE — PackedScene no instanciable (`can_instantiate()==false`) para `%s`."
+			% _target_path
+		)
+		_log_scene_load_diagnostic(_target_path)
 		await _fade_out_and_change_to_file(_target_path)
 		return
 
@@ -82,10 +93,9 @@ func _ready() -> void:
 
 
 func _load_target_packed_scene() -> PackedScene:
+	# En Web el export suele ir sin hilos; solo carga síncrona (evita caer en `load_threaded_*` tras un fallo).
 	if OS.has_feature("web"):
-		var web_ps := _try_load_packed_sync(_target_path)
-		if web_ps != null:
-			return web_ps
+		return _try_load_packed_sync(_target_path)
 
 	var request_err := ResourceLoader.load_threaded_request(_target_path)
 	if request_err != OK and request_err != ERR_BUSY:
@@ -115,18 +125,93 @@ func _load_target_packed_scene() -> PackedScene:
 
 	var packed_res: Variant = ResourceLoader.load_threaded_get(_target_path)
 	if packed_res is PackedScene:
-		return packed_res as PackedScene
+		var ps_thread: PackedScene = packed_res as PackedScene
+		if ps_thread.can_instantiate():
+			return ps_thread
+		push_warning(
+			"LoadingScreen: threaded PackedScene no instanciable (`can_instantiate`); pruebo carga síncrona."
+		)
+		return _try_load_packed_sync(_target_path)
 	push_warning("LoadingScreen: resultado threaded no es PackedScene; pruebo carga síncrona.")
 	return _try_load_packed_sync(_target_path)
 
 
 func _try_load_packed_sync(path: String) -> PackedScene:
-	if path.is_empty() or not ResourceLoader.exists(path):
+	if path.is_empty():
+		push_error("LoadingScreen: _try_load_packed_sync: path vacío.")
+		return null
+	if not ResourceLoader.exists(path):
+		push_error("LoadingScreen: _try_load_packed_sync: ResourceLoader.exists(%s) == false." % path)
+		_log_scene_load_diagnostic(path)
 		return null
 	var res: Resource = ResourceLoader.load(path)
-	if res is PackedScene:
-		return res as PackedScene
-	return null
+	if res == null:
+		push_error(
+			"LoadingScreen: _try_load_packed_sync: ResourceLoader.load(%s) devolvió null (dependencia rota o error de parseo)."
+			% path
+		)
+		_log_scene_load_diagnostic(path)
+		return null
+	if not res is PackedScene:
+		push_error(
+			"LoadingScreen: _try_load_packed_sync: recurso no es PackedScene (tipo=%s) para %s."
+			% [res.get_class(), path]
+		)
+		return null
+	var ps := res as PackedScene
+	if not ps.can_instantiate():
+		push_error(
+			"LoadingScreen: _try_load_packed_sync: escena cargada pero can_instantiate()==false para %s."
+			% path
+		)
+		_log_scene_load_diagnostic(path)
+		return null
+	return ps
+
+
+func _dependency_res_path(token: String) -> String:
+	## Godot 4.1+ puede devolver tokens tipo `uid://…::::res://…`; necesitamos la parte cargable.
+	var s := token.strip_edges()
+	var idx := s.find("res://")
+	if idx >= 0:
+		return s.substr(idx)
+	return s
+
+
+func _gather_dependencies_recursive(entry_path: String, max_total: int = 400) -> PackedStringArray:
+	## En Godot 4.x `ResourceLoader.get_dependencies()` solo admite un argumento; la recursión va aquí.
+	var out: Array[String] = []
+	var seen: Dictionary = {}
+	var queue: Array[String] = [entry_path]
+	seen[entry_path] = true
+	while queue.size() > 0 and out.size() < max_total:
+		var cur: String = queue.pop_front()
+		var direct: PackedStringArray = ResourceLoader.get_dependencies(cur)
+		for raw in direct:
+			var dep_path := _dependency_res_path(str(raw))
+			if dep_path.is_empty():
+				continue
+			if seen.has(dep_path):
+				continue
+			seen[dep_path] = true
+			out.append(dep_path)
+			if ResourceLoader.exists(dep_path):
+				queue.append(dep_path)
+	return PackedStringArray(out)
+
+
+func _log_scene_load_diagnostic(path: String) -> void:
+	if path.is_empty():
+		return
+	if not ResourceLoader.exists(path):
+		push_error("LoadingScreen: diagnóstico: `%s` no existe en el loader." % path)
+		return
+	var deps := _gather_dependencies_recursive(path)
+	var max_lines := mini(28, deps.size())
+	var buf := "LoadingScreen: dependencias recursivas de `%s` (%d total), primeras %d:\n" % [path, deps.size(), max_lines]
+	for i in max_lines:
+		buf += "  - %s\n" % deps[i]
+	push_error(buf.strip_edges())
 
 
 func _setup_visual() -> void:
@@ -249,6 +334,18 @@ func _fade_out_and_change_to_file(path: String) -> void:
 func _deferred_commit_loaded_scene(packed_scene: PackedScene, commit_path: String) -> void:
 	if not is_inside_tree():
 		return
+	if packed_scene == null or not packed_scene.can_instantiate():
+		push_error(
+			"LoadingScreen: fase COMMIT — PackedScene inválido o no instanciable para `%s`."
+			% commit_path
+		)
+		_log_scene_load_diagnostic(commit_path)
+		_with_retries(
+			SCENE_CHANGE_RETRIES,
+			get_tree().change_scene_to_file.bind(LoadingTransition.MENU_SCENE_PATH),
+			"change_scene_to_file(menu)"
+		)
+		return
 	var tree := get_tree()
 	var err: int = _with_retries(
 		SCENE_CHANGE_RETRIES,
@@ -275,9 +372,10 @@ func _deferred_commit_loaded_scene(packed_scene: PackedScene, commit_path: Strin
 			err = tree.change_scene_to_node(instance)
 	if err != OK:
 		push_error(
-			"LoadingScreen: no se pudo montar el nivel %s (%s); vuelvo al menú."
+			"LoadingScreen: fase MOUNT — no se pudo montar el nivel `%s` (%s); vuelvo al menú."
 			% [commit_path, error_string(err)]
 		)
+		_log_scene_load_diagnostic(commit_path)
 		_with_retries(
 			SCENE_CHANGE_RETRIES,
 			tree.change_scene_to_file.bind(LoadingTransition.MENU_SCENE_PATH),

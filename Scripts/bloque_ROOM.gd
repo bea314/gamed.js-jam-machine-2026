@@ -1,10 +1,8 @@
 extends StaticBody2D
 
-func Collicion_Mode(IS_ACTIVE : bool): #ACTIVA Y DESACTIVA COLLICIONES
+
+func Collicion_Mode(IS_ACTIVE: bool) -> void: # ACTIVA Y DESACTIVA COLLICIONES
 	# WARNING : SIRVE PARA LA OPTIMISACION
-	if IS_ACTIVE:
-		for i in self:
-			i.disabled = false
-	else:
-		for i in self:
-			i.disabled = true
+	for child in get_children():
+		if child is CollisionShape2D:
+			(child as CollisionShape2D).disabled = not IS_ACTIVE

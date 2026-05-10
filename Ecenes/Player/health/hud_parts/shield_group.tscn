@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://c3shldgr001vk"]
+[gd_scene format=3]
 
-[ext_resource type="Texture2D" uid="uid://vf4twlu3md5k" path="res://Recursos/UXUI/HP y escudo/shield space.png" id="1_shield_space"]
-[ext_resource type="Texture2D" uid="uid://88fui52sgeb2" path="res://Recursos/UXUI/HP y escudo/shield.png" id="2_shield"]
-[ext_resource type="Script" uid="uid://degowx2g1d8d7" path="res://Scripts/health/shield_group.gd" id="3_shield_grp"]
+[ext_resource type="Texture2D" path="res://Recursos/UXUI/HP y escudo/shield space.png" id="1_shield_space"]
+[ext_resource type="Texture2D" path="res://Recursos/UXUI/HP y escudo/shield.png" id="2_shield"]
+[ext_resource type="Script" path="res://Scripts/health/shield_group.gd" id="3_shield_grp"]
 
-[node name="ShieldGroup" type="Control" unique_id=472141201]
+[node name="ShieldGroup" type="Control"]
 custom_minimum_size = Vector2(240, 28)
 layout_mode = 3
 anchors_preset = 0
@@ -13,7 +13,7 @@ offset_bottom = 28.0
 mouse_filter = 2
 script = ExtResource("3_shield_grp")
 
-[node name="ShieldSpace" type="TextureRect" parent="." unique_id=1473412430]
+[node name="ShieldSpace" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ texture = ExtResource("1_shield_space")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ShieldArcProgress" type="TextureProgressBar" parent="." unique_id=1348030403]
+[node name="ShieldArcProgress" type="TextureProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +47,7 @@ radial_fill_degrees = 133.0
 radial_center_offset = Vector2(55, 13)
 texture_progress = ExtResource("2_shield")
 
-[node name="ShieldArcFullPreview" type="TextureRect" parent="." unique_id=1348030404]
+[node name="ShieldArcFullPreview" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
 offset_left = 101.0
@@ -61,14 +61,14 @@ texture = ExtResource("2_shield")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="RadialFillCenterGizmo" type="Control" parent="." unique_id=743583287]
+[node name="RadialFillCenterGizmo" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 430.0
 offset_top = 221.0
 offset_right = 442.0
 offset_bottom = 233.0
 
-[node name="GizmoVisual" type="ColorRect" parent="RadialFillCenterGizmo" unique_id=771300317]
+[node name="GizmoVisual" type="ColorRect" parent="RadialFillCenterGizmo"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,22 +1,22 @@
-[gd_scene format=3 uid="uid://6v2iuqbbiw3d"]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" uid="uid://2cv4rkaq2ud1" path="res://Ecenes/LEVEL_GENERATOR/Level_Generation_Nivel_1.tscn" id="1_0hirc"]
-[ext_resource type="PackedScene" uid="uid://mtkfihhomh0w" path="res://Ecenes/Player.tscn" id="1_xt35t"]
-[ext_resource type="PackedScene" uid="uid://c5sojnp5a6jq1" path="res://Ecenes/Camera_Gameplay.tscn" id="2_jgr5g"]
-[ext_resource type="PackedScene" uid="uid://dkbxbrq5x45dx" path="res://Ecenes/Music_SISTEM.tscn" id="5_80fcu"]
-[ext_resource type="PackedScene" uid="uid://f3522kvpics3" path="res://Ecenes/UI/PauseMenu.tscn" id="6_pause"]
+[ext_resource type="PackedScene" path="res://Ecenes/LEVEL_GENERATOR/Level_Generation_Nivel_1.tscn" id="1_0hirc"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player.tscn" id="1_xt35t"]
+[ext_resource type="PackedScene" path="res://Ecenes/Camera_Gameplay.tscn" id="2_jgr5g"]
+[ext_resource type="PackedScene" path="res://Ecenes/Music_SISTEM.tscn" id="5_80fcu"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/PauseMenu.tscn" id="6_pause"]
 
-[node name="Level" type="Node2D" unique_id=956876147]
+[node name="Level" type="Node2D"]
 
-[node name="LevelGeneration_Nivel1" parent="." unique_id=1773209567 instance=ExtResource("1_0hirc")]
+[node name="LevelGeneration_Nivel1" parent="." instance=ExtResource("1_0hirc")]
 
-[node name="Player" parent="." unique_id=1781802405 instance=ExtResource("1_xt35t")]
+[node name="Player" parent="." instance=ExtResource("1_xt35t")]
 
-[node name="CameraGameplay" parent="." unique_id=728537024 instance=ExtResource("2_jgr5g")]
+[node name="CameraGameplay" parent="." instance=ExtResource("2_jgr5g")]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=414210199]
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.34407586, 0.3440757, 0.34407574, 1)
 
-[node name="MusicSistem" parent="." unique_id=967773942 instance=ExtResource("5_80fcu")]
+[node name="MusicSistem" parent="." instance=ExtResource("5_80fcu")]
 
-[node name="PauseMenu" parent="." unique_id=1443421441 instance=ExtResource("6_pause")]
+[node name="PauseMenu" parent="." instance=ExtResource("6_pause")]

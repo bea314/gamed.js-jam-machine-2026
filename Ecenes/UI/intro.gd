@@ -26,7 +26,19 @@ func _ready() -> void:
 	_video.volume_db = INTRO_AUDIO_START_DB
 	_video.modulate = Color(1, 1, 1, 1)
 	_setup_skip_button()
-	_video.stream = load(INTRO_VIDEO_PATH) as VideoStream
+	if not ResourceLoader.exists(INTRO_VIDEO_PATH):
+		push_warning("Intro: no existe el recurso de vídeo `%s`; paso al nivel." % INTRO_VIDEO_PATH)
+		call_deferred("_deferred_after_intro")
+		return
+	var loaded: Variant = load(INTRO_VIDEO_PATH)
+	if loaded == null or not loaded is VideoStream:
+		push_warning(
+			"Intro: vídeo no cargable como VideoStream (web o códec); paso al nivel. path=%s"
+			% INTRO_VIDEO_PATH
+		)
+		call_deferred("_deferred_after_intro")
+		return
+	_video.stream = loaded as VideoStream
 	_video.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_video.finished.connect(_on_video_finished)
 	_video.play()

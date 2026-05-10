@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://dmmbtnopcio01"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://Ecenes/Menu/buttons/menu_button_visual_hitbox.gd" id="1_scr"]
-[ext_resource type="Texture2D" uid="uid://cmkytsrgwj2hb" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_opciones.webp" id="2_idle"]
-[ext_resource type="Texture2D" uid="uid://c6w7epmv0e7qi" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_opciones_selected.webp" id="3_hover"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_opciones.webp" id="2_idle"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/main menu botones/main-menu_button_opciones_selected.webp" id="3_hover"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
 
-[node name="OptionsButton" type="Control" unique_id=1927744217]
+[node name="OptionsButton" type="Control"]
 custom_minimum_size = Vector2(420, 76)
 layout_mode = 3
 anchors_preset = 0
@@ -15,7 +15,7 @@ script = ExtResource("1_scr")
 texture_idle = ExtResource("2_idle")
 texture_hover = ExtResource("3_hover")
 
-[node name="Graphic" type="TextureRect" parent="." unique_id=1343276551]
+[node name="Graphic" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +32,7 @@ texture = ExtResource("2_idle")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ClickArea" type="Button" parent="." unique_id=1868016613]
+[node name="ClickArea" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +48,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
 flat = true
 
-[node name="HitAreaOutline" type="ReferenceRect" parent="." unique_id=91770937]
+[node name="HitAreaOutline" type="ReferenceRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

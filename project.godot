@@ -16,8 +16,8 @@ run/main_scene="res://Ecenes/Menu/Menu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0.0627451, 0.06666667, 0.101960786, 1)
 boot_splash/stretch_mode=0
-boot_splash/image="uid://bdmlkpag2xcsw"
-config/icon="uid://coqi0lcjvwjop"
+boot_splash/image="res://Recursos/UXUI/MENU/logo.png"
+config/icon="res://icon.png"
 
 [autoload]
 
@@ -25,7 +25,7 @@ ActiveRoomService="*res://Scripts/active_room_service.gd"
 DungeonMapService="*res://Scripts/dungeon_map_service.gd"
 LoadingTransition="*res://Scripts/loading_transition.gd"
 SettingsManager="*res://Scripts/settings_manager.gd"
-Global_Ran="*uid://b8qhx67cn14na"
+Global_Ran="*res://global_ran.gd"
 GameEvents="*res://Systems/Achievements/game_events.gd"
 AchievementService="*res://Systems/Achievements/achievement_service.gd"
 WavedashAdapter="*res://Systems/Wavedash/wavedash_adapter.gd"

@@ -1,18 +1,18 @@
-[gd_scene format=3 uid="uid://b4tt2ys6xc6kq"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://b7e7mqxi3o3ae" path="res://Scripts/ui/options_menu.gd" id="1_opt"]
-[ext_resource type="Texture2D" uid="uid://bcpwr7c5n0ovg" path="res://Recursos/Textures/Menus/options menu/background.webp" id="2_bg"]
-[ext_resource type="Texture2D" uid="uid://je4och1y22cq" path="res://Recursos/Textures/Menus/options menu/containers.webp" id="3_frame"]
-[ext_resource type="PackedScene" uid="uid://bvc0la2lopy6o" path="res://Ecenes/UI/buttons/options_menu_button_back.tscn" id="4_back"]
-[ext_resource type="PackedScene" uid="uid://duyaaiysebfgn" path="res://Ecenes/UI/buttons/options_menu_button_close.tscn" id="5_clsbtn"]
-[ext_resource type="PackedScene" uid="uid://c8v3qmxn0chk1" path="res://Ecenes/UI/toggles/texture_checkbox_button.tscn" id="6_togchk"]
+[ext_resource type="Script" path="res://Scripts/ui/options_menu.gd" id="1_opt"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/options menu/background.webp" id="2_bg"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/options menu/containers.webp" id="3_frame"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/options_menu_button_back.tscn" id="4_back"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/buttons/options_menu_button_close.tscn" id="5_clsbtn"]
+[ext_resource type="PackedScene" path="res://Ecenes/UI/toggles/texture_checkbox_button.tscn" id="6_togchk"]
 
-[node name="OptionsMenu" type="CanvasLayer" unique_id=-1230790582]
+[node name="OptionsMenu" type="CanvasLayer"]
 process_mode = 3
 layer = 31
 script = ExtResource("1_opt")
 
-[node name="Root" type="Control" parent="." unique_id=47409051]
+[node name="Root" type="Control" parent="."]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -21,7 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Dim" type="ColorRect" parent="Root" unique_id=-1642170326]
+[node name="Dim" type="ColorRect" parent="Root"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,15 +30,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0784314, 0.0784314, 0.117647, 0.78)
 
-[node name="OptionsBackground" type="Sprite2D" parent="Root/Dim" unique_id=-1917021874]
+[node name="OptionsBackground" type="Sprite2D" parent="Root/Dim"]
 position = Vector2(960, 544)
 texture = ExtResource("2_bg")
 
-[node name="OptionsFrame" type="Sprite2D" parent="Root/Dim" unique_id=886330533]
+[node name="OptionsFrame" type="Sprite2D" parent="Root/Dim"]
 position = Vector2(960, 544)
 texture = ExtResource("3_frame")
 
-[node name="BackButton" parent="Root" unique_id=394798677 instance=ExtResource("4_back")]
+[node name="BackButton" parent="Root" instance=ExtResource("4_back")]
 layout_mode = 0
 offset_left = 472.0
 offset_top = 104.00001
@@ -46,7 +46,7 @@ offset_right = 752.0
 offset_bottom = 184.0
 scale = Vector2(1.5555739, 1.5555739)
 
-[node name="ClosePauseButton" parent="Root" unique_id=1428942484 instance=ExtResource("5_clsbtn")]
+[node name="ClosePauseButton" parent="Root" instance=ExtResource("5_clsbtn")]
 layout_mode = 0
 offset_left = 1360.0
 offset_top = 104.0
@@ -54,7 +54,7 @@ offset_right = 1640.0
 offset_bottom = 184.0
 scale = Vector2(1.5555739, 1.5555739)
 
-[node name="MainVBox" type="VBoxContainer" parent="Root" unique_id=-1606464689]
+[node name="MainVBox" type="VBoxContainer" parent="Root"]
 z_index = 1
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 0
@@ -64,45 +64,45 @@ offset_right = 1172.0
 offset_bottom = 577.0
 theme_override_constants/separation = 14
 
-[node name="OptionsTitle" type="Label" parent="Root/MainVBox" unique_id=-1786679975]
+[node name="OptionsTitle" type="Label" parent="Root/MainVBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Opciones"
 horizontal_alignment = 1
 
-[node name="MusicRow" type="HBoxContainer" parent="Root/MainVBox" unique_id=266588599]
+[node name="MusicRow" type="HBoxContainer" parent="Root/MainVBox"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MusicLabel" type="Label" parent="Root/MainVBox/MusicRow" unique_id=2122049146]
+[node name="MusicLabel" type="Label" parent="Root/MainVBox/MusicRow"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 text = "Música"
 
-[node name="MusicSlider" type="HSlider" parent="Root/MainVBox/MusicRow" unique_id=-1447554225]
+[node name="MusicSlider" type="HSlider" parent="Root/MainVBox/MusicRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SFXRow" type="HBoxContainer" parent="Root/MainVBox" unique_id=547228336]
+[node name="SFXRow" type="HBoxContainer" parent="Root/MainVBox"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="SFXLabel" type="Label" parent="Root/MainVBox/SFXRow" unique_id=582282746]
+[node name="SFXLabel" type="Label" parent="Root/MainVBox/SFXRow"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 text = "Efectos"
 
-[node name="SFXSlider" type="HSlider" parent="Root/MainVBox/SFXRow" unique_id=353775800]
+[node name="SFXSlider" type="HSlider" parent="Root/MainVBox/SFXRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="FullscreenCheck" parent="Root" unique_id=-1384596699 instance=ExtResource("6_togchk")]
+[node name="FullscreenCheck" parent="Root" instance=ExtResource("6_togchk")]
 z_index = 1
 layout_mode = 0
 offset_left = 1184.0

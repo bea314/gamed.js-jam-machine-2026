@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://c7fqcn6qoujmc"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://cvhetejmr5tkl" path="res://Scripts/doors_commun_connect.gd" id="1_578ms"]
-[ext_resource type="Script" uid="uid://ttmuu6g2wyc6" path="res://Scripts/DoorCommun_Sprite.gd" id="2_8pqlf"]
-[ext_resource type="Script" uid="uid://bj1o03xbqknvc" path="res://Scripts/detector_door.gd" id="3_8pqlf"]
-[ext_resource type="Script" uid="uid://d17g3onvtjgel" path="res://Scripts/area_player_interact_connect.gd" id="3_vi775"]
+[ext_resource type="Script" path="res://Scripts/doors_commun_connect.gd" id="1_578ms"]
+[ext_resource type="Script" path="res://Scripts/DoorCommun_Sprite.gd" id="2_8pqlf"]
+[ext_resource type="Script" path="res://Scripts/detector_door.gd" id="3_8pqlf"]
+[ext_resource type="Script" path="res://Scripts/area_player_interact_connect.gd" id="3_vi775"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2nff2"]
 
@@ -15,18 +15,18 @@ size = Vector2(2.5, 96)
 
 [sub_resource type="SphereMesh" id="SphereMesh_8pqlf"]
 
-[node name="DoorsCommun_CONNECTOR" type="Node2D" unique_id=1819502542 groups=["Door_Connect"]]
+[node name="DoorsCommun_CONNECTOR" type="Node2D" groups=["Door_Connect"]]
 script = ExtResource("1_578ms")
 
-[node name="Mesh_sistem" type="Node2D" parent="." unique_id=917673563]
+[node name="Mesh_sistem" type="Node2D" parent="."]
 script = ExtResource("2_8pqlf")
 
-[node name="Mesh_Door" type="MeshInstance2D" parent="Mesh_sistem" unique_id=2129755179]
+[node name="Mesh_Door" type="MeshInstance2D" parent="Mesh_sistem"]
 position = Vector2(0.75, -3.000002)
 scale = Vector2(40.500004, 106)
 mesh = SubResource("BoxMesh_2nff2")
 
-[node name="Muestra_path" type="Label" parent="Mesh_sistem" unique_id=833698157]
+[node name="Muestra_path" type="Label" parent="Mesh_sistem"]
 offset_left = -9.0
 offset_top = -54.0
 offset_right = 12.0
@@ -38,36 +38,36 @@ text = "C"
 [node name="DoorSprite" type="Sprite2D" parent="Mesh_sistem"]
 position = Vector2(0.75, -3)
 
-[node name="Area_Player_Interact" type="Area2D" parent="." unique_id=186633583]
+[node name="Area_Player_Interact" type="Area2D" parent="."]
 collision_mask = 2
 script = ExtResource("3_vi775")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Player_Interact" unique_id=1359583503]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Player_Interact"]
 position = Vector2(-26.5, -2.5)
 shape = SubResource("RectangleShape2D_fqivv")
 
-[node name="Detector_DOOR" type="StaticBody2D" parent="." unique_id=1396795278]
+[node name="Detector_DOOR" type="StaticBody2D" parent="."]
 position = Vector2(42, 0)
 collision_layer = 8
 script = ExtResource("3_8pqlf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector_DOOR" unique_id=68745053]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector_DOOR"]
 position = Vector2(-18.25, 0)
 shape = SubResource("RectangleShape2D_578ms")
 debug_color = Color(0.9907188, 0, 0.28060484, 0.41960785)
 
-[node name="Raycast_Detector" type="RayCast2D" parent="Detector_DOOR" unique_id=1890464683]
+[node name="Raycast_Detector" type="RayCast2D" parent="Detector_DOOR"]
 position = Vector2(-16, 32)
 target_position = Vector2(30, 0)
 collision_mask = 8
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Detector_DOOR" unique_id=1711173787]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Detector_DOOR"]
 modulate = Color(1, 0, 1, 1)
 position = Vector2(15.999999, 31.999998)
 scale = Vector2(6.0068035, 6.0068045)
 mesh = SubResource("SphereMesh_8pqlf")
 
-[node name="Point_Spawn" type="Marker2D" parent="." unique_id=223063034]
+[node name="Point_Spawn" type="Marker2D" parent="."]
 position = Vector2(-83, 0)
 
 [connection signal="body_entered" from="Area_Player_Interact" to="Area_Player_Interact" method="_on_body_entered"]

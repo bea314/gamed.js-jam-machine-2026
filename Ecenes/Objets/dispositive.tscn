@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cne81bq62n7qk"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://oh2djgm5basx" path="res://Scripts/Objets/dispositive.gd" id="1_7wa7n"]
-[ext_resource type="Texture2D" uid="uid://ciow08q42sh3a" path="res://Recursos/Textures/device1.png" id="1_xlans"]
+[ext_resource type="Script" path="res://Scripts/Objets/dispositive.gd" id="1_7wa7n"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/device1.png" id="1_xlans"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xlans"]
 radius = 28.0
@@ -67,19 +67,19 @@ _data = {
 &"take_damage": SubResource("Animation_8luoo")
 }
 
-[node name="Dispositive" type="StaticBody2D" unique_id=90898918]
+[node name="Dispositive" type="StaticBody2D"]
 collision_mask = 5
 script = ExtResource("1_7wa7n")
 
-[node name="Sprite_Machine" type="Sprite2D" parent="." unique_id=1187301813]
+[node name="Sprite_Machine" type="Sprite2D" parent="."]
 scale = Vector2(0.2929198, 0.2929198)
 texture = ExtResource("1_xlans")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1017881739]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 10)
 scale = Vector2(1.1360976, 1.1360976)
 shape = SubResource("CircleShape2D_xlans")
 debug_color = Color(0, 0.41568628, 0.69803923, 0.69411767)
 
-[node name="ANIM_Disp" type="AnimationPlayer" parent="." unique_id=1351770673]
+[node name="ANIM_Disp" type="AnimationPlayer" parent="."]
 libraries/ = SubResource("AnimationLibrary_t3x0n")

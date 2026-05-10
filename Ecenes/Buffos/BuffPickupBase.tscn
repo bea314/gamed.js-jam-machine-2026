@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://2b34g57e2v86"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://dv3mwtqk7pe55" path="res://Scripts/buffs/buff_pickup_base.gd" id="1_pickup"]
+[ext_resource type="Script" path="res://Scripts/buffs/buff_pickup_base.gd" id="1_pickup"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pickup"]
 radius = 12.37
@@ -8,7 +8,7 @@ radius = 12.37
 [sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
 radius = 17.5
 
-[node name="BuffPickupBase" type="RigidBody2D" unique_id=506409173 groups=["Item"]]
+[node name="BuffPickupBase" type="RigidBody2D" groups=["Item"]]
 collision_layer = 1
 collision_mask = 3
 gravity_scale = 0.0
@@ -18,32 +18,32 @@ max_contacts_reported = 1
 script = ExtResource("1_pickup")
 pickup_radius = 17.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=677410015]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pickup")
 
-[node name="VisualRoot" type="Node2D" parent="." unique_id=679416614]
+[node name="VisualRoot" type="Node2D" parent="."]
 scale = Vector2(1.75, 1.75)
 
-[node name="Sprite2D" type="Sprite2D" parent="VisualRoot" unique_id=940387492]
+[node name="Sprite2D" type="Sprite2D" parent="VisualRoot"]
 
-[node name="Area_Collicion_Interact" type="Area2D" parent="." unique_id=882013612]
+[node name="Area_Collicion_Interact" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Collicion_Interact" unique_id=128909009]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Collicion_Interact"]
 shape = SubResource("CircleShape2D_interact")
 
-[node name="PickupRadiusVisual" type="Line2D" parent="." unique_id=289010244]
+[node name="PickupRadiusVisual" type="Line2D" parent="."]
 z_index = -1
 width = 1.5
 default_color = Color(0.65, 0.95, 1, 0.28)
 
-[node name="PickupHintRoot" type="Node2D" parent="." unique_id=167800012]
+[node name="PickupHintRoot" type="Node2D" parent="."]
 position = Vector2(0, -24)
 z_as_relative = false
 z_index = 5000
 
-[node name="HintLabel" type="Label" parent="PickupHintRoot" unique_id=148230011]
+[node name="HintLabel" type="Label" parent="PickupHintRoot"]
 offset_left = -32.0
 offset_top = -8.0
 offset_right = 32.0

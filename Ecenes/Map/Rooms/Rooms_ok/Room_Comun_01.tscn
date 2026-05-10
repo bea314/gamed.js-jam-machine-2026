@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://0c71s8qxmeg4"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://hxyx3qanqfkq" path="res://Scripts/room_comun_01.gd" id="1_ivt21"]
-[ext_resource type="PackedScene" uid="uid://d0by0wlx7dyh8" path="res://Ecenes/Objets/KAY_MASTER_TEST.tscn" id="1_riwp3"]
-[ext_resource type="Script" uid="uid://dw7lvk7iinhfs" path="res://Scripts/doors_points.gd" id="2_hro8a"]
-[ext_resource type="Script" uid="uid://codhjm1nm81t3" path="res://Scripts/spwan_rooms_points.gd" id="2_ylqsd"]
+[ext_resource type="Script" path="res://Scripts/room_comun_01.gd" id="1_ivt21"]
+[ext_resource type="PackedScene" path="res://Ecenes/Objets/KAY_MASTER_TEST.tscn" id="1_riwp3"]
+[ext_resource type="Script" path="res://Scripts/doors_points.gd" id="2_hro8a"]
+[ext_resource type="Script" path="res://Scripts/spwan_rooms_points.gd" id="2_ylqsd"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_saatp"]
 
@@ -13,70 +13,70 @@ size = Vector2(724, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2p31"]
 size = Vector2(24, 440)
 
-[node name="RoomComun01" type="Node2D" unique_id=1523623804]
+[node name="RoomComun01" type="Node2D"]
 script = ExtResource("1_ivt21")
 
-[node name="Sprites" type="Node2D" parent="." unique_id=180508131]
+[node name="Sprites" type="Node2D" parent="."]
 
-[node name="MeshInstance2D3" type="MeshInstance2D" parent="Sprites" unique_id=697048338]
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="Sprites"]
 modulate = Color(0.1148968, 0.11489681, 0.1148968, 1)
 position = Vector2(0.00012207031, 0.00012207031)
 scale = Vector2(728.43884, 478.79395)
 mesh = SubResource("QuadMesh_saatp")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Sprites" unique_id=282598473]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Sprites"]
 modulate = Color(0.3854925, 0.38549247, 0.38549247, 1)
 position = Vector2(0.00012207031, 0.00012207031)
 scale = Vector2(669.84406, 440.28033)
 mesh = SubResource("QuadMesh_saatp")
 
-[node name="Doors_Points" type="Node2D" parent="." unique_id=563271054]
+[node name="Doors_Points" type="Node2D" parent="."]
 script = ExtResource("2_hro8a")
 
-[node name="DOOR_Pos2" type="Marker2D" parent="Doors_Points" unique_id=1731629396]
+[node name="DOOR_Pos2" type="Marker2D" parent="Doors_Points"]
 position = Vector2(349, 0)
 
-[node name="DOOR_Pos4" type="Marker2D" parent="Doors_Points" unique_id=973244519]
+[node name="DOOR_Pos4" type="Marker2D" parent="Doors_Points"]
 position = Vector2(-347, -1)
 
-[node name="DOOR_Pos3" type="Marker2D" parent="Doors_Points" unique_id=997338779]
+[node name="DOOR_Pos3" type="Marker2D" parent="Doors_Points"]
 position = Vector2(0, 230)
 
-[node name="DOOR_Pos1" type="Marker2D" parent="Doors_Points" unique_id=503626249]
+[node name="DOOR_Pos1" type="Marker2D" parent="Doors_Points"]
 position = Vector2(0, -231)
 
-[node name="Spwan_ROOMS_POINTS" type="Node2D" parent="." unique_id=1290461769]
+[node name="Spwan_ROOMS_POINTS" type="Node2D" parent="."]
 script = ExtResource("2_ylqsd")
 
-[node name="POINT_2" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=259848682]
+[node name="POINT_2" type="Marker2D" parent="Spwan_ROOMS_POINTS"]
 position = Vector2(751, 0)
 
-[node name="POINT_4" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=1293526927]
+[node name="POINT_4" type="Marker2D" parent="Spwan_ROOMS_POINTS"]
 position = Vector2(-751, 0)
 
-[node name="POINT_1" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=2096824606]
+[node name="POINT_1" type="Marker2D" parent="Spwan_ROOMS_POINTS"]
 position = Vector2(0, -537)
 
-[node name="POINT_3" type="Marker2D" parent="Spwan_ROOMS_POINTS" unique_id=1350035845]
+[node name="POINT_3" type="Marker2D" parent="Spwan_ROOMS_POINTS"]
 position = Vector2(0, 537)
 
-[node name="Bloque" type="StaticBody2D" parent="." unique_id=1842165830 groups=["Room"]]
+[node name="Bloque" type="StaticBody2D" parent="." groups=["Room"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bloque" unique_id=1627168347]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bloque"]
 position = Vector2(0, 230)
 shape = SubResource("RectangleShape2D_ai2xw")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bloque" unique_id=950535583]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bloque"]
 position = Vector2(0, -231)
 shape = SubResource("RectangleShape2D_ai2xw")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bloque" unique_id=1884185142]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bloque"]
 position = Vector2(349, -1)
 shape = SubResource("RectangleShape2D_c2p31")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bloque" unique_id=567332978]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bloque"]
 position = Vector2(-347, -1)
 shape = SubResource("RectangleShape2D_c2p31")
 
-[node name="KayMasterTest" parent="." unique_id=230106274 instance=ExtResource("1_riwp3")]
+[node name="KayMasterTest" parent="." instance=ExtResource("1_riwp3")]
 position = Vector2(0, 63)

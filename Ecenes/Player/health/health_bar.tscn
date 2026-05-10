@@ -1,16 +1,16 @@
-[gd_scene format=3 uid="uid://dhda7gqa2j8ok"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://1l3e1v7htttn" path="res://Scripts/health/health_hud.gd" id="1_hud"]
-[ext_resource type="Texture2D" uid="uid://sqt20jks3sy3" path="res://Recursos/UXUI/HP y escudo/ruka full.png" id="2_ruka_full"]
-[ext_resource type="PackedScene" uid="uid://b8hpgrpw001vk" path="res://Ecenes/Player/health/hud_parts/hp_group.tscn" id="3_hp_group"]
-[ext_resource type="PackedScene" uid="uid://c3shldgr001vk" path="res://Ecenes/Player/health/hud_parts/shield_group.tscn" id="4_shield_group"]
-[ext_resource type="FontFile" uid="uid://dlxrsbe2brulj" path="res://Recursos/KOMTXKBI.ttf" id="5_komtx"]
+[ext_resource type="Script" path="res://Scripts/health/health_hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://Recursos/UXUI/HP y escudo/ruka full.png" id="2_ruka_full"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/health/hud_parts/hp_group.tscn" id="3_hp_group"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/health/hud_parts/shield_group.tscn" id="4_shield_group"]
+[ext_resource type="FontFile" path="res://Recursos/KOMTXKBI.ttf" id="5_komtx"]
 
-[node name="HealthBar" type="CanvasLayer" unique_id=1977041532]
+[node name="HealthBar" type="CanvasLayer"]
 layer = 50
 script = ExtResource("1_hud")
 
-[node name="Root" type="Control" parent="." unique_id=607442127]
+[node name="Root" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 22.0
@@ -18,7 +18,7 @@ offset_top = 12.0
 offset_right = 438.0
 offset_bottom = 140.0
 
-[node name="ShieldGroup" parent="Root" unique_id=662921114 instance=ExtResource("4_shield_group")]
+[node name="ShieldGroup" parent="Root" instance=ExtResource("4_shield_group")]
 layout_mode = 0
 offset_left = -710.0
 offset_top = -5.999999
@@ -26,7 +26,7 @@ offset_right = -470.0
 offset_bottom = 22.0
 scale = Vector2(6.9022613, 6.9022613)
 
-[node name="HPGroup" parent="Root" unique_id=946012320 instance=ExtResource("3_hp_group")]
+[node name="HPGroup" parent="Root" instance=ExtResource("3_hp_group")]
 layout_mode = 0
 offset_left = -436.0
 offset_top = -6.0
@@ -34,7 +34,7 @@ offset_right = -196.0
 offset_bottom = 36.0
 scale = Vector2(4.5886774, 4.5886774)
 
-[node name="RukaPortrait" type="TextureRect" parent="Root" unique_id=1823343511]
+[node name="RukaPortrait" type="TextureRect" parent="Root"]
 layout_mode = 0
 offset_left = -8.999999
 offset_top = -29.000004
@@ -46,7 +46,7 @@ texture = ExtResource("2_ruka_full")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="DamagePopup" type="Control" parent="Root" unique_id=208984775]
+[node name="DamagePopup" type="Control" parent="Root"]
 anchors_preset = 0
 offset_left = -20.0
 offset_top = -22.000002
@@ -55,7 +55,7 @@ offset_bottom = 29.999998
 scale = Vector2(3.2369308, 3.1547146)
 mouse_filter = 2
 
-[node name="DamageLabel" type="Label" parent="Root/DamagePopup" unique_id=1680224346]
+[node name="DamageLabel" type="Label" parent="Root/DamagePopup"]
 visible = false
 layout_mode = 0
 offset_left = 43.868717

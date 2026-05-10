@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://fumemjp6qwmj"]
+[gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://Ecenes/Buffos/BuffPickupBase.tscn" id="1_base"]
-[ext_resource type="Texture2D" uid="uid://ben64wmfsgx8q" path="res://Recursos/Textures/Map/Buffos/shield buff.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Map/Buffos/shield buff.png" id="2_tex"]
 
-[node name="BuffShield" unique_id=1082621119 instance=ExtResource("1_base")]
+[node name="BuffShield" instance=ExtResource("1_base")]
 buff_type = "shield"
 
 [node name="Sprite2D" parent="VisualRoot" index="0"]

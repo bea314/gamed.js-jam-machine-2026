@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://csbyupinujltk"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://cmwddu7qeoyki" path="res://Ecenes/UI/buttons/pause_menu_button_close.gd" id="1_scr"]
-[ext_resource type="Texture2D" uid="uid://ba65nfnog77ou" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_x.webp" id="2_idle"]
+[ext_resource type="Script" path="res://Ecenes/UI/buttons/pause_menu_button_close.gd" id="1_scr"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/pause menu/buttons/pause_button_x.webp" id="2_idle"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
 
-[node name="ClosePauseButton" type="Control" unique_id=2022414018]
+[node name="ClosePauseButton" type="Control"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 3
 anchors_preset = 0
@@ -13,7 +13,7 @@ mouse_filter = 2
 script = ExtResource("1_scr")
 texture_idle = ExtResource("2_idle")
 
-[node name="Graphic" type="TextureRect" parent="." unique_id=1294236336]
+[node name="Graphic" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,7 @@ texture = ExtResource("2_idle")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ClickArea" type="Button" parent="." unique_id=335862488]
+[node name="ClickArea" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,7 +46,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
 flat = true
 
-[node name="HitAreaOutline" type="ReferenceRect" parent="." unique_id=1438559153]
+[node name="HitAreaOutline" type="ReferenceRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

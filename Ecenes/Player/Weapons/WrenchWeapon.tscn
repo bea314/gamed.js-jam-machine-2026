@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://wpnwrenchscene"]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://Scripts/weapons/wrench_weapon.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/MeleeHitbox.tscn" id="2_melee"]

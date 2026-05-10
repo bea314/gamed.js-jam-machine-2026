@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://bvc0la2lopy6o"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://cmwddu7qeoyki" path="res://Ecenes/UI/buttons/pause_menu_button_close.gd" id="1_scr"]
-[ext_resource type="Texture2D" uid="uid://b7cvf1vsur1f1" path="res://Recursos/Textures/Menus/options menu/button_back.webp" id="2_idle"]
+[ext_resource type="Script" path="res://Ecenes/UI/buttons/pause_menu_button_close.gd" id="1_scr"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/options menu/button_back.webp" id="2_idle"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
 
-[node name="BackButton" type="Control" unique_id=-1492553278]
+[node name="BackButton" type="Control"]
 custom_minimum_size = Vector2(280, 80)
 layout_mode = 3
 anchors_preset = 0
@@ -15,12 +15,12 @@ mouse_filter = 2
 script = ExtResource("1_scr")
 texture_idle = ExtResource("2_idle")
 
-[node name="ButtonBack" type="Sprite2D" parent="." unique_id=647950857]
+[node name="ButtonBack" type="Sprite2D" parent="."]
 position = Vector2(267, 236.00002)
 scale = Vector2(0.5613566, 0.5613566)
 texture = ExtResource("2_idle")
 
-[node name="ClickArea" type="Button" parent="." unique_id=235862488]
+[node name="ClickArea" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,7 +37,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
 flat = true
 
-[node name="HitAreaOutline" type="ReferenceRect" parent="." unique_id=-1856408143]
+[node name="HitAreaOutline" type="ReferenceRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

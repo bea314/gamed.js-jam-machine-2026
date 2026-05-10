@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://bftrol02oq182"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://kdnsakufsjn6" path="res://Scripts/weapons/melee_hitbox.gd" id="1_melee"]
-[ext_resource type="Texture2D" uid="uid://d0i7o0j00dnco" path="res://Recursos/Textures/Ruka/WeaponArea/wrench AoE.png" id="2_tex"]
+[ext_resource type="Script" path="res://Scripts/weapons/melee_hitbox.gd" id="1_melee"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/WeaponArea/wrench AoE.png" id="2_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_melee"]
 size = Vector2(44, 22)
 
-[node name="MeleeHitbox" type="Area2D" unique_id=1389593314]
+[node name="MeleeHitbox" type="Area2D"]
 z_index = 48
 z_as_relative = false
 collision_mask = 4
@@ -15,24 +15,24 @@ script = ExtResource("1_melee")
 hitbox_size = Vector2(44, 22)
 hitbox_center_offset = Vector2(18, 0)
 
-[node name="AoESprite" type="Sprite2D" parent="." unique_id=2028684941]
+[node name="AoESprite" type="Sprite2D" parent="."]
 z_as_relative = false
 position = Vector2(3, 0)
 rotation = -1.5757339
 scale = Vector2(0.48704565, 0.48704565)
 texture = ExtResource("2_tex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=526471964]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(18, 0)
 shape = SubResource("RectangleShape2D_melee")
 
-[node name="HitboxVisual" type="Polygon2D" parent="." unique_id=885766680]
+[node name="HitboxVisual" type="Polygon2D" parent="."]
 z_index = 2
 z_as_relative = false
 color = Color(0.35, 0.92, 0.98, 0.52)
 polygon = PackedVector2Array(-4, -11, 40, -11, 40, 11, -4, 11)
 
-[node name="HitboxOutline" type="Line2D" parent="." unique_id=850146053]
+[node name="HitboxOutline" type="Line2D" parent="."]
 z_index = 3
 z_as_relative = false
 points = PackedVector2Array(-4, -11, 40, -11, 40, 11, -4, 11)

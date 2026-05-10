@@ -1,21 +1,21 @@
-[gd_scene format=3 uid="uid://br5wjy52n3pum"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://kor7fnmh7cxr" path="res://Scripts/slash_attack.gd" id="1_slash"]
+[ext_resource type="Script" path="res://Scripts/slash_attack.gd" id="1_slash"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slash"]
 size = Vector2(81, 28)
 
-[node name="SlashAttack" type="Area2D" unique_id=534195865]
+[node name="SlashAttack" type="Area2D"]
 collision_layer = 1
 collision_mask = 4
 monitorable = false
 script = ExtResource("1_slash")
 
-[node name="Visual" type="Polygon2D" parent="." unique_id=592598492]
+[node name="Visual" type="Polygon2D" parent="."]
 position = Vector2(29.5, 0)
 color = Color(1, 0.82, 0.2, 0.55)
 polygon = PackedVector2Array(-49.5, -14, 31.5, -14, 31.5, 14, -49.5, 14)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1865004709]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(20.5, 0)
 shape = SubResource("RectangleShape2D_slash")

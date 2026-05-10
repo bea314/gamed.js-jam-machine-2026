@@ -1,20 +1,20 @@
-[gd_scene format=3 uid="uid://du4rskadikxhd"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scripts/enemy_defense_tank.gd" id="1_enemy"]
-[ext_resource type="Texture2D" uid="uid://byyh620w5pp6i" path="res://Recursos/Textures/drone1.png" id="2_v448d"]
-[ext_resource type="Texture2D" uid="uid://c880snp417f8t" path="res://Recursos/Textures/drone2.png" id="3_ig6si"]
-[ext_resource type="PackedScene" uid="uid://bvjot5oheirwi" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="3_mhc"]
-[ext_resource type="Texture2D" uid="uid://dhksbjxi8m4xf" path="res://Recursos/Textures/drone3.png" id="4_7amjy"]
-[ext_resource type="Texture2D" uid="uid://chg4okj1ryxxe" path="res://Recursos/Textures/drone4.png" id="5_a3klt"]
-[ext_resource type="Texture2D" uid="uid://bq55px2ej2j7w" path="res://Recursos/Textures/drone5.png" id="6_amqlk"]
-[ext_resource type="Texture2D" uid="uid://dacwd3c7a28d6" path="res://Recursos/Textures/drone6.png" id="7_anfyd"]
-[ext_resource type="Texture2D" uid="uid://cwhuqman4846u" path="res://Recursos/Textures/drone7.png" id="8_3rqji"]
-[ext_resource type="Texture2D" uid="uid://rjkq5m5p6ht5" path="res://Recursos/Textures/drone8.png" id="9_amwtu"]
-[ext_resource type="Texture2D" uid="uid://bhcr1r2yoc56x" path="res://Recursos/Textures/drone9.png" id="10_u1l26"]
-[ext_resource type="Texture2D" uid="uid://bdhvbyv4vwlv0" path="res://Recursos/Textures/drone10.png" id="11_yplbk"]
-[ext_resource type="Texture2D" uid="uid://bw06nftq2vqep" path="res://Recursos/Textures/drone11.png" id="12_5esbt"]
-[ext_resource type="Texture2D" uid="uid://dvce78dbwcy5e" path="res://Recursos/Textures/drone12.png" id="13_yt04j"]
-[ext_resource type="PackedScene" uid="uid://b0dpfdgx3xjli" path="res://Ecenes/Enemies/EnemyOverheadHealthBar.tscn" id="14_ohb"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone1.png" id="2_v448d"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone2.png" id="3_ig6si"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/health/mitigated_health_component.tscn" id="3_mhc"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone3.png" id="4_7amjy"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone4.png" id="5_a3klt"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone5.png" id="6_amqlk"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone6.png" id="7_anfyd"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone7.png" id="8_3rqji"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone8.png" id="9_amwtu"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone9.png" id="10_u1l26"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone10.png" id="11_yplbk"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone11.png" id="12_5esbt"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone12.png" id="13_yt04j"]
+[ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyOverheadHealthBar.tscn" id="14_ohb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(17, 32)
@@ -63,7 +63,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="EnemyDefenseTank" type="CharacterBody2D" unique_id=1720578237]
+[node name="EnemyDefenseTank" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_enemy")
@@ -72,22 +72,22 @@ attack_damage = 8
 attack_cooldown = 0.85
 attack_recovery_duration = 0.22
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1131888078]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_enemy")
 
-[node name="Mesh" type="Node2D" parent="." unique_id=2090510538]
+[node name="Mesh" type="Node2D" parent="."]
 
-[node name="Sprite_Anim" type="AnimatedSprite2D" parent="Mesh" unique_id=1672300137]
+[node name="Sprite_Anim" type="AnimatedSprite2D" parent="Mesh"]
 position = Vector2(-2.842171e-14, -4.7683716e-07)
 scale = Vector2(0.12751676, 0.12751673)
 sprite_frames = SubResource("SpriteFrames_dcm4n")
 autoplay = "default"
 
-[node name="HealthComponent" parent="." unique_id=1793141023 instance=ExtResource("3_mhc")]
+[node name="HealthComponent" parent="." instance=ExtResource("3_mhc")]
 hit_invulnerability_duration = 0.0
 
-[node name="OverheadHealthBar" parent="." unique_id=1453219981 instance=ExtResource("14_ohb")]
+[node name="OverheadHealthBar" parent="." instance=ExtResource("14_ohb")]
 position = Vector2(0, -30)
 fill_color = Color(0.96, 0.76, 0.22, 1)
 
-[node name="Audio_Enemy" type="AudioStreamPlayer2D" parent="." unique_id=1218232734]
+[node name="Audio_Enemy" type="AudioStreamPlayer2D" parent="."]

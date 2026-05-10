@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu1wetqweaponbullet"]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://Scripts/weapons/bullet.gd" id="1_bullet"]
 

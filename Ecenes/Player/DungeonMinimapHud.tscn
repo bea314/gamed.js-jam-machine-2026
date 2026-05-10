@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ibxfxb7u4r3j"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scripts/ui/dungeon_minimap_draw.gd" id="1_draw"]
 

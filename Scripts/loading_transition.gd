@@ -16,6 +16,13 @@ func goto_scene(path: String) -> void:
 		push_error("LoadingTransition: path vacío.")
 		_fallback_change_scene(MENU_SCENE_PATH)
 		return
+	if not ResourceLoader.exists(path):
+		push_error(
+			"LoadingTransition: destino no existe en el proyecto/export: %s → menú."
+			% path
+		)
+		_fallback_change_scene(MENU_SCENE_PATH)
+		return
 	_transition_locked = true
 	next_scene_path = path
 	_last_requested_path = path
@@ -37,8 +44,8 @@ func _deferred_go_loading_screen() -> void:
 			err = get_tree().change_scene_to_file(target)
 	if err != OK:
 		push_error(
-			"LoadingTransition: transición fallida (%s); vuelvo al menú."
-			% error_string(err)
+			"LoadingTransition: transición fallida hacia loading o destino (%s). Último destino pedido: %s → menú."
+			% [error_string(err), target]
 		)
 		clear_pending()
 		get_tree().change_scene_to_file(MENU_SCENE_PATH)

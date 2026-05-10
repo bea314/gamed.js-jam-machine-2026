@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://wpnmgscene"]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://Scripts/weapons/machinegun_weapon.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/MachineGunBullet.tscn" id="2_bullet"]

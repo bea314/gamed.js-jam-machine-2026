@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://credits_placeholder_scene"]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://Ecenes/Menu/credits.gd" id="1_credits"]
 

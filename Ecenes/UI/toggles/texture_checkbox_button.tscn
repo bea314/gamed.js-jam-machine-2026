@@ -1,19 +1,19 @@
-[gd_scene format=3 uid="uid://c8v3qmxn0chk1"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scripts/ui/texture_checkbox_button.gd" id="1_scr"]
-[ext_resource type="Texture2D" uid="uid://bfoxx1h6iig00" path="res://Recursos/Textures/Menus/options menu/checkbox_container.webp" id="2_box"]
-[ext_resource type="Texture2D" uid="uid://h7sji8hwt7rn" path="res://Recursos/Textures/Menus/options menu/checkbox_check.webp" id="3_chk"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/options menu/checkbox_container.webp" id="2_box"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Menus/options menu/checkbox_check.webp" id="3_chk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
 
-[node name="TextureCheckboxButton" type="Control" unique_id=1624624040]
+[node name="TextureCheckboxButton" type="Control"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_scr")
 
-[node name="CheckboxContainer" type="TextureRect" parent="." unique_id=568914572]
+[node name="CheckboxContainer" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,7 @@ texture = ExtResource("2_box")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CheckboxMark" type="TextureRect" parent="." unique_id=1644358322]
+[node name="CheckboxMark" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +47,7 @@ texture = ExtResource("3_chk")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HitButton" type="Button" parent="." unique_id=592473458]
+[node name="HitButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

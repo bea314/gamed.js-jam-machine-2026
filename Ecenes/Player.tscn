@@ -1,85 +1,85 @@
-[gd_scene format=3 uid="uid://mtkfihhomh0w"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://wynjtf1je44x" path="res://Scripts/player_movement.gd" id="1_r1887"]
-[ext_resource type="Script" uid="uid://bowty378tg10l" path="res://Scripts/Objets/mesh_sistem.gd" id="2_fhpmd"]
-[ext_resource type="Script" uid="uid://c72ho3a0vk6d8" path="res://Scripts/health/health_component.gd" id="2_health"]
-[ext_resource type="Texture2D" uid="uid://bb7h0d2lnwwnk" path="res://Recursos/Textures/ruka legs idle.png" id="2_tciro"]
-[ext_resource type="Texture2D" uid="uid://cvaltfxe3qsxs" path="res://Recursos/Textures/ruka legs movement1.png" id="3_4w18w"]
-[ext_resource type="PackedScene" uid="uid://dhda7gqa2j8ok" path="res://Ecenes/Player/health/health_bar.tscn" id="3_hbar"]
-[ext_resource type="Texture2D" uid="uid://kf66gkeeob5b" path="res://Recursos/Textures/ruka legs movement2.png" id="4_fhpmd"]
-[ext_resource type="Script" uid="uid://cm8kt4lxca7ks" path="res://Scripts/weapons/weapon_manager.gd" id="4_wmgr"]
-[ext_resource type="Texture2D" uid="uid://c2abeu4kboewh" path="res://Recursos/Textures/ruka legs movement3.png" id="5_wc3lx"]
-[ext_resource type="PackedScene" uid="uid://cakb6i8ujhydq" path="res://Ecenes/Player/Weapons/WrenchWeapon.tscn" id="5_wrench"]
-[ext_resource type="Texture2D" uid="uid://be3clknsv5ltu" path="res://Recursos/Textures/ruka legs movement4.png" id="6_6iqc8"]
-[ext_resource type="PackedScene" uid="uid://bub86gj12whqc" path="res://Ecenes/Player/Weapons/RevolverWeapon.tscn" id="6_rev"]
-[ext_resource type="Texture2D" uid="uid://c4qh4aqnx8ptl" path="res://Recursos/Textures/ruka legs movement5.png" id="7_5x2vr"]
-[ext_resource type="PackedScene" uid="uid://cp3oofl4dg74e" path="res://Ecenes/Player/Weapons/ShotgunWeapon.tscn" id="7_sg"]
-[ext_resource type="PackedScene" uid="uid://wpnmgscene" path="res://Ecenes/Player/Weapons/MachineGunWeapon.tscn" id="8_mg"]
-[ext_resource type="Texture2D" uid="uid://b2sjx8y21a7ya" path="res://Recursos/Textures/ruka body no arms1.png" id="9_4678e"]
-[ext_resource type="PackedScene" uid="uid://b85e04ko0rrme" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="9_hud"]
-[ext_resource type="PackedScene" uid="uid://pv1l2i2n0c5p" path="res://Ecenes/Player/PlayerDash.tscn" id="10_dash"]
-[ext_resource type="Texture2D" uid="uid://dlj50ex0utspf" path="res://Recursos/Textures/ruka body no arms2.png" id="10_kgnrb"]
-[ext_resource type="Texture2D" uid="uid://rssu2sveyi6" path="res://Recursos/Textures/ruka body no arms3.png" id="11_1vy0x"]
-[ext_resource type="PackedScene" uid="uid://ibxfxb7u4r3j" path="res://Ecenes/Player/DungeonMinimapHud.tscn" id="11_minimap"]
-[ext_resource type="Texture2D" uid="uid://bw3vwm4a25n3x" path="res://Recursos/Textures/ruka body no arms4.png" id="12_tlgrw"]
-[ext_resource type="Texture2D" uid="uid://ddyc4gskrp8qu" path="res://Recursos/Textures/ruka body no arms5.png" id="13_0r4dl"]
-[ext_resource type="Texture2D" uid="uid://cdda4d4mxb1qi" path="res://Recursos/Textures/ruka hit with weapon.png" id="14_kgnrb"]
-[ext_resource type="Texture2D" uid="uid://bw1mw5w37dk68" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="14_wc3lx"]
-[ext_resource type="Texture2D" uid="uid://dt67laq6vl464" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 1.png" id="15_atk1"]
-[ext_resource type="Texture2D" uid="uid://0bxic5upn7x0" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 2.png" id="16_atk2"]
-[ext_resource type="Texture2D" uid="uid://cufwjnru3ktbb" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 3.png" id="17_atk3"]
-[ext_resource type="Texture2D" uid="uid://dtxvb73vetgsf" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 4.png" id="18_atk4"]
-[ext_resource type="Texture2D" uid="uid://b4v16rky0qnba" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 5.png" id="19_atk5"]
-[ext_resource type="Texture2D" uid="uid://buptx82vgyjiq" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 6.png" id="20_atk6"]
-[ext_resource type="Script" uid="uid://kfcgxeql0ted" path="res://Ecenes/guns_meshes.gd" id="21_1vy0x"]
-[ext_resource type="Texture2D" uid="uid://bwm1j4y43jxpl" path="res://Recursos/Textures/shotgun with hands.png" id="21_4678e"]
-[ext_resource type="Texture2D" uid="uid://5bn04plagbst" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 7.png" id="21_atk7"]
-[ext_resource type="Texture2D" uid="uid://4jshbojaygdp" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 8.png" id="22_atk8"]
-[ext_resource type="Texture2D" uid="uid://cwjik3r7i6hug" path="res://Recursos/Textures/revolver with hands.png" id="22_kgnrb"]
-[ext_resource type="Texture2D" uid="uid://btrlrm8pa4kgy" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 9.png" id="23_atk9"]
-[ext_resource type="Texture2D" uid="uid://ckwt7hpetmfgm" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 10.png" id="24_atk10"]
-[ext_resource type="Texture2D" uid="uid://dwr21lm1o381s" path="res://Recursos/Textures/wrench with hands.png" id="24_tlgrw"]
-[ext_resource type="Texture2D" uid="uid://c0tywpbqy411f" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 11.png" id="25_atk11"]
-[ext_resource type="Texture2D" uid="uid://bvx0r50mby7bq" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 12.png" id="26_atk12"]
-[ext_resource type="Texture2D" uid="uid://dytxsno2pmybl" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 13.png" id="27_atk13"]
-[ext_resource type="Texture2D" uid="uid://jao358k3a7dm" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 14.png" id="28_atk14"]
-[ext_resource type="Texture2D" uid="uid://dj3cib7hbprs1" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 15.png" id="29_atk15"]
-[ext_resource type="SpriteFrames" uid="uid://clahuvea6v2m" path="res://Recursos/Textures/Ruka/Muerte/ruka_death_frames.tres" id="30_rukadth"]
-[ext_resource type="AudioStream" uid="uid://0o0tpplau62s" path="res://Recursos/Sound/Guns/WRENCH_SWAP.ogg" id="37_xaix1"]
-[ext_resource type="AudioStream" uid="uid://brr0pmrtwq24n" path="res://Recursos/Sound/Guns/GUN_SWAP.ogg" id="38_ivol6"]
-[ext_resource type="AudioStream" uid="uid://ba4eripawyo6" path="res://Recursos/Sound/Guns/SHOTGUN_SWAP.ogg" id="39_goj5s"]
-[ext_resource type="Texture2D" uid="uid://ck51bdasx3bib" path="res://Recursos/Textures/machine gun with hands2.png" id="39_svu65"]
-[ext_resource type="AudioStream" uid="uid://c7r67ucxqj4nb" path="res://Recursos/Sound/Guns/MACHINE_GUN_SWAP.ogg" id="40_swo23"]
-[ext_resource type="Texture2D" uid="uid://bl7c0g2b3hm6p" path="res://Recursos/Textures/machine gun with hands3.png" id="40_ydvx8"]
-[ext_resource type="AudioStream" uid="uid://yqmojw83is50" path="res://Recursos/Sound/Guns/PISTOL_01.ogg" id="41_6g1j4"]
-[ext_resource type="Texture2D" uid="uid://dkfwiqcui71es" path="res://Recursos/Textures/machine gun with hands4.png" id="41_oul6g"]
-[ext_resource type="Texture2D" uid="uid://drt0bp3swy264" path="res://Recursos/Textures/machine gun with hands.png" id="42_2od4d"]
-[ext_resource type="AudioStream" uid="uid://co8xb7k7k2vvy" path="res://Recursos/Sound/Guns/PISTOL_02.ogg" id="42_qkn61"]
-[ext_resource type="AudioStream" uid="uid://bwbhaoy6ma3bc" path="res://Recursos/Sound/Guns/PISTOL_03.ogg" id="43_or0nj"]
-[ext_resource type="Script" uid="uid://c5p06dkxh6qao" path="res://Ecenes/bomb_sistem.gd" id="43_t50q8"]
-[ext_resource type="AudioStream" uid="uid://bsa6cfwwbxde6" path="res://Recursos/Sound/Guns/PISTOL_04.ogg" id="44_6526l"]
-[ext_resource type="Script" uid="uid://cfmg3y4rmgsra" path="res://Scripts/buffs/buff_runtime_component.gd" id="44_buffrt"]
-[ext_resource type="AudioStream" uid="uid://ddbvqj7ipbnv1" path="res://Recursos/Sound/Guns/PISTOL_05.ogg" id="45_2826w"]
+[ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_r1887"]
+[ext_resource type="Script" path="res://Scripts/Objets/mesh_sistem.gd" id="2_fhpmd"]
+[ext_resource type="Script" path="res://Scripts/health/health_component.gd" id="2_health"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka legs idle.png" id="2_tciro"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka legs movement1.png" id="3_4w18w"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/health/health_bar.tscn" id="3_hbar"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka legs movement2.png" id="4_fhpmd"]
+[ext_resource type="Script" path="res://Scripts/weapons/weapon_manager.gd" id="4_wmgr"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka legs movement3.png" id="5_wc3lx"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/WrenchWeapon.tscn" id="5_wrench"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka legs movement4.png" id="6_6iqc8"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/RevolverWeapon.tscn" id="6_rev"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka legs movement5.png" id="7_5x2vr"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/ShotgunWeapon.tscn" id="7_sg"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/MachineGunWeapon.tscn" id="8_mg"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka body no arms1.png" id="9_4678e"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/Weapons/WeaponHud.tscn" id="9_hud"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/PlayerDash.tscn" id="10_dash"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka body no arms2.png" id="10_kgnrb"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka body no arms3.png" id="11_1vy0x"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/DungeonMinimapHud.tscn" id="11_minimap"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka body no arms4.png" id="12_tlgrw"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka body no arms5.png" id="13_0r4dl"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/ruka hit with weapon.png" id="14_kgnrb"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Proyecto nuevo (6).png" id="14_wc3lx"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 1.png" id="15_atk1"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 2.png" id="16_atk2"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 3.png" id="17_atk3"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 4.png" id="18_atk4"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 5.png" id="19_atk5"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 6.png" id="20_atk6"]
+[ext_resource type="Script" path="res://Ecenes/guns_meshes.gd" id="21_1vy0x"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/shotgun with hands.png" id="21_4678e"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 7.png" id="21_atk7"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 8.png" id="22_atk8"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/revolver with hands.png" id="22_kgnrb"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 9.png" id="23_atk9"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 10.png" id="24_atk10"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/wrench with hands.png" id="24_tlgrw"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 11.png" id="25_atk11"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 12.png" id="26_atk12"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 13.png" id="27_atk13"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 14.png" id="28_atk14"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/Ruka/Ataque/ruka attack 15.png" id="29_atk15"]
+[ext_resource type="SpriteFrames" path="res://Recursos/Textures/Ruka/Muerte/ruka_death_frames.tres" id="30_rukadth"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/WRENCH_SWAP.ogg" id="37_xaix1"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/GUN_SWAP.ogg" id="38_ivol6"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/SHOTGUN_SWAP.ogg" id="39_goj5s"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/machine gun with hands2.png" id="39_svu65"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/MACHINE_GUN_SWAP.ogg" id="40_swo23"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/machine gun with hands3.png" id="40_ydvx8"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/PISTOL_01.ogg" id="41_6g1j4"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/machine gun with hands4.png" id="41_oul6g"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/machine gun with hands.png" id="42_2od4d"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/PISTOL_02.ogg" id="42_qkn61"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/PISTOL_03.ogg" id="43_or0nj"]
+[ext_resource type="Script" path="res://Ecenes/bomb_sistem.gd" id="43_t50q8"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/PISTOL_04.ogg" id="44_6526l"]
+[ext_resource type="Script" path="res://Scripts/buffs/buff_runtime_component.gd" id="44_buffrt"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/PISTOL_05.ogg" id="45_2826w"]
 [ext_resource type="PackedScene" path="res://Ecenes/Player/Buffs/BuffHud.tscn" id="45_buffhud"]
-[ext_resource type="AudioStream" uid="uid://brlrkw7ogwpor" path="res://Recursos/Sound/Guns/PISTOL_06.ogg" id="46_h0rtq"]
-[ext_resource type="AudioStream" uid="uid://ggbcu620jlnn" path="res://Recursos/Sound/Guns/SHOTGUN_01.ogg" id="47_ipiec"]
-[ext_resource type="AudioStream" uid="uid://hpkfofdfoftq" path="res://Recursos/Sound/Guns/SHOTGUN_02.ogg" id="48_pwjbb"]
-[ext_resource type="AudioStream" uid="uid://dj5tgu78ckfou" path="res://Recursos/Sound/Guns/MACHINE_GUN_01.ogg" id="49_iosrg"]
-[ext_resource type="AudioStream" uid="uid://dqyjfh5k0d5n8" path="res://Recursos/Sound/Guns/MACHINE_GUN_02.ogg" id="50_vm36u"]
-[ext_resource type="AudioStream" uid="uid://fq8n3l01apki" path="res://Recursos/Sound/Guns/MACHINE_GUN_03.ogg" id="51_en176"]
-[ext_resource type="AudioStream" uid="uid://b4tflh5pwji25" path="res://Recursos/Sound/Guns/WRENCH_01.ogg" id="52_py7bm"]
-[ext_resource type="AudioStream" uid="uid://pdfbxdimvw7p" path="res://Recursos/Sound/Guns/WRENCH_02.ogg" id="53_qidfn"]
-[ext_resource type="AudioStream" uid="uid://s14x1dhdhkw6" path="res://Recursos/Sound/Guns/WRENCH_03.ogg" id="54_2jv3r"]
-[ext_resource type="AudioStream" uid="uid://d3qm0lspmcpid" path="res://Recursos/Sound/Guns/WRENCH_04.ogg" id="55_fctjv"]
-[ext_resource type="AudioStream" uid="uid://gxwptrtqgrdq" path="res://Recursos/Sound/Guns/WRENCH_05.ogg" id="56_bt8go"]
-[ext_resource type="AudioStream" uid="uid://botlb2chpueoc" path="res://Recursos/Sound/Guns/WRENCH_06.ogg" id="57_40hjx"]
-[ext_resource type="AudioStream" uid="uid://b7syd41ioyoyi" path="res://Recursos/Sound/Guns/WRENCH_07.ogg" id="58_0b18u"]
-[ext_resource type="AudioStream" uid="uid://dr5ckad26mhmw" path="res://Recursos/Sound/Guns/PISTOL_RELOAD_01.ogg" id="59_fctjv"]
-[ext_resource type="AudioStream" uid="uid://de36678ngckb8" path="res://Recursos/Sound/Guns/PISTOL_RELOAD_02.ogg" id="60_bt8go"]
-[ext_resource type="AudioStream" uid="uid://dpstotslbfdxy" path="res://Recursos/Sound/Guns/SHOTGUN_RELOAD_01.ogg" id="61_40hjx"]
-[ext_resource type="AudioStream" uid="uid://bise4xgd2u22v" path="res://Recursos/Sound/Guns/SHOTGUN_RELOAD_02.ogg" id="62_0b18u"]
-[ext_resource type="AudioStream" uid="uid://dujdo2sxr0yql" path="res://Recursos/Sound/Guns/MACHINE_GUN_RELOAD_01.ogg" id="63_5pm3d"]
-[ext_resource type="AudioStream" uid="uid://3bxe6wl22ynx" path="res://Recursos/Sound/Guns/MACHINE_GUN_RELOAD_02.ogg" id="64_vyclc"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/PISTOL_06.ogg" id="46_h0rtq"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/SHOTGUN_01.ogg" id="47_ipiec"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/SHOTGUN_02.ogg" id="48_pwjbb"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/MACHINE_GUN_01.ogg" id="49_iosrg"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/MACHINE_GUN_02.ogg" id="50_vm36u"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/MACHINE_GUN_03.ogg" id="51_en176"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/WRENCH_01.ogg" id="52_py7bm"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/WRENCH_02.ogg" id="53_qidfn"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/WRENCH_03.ogg" id="54_2jv3r"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/WRENCH_04.ogg" id="55_fctjv"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/WRENCH_05.ogg" id="56_bt8go"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/WRENCH_06.ogg" id="57_40hjx"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/WRENCH_07.ogg" id="58_0b18u"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/PISTOL_RELOAD_01.ogg" id="59_fctjv"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/PISTOL_RELOAD_02.ogg" id="60_bt8go"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/SHOTGUN_RELOAD_01.ogg" id="61_40hjx"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/SHOTGUN_RELOAD_02.ogg" id="62_0b18u"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/MACHINE_GUN_RELOAD_01.ogg" id="63_5pm3d"]
+[ext_resource type="AudioStream" path="res://Recursos/Sound/Guns/MACHINE_GUN_RELOAD_02.ogg" id="64_vyclc"]
 [ext_resource type="Script" path="res://Scripts/player_shield_overlay.gd" id="85_shov"]
 [ext_resource type="Texture2D" path="res://Recursos/Textures/Map/Buffos/shield.png" id="86_shtx"]
 
@@ -560,26 +560,26 @@ _data = {
 &"Shot_Gun_Shot": SubResource("Animation_4678e")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1781802405 groups=["Player"]]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 10
 collision_layer = 2
 script = ExtResource("1_r1887")
 
-[node name="Collision" type="CollisionShape2D" parent="." unique_id=855109358]
+[node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_r1887")
 
-[node name="Mesh_Sistem" type="Node2D" parent="." unique_id=865472079]
+[node name="Mesh_Sistem" type="Node2D" parent="."]
 scale = Vector2(1.1829178, 1.1829178)
 script = ExtResource("2_fhpmd")
 
-[node name="Legs" type="Node2D" parent="Mesh_Sistem" unique_id=254658410]
+[node name="Legs" type="Node2D" parent="Mesh_Sistem"]
 
-[node name="Idle_Legs" type="Sprite2D" parent="Mesh_Sistem/Legs" unique_id=1766592113]
+[node name="Idle_Legs" type="Sprite2D" parent="Mesh_Sistem/Legs"]
 position = Vector2(-0.99999994, 14)
 scale = Vector2(0.06349207, 0.06349207)
 texture = ExtResource("2_tciro")
 
-[node name="Walk_Legs" type="AnimatedSprite2D" parent="Mesh_Sistem/Legs" unique_id=1413516726]
+[node name="Walk_Legs" type="AnimatedSprite2D" parent="Mesh_Sistem/Legs"]
 visible = false
 position = Vector2(-1, 15)
 scale = Vector2(0.07619052, 0.07619048)
@@ -587,15 +587,15 @@ sprite_frames = SubResource("SpriteFrames_x3aar")
 frame_progress = 0.55062544
 speed_scale = 1.5
 
-[node name="Body" type="Node2D" parent="Mesh_Sistem" unique_id=182813694]
+[node name="Body" type="Node2D" parent="Mesh_Sistem"]
 
-[node name="Ruka_Body" type="AnimatedSprite2D" parent="Mesh_Sistem/Body" unique_id=1945043694]
+[node name="Ruka_Body" type="AnimatedSprite2D" parent="Mesh_Sistem/Body"]
 position = Vector2(0, -6)
 scale = Vector2(0.06338028, 0.07042254)
 sprite_frames = SubResource("SpriteFrames_l0exc")
 speed_scale = 1.4
 
-[node name="Ruka_Attack" type="AnimatedSprite2D" parent="Mesh_Sistem/Body" unique_id=1094759443]
+[node name="Ruka_Attack" type="AnimatedSprite2D" parent="Mesh_Sistem/Body"]
 visible = false
 position = Vector2(-4.226836, -9.381469)
 scale = Vector2(0.06338028, 0.07042254)
@@ -603,7 +603,7 @@ sprite_frames = SubResource("SpriteFrames_ruka_atk")
 animation = &"attack"
 speed_scale = 1.4
 
-[node name="Ruka_Death" type="AnimatedSprite2D" parent="Mesh_Sistem/Body" unique_id=1945043695]
+[node name="Ruka_Death" type="AnimatedSprite2D" parent="Mesh_Sistem/Body"]
 visible = false
 position = Vector2(-4.226836, -9.381469)
 scale = Vector2(0.06338028, 0.07042254)
@@ -611,33 +611,33 @@ sprite_frames = ExtResource("30_rukadth")
 animation = &"death"
 speed_scale = 1.4
 
-[node name="Ruka_Damage" type="Sprite2D" parent="Mesh_Sistem/Body" unique_id=1241185737]
+[node name="Ruka_Damage" type="Sprite2D" parent="Mesh_Sistem/Body"]
 visible = false
 position = Vector2(0, -5.45)
 scale = Vector2(0.07084083, 0.07084083)
 texture = ExtResource("14_kgnrb")
 
-[node name="Anim_Player" type="AnimationPlayer" parent="Mesh_Sistem" unique_id=501687736]
+[node name="Anim_Player" type="AnimationPlayer" parent="Mesh_Sistem"]
 libraries/ = SubResource("AnimationLibrary_fhpmd")
 
-[node name="ShieldOverlay" type="Node2D" parent="Mesh_Sistem" unique_id=772910001]
+[node name="ShieldOverlay" type="Node2D" parent="Mesh_Sistem"]
 z_index = 5
 script = ExtResource("85_shov")
 shield_texture = ExtResource("86_shtx")
 height_vs_torso = 1.12
 
-[node name="Sprite2D" type="Sprite2D" parent="Mesh_Sistem/ShieldOverlay" unique_id=772910002]
+[node name="Sprite2D" type="Sprite2D" parent="Mesh_Sistem/ShieldOverlay"]
 
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1459835334]
+[node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(0.022525849, 0.02252583)
 color = Color(1, 1, 0.8862745, 1)
 energy = 0.6
 texture = ExtResource("14_wc3lx")
 texture_scale = 40.62
 
-[node name="WeaponPivot" type="Node2D" parent="." unique_id=1188456999]
+[node name="WeaponPivot" type="Node2D" parent="."]
 
-[node name="WeaponManager" type="Node" parent="WeaponPivot" unique_id=1155230218]
+[node name="WeaponManager" type="Node" parent="WeaponPivot"]
 script = ExtResource("4_wmgr")
 wrench_scene = ExtResource("5_wrench")
 revolver_scene = ExtResource("6_rev")
@@ -655,19 +655,19 @@ revolver_reload_sfx = Array[AudioStream]([ExtResource("59_fctjv"), ExtResource("
 shotgun_reload_sfx = Array[AudioStream]([null, ExtResource("61_40hjx"), ExtResource("62_0b18u")])
 machinegun_reload_sfx = Array[AudioStream]([ExtResource("63_5pm3d"), ExtResource("64_vyclc")])
 
-[node name="Sitch" type="AudioStreamPlayer" parent="WeaponPivot/WeaponManager" unique_id=218260466]
+[node name="Sitch" type="AudioStreamPlayer" parent="WeaponPivot/WeaponManager"]
 
-[node name="Guns_meshes" type="Node2D" parent="WeaponPivot" unique_id=385556094]
+[node name="Guns_meshes" type="Node2D" parent="WeaponPivot"]
 script = ExtResource("21_1vy0x")
 
-[node name="Shot_Gun" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=298166669]
+[node name="Shot_Gun" type="Sprite2D" parent="WeaponPivot/Guns_meshes"]
 visible = false
 position = Vector2(-1.0000002, 8)
 scale = Vector2(-0.048755817, 0.046721376)
 texture = ExtResource("21_4678e")
 offset = Vector2(-173.73056, -1.5258789e-05)
 
-[node name="Ametralladora" type="AnimatedSprite2D" parent="WeaponPivot/Guns_meshes" unique_id=1629976427]
+[node name="Ametralladora" type="AnimatedSprite2D" parent="WeaponPivot/Guns_meshes"]
 position = Vector2(1.9999995, 7)
 scale = Vector2(-0.048755817, 0.046721376)
 sprite_frames = SubResource("SpriteFrames_xaix1")
@@ -675,21 +675,21 @@ autoplay = "default"
 frame_progress = 0.6300114
 offset = Vector2(-269.23825, -3.0517578e-05)
 
-[node name="Revolver" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=1915530335]
+[node name="Revolver" type="Sprite2D" parent="WeaponPivot/Guns_meshes"]
 visible = false
 position = Vector2(2.9999998, 8)
 scale = Vector2(-0.048755817, 0.046721376)
 texture = ExtResource("22_kgnrb")
 offset = Vector2(-173.73056, -1.5258789e-05)
 
-[node name="llave_inglesa" type="Sprite2D" parent="WeaponPivot/Guns_meshes" unique_id=712731411]
+[node name="llave_inglesa" type="Sprite2D" parent="WeaponPivot/Guns_meshes"]
 visible = false
 position = Vector2(-0.5199281, 11.507511)
 scale = Vector2(0.048755817, -0.046721376)
 texture = ExtResource("24_tlgrw")
 offset = Vector2(-204.90485, -75.07295)
 
-[node name="PointLight2D" type="PointLight2D" parent="WeaponPivot/Guns_meshes" unique_id=16895415]
+[node name="PointLight2D" type="PointLight2D" parent="WeaponPivot/Guns_meshes"]
 position = Vector2(33, 5)
 enabled = false
 color = Color(1, 0.72156864, 0.27058825, 1)
@@ -697,29 +697,29 @@ shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.7411765)
 texture = ExtResource("14_wc3lx")
 
-[node name="Anima_Weapons" type="AnimationPlayer" parent="WeaponPivot/Guns_meshes" unique_id=668451510]
+[node name="Anima_Weapons" type="AnimationPlayer" parent="WeaponPivot/Guns_meshes"]
 libraries/ = SubResource("AnimationLibrary_1vy0x")
 
-[node name="WeaponHud" parent="." unique_id=1782934257 instance=ExtResource("9_hud")]
+[node name="WeaponHud" parent="." instance=ExtResource("9_hud")]
 
-[node name="PlayerDash" parent="." unique_id=1418406474 instance=ExtResource("10_dash")]
+[node name="PlayerDash" parent="." instance=ExtResource("10_dash")]
 
-[node name="HealthComponent" type="Node" parent="." unique_id=293945052]
+[node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_health")
 hit_invulnerability_duration = 0.18
 
-[node name="BuffRuntimeComponent" type="Node" parent="." unique_id=1377518740]
+[node name="BuffRuntimeComponent" type="Node" parent="."]
 script = ExtResource("44_buffrt")
 
-[node name="Bomb_Sistem" type="Node" parent="." unique_id=1554711748]
+[node name="Bomb_Sistem" type="Node" parent="."]
 script = ExtResource("43_t50q8")
 
-[node name="HealthBar" parent="." unique_id=1318513250 instance=ExtResource("3_hbar")]
+[node name="HealthBar" parent="." instance=ExtResource("3_hbar")]
 
-[node name="BuffHud" parent="." unique_id=1263834597 instance=ExtResource("45_buffhud")]
+[node name="BuffHud" parent="." instance=ExtResource("45_buffhud")]
 
-[node name="DungeonMinimapHud" parent="." unique_id=113773765 instance=ExtResource("11_minimap")]
+[node name="DungeonMinimapHud" parent="." instance=ExtResource("11_minimap")]
 
-[node name="Audio_Player" type="AudioStreamPlayer" parent="." unique_id=865798101]
+[node name="Audio_Player" type="AudioStreamPlayer" parent="."]
 
-[node name="Audio_Death" type="AudioStreamPlayer" parent="." unique_id=2100553978]
+[node name="Audio_Death" type="AudioStreamPlayer" parent="."]

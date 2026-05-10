@@ -1,26 +1,26 @@
-[gd_scene format=3 uid="uid://bywsd8eelwyu3"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://d0jl0wg82wb4m" path="res://Scripts/enemy_basic.gd" id="1_enemy"]
-[ext_resource type="PackedScene" uid="uid://658633st7q53" path="res://Ecenes/Player/health/health_component.tscn" id="2_hc"]
-[ext_resource type="Texture2D" uid="uid://byyh620w5pp6i" path="res://Recursos/Textures/drone1.png" id="2_p7mmo"]
-[ext_resource type="Texture2D" uid="uid://c880snp417f8t" path="res://Recursos/Textures/drone2.png" id="3_iu8m2"]
-[ext_resource type="Texture2D" uid="uid://dhksbjxi8m4xf" path="res://Recursos/Textures/drone3.png" id="4_r6w26"]
-[ext_resource type="Texture2D" uid="uid://chg4okj1ryxxe" path="res://Recursos/Textures/drone4.png" id="5_186qg"]
-[ext_resource type="Texture2D" uid="uid://bq55px2ej2j7w" path="res://Recursos/Textures/drone5.png" id="6_fat78"]
-[ext_resource type="Texture2D" uid="uid://dacwd3c7a28d6" path="res://Recursos/Textures/drone6.png" id="7_r2iof"]
-[ext_resource type="Texture2D" uid="uid://cwhuqman4846u" path="res://Recursos/Textures/drone7.png" id="8_v26p3"]
-[ext_resource type="Texture2D" uid="uid://rjkq5m5p6ht5" path="res://Recursos/Textures/drone8.png" id="9_ipsmw"]
-[ext_resource type="Texture2D" uid="uid://bhcr1r2yoc56x" path="res://Recursos/Textures/drone9.png" id="10_psesg"]
-[ext_resource type="Texture2D" uid="uid://bdhvbyv4vwlv0" path="res://Recursos/Textures/drone10.png" id="11_k436j"]
-[ext_resource type="Texture2D" uid="uid://bw06nftq2vqep" path="res://Recursos/Textures/drone11.png" id="12_6roya"]
-[ext_resource type="Texture2D" uid="uid://dvce78dbwcy5e" path="res://Recursos/Textures/drone12.png" id="13_a4440"]
-[ext_resource type="Texture2D" uid="uid://b8uyucycpemmf" path="res://Recursos/Textures/explosion2.png" id="14_ipsmw"]
-[ext_resource type="PackedScene" uid="uid://b0dpfdgx3xjli" path="res://Ecenes/Enemies/EnemyOverheadHealthBar.tscn" id="14_ohb"]
-[ext_resource type="Texture2D" uid="uid://bkjyh0yiij0gp" path="res://Recursos/Textures/explosion3.png" id="15_psesg"]
-[ext_resource type="Texture2D" uid="uid://bcljklne72k81" path="res://Recursos/Textures/explosion4.png" id="16_k436j"]
-[ext_resource type="Texture2D" uid="uid://bjesf04wwi7aj" path="res://Recursos/Textures/explosion5.png" id="17_6roya"]
-[ext_resource type="Texture2D" uid="uid://drvhamru2u6wm" path="res://Recursos/Textures/explosion6.png" id="18_a4440"]
-[ext_resource type="Texture2D" uid="uid://bgj8a0vxcii54" path="res://Recursos/Textures/explosion7.png" id="19_grb4t"]
+[ext_resource type="Script" path="res://Scripts/enemy_basic.gd" id="1_enemy"]
+[ext_resource type="PackedScene" path="res://Ecenes/Player/health/health_component.tscn" id="2_hc"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone1.png" id="2_p7mmo"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone2.png" id="3_iu8m2"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone3.png" id="4_r6w26"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone4.png" id="5_186qg"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone5.png" id="6_fat78"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone6.png" id="7_r2iof"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone7.png" id="8_v26p3"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone8.png" id="9_ipsmw"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone9.png" id="10_psesg"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone10.png" id="11_k436j"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone11.png" id="12_6roya"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/drone12.png" id="13_a4440"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/explosion2.png" id="14_ipsmw"]
+[ext_resource type="PackedScene" path="res://Ecenes/Enemies/EnemyOverheadHealthBar.tscn" id="14_ohb"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/explosion3.png" id="15_psesg"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/explosion4.png" id="16_k436j"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/explosion5.png" id="17_6roya"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/explosion6.png" id="18_a4440"]
+[ext_resource type="Texture2D" path="res://Recursos/Textures/explosion7.png" id="19_grb4t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
 size = Vector2(16, 16)
@@ -95,24 +95,24 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="EnemyBasic" type="CharacterBody2D" unique_id=1760702728]
+[node name="EnemyBasic" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_enemy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1335324187]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_enemy")
 
-[node name="Mesh" type="Node2D" parent="." unique_id=12532026]
+[node name="Mesh" type="Node2D" parent="."]
 
-[node name="Sprite_Anim" type="AnimatedSprite2D" parent="Mesh" unique_id=2011797697]
+[node name="Sprite_Anim" type="AnimatedSprite2D" parent="Mesh"]
 position = Vector2(-2.842171e-14, -4.7683716e-07)
 scale = Vector2(0.10738254, 0.10738252)
 sprite_frames = SubResource("SpriteFrames_grb4t")
 autoplay = "default"
 frame_progress = 0.29311904
 
-[node name="Sprite_Explocion" type="AnimatedSprite2D" parent="Mesh" unique_id=26953301]
+[node name="Sprite_Explocion" type="AnimatedSprite2D" parent="Mesh"]
 visible = false
 position = Vector2(-2.842171e-14, -4.7683716e-07)
 scale = Vector2(0.225256, 0.22525594)
@@ -121,10 +121,10 @@ autoplay = "default"
 frame_progress = 0.7678947
 speed_scale = 1.5
 
-[node name="HealthComponent" parent="." unique_id=112301481 instance=ExtResource("2_hc")]
+[node name="HealthComponent" parent="." instance=ExtResource("2_hc")]
 max_health = 10
 hit_invulnerability_duration = 0.0
 
-[node name="OverheadHealthBar" parent="." unique_id=501982510 instance=ExtResource("14_ohb")]
+[node name="OverheadHealthBar" parent="." instance=ExtResource("14_ohb")]
 
-[node name="Audio_Enemy" type="AudioStreamPlayer2D" parent="." unique_id=637233919]
+[node name="Audio_Enemy" type="AudioStreamPlayer2D" parent="."]
